@@ -1,5 +1,30 @@
 <?php
 
+$modulesConfig = [];
+$host = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : null;
+if ($host) {
+    $newString = 'adtech.core';
+    $variable = 'APP_MODULES_' . strtoupper(str_replace('.', '_', $host));
+    $path = base_path('.env');
+    if (file_exists($path)) {
+        if (strpos(file_get_contents($path), $variable . '=') > 0) {
+            $appModules = (env($variable) != '') ? env($variable) : $newString;
+            $packagesList = explode('_', $appModules);
+            if (count($packagesList) > 0) {
+                if (!in_array($newString, $packagesList))
+                    array_unshift($packagesList, $newString);
+                foreach ($packagesList as $packages) {
+                    $modules = explode('.', $packages);
+                    $modulesConfig[$modules[0]] = explode(',', $modules[1]);
+                }
+            }
+        } else {
+            file_put_contents($path, file_get_contents($path) . "\r\n" . $variable . '=' . $newString);
+            header("Refresh:0");
+        }
+    }
+}
+
 return [
     'version' => '1.0.0',
     /*
