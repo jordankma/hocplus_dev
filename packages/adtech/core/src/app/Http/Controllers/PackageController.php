@@ -48,6 +48,10 @@ class PackageController extends Controller
             $space = $request->input('space');
             $vendor = $request->input('package');
             $package = $request->input('module');
+
+            $vendor_alias = preg_replace('([^a-zA-Z0-9])', '', self::stripUnicode($vendor));
+            $module_alias = preg_replace('([^a-zA-Z0-9])', '', self::stripUnicode($package));
+
             $domain_id = $request->input('domain_id');
             $directory = '../packages/' . $vendor . '/' . $package;
             if (!$this->files->isDirectory($directory)) {
@@ -89,10 +93,15 @@ class PackageController extends Controller
                                             if ($this->files->isDirectory($dir . '/packages/' . $vendor . '/' . $packageItem) &&
                                                 !$this->files->isDirectory('../packages/' . $vendor . '/' . $packageItem)) {
 
+                                                $vendor_alias = preg_replace('([^a-zA-Z0-9])', '', self::stripUnicode($vendor));
+                                                $module_alias = preg_replace('([^a-zA-Z0-9])', '', self::stripUnicode($packageItem));
+
                                                 $packages = new Package();
                                                 $packages->space = $space;
                                                 $packages->package = $vendor;
+                                                $packages->package_alias = $vendor_alias;
                                                 $packages->module = $packageItem;
+                                                $packages->module_alias = $module_alias;
                                                 $packages->create_by = $this->user->user_id;
                                                 $packages->save();
 
@@ -124,13 +133,17 @@ class PackageController extends Controller
                 } else { //Create new
                     $packages = new Package($request->all());
                     $packages->create_by = $this->user->user_id;
+                    $packages->package_alias = $vendor_alias;
+                    $packages->module_alias = $module_alias;
                     $packages->save();
 
+                    $backend = ($request->input('space') == 'Backend') ? 1 : 0;
                     if ($packages->package_id) {
                         \Artisan::call('make:package', [
-                            'vendor' => $vendor,
-                            'package' => $package,
-                            '--path_value' => -1
+                            'vendor' => $vendor_alias,
+                            'package' => $module_alias,
+                            '--path_value' => -1,
+                            '--backend' => $backend //xac nhan tao backend
                         ]);
 
                         $domainsPackage = new DomainsPackage();
@@ -636,7 +649,9 @@ class PackageController extends Controller
                             if (null === $packageDetail) {
                                 $packageDetail = new Package();
                                 $packageDetail->package = addslashes($package);
+                                $packageDetail->package_alias = addslashes($package);
                                 $packageDetail->module = addslashes($module);
+                                $packageDetail->module_alias = addslashes($module);
                                 $packageDetail->space = 'Backend';
                                 $packageDetail->save();
                             }

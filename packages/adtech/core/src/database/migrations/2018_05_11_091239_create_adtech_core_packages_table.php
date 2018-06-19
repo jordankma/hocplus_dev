@@ -18,7 +18,9 @@ class CreateAdtechCorePackagesTable extends Migration
             $table->increments('package_id')->index();
             $table->string('space');
             $table->string('package');
+            $table->string('package_alias');
             $table->string('module');
+            $table->string('module_alias');
             $table->integer('create_by', false, true)->default(0);
             $table->tinyInteger('status', false, true)->default(0);
             $table->tinyInteger('visible', false, true)->default(1);

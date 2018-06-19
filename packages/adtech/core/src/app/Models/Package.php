@@ -17,7 +17,7 @@ class Package extends Model
 
     protected $primaryKey = 'package_id';
 
-    protected $fillable = ['package', 'module', 'space'];
+    protected $fillable = ['package', 'package_alias', 'module', 'module_alias', 'space'];
 
     public function domains()
     {
