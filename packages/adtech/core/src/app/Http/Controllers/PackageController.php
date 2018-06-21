@@ -220,9 +220,10 @@ class PackageController extends Controller
 //                    shell_exec('cd ../ && /egserver/php/bin/composer dump-autoload');
 
                     //bung file /views/publics module
-//                    \Artisan::call('vendor:publish', [
-//                        '--provider' => ucfirst($package->package) .'\\' . ucfirst($package->module) . '\\' . ucfirst($package->module) . 'ServiceProvider'
-//                    ]);
+                    \Artisan::call('vendor:publish', [
+                        '--force' => true,
+                        '--provider' => ucfirst($package->package) .'\\' . ucfirst($package->module) . '\\' . ucfirst($package->module) . 'ServiceProvider'
+                    ]);
 
                     return redirect()->route('adtech.core.package.manage', ['id' => $domain_id])->with('success', trans('adtech-core::messages.success.update'));
                 }

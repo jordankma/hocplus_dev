@@ -53,6 +53,13 @@ class package_classServiceProvider extends ServiceProvider
 
         /** load views **/
         $this->loadViewsFrom(__DIR__.'/views/' . $templateName . '/views', strtoupper($this->package . '-' . $this->module));
+
+        /** publishes **/
+        $skin = config('site.desktop.skin');
+        $skin = $skin ? $skin : 'default';
+        $this->publishes([
+            __DIR__ . '/views/' . $groupName . '/' . $skin . '/public' => public_path('vendor/' . $groupName . '/' . $skin . '/' . $this->package . '/' . $this->module),
+        ], $this->package . '_' . $this->module . '_public');
     }
 
     /**

@@ -42,8 +42,9 @@ Route::group(array('prefix' => $adminPrefix), function () {
 
     //
     Route::group(['middleware' => ['adtech.auth', 'adtech.acl']], function () {
-    
+
         Route::get('', 'DashboardController@index')->name('backend.homepage');
+        Route::match(['get', 'post'], '/adtech/core/file/upload-test', 'DashboardController@fileuploadtest')->name('adtech.core.file.upload-test');
         Route::get('/adtech/core/file/manage', 'DashboardController@filemanage')->name('adtech.core.file.manage');
         Route::get('/laravel-filemanager', '\Unisharp\Laravelfilemanager\controllers\LfmController@show')->name('adtech.core.file.manager');
         Route::post('/laravel-filemanager/upload', '\Unisharp\Laravelfilemanager\controllers\UploadController@upload')->name('adtech.core.file.upload');

@@ -4,8 +4,9 @@ namespace Adtech\Core\App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Adtech\Application\Cms\Controllers\Controller as Controller;
-use Adtech\Core\App\Models\PublisherCpcSiteDate;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Storage;
+use Adtech\Core\App\Http\Requests\UploadRequest;
 use Auth;
 
 class DashboardController extends Controller
@@ -22,5 +23,17 @@ class DashboardController extends Controller
     public function filemanage()
     {
         return view('ADTECH-CORE::modules.core.file.manage');
+    }
+
+    public function fileuploadtest(UploadRequest $request)
+    {
+        if ($request->isMethod('post')) {
+            if ($request->hasFile('file_upload')) {
+
+                dd(shell_exec('cd ../ && ftp 123.30.174.148'));
+                die;
+            }
+        }
+        return view('ADTECH-CORE::modules.core.file.upload');
     }
 }

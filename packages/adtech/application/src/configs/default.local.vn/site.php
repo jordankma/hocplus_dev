@@ -56,19 +56,20 @@ return [
     | Website backend url
     |--------------------------------------------------------------------------
     */
-    'admin_prefix' => 'admin',
+    'api_prefix' => '/resource/dev/get',
+    'admin_prefix' => '/admin',
     'homepage' => [
         'frontend' => [
             'method' => 'get',
             'uri' => '/',
             'middleware' => [],
-            'action' => 'Afp\Core\App\Http\Controllers\DashboardController@intro',
+            'action' => 'Adtech\Core\App\Http\Controllers\DashboardController@home',
         ],
         'backend' => [
             'method' => 'get',
             'uri' => '/',
             'middleware' => [],
-            'action' => 'Afp\Core\App\Http\Controllers\DashboardController@index',
+            'action' => 'Adtech\Core\App\Http\Controllers\DashboardController@index',
         ],
     ],
 
@@ -87,13 +88,14 @@ return [
         'template' => 'default',
         'skin' => 'default'
     ],
-    'modules' => [
-        /**
-         * vendor => [packages or modules]
-         * example: 'adtech' => ['core', 'blog']
-         */
-        'adtech' => ['core']
-    ],
+    'modules' => $modulesConfig,
+//    'modules' => [
+//        /**
+//         * vendor => [packages or modules]
+//         * example: 'adtech' => ['core', 'blog']
+//         */
+//        'adtech' => ['core']
+//    ],
     'firebase' => [
         'domain' => '',
         'app_key' => '',
