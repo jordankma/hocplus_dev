@@ -76,7 +76,7 @@ Bước 2: Thư mục public - webroot
 Bước 1: Tạo database và chỉnh config tại file database.php trong folder config domain.
 Bước 2: Khởi tạo database + dữ liệu bằng cách sử dụng artisan
  ```
-php artisan migration --path="packages/adtech/core/src/database/migrations"
+php artisan migrate --path="packages/adtech/core/src/database/migrations"
 php artisan db:seed
  ```
 
