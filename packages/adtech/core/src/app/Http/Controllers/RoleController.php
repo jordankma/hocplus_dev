@@ -166,7 +166,7 @@ class RoleController extends Controller
     }
 
     //Table Data to index page
-    public function data()
+    public function data(Request $request)
     {
         $role_id = $this->_user->role_id;
         $role = $this->role->find($role_id);

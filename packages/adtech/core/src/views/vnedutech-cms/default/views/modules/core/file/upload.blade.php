@@ -33,33 +33,49 @@
                 <div class="panel-body">
                     <div class="bs-example">
 
-                        {!! Form::open(array('url' => route('adtech.core.file.upload-test'), 'method' => 'post',
-                        'class' => 'bf', 'id' => 'uploadFile', 'files'=> true)) !!}
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                        <!-- method 2 -->
                         <div class="row">
                             <div class="col-sm-8">
                                 <label>File Upload</label>
                                 <div class="form-group {{ $errors->first('file_upload', 'has-error') }}">
-                                    {!! Form::file('file_upload'); !!}
+                                    {!! Form::file('file_upload', ['id' => 'i_file']); !!}
                                     <span class="help-block">{{ $errors->first('file_upload', ':message') }}</span>
                                 </div>
                             </div>
                             <!-- /.col-sm-8 -->
                             <div class="col-sm-4">
                                 <div class="form-group col-xs-12">
+                                    {!! Form::open(array('url' => route('adtech.core.file.upload-test'), 'method' => 'post', 'class' => 'bf', 'id' => 'uploadFormFile', 'files'=> true)) !!}
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+
+                                    <div class="form-group">
+                                        {!! Form::hidden('package', 'ignore') !!}
+                                    </div>
+
                                     <label for="blog_category" class="">Actions</label>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-success">{{ trans('adtech-core::buttons.create') }}</button>
                                         <a href="{!! route('adtech.core.file.upload-test') !!}"
                                            class="btn btn-danger">{{ trans('adtech-core::buttons.discard') }}</a>
                                     </div>
+
+                                    {!! Form::close() !!}
                                 </div>
                             </div>
                             <!-- /.col-sm-4 --> </div>
-                        {!! Form::close() !!}
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
+@stop
+
+@section('footer_scripts')
+    <script>
+        $('#i_file').change( function(event) {
+            var tmppath = URL.createObjectURL(event.target.files[0]);
+            console.log(tmppath);
+        });
+    </script>
 @stop
