@@ -241,7 +241,7 @@ class PackageController extends Controller
                         $require = $composerObject['require'];
                         $autoload_dev_classmap = $composerObject['autoload-dev']['classmap'];
                         $autoload_psr4 = $composerObject['autoload']['psr-4'];
-                        $urlRepositorie = "packages"."/".$package->package."/".$package->module;
+                        $urlRepositorie = "packages"."/".$package->package_alias."/".$package->module_alias;
 
                         $checkRepo = true;
                         if (count($repositories) > 0) {
@@ -262,14 +262,14 @@ class PackageController extends Controller
                             $repositories[] = $repositoriesMore;
 
                             //them vao composer require
-                            $require[$package->package . '/' . $package->module] = 'dev-master';
+                            $require[$package->package_alias . '/' . $package->module_alias] = 'dev-master';
 
                             //them vao composer autoload dev
-                            $autoload_dev_classmap[] = 'packages/' . $package->package . '/' . $package->module . '/src/';
+                            $autoload_dev_classmap[] = 'packages/' . $package->package_alias . '/' . $package->module_alias . '/src/';
 
                             //"Adtech\\Application\\":"packages/adtech/application/src/"
-                            $str_psr4 = ucfirst($package->package) . '\\' . ucfirst($package->module) . '\\';
-                            $autoload_psr4[$str_psr4] = 'packages/' . $package->package . '/' . $package->module . '/src/';
+                            $str_psr4 = ucfirst($package->package_alias) . '\\' . ucfirst($package->module_alias) . '\\';
+                            $autoload_psr4[$str_psr4] = 'packages/' . $package->package_alias . '/' . $package->module_alias . '/src/';
 
                             $composerObject['repositories'] = $repositories;
                             $composerObject['require'] = $require;
@@ -327,7 +327,7 @@ class PackageController extends Controller
                 $require = $composerObject['require'];
                 $autoload_dev_classmap = $composerObject['autoload-dev']['classmap'];
                 $autoload_psr4 = $composerObject['autoload']['psr-4'];
-                $urlRepositorie = "packages"."/".$package->package."/".$package->module;
+                $urlRepositorie = "packages"."/".$package->package_alias."/".$package->module_alias;
 
                 $checkRepo = false;
                 if (count($repositories) > 0) {
@@ -342,12 +342,12 @@ class PackageController extends Controller
                 }
 
                 if ($checkRepo) {
-                    unset($require[$package->package . '/' . $package->module]);
-                    if (($key = array_search('packages/' . $package->package . '/' . $package->module . '/src/', $autoload_dev_classmap)) !== false) {
+                    unset($require[$package->package_alias . '/' . $package->module_alias]);
+                    if (($key = array_search('packages/' . $package->package_alias . '/' . $package->module_alias . '/src/', $autoload_dev_classmap)) !== false) {
                         unset($autoload_dev_classmap[$key]);
                     }
 
-                    $str_psr4 = ucfirst($package->package) . '\\' . ucfirst($package->module) . '\\';
+                    $str_psr4 = ucfirst($package->package_alias) . '\\' . ucfirst($package->module_alias) . '\\';
                     unset($autoload_psr4[$str_psr4]);
 
                     $composerObject['require'] = $require;
@@ -698,8 +698,8 @@ class PackageController extends Controller
                     foreach ($package->domains as $item) {
                         if ($item->domain_id == $domain_id) {
                             if ($item->pivot->status == 1) {
-                                $package_name = $package->package;
-                                $module_name = $package->module;
+                                $package_name = $package->package_alias;
+                                $module_name = $package->module_alias;
                                 $arrModules[$package_name][] = $module_name;
                             }
                         }
