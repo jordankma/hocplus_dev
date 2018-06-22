@@ -211,20 +211,23 @@ class PackageController extends Controller
                         ->withProperties($request->all())
                         ->log('User: :causer.email - Public Package - domain_id: :properties.domain_id, package_id: :properties.package_id, status: ' . $domainsPackage->status);
 
-                    //migrate + seed
-                    $pathDatabase = 'packages/' . $package->package . '/' . $package->module . '/src/database/migrations';
-                    shell_exec('cd ../ && php artisan migrate:refresh --path="' . $pathDatabase . '"');
+                    if ($request->has('public')) {
+                        if ($request->input('type') == 'public') {
+                            //bung file /views/publics module
+                            \Artisan::call('vendor:publish', [
+                                '--force' => true,
+                                '--provider' => ucfirst($package->package) .'\\' . ucfirst($package->module) . '\\' . ucfirst($package->module) . 'ServiceProvider'
+                            ]);
+                        } elseif ($request->input('type') == 'db') {
+                            //migrate + seed
+                            $pathDatabase = 'packages/' . $package->package . '/' . $package->module . '/src/database/migrations';
+                            shell_exec('cd ../ && php artisan migrate:refresh --path="' . $pathDatabase . '"');
+                        }
+                    }
 
                     // Dump autoload.
 //                    $this->composer->dumpAutoloads();
 //                    shell_exec('cd ../ && /egserver/php/bin/composer dump-autoload');
-
-                    //bung file /views/publics module
-                    \Artisan::call('vendor:publish', [
-                        '--force' => true,
-                        '--provider' => ucfirst($package->package) .'\\' . ucfirst($package->module) . '\\' . ucfirst($package->module) . 'ServiceProvider'
-                    ]);
-
                     return redirect()->route('adtech.core.package.manage', ['id' => $domain_id])->with('success', trans('adtech-core::messages.success.update'));
                 }
             } else {
@@ -525,6 +528,7 @@ class PackageController extends Controller
                 $confirm_route = route('adtech.core.package.status', [
                     'package_id' => $request->input('package_id'),
                     'domain_id' => $request->input('domain_id'),
+                    'type' => $request->input('type'),
                     'public' => 1
                 ]);
                 return view('includes.modal_confirmation', compact('error', 'model', 'confirm_route'));
@@ -741,7 +745,8 @@ class PackageController extends Controller
                             if ($package->pivot->status == 1) {
                                 if ($this->user->canAccess('adtech.core.package.confirm-status')) {
                                     $status = '<a href=' . route('adtech.core.package.confirm-status', ['package_id' => $packages->package_id, 'domain_id' => $domain_id]) . ' data-toggle="modal" data-target="#status_confirm"><span class="label label-sm label-success">Enable</span></a>
-                                    <a href=' . route('adtech.core.package.confirm-public', ['package_id' => $packages->package_id, 'domain_id' => $domain_id]) . ' data-toggle="modal" data-target="#public_confirm"><span class="label label-sm label-info">Public</span></a>';
+                                    <a href=' . route('adtech.core.package.confirm-public', ['package_id' => $packages->package_id, 'domain_id' => $domain_id, 'type' => 'db']) . ' data-toggle="modal" data-target="#public_confirm"><span class="label label-sm label-info">Refesh DB</span></a>
+                                    <a href=' . route('adtech.core.package.confirm-public', ['package_id' => $packages->package_id, 'domain_id' => $domain_id, 'type' => 'public']) . ' data-toggle="modal" data-target="#public_confirm"><span class="label label-sm label-info">Public</span></a>';
                                 } else {
                                     $status = '<a href="#" data-toggle="modal" data-target="#status_confirm"><span class="label label-sm label-success">Enable</span></a>';
                                 }
