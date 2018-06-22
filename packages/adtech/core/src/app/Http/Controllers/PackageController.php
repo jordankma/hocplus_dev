@@ -289,8 +289,9 @@ class PackageController extends Controller
                         shell_exec('cd ../ && php artisan migrate --path="' . $pathDatabase . '"');
 
                         // Dump autoload.
-                        $this->composer->dumpAutoloads();
-//                    shell_exec('cd ../ && /egserver/php/bin/composer dump-autoload');
+//                        $this->composer->dumpAutoloads();
+//                        shell_exec('cd ../ && /egserver/php/bin/composer dump-autoload');
+                        shell_exec('cd ../ && composer dump-autoload');
 
                         //bung file /views/publics module
                         \Artisan::call('vendor:publish', [
