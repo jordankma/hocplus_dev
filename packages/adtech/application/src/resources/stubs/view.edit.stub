@@ -46,7 +46,7 @@
                     <div class="col-sm-4">
                         <label for="blog_category" class="">Actions</label>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success">{{ trans('vendor_name-package_name::language.buttons.save') }}</button>
+                            <button type="submit" class="btn btn-success">{{ trans('adtech-core::buttons.save') }}</button>
                             <a href="{!! route('vendor_name.package_name.controller_name.create') !!}"
                                class="btn btn-danger">{{ trans('vendor_name-package_name::language.buttons.discard') }}</a>
                         </div>

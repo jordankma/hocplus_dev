@@ -221,13 +221,10 @@ class PackageController extends Controller
                         } elseif ($request->input('type') == 'db') {
                             //migrate + seed
                             $pathDatabase = 'packages/' . $package->package . '/' . $package->module . '/src/database/migrations';
+//                            shell_exec('cd ../ && /egserver/php/bin/php artisan migrate:refresh --path="' . $pathDatabase . '"');
                             shell_exec('cd ../ && php artisan migrate:refresh --path="' . $pathDatabase . '"');
                         }
                     }
-
-                    // Dump autoload.
-//                    $this->composer->dumpAutoloads();
-//                    shell_exec('cd ../ && /egserver/php/bin/composer dump-autoload');
                     return redirect()->route('adtech.core.package.manage', ['id' => $domain_id])->with('success', trans('adtech-core::messages.success.update'));
                 }
             } else {
@@ -289,6 +286,7 @@ class PackageController extends Controller
 
                         //migrate + seed
                         $pathDatabase = 'packages/' . $package->package . '/' . $package->module . '/src/database/migrations';
+//                        shell_exec('cd ../ && /egserver/php/bin/php artisan migrate --path="' . $pathDatabase . '"');
                         shell_exec('cd ../ && php artisan migrate --path="' . $pathDatabase . '"');
 
                         // Dump autoload.
@@ -364,7 +362,11 @@ class PackageController extends Controller
 
                 //delete migrate
                 $pathDatabase = 'packages/' . $package->package . '/' . $package->module . '/src/database/migrations';
+//                shell_exec('cd ../ && /egserver/php/bin/php artisan migrate:reset --path="' . $pathDatabase . '"');
                 shell_exec('cd ../ && php artisan migrate:reset --path="' . $pathDatabase . '"');
+
+                //Delete folder package
+                shell_exec('cd ../ && rm -rf packages/' . $package->package . '/' . $package->module);
 
                 activity('package')
                     ->performedOn($domainsPackage)

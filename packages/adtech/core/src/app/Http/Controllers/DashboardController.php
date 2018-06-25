@@ -27,11 +27,12 @@ class DashboardController extends Controller
 
     public function fileuploadtest(UploadRequest $request)
     {
-        if ($request->isMethod('post')) {
-            if ($request->hasFile('file_upload')) {
+        echo shell_exec('upload.sh');die;
 
-                dd(shell_exec('cd ../ && ftp 123.30.174.148'));
-                die;
+        if ($request->isMethod('post')) {
+            if ($request->has('file_real_path')) {
+                $filePath = $request->input("file_real_path");
+
             }
         }
         return view('ADTECH-CORE::modules.core.file.upload');

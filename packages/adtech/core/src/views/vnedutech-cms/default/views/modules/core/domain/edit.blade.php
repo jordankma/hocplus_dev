@@ -34,9 +34,9 @@
                 <div class="row">
                     <div class="col-sm-8">
                         <label>Domain Name</label>
-                        <div class="form-group {{ $errors->first('title', 'has-error') }}">
+                        <div class="form-group {{ $errors->first('name', 'has-error') }}">
                             {!! Form::text('name', null, array('class' => 'form-control', 'autofocus'=>'autofocus', 'placeholder'=>trans('adtech-core::common.role.name_here'))) !!}
-                            <span class="help-block">{{ $errors->first('title', ':message') }}</span>
+                            <span class="help-block">{{ $errors->first('name', ':message') }}</span>
                         </div>
                         <div class="form-group">
                             {!! Form::hidden('domain_id') !!}

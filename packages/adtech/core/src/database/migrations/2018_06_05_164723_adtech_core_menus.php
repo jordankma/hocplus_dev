@@ -17,7 +17,7 @@ class AdtechCoreMenus extends Migration
         Schema::create('adtech_core_menus', function (Blueprint $table) {
             $table->increments('menu_id')->index();
             $table->string('name');
-            $table->string('group')->default('');
+            $table->string('group')->nullable();
             $table->string('route_name')->default('');
             $table->string('icon')->default('question');
             $table->integer('domain_id', false, true)->index();

@@ -18,4 +18,8 @@ class repository_namespaceRepository extends Repository
     {
         return 'model_path\model_name';
     }
+
+    public function deleteID($id) {
+        return $this->model->where('demo_id', '=', $id)->update(['visible' => 0]);
+    }
 }

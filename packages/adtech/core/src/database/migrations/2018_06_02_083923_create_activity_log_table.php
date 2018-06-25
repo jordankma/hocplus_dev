@@ -22,6 +22,7 @@ class CreateActivityLogTable extends Migration
             $table->timestamps();
 
             $table->index('log_name');
+            $table->engine = 'InnoDB';
         });
     }
 

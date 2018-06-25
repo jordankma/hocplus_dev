@@ -52,6 +52,7 @@
                         <div class="form-group {{ $errors->first('route_name', 'has-error') }}">
                             <select class="form-control select2" title="Select route name..." name="route_name"
                                     id="parent">
+                                <option value="#" {{ $menu->route_name == '#' ? ' selected="selected"' : '' }}>No Link</option>
                                 @foreach($listRouteName as $routeName)
                                     <option value="{{ $routeName }}" {{ ($routeName == $menu->route_name) ? ' selected="selected"' : '' }}>{{ $routeName }}</option>
                                 @endforeach
@@ -61,8 +62,8 @@
 
                         <label>Group Name</label>
                         <div class="form-group input-group {{ $errors->first('group', 'has-error') }}">
-                            {!! Form::text('group', null, array('class' => 'form-control', 'id' => 'group_name_txt', 'disabled' => true, 'style' => 'display:none', 'placeholder'=> trans('adtech-core::common.menu.group_name_here'))) !!}
-                            <select class="form-control" title="Select group name..." name="group" id="group_name_select">
+                            {!! Form::text('group', null, array('class' => 'form-control', 'id' => 'group_name_txt', 'disabled' => true, 'placeholder'=> trans('adtech-core::common.menu.group_name_here'))) !!}
+                            <select class="form-control" title="Select group name..." name="group" id="group_name_select" style="display: none">
                                 @if (count($menusGroups) == 0)
                                     <option value="Hệ thống">Hệ thống</option>
                                 @endif

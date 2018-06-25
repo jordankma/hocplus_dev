@@ -35,7 +35,7 @@ https://gitlab.egroup.vn/laravel/core-cms.git
 
 Bước 2: Chạy command để cài đặt các thành phần theo file composer.json
 ```
-composer install
+composer update
 ```
 
 ### Cấu hình

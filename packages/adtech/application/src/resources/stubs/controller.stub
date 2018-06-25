@@ -36,9 +36,9 @@ class controller_namespaceController extends Controller
                 ->withProperties($request->all())
                 ->log('User: :causer.email - Add Demo - name: :properties.name, demo_id: ' . $controller_names->demo_id);
 
-            return redirect()->route('vendor_name.package_name.controller_name.manage')->with('success', trans('vendor_nameup-package_nameup::language.messages.success.create'));
+            return redirect()->route('vendor_name.package_name.controller_name.manage')->with('success', trans('vendor_name-package_name::language.messages.success.create'));
         } else {
-            return redirect()->route('vendor_name.package_name.controller_name.manage')->with('error', trans('vendor_nameup-package_nameup::language.messages.error.create'));
+            return redirect()->route('vendor_name.package_name.controller_name.manage')->with('error', trans('vendor_name-package_name::language.messages.error.create'));
         }
     }
 
@@ -60,9 +60,9 @@ class controller_namespaceController extends Controller
                 ->withProperties($request->all())
                 ->log('User: :causer.email - Delete Demo - demo_id: :properties.demo_id, name: ' . $controller_name->name);
 
-            return redirect()->route('vendor_name.package_name.controller_name.manage')->with('success', trans('vendor_nameup-package_nameup::language.messages.success.delete'));
+            return redirect()->route('vendor_name.package_name.controller_name.manage')->with('success', trans('vendor_name-package_name::language.messages.success.delete'));
         } else {
-            return redirect()->route('vendor_name.package_name.controller_name.manage')->with('error', trans('vendor_nameup-package_nameup::language.messages.error.delete'));
+            return redirect()->route('vendor_name.package_name.controller_name.manage')->with('error', trans('vendor_name-package_name::language.messages.error.delete'));
         }
     }
 
@@ -96,13 +96,13 @@ class controller_namespaceController extends Controller
                 ->withProperties($request->all())
                 ->log('User: :causer.email - Update Demo - demo_id: :properties.demo_id, name: :properties.name');
 
-            return redirect()->route('vendor_name.package_name.controller_name.manage')->with('success', trans('vendor_nameup-package_nameup::language.messages.success.update'));
+            return redirect()->route('vendor_name.package_name.controller_name.manage')->with('success', trans('vendor_name-package_name::language.messages.success.update'));
         } else {
-            return redirect()->route('vendor_name.package_name.controller_name.show', ['controller_name_id' => $request->input('controller_name_id')])->with('error', trans('vendor_nameup-package_nameup::language.messages.error.update'));
+            return redirect()->route('vendor_name.package_name.controller_name.show', ['controller_name_id' => $request->input('controller_name_id')])->with('error', trans('vendor_name-package_name::language.messages.error.update'));
         }
     }
 
-    public function getModalDelete(controller_nameRequest $request)
+    public function getModalDelete(Request $request)
     {
         $model = 'controller_name';
         $confirm_route = $error = null;

@@ -36,6 +36,7 @@ class MenuController extends Controller
             $parent = $request->input('parent');
             $route_name = $request->input('route_name');
             $domain_id = $request->input('domain_id');
+            $group = $request->input('group');
 
             if ($parent > 0) {
                 if (!Route::has($route_name))
@@ -44,6 +45,7 @@ class MenuController extends Controller
 
             $menu = new Menu($request->all());
             $menu->domain_id = $domain_id;
+            $menu->group = $group;
             $menu->save();
 
             if ($menu->menu_id) {

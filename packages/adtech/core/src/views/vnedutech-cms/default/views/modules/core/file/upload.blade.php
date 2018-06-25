@@ -37,10 +37,7 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <label>File Upload</label>
-                                <div class="form-group {{ $errors->first('file_upload', 'has-error') }}">
-                                    {!! Form::file('file_upload', ['id' => 'i_file']); !!}
-                                    <span class="help-block">{{ $errors->first('file_upload', ':message') }}</span>
-                                </div>
+                                    <input type="file" id="i_file" value="">
                             </div>
                             <!-- /.col-sm-8 -->
                             <div class="col-sm-4">
@@ -49,7 +46,7 @@
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 
                                     <div class="form-group">
-                                        {!! Form::hidden('package', 'ignore') !!}
+                                        {!! Form::hidden('file_real_path', null, ['id' => 'file_real_path_id']) !!}
                                     </div>
 
                                     <label for="blog_category" class="">Actions</label>
@@ -75,7 +72,7 @@
     <script>
         $('#i_file').change( function(event) {
             var tmppath = URL.createObjectURL(event.target.files[0]);
-            console.log(tmppath);
+            $("#file_real_path_id").attr('value', tmppath);
         });
     </script>
 @stop
