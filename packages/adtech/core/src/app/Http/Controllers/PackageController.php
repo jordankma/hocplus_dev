@@ -49,8 +49,8 @@ class PackageController extends Controller
             $vendor = $request->input('package');
             $package = $request->input('module');
 
-            $vendor_alias = preg_replace('([^a-zA-Z0-9])', '', self::stripUnicode($vendor));
-            $module_alias = preg_replace('([^a-zA-Z0-9])', '', self::stripUnicode($package));
+            $vendor_alias = strtolower(preg_replace('([^a-zA-Z0-9])', '', self::stripUnicode($vendor)));
+            $module_alias = strtolower(preg_replace('([^a-zA-Z0-9])', '', self::stripUnicode($package)));
 
             $domain_id = $request->input('domain_id');
             $directory = '../packages/' . $vendor . '/' . $package;
@@ -93,8 +93,8 @@ class PackageController extends Controller
                                             if ($this->files->isDirectory($dir . '/packages/' . $vendor . '/' . $packageItem) &&
                                                 !$this->files->isDirectory('../packages/' . $vendor . '/' . $packageItem)) {
 
-                                                $vendor_alias = preg_replace('([^a-zA-Z0-9])', '', self::stripUnicode($vendor));
-                                                $module_alias = preg_replace('([^a-zA-Z0-9])', '', self::stripUnicode($packageItem));
+                                                $vendor_alias = strtolower(preg_replace('([^a-zA-Z0-9])', '', self::stripUnicode($vendor)));
+                                                $module_alias = strtolower(preg_replace('([^a-zA-Z0-9])', '', self::stripUnicode($packageItem)));
 
                                                 $packages = new Package();
                                                 $packages->space = $space;
