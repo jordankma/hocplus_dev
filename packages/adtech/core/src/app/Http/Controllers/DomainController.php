@@ -45,6 +45,14 @@ class DomainController extends Controller
                 //copy folder chua configs
                 mkdir($directory, 0755, true);
                 shell_exec('cd ../ && cp -r packages/adtech/application/src/configs/default.local.vn/*' . ' packages/adtech/application/src/configs/' . $domain->name);
+
+                $path = base_path('packages/adtech/application/src/configs/' . $domain->name . '/app.php');
+                $appFile = file_get_contents($path);
+                file_put_contents($path, str_replace('\/', '/', str_replace('default.local.vn', $domain->name, $appFile)));
+
+                $path = base_path('packages/adtech/application/src/configs/' . $domain->name . '/session.php');
+                $sessionFile = file_get_contents($path);
+                file_put_contents($path, str_replace('\/', '/', str_replace('default.local.vn', $domain->name, $sessionFile)));
             }
 
             activity('domain')
@@ -71,6 +79,10 @@ class DomainController extends Controller
         if (null != $domain) {
 
             $this->domain->deleteID($domain_id);
+
+            //Delete folder domain config
+            shell_exec('cd ../ && rm -rf packages/adtech/application/src/configs/' . $domain->name);
+
             activity('domain')
                 ->performedOn($domain)
                 ->withProperties($request->all())

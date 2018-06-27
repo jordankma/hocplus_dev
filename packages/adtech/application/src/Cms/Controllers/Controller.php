@@ -25,7 +25,7 @@ class Controller extends BaseController
         $id = Auth::id();
         $this->user = Auth::user();
         $email = $this->user ? $this->user->email : null;
-        $host = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : null;
+        $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
         $domain_id = 0;
         if ($host) {
             $domain = Domain::where('name', $host)->first();

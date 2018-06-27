@@ -65,7 +65,7 @@
                                 {{--<th>{{ trans('adtech-core::common.route.package') }}</th>--}}
                                 {{--<th>{{ trans('adtech-core::common.route.module') }}</th>--}}
                                 <th>{{ trans('adtech-core::common.route.controller') }}</th>
-                                <th class="col-md-8">
+                                <th class="col-md-9">
                                     <table>
                                         <tr>
                                             <th class="col-md-3">View list</th>
@@ -134,10 +134,22 @@
 
                 $('input[type="checkbox"].allow_permission').bootstrapSwitch({
                     onSwitchChange:function(event, state) {
+                        var routeList = '';
+                        if (this.hasAttribute("data-name")) { routeList += $(this).attr("data-name") + ','; }
+                        if (this.hasAttribute("data-name1")) { routeList += $(this).attr("data-name1") + ','; }
+                        if (this.hasAttribute("data-name2")) { routeList += $(this).attr("data-name2") + ','; }
+                        if (this.hasAttribute("data-name3")) { routeList += $(this).attr("data-name3") + ','; }
+                        if (this.hasAttribute("data-name4")) { routeList += $(this).attr("data-name4") + ','; }
+                        if (this.hasAttribute("data-name5")) { routeList += $(this).attr("data-name5") + ','; }
+                        if (this.hasAttribute("data-name6")) { routeList += $(this).attr("data-name6") + ','; }
+                        if (this.hasAttribute("data-name7")) { routeList += $(this).attr("data-name7") + ','; }
+                        if (this.hasAttribute("data-name8")) { routeList += $(this).attr("data-name8") + ','; }
+                        if (this.hasAttribute("data-name9")) { routeList += $(this).attr("data-name9") + ','; }
+                        var dataAjax = { object_type : '{{ $objectType }}', object_id : '{{ $objectId }}', allow : (state) ? 1 : 0, route_name : routeList};
                         $.ajax({
                             url: "{{ route('adtech.core.permission.set') }}",
                             method: "POST",
-                            data: { object_type : '{{ $objectType }}', object_id : '{{ $objectId }}', allow : (state) ? 1 : 0, route_name : $(this).attr("data-name"), route_name1 : $(this).attr("data-name1")}
+                            data: dataAjax
                         }).done(function( response ) {
                             if (typeof response.type !== 'undefined') {
                                 if (response.type === 'success') {

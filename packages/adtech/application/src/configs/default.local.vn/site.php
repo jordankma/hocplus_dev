@@ -1,7 +1,7 @@
 <?php
 
 $modulesConfig = [];
-$host = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : null;
+$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
 if ($host) {
     $newString = 'adtech.core';
     $variable = 'APP_MODULES_' . strtoupper(str_replace('.', '_', $host));
