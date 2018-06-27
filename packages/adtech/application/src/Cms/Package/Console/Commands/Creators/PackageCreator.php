@@ -60,6 +60,7 @@ class PackageCreator
 
     protected $createFiles = array(
         'composer.stub' => 'composer.json',
+        'modules.stub' => 'modules.json',
         'routes.stub' => 'routes/web.php',
         'service.provider.stub' => '$PACKAGE_LAST_NAME$ServiceProvider.php',
         'controller.stub' => 'app/Http/Controllers/$CONTROLLER_NAME$Controller.php',
@@ -342,7 +343,7 @@ class PackageCreator
                 if ($section && isset($this->createDirectories[$section])) {
                     $file = $srcDirectory . DIRECTORY_SEPARATOR . $this->createDirectories[$section]
                         . DIRECTORY_SEPARATOR . $file;
-                } elseif ($file == 'composer.json') {
+                } elseif ($file == 'composer.json' || $file == 'modules.json') {
                     $file = $directory . DIRECTORY_SEPARATOR . $file;
                 } else {
                     $file = $srcDirectory . DIRECTORY_SEPARATOR . $file;
