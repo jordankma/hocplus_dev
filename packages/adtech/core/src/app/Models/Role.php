@@ -13,6 +13,8 @@ class Role extends Model
      *
      * @var string
      */
+    protected $connection = 'mysql_core';
+
     protected $table = 'adtech_core_roles';
 
     protected $primaryKey = 'role_id';

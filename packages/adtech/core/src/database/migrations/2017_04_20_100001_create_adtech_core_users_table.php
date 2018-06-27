@@ -13,7 +13,7 @@ class CreateAdtechCoreUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('adtech_core_users', function (Blueprint $table) {
+        Schema::connection('mysql_core')->create('adtech_core_users', function (Blueprint $table) {
             $table->increments('user_id');
             $table->string('email')->unique();
             $table->string('password');
@@ -36,6 +36,6 @@ class CreateAdtechCoreUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adtech_core_users');
+        Schema::connection('mysql_core')->dropIfExists('adtech_core_users');
     }
 }

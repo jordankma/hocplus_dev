@@ -11,6 +11,8 @@ class Activation extends Model
      *
      * @var string
      */
+    protected $connection = 'mysql_core';
+
     protected $table = 'adtech_core_users_activation';
 
     public function user()

@@ -220,7 +220,7 @@ class PackageController extends Controller
                             ]);
                         } elseif ($request->input('type') == 'db') {
                             //migrate + seed
-                            $pathDatabase = 'packages/' . $package->package . '/' . $package->module . '/src/database/migrations';
+                            $pathDatabase = 'packages/' . $package->package_alias . '/' . $package->module_alias . '/src/database/migrations';
 //                            shell_exec('cd ../ && /egserver/php/bin/php artisan migrate:refresh --path="' . $pathDatabase . '"');
                             shell_exec('cd ../ && php artisan migrate:refresh --path="' . $pathDatabase . '"');
                         }
@@ -285,7 +285,7 @@ class PackageController extends Controller
                             ->log('User: :causer.email - Update Status Package - domain_id: :properties.domain_id, package_id: :properties.package_id, status: ' . $domainsPackage->status);
 
                         //migrate + seed
-                        $pathDatabase = 'packages/' . $package->package . '/' . $package->module . '/src/database/migrations';
+                        $pathDatabase = 'packages/' . $package->package_alias . '/' . $package->module_alias . '/src/database/migrations';
 //                        shell_exec('cd ../ && /egserver/php/bin/php artisan migrate --path="' . $pathDatabase . '"');
                         shell_exec('cd ../ && php artisan migrate --path="' . $pathDatabase . '"');
 
@@ -361,12 +361,12 @@ class PackageController extends Controller
                 }
 
                 //delete migrate
-                $pathDatabase = 'packages/' . $package->package . '/' . $package->module . '/src/database/migrations';
+                $pathDatabase = 'packages/' . $package->package_alias . '/' . $package->module_alias . '/src/database/migrations';
 //                shell_exec('cd ../ && /egserver/php/bin/php artisan migrate:reset --path="' . $pathDatabase . '"');
                 shell_exec('cd ../ && php artisan migrate:reset --path="' . $pathDatabase . '"');
 
                 //Delete folder package
-                shell_exec('cd ../ && rm -rf packages/' . $package->package . '/' . $package->module);
+                shell_exec('cd ../ && rm -rf packages/' . $package->package_alias . '/' . $package->module_alias);
 
                 activity('package')
                     ->performedOn($domainsPackage)
@@ -393,7 +393,7 @@ class PackageController extends Controller
                 foreach ($arrPackages as $package_id) {
                     $package = $this->package->find($package_id);
                     if (null != $package) {
-                        $mydir .= ' packages/' . $package->package . '/' . $package->module;
+                        $mydir .= ' packages/' . $package->package_alias . '/' . $package->module_alias;
                         $myfile .= '_' . $package->package . '_' . $package->module;
                     }
                 }
@@ -413,7 +413,7 @@ class PackageController extends Controller
         } elseif ($request->has('package_id') && $request->input('package_id') > 0) {
             $package = $this->package->find($request->input('package_id'));
             if (null != $package) {
-                $mydir = 'packages/' . $package->package . '/' . $package->module;
+                $mydir = 'packages/' . $package->package_alias . '/' . $package->module_alias;
                 $myfile = 'zip/' . $package->package . '_' . $package->module . '.tar.gz';
                 shell_exec('cd ../ && tar -zcvf public/' . $myfile . ' ' . $mydir);
 

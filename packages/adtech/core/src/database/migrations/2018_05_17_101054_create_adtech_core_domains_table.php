@@ -13,7 +13,7 @@ class CreateAdtechCoreDomainsTable extends Migration
      */
     public function up()
     {
-        Schema::create('adtech_core_domains', function (Blueprint $table) {
+        Schema::connection('mysql_core')->create('adtech_core_domains', function (Blueprint $table) {
             $table->increments('domain_id')->index();
             $table->string('name');
             $table->tinyInteger('visible', false, true)->default(1);
@@ -30,6 +30,6 @@ class CreateAdtechCoreDomainsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adtech_core_domains');
+        Schema::connection('mysql_core')->dropIfExists('adtech_core_domains');
     }
 }

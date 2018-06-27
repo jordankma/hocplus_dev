@@ -13,6 +13,8 @@ class Package extends Model
      *
      * @var string
      */
+    protected $connection = 'mysql_core';
+
     protected $table = 'adtech_core_packages';
 
     protected $primaryKey = 'package_id';

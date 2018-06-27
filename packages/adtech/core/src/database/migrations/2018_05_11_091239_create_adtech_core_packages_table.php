@@ -14,7 +14,7 @@ class CreateAdtechCorePackagesTable extends Migration
     public function up()
     {
         //
-        Schema::create('adtech_core_packages', function (Blueprint $table) {
+        Schema::connection('mysql_core')->create('adtech_core_packages', function (Blueprint $table) {
             $table->increments('package_id')->index();
             $table->string('space');
             $table->string('package');
@@ -38,6 +38,6 @@ class CreateAdtechCorePackagesTable extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('adtech_core_packages');
+        Schema::connection('mysql_core')->dropIfExists('adtech_core_packages');
     }
 }

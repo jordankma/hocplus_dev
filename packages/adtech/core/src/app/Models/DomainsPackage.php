@@ -13,6 +13,8 @@ class DomainsPackage extends Model
      *
      * @var string
      */
+    protected $connection = 'mysql_core';
+
     protected $table = 'adtech_core_domains_package';
 
     protected $primaryKey = 'id';

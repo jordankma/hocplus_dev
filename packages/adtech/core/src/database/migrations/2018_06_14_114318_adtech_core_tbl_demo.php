@@ -13,7 +13,7 @@ class AdtechCoreTblDemo extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_demo', function (Blueprint $table) {
+        Schema::connection('mysql_core')->create('tbl_demo', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -27,6 +27,6 @@ class AdtechCoreTblDemo extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_demo');
+        Schema::connection('mysql_core')->dropIfExists('tbl_demo');
     }
 }

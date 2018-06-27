@@ -13,6 +13,8 @@ class Menu extends Model
      *
      * @var string
      */
+    protected $connection = 'mysql_core';
+
     protected $table = 'adtech_core_menus';
 
     protected $primaryKey = 'menu_id';

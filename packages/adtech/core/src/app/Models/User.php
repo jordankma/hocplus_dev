@@ -19,6 +19,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var string
      */
+    protected $connection = 'mysql_core';
+
     protected $table = 'adtech_core_users';
 
     protected $primaryKey = 'user_id';

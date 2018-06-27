@@ -13,7 +13,7 @@ class CreateAdtechCoreUsersRoleTable extends Migration
      */
     public function up()
     {
-        Schema::create('adtech_core_users_role', function (Blueprint $table) {
+        Schema::connection('mysql_core')->create('adtech_core_users_role', function (Blueprint $table) {
             $table->integer('user_id', false, true);
             $table->integer('role_id', false, true);
             $table->timestamps();
@@ -31,6 +31,6 @@ class CreateAdtechCoreUsersRoleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adtech_core_users_role');
+        Schema::connection('mysql_core')->dropIfExists('adtech_core_users_role');
     }
 }

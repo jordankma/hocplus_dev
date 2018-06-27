@@ -14,7 +14,7 @@ class AdtechCoreMenus extends Migration
     public function up()
     {
         //
-        Schema::create('adtech_core_menus', function (Blueprint $table) {
+        Schema::connection('mysql_core')->create('adtech_core_menus', function (Blueprint $table) {
             $table->increments('menu_id')->index();
             $table->string('name');
             $table->string('group')->nullable();
@@ -37,6 +37,6 @@ class AdtechCoreMenus extends Migration
     public function down()
     {
         //
-        Schema::drop('adtech_core_menus');
+        Schema::connection('mysql_core')->drop('adtech_core_menus');
     }
 }

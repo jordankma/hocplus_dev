@@ -13,7 +13,7 @@ class CreateAdtechCoreAclTable extends Migration
      */
     public function up()
     {
-        Schema::create('adtech_core_acl', function (Blueprint $table) {
+        Schema::connection('mysql_core')->create('adtech_core_acl', function (Blueprint $table) {
             $table->increments('acl_id');
             $table->integer('object_id', false, true);
             $table->enum('object_type', ['role', 'user', 'group']);
@@ -37,6 +37,6 @@ class CreateAdtechCoreAclTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adtech_core_acl');
+        Schema::connection('mysql_core')->dropIfExists('adtech_core_acl');
     }
 }

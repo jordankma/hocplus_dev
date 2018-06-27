@@ -13,6 +13,8 @@ class Domain extends Model
      *
      * @var string
      */
+    protected $connection = 'mysql_core';
+
     protected $table = 'adtech_core_domains';
 
     protected $primaryKey = 'domain_id';

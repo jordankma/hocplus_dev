@@ -11,6 +11,8 @@ class PasswordReset extends Model
      *
      * @var string
      */
+    protected $connection = 'mysql_core';
+
     protected $table = 'adtech_password_resets';
 
     protected $fillable = ['email', 'token', 'created_at'];

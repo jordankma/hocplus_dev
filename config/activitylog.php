@@ -36,4 +36,5 @@ return [
      * it should be or extend the Spatie\Activitylog\Models\Activity model.
      */
     'activity_model' => \Spatie\Activitylog\Models\Activity::class,
+    'table_name' => 'activity_log'
 ];

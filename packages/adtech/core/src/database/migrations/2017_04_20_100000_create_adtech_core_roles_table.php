@@ -13,7 +13,7 @@ class CreateAdtechCoreRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('adtech_core_roles', function (Blueprint $table) {
+        Schema::connection('mysql_core')->create('adtech_core_roles', function (Blueprint $table) {
             $table->increments('role_id')->index();
             $table->string('name');
             $table->tinyInteger('permission_locked', false, true)->default(0);
@@ -32,6 +32,6 @@ class CreateAdtechCoreRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adtech_core_roles');
+        Schema::connection('mysql_core')->dropIfExists('adtech_core_roles');
     }
 }
