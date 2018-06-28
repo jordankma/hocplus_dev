@@ -87,5 +87,6 @@ return [
         "user" => "User",
         "domain" => "Domain",
         "package" => "Package",
+        "star" => "Gift",
     ]
 ];

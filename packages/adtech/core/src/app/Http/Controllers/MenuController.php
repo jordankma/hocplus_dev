@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Support\Facades\Route;
 use Validator;
+use Cache;
 
 class MenuController extends Controller
 {
@@ -49,6 +50,9 @@ class MenuController extends Controller
             $menu->save();
 
             if ($menu->menu_id) {
+
+                Cache::forget('menuGroups');
+                Cache::forget('menus');
 
                 activity('menu')
                     ->performedOn($menu)
@@ -99,6 +103,9 @@ class MenuController extends Controller
         $menu = $this->menu->find($menu_id);
 
         if ($menu->delete()) {
+
+            Cache::forget('menuGroups');
+            Cache::forget('menus');
 
             activity('menu')
                 ->performedOn($menu)
@@ -163,6 +170,8 @@ class MenuController extends Controller
         }
 
         $menu = $this->menu->find($menu_id);
+        $group = ($request->has('group')) ? $request->input('group') : $menu->group;
+
         $menu->parent = $parent;
         $menu->group = $group;
         $menu->name = $name;
@@ -171,6 +180,9 @@ class MenuController extends Controller
         $menu->icon = $icon;
 
         if ($menu->save()) {
+
+            Cache::forget('menuGroups');
+            Cache::forget('menus');
 
             activity('menu')
                 ->performedOn($menu)

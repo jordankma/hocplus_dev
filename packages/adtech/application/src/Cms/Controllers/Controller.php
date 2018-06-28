@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Adtech\Core\App\Models\Domain;
 use Adtech\Core\App\Models\Menu;
 use Session;
+use Cache;
 use Auth;
 
 class Controller extends BaseController
@@ -79,10 +80,21 @@ class Controller extends BaseController
     }
 
     function getMenu($domain_id = 0) {
-        $menusGroups = Menu::select('group')->where('group', '!=', '')->distinct()->get();
-        $this->_menuTop = $menusGroups;
+        if (Cache::has('menuGroups')) {
+            $menuGroups = Cache::get('menuGroups');
+        } else {
+            $menuGroups = Menu::select('group')->where('group', '!=', '')->distinct()->get();
+            Cache::forever('menuGroups', $menuGroups);
+        }
 
-        $menus = Menu::where('domain_id', $domain_id)->orderBy('parent')->orderBy('sort')->get();
+        if (Cache::has('menus')) {
+            $menus = Cache::get('menus');
+        } else {
+            $menus = Menu::where('domain_id', $domain_id)->orderBy('parent')->orderBy('sort')->get();
+            Cache::forever('menus', $menus);
+        }
+
+        $this->_menuTop = $menuGroups;
         if (count($menus) > 0) {
             foreach ($menus as $menu) {
 

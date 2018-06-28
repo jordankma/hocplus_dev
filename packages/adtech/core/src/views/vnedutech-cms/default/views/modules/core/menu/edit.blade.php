@@ -63,7 +63,7 @@
                         <label>Group Name</label>
                         <div class="form-group input-group {{ $errors->first('group', 'has-error') }}">
                             {!! Form::text('group', null, array('class' => 'form-control', 'id' => 'group_name_txt', 'disabled' => true, 'placeholder'=> trans('adtech-core::common.menu.group_name_here'))) !!}
-                            <select class="form-control" title="Select group name..." name="group" id="group_name_select" style="display: none">
+                            <select class="form-control" title="Select group name..." name="group" id="group_name_select" disabled="true" style="display: none">
                                 @if (count($menusGroups) == 0)
                                     <option value="Hệ thống">Hệ thống</option>
                                 @endif

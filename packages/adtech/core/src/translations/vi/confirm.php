@@ -26,5 +26,9 @@ return [
     "module_public" => [
         "title" => "Public Package",
         "body" => "Are you sure to public this package?"
+    ],
+    "star" => [
+        "title" => "Delete Gift",
+        "body" => "Are you sure to delete this gift? This operation is irreversible."
     ]
 ];
