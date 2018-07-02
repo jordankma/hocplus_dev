@@ -11,8 +11,10 @@ if ($host) {
             $appModules = (env($variable) != '') ? env($variable) : $newString;
             $packagesList = explode('_', $appModules);
             if (count($packagesList) > 0) {
-                if (!in_array($newString, $packagesList))
-                    array_unshift($packagesList, $newString);
+                if (($key = array_search($newString, $packagesList)) !== false) {
+                    unset($packagesList[$key]);
+                }
+                array_push($packagesList, $newString);
                 foreach ($packagesList as $packages) {
                     $modules = explode('.', $packages);
                     $modulesConfig[$modules[0]] = explode(',', $modules[1]);
