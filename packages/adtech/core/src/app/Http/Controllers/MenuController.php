@@ -51,8 +51,8 @@ class MenuController extends Controller
 
             if ($menu->menu_id) {
 
-                Cache::forget('menuGroups');
-                Cache::forget('menus');
+                Cache::forget('menuGroups' . $domain_id);
+                Cache::forget('menus' . $domain_id);
 
                 activity('menu')
                     ->performedOn($menu)
@@ -104,8 +104,8 @@ class MenuController extends Controller
 
         if ($menu->delete()) {
 
-            Cache::forget('menuGroups');
-            Cache::forget('menus');
+            Cache::forget('menuGroups' . $menu->domain_id);
+            Cache::forget('menus' . $menu->domain_id);
 
             activity('menu')
                 ->performedOn($menu)
@@ -181,8 +181,8 @@ class MenuController extends Controller
 
         if ($menu->save()) {
 
-            Cache::forget('menuGroups');
-            Cache::forget('menus');
+            Cache::forget('menuGroups' . $domain_id);
+            Cache::forget('menus' . $domain_id);
 
             activity('menu')
                 ->performedOn($menu)
