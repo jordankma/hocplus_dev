@@ -221,8 +221,12 @@ class PackageController extends Controller
                         } elseif ($request->input('type') == 'db') {
                             //migrate + seed
                             $pathDatabase = 'packages/' . $package->package_alias . '/' . $package->module_alias . '/src/database/migrations';
-//                            shell_exec('cd ../ && /egserver/php/bin/php artisan migrate:refresh --path="' . $pathDatabase . '"');
-                            shell_exec('cd ../ && php artisan migrate:refresh --path="' . $pathDatabase . '"');
+                            shell_exec('cd ../ && /egserver/php/bin/php artisan migrate:refresh --path="' . $pathDatabase . '"');
+//                            if ($package_id == 3) {
+//                                shell_exec('cd ../ && php artisan migrate --path="' . $pathDatabase . '"');
+//                            } else {
+//                                shell_exec('cd ../ && php artisan migrate:refresh --path="' . $pathDatabase . '"');
+//                            }
                         }
                     }
                     return redirect()->route('adtech.core.package.manage', ['id' => $domain_id])->with('success', trans('adtech-core::messages.success.update'));
@@ -286,13 +290,12 @@ class PackageController extends Controller
 
                         //migrate + seed
                         $pathDatabase = 'packages/' . $package->package_alias . '/' . $package->module_alias . '/src/database/migrations';
-//                        shell_exec('cd ../ && /egserver/php/bin/php artisan migrate --path="' . $pathDatabase . '"');
-                        shell_exec('cd ../ && php artisan migrate --path="' . $pathDatabase . '"');
+                        shell_exec('cd ../ && /egserver/php/bin/php artisan migrate --path="' . $pathDatabase . '"');
+//                        shell_exec('cd ../ && php artisan migrate --path="' . $pathDatabase . '"');
 
                         // Dump autoload.
-//                        $this->composer->dumpAutoloads();
-//                        shell_exec('cd ../ && /egserver/php/bin/composer dump-autoload');
-                        shell_exec('cd ../ && composer dump-autoload');
+                        shell_exec('cd ../ && /egserver/php/bin/composer dump-autoload');
+//                        shell_exec('cd ../ && composer dump-autoload');
 
                         //bung file /views/publics module
                         \Artisan::call('vendor:publish', [
@@ -362,8 +365,8 @@ class PackageController extends Controller
 
                 //delete migrate
                 $pathDatabase = 'packages/' . $package->package_alias . '/' . $package->module_alias . '/src/database/migrations';
-//                shell_exec('cd ../ && /egserver/php/bin/php artisan migrate:reset --path="' . $pathDatabase . '"');
-                shell_exec('cd ../ && php artisan migrate:reset --path="' . $pathDatabase . '"');
+                shell_exec('cd ../ && /egserver/php/bin/php artisan migrate:reset --path="' . $pathDatabase . '"');
+//                shell_exec('cd ../ && php artisan migrate:reset --path="' . $pathDatabase . '"');
 
                 //Delete folder package
                 shell_exec('cd ../ && rm -rf packages/' . $package->package_alias . '/' . $package->module_alias);
@@ -798,6 +801,9 @@ class PackageController extends Controller
                 }
                 if ($this->user->canAccess('adtech.core.package.download')) {
                     $actions .= '<a href=' . route('adtech.core.package.download', ['package_id' => $packages->package_id]) . '><i class="livicon" data-name="download" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="download packages"></i></a>';
+                }
+                if ($this->user->canAccess('adtech.core.api.manage')) {
+                    $actions .= '<a href=' . route('adtech.core.api.manage', ['package_id' => $packages->package_id]) . '><i class="livicon" data-name="recycled" data-size="18" data-loop="true" data-c="#6CC66C" data-hc="#6CC66C" title="manager api"></i></a>';
                 }
                 return $actions;
             })

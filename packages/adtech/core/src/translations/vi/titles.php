@@ -7,6 +7,9 @@ return [
         "forgot_password" => "Forgot password",
         "reset_password" => "Reset password",
     ],
+    "setting" => [
+        "manage" => "Manage Settings"
+    ],
     "role" => [
         "manage" => "Manage Roles",
         "create" => "Create Role",
@@ -24,6 +27,13 @@ return [
         "create" => "Create Menu",
         "update" => "Update Menu",
         "list" => "Menus list",
+    ],
+    "api" => [
+        "manage" => "Manage Api",
+        "create" => "Create Api",
+        "update" => "Update Api",
+        "list" => "Api list",
+        "demo" => "Api data demo",
     ],
     "package" => [
         "manage" => "Manage Packages - Module",

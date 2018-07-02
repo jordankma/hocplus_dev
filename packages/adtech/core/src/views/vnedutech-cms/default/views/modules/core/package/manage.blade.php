@@ -75,7 +75,7 @@
                                 <th style="width: 120px">{{ trans('adtech-core::common.created_at') }}</th>
                                 <th style="width: 120px">{{ trans('adtech-core::common.update_at') }}</th>
                                 <th class="fit-content">{{ trans('adtech-core::common.package.status') }}</th>
-                                <th class="fit-content">{{ trans('adtech-core::common.action') }}</th>
+                                <th>{{ trans('adtech-core::common.action') }}</th>
                             </tr>
                             </thead>
                         </table>
@@ -181,7 +181,7 @@
                     { data: 'created_at', name: 'created_at'},
                     { data: 'updated_at', name: 'updated_at'},
                     { data: 'status', name: 'status', className: 'fit-content'},
-                    { data: 'actions', name: 'actions', orderable: false, searchable: false}
+                    { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'fit-content'}
                 ]
             });
             table.on('draw', function () {

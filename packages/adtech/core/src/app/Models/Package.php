@@ -25,4 +25,9 @@ class Package extends Model
     {
         return $this->belongsToMany('Adtech\Core\App\Models\Domain', 'adtech_core_domains_package', 'package_id', 'domain_id')->withPivot('status');
     }
+
+    public function api()
+    {
+        return $this->hasMany('Adtech\Core\App\Models\Api', 'package_id', 'package_id');
+    }
 }

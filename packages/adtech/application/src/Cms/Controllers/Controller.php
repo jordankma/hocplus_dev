@@ -7,6 +7,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Collection;
 use Adtech\Core\App\Models\Domain;
 use Adtech\Core\App\Models\Menu;
+use Adtech\Core\App\Models\Setting;
 use Session;
 use Cache;
 use Auth;
@@ -26,7 +27,7 @@ class Controller extends BaseController
         $id = Auth::id();
         $this->user = Auth::user();
         $email = $this->user ? $this->user->email : null;
-        $host = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : null;
+        $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
         $domain_id = 0;
         if ($host) {
             $domain = Domain::where('name', $host)->first();
@@ -61,6 +62,49 @@ class Controller extends BaseController
             }
         }
 
+        //get setting value
+        $settings = Setting::all();
+        $settingView = array();
+        if (count($settings) > 0) {
+            foreach ($settings as $setting) {
+                switch ($setting->name) {
+                    case 'logo':
+                        $settingView['logo'] = $setting->value;
+                        break;
+                    case 'title':
+                        $settingView['title'] = $setting->value;
+                        break;
+                    case 'favicon':
+                        $settingView['favicon'] = $setting->value;
+                        break;
+                    case 'logo_link':
+                        $settingView['logo_link'] = $setting->value;
+                        break;
+                    case 'company_name':
+                        $settingView['company_name'] = $setting->value;
+                        break;
+                    case 'address':
+                        $settingView['address'] = $setting->value;
+                        break;
+                    case 'email':
+                        $settingView['email'] = $setting->value;
+                        break;
+                    case 'phone':
+                        $settingView['phone'] = $setting->value;
+                        break;
+                    case 'hotline':
+                        $settingView['hotline'] = $setting->value;
+                        break;
+                    case 'ga_code':
+                        $settingView['ga_code'] = $setting->value;
+                        break;
+                    case 'chat_code':
+                        $settingView['chat_code'] = $setting->value;
+                        break;
+                }
+            }
+        }
+
         $share = [
             'USER_LOGGED' => $this->user,
             'USER_LOGGED_EMAIL' => $email,
@@ -69,6 +113,7 @@ class Controller extends BaseController
             'MENU_LEFT' => $this->_menuList,
             'MENU_TOP' => $this->_menuTop,
             'COLOR_LIST' => $arrColor,
+            'SETTING' => $settingView,
             'group_name'  => config('site.group_name'),
             'template'  => config('site.desktop.template'),
             'skin'  => config('site.desktop.skin'),

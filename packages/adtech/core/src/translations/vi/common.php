@@ -26,10 +26,30 @@ return [
         "name_here" => "Role name here...",
         "sort_here" => "Role sort here..."
     ],
+    "setting" => [
+        "title_here" => "Title here...",
+        "logo_link_here" => "Link in logo here...",
+        "company_name_here" => "Company name here...",
+        "address_here" => "Address here...",
+        "email_here" => "Email here...",
+        "phone_here" => "Phone number here...",
+        "hotline_here" => "Hotline here...",
+        "ga_code_here" => "GA code here...",
+        "chat_code_here" => "Chat code here..."
+    ],
     "domain" => [
         "name" => "Name",
         "status" => "Status",
         "name_here" => "Domain name here..."
+    ],
+    "api" => [
+        "name" => "Name",
+        "link" => "Link",
+        "demo" => "Data demo",
+        "status" => "Status",
+        "name_here" => "Api name here...",
+        "description_here" => "Description here...",
+        "datademo_here" => "Data demo here..."
     ],
     "menu" => [
         "icon" => "Icon",

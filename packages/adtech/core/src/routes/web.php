@@ -44,6 +44,8 @@ Route::group(array('prefix' => $adminPrefix), function () {
     Route::group(['middleware' => ['adtech.auth', 'adtech.acl']], function () {
 
         Route::get('', 'DashboardController@index')->name('backend.homepage');
+        Route::get('adtech/core/setting/manage', 'SettingController@manage')->name('adtech.core.setting.manage');
+        Route::put('adtech/core/setting/update', 'SettingController@update')->name('adtech.core.setting.update');
         Route::match(['get', 'post'], '/adtech/core/file/upload-test', 'DashboardController@fileuploadtest')->name('adtech.core.file.upload-test');
         Route::get('/adtech/core/file/manage', 'DashboardController@filemanage')->name('adtech.core.file.manage');
         Route::get('/laravel-filemanager', '\Unisharp\Laravelfilemanager\controllers\LfmController@show')->name('adtech.core.file.manager');
@@ -58,6 +60,18 @@ Route::group(array('prefix' => $adminPrefix), function () {
         Route::put('adtech/core/role/update', 'RoleController@update')->name('adtech.core.role.update');
         Route::get('adtech/core/role/delete', 'RoleController@delete')->name('adtech.core.role.delete');
         Route::get('adtech/core/role/confirm-delete', 'RoleController@getModalDelete')->name('adtech.core.role.confirm-delete');
+
+        Route::get('adtech/core/api/log', 'ApiController@log')->name('adtech.core.api.log');
+        Route::get('adtech/core/api/data', 'ApiController@data')->name('adtech.core.api.data');
+        Route::get('adtech/core/api/manage', 'ApiController@manage')->name('adtech.core.api.manage');
+        Route::get('adtech/core/api/create', 'ApiController@create')->name('adtech.core.api.create');
+        Route::post('adtech/core/api/add', 'ApiController@add')->name('adtech.core.api.add');
+        Route::get('adtech/core/api/show', 'ApiController@show')->name('adtech.core.api.show');
+        Route::put('adtech/core/api/update', 'ApiController@update')->name('adtech.core.api.update');
+        Route::get('adtech/core/api/delete', 'ApiController@delete')->name('adtech.core.api.delete');
+        Route::get('adtech/core/api/datademo', 'ApiController@getModalDatademo')->name('adtech.core.api.datademo');
+        Route::get('adtech/core/api/confirm-delete', 'ApiController@getModalDelete')->name('adtech.core.api.confirm-delete');
+        Route::get('api/{module}/{link}', 'ApiController@showdata')->name('adtech.core.api.showdata');
 
         Route::get('adtech/core/menu/log', 'MenuController@log')->name('adtech.core.menu.log');
         Route::get('adtech/core/menu/data', 'MenuController@data')->name('adtech.core.menu.data');
