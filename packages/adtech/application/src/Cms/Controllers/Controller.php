@@ -40,7 +40,7 @@ class Controller extends BaseController
         if(isset($_GET["domain_id"])) {
             $domain_id = $_GET["domain_id"];
         }
-        self::getMenu($domain_id);
+        self::getMenu($this->domainDefault);
         $arrColor = ['#4089C7', '#00BB8D', '#58BEDC', '#F99928', '#F06E6B', '#A7B4BA'];
 
         if (null != $this->_menuList) {
