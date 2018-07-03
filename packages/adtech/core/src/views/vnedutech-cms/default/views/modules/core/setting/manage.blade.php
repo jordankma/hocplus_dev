@@ -54,6 +54,18 @@
                         <img id="holder" src="{{ $logo }}" style="margin-top:15px;max-height:100px;">
                         <br><br>
 
+                        <label>Logo mini</label>
+                        <div class="input-group">
+                           <span class="input-group-btn">
+                             <a id="lfm2" data-input="thumbnail2" data-preview="holder2" class="btn btn-primary">
+                               <i class="fa fa-picture-o"></i> Choose
+                             </a>
+                           </span>
+                            <input id="thumbnail2" class="form-control" type="text" name="logo_mini" value="{{ $logo_mini }}">
+                        </div>
+                        <img id="holder2" src="{{ $logo_mini }}" style="margin-top:15px;max-height:100px;">
+                        <br><br>
+
                         <label>Favicon</label>
                         <div class="input-group">
                            <span class="input-group-btn">
@@ -98,12 +110,12 @@
 
                         <label>GA Code</label>
                         <div class="form-group">
-                            {!! Form::text('ga_code', $ga_code, array('class' => 'form-control', 'placeholder'=> trans('adtech-core::common.setting.ga_code_here'))) !!}
+                            {!! Form::textarea('ga_code', $ga_code, array('class' => 'form-control', 'placeholder'=> trans('adtech-core::common.setting.ga_code_here'))) !!}
                         </div>
 
                         <label>Chat Code</label>
                         <div class="form-group">
-                            {!! Form::text('chat_code', $chat_code, array('class' => 'form-control', 'placeholder'=> trans('adtech-core::common.setting.chat_code_here'))) !!}
+                            {!! Form::textarea('chat_code', $chat_code, array('class' => 'form-control', 'placeholder'=> trans('adtech-core::common.setting.chat_code_here'))) !!}
                         </div>
 
 
@@ -142,6 +154,7 @@
         $(function () {
             $('#lfm').filemanager('image');
             $('#lfm1').filemanager('image');
+            $('#lfm2').filemanager('image');
         })
     </script>
 @stop

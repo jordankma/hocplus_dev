@@ -33,7 +33,7 @@
 <body class="skin-josh">
 <header class="header">
     <a href="{{ (empty($SETTING['logo_link']) || $SETTING['logo_link'] == '') ? route('backend.homepage') : $SETTING['logo_link'] }}" class="logo">
-        <img src="{{ (empty($SETTING['logo'])) ? '' : asset($SETTING['logo']) }}" alt="logo" style="height: 50px; max-width: 250px">
+        <img src="{{ (empty($SETTING['logo_mini'])) ? '' : asset($SETTING['logo_mini']) }}" alt="logo" style="height: 35px; max-width: 200px">
     </a>
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -146,8 +146,8 @@
                 </div>
                 <div class="clearfix"></div>
                 <!-- BEGIN SIDEBAR MENU -->
-            @include('includes._left_menu')
-            <!-- END SIDEBAR MENU -->
+                @include('includes._left_menu')
+                <!-- END SIDEBAR MENU -->
             </div>
         </section>
     </aside>

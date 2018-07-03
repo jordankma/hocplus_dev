@@ -231,7 +231,7 @@ class UserController extends Controller
             ->addColumn('actions', function ($users) {
                 $actions = '';
                 if ($users->permission_locked != 1) {
-                    if ($this->_user->canAccess('adtech.core.user.log', ['object_type' => 'user', 'user_id' => $users->user_id])) {
+                    if ($this->_user->canAccess('adtech.core.user.log', ['object_type' => 'user', 'id' => $users->user_id])) {
                         $actions .= '<a href=' . route('adtech.core.user.log', ['type' => 'user', 'id' => $users->user_id]) . ' data-toggle="modal" data-target="#log"><i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#F99928" data-hc="#F99928" title="Log User"></i></a>';
                     }
                     if ($this->_user->canAccess('adtech.core.permission.manage', ['object_type' => 'user', 'user_id' => $users->user_id])) {

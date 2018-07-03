@@ -105,40 +105,6 @@
             "time": "2015-05-16T19:24:58+00:00"
         },
         {
-            "name": "api/nhvv",
-            "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "packages/api/nhvv",
-                "reference": "10edef95caa18fee8e4554b3880278eeb659ab43",
-                "shasum": null
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Api\\Nhvv\\": "src"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "vendor/bin/phpunit"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "electric",
-                    "email": "huydien.it@gmail.com"
-                }
-            ],
-            "description": "nhvv",
-            "transport-options": {
-                "symlink": true
-            }
-        },
-        {
             "name": "barryvdh/laravel-ide-helper",
             "version": "v2.4.3",
             "source": {
@@ -5909,8 +5875,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "adtech/core": 20,
-        "api/nhvv": 20
+        "adtech/core": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

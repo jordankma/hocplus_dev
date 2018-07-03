@@ -195,7 +195,7 @@ class RoleController extends Controller
             ->addColumn('actions', function ($roles) {
                 $actions = '';
                 if ($roles->permission_locked != 1) {
-                    if ($this->_user->canAccess('adtech.core.role.log', ['object_type' => 'role', 'role_id' => $roles->role_id])) {
+                    if ($this->_user->canAccess('adtech.core.role.log', ['object_type' => 'role', 'id' => $roles->role_id])) {
                         $actions .= '<a href=' . route('adtech.core.role.log', ['type' => 'role', 'id' => $roles->role_id]) . ' data-toggle="modal" data-target="#log"><i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#F99928" data-hc="#F99928" title="Log Role"></i></a>';
                     }
                     if ($this->_user->canAccess('adtech.core.permission.manage', ['object_type' => 'role', 'role_id' => $roles->role_id])) {

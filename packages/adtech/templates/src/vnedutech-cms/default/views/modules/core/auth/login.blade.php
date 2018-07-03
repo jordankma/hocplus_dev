@@ -26,8 +26,9 @@
     <div class="row">
         <div class="box animation flipInX">
             <div class="box1">
-            <img src="{{ asset('/vendor/' . $group_name . '/' . $skin . '/images/josh-new.png') }}" alt="logo" class="img-responsive mar">
-            <h3 class="text-primary">Log In</h3>
+                <img src="{{ (!empty($SETTING['logo'])) ? asset($SETTING['logo']) : '' }}" alt="logo" class="img-responsive mar">
+                <br>
+            {{--<h3 class="text-primary">Log In</h3>--}}
                 <!-- Notifications -->
                 <div id="notific">
                 @include('includes.notifications')
@@ -45,30 +46,28 @@
                         <input type="password" class="form-control" name="password" placeholder="Password">
                     </div>
                     <span class="help-block">{{ $errors->first('password', ':message') }}</span>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Remember Password
-                        </label>
+                    {{--<div class="checkbox">--}}
+                        {{--<label>--}}
+                            {{--<input type="checkbox"> Remember Password--}}
+                        {{--</label>--}}
 
-                    </div>
+                    {{--</div>--}}
                     <input type="submit" class="btn btn-block btn-primary" value="Log In">
-                    Don't have an account? <a href="{{ route('adtech.core.auth.register') }}"><strong> Sign Up</strong></a>
+                    {{--Don't have an account? <a href="{{ route('adtech.core.auth.register') }}"><strong> Sign Up</strong></a>--}}
                 </form>
-                <br/>
-                <div class="text-center">
-                    <p>--OR--</p>
-                    <p>Login with</p>
-                    <a href="{{ url('/facebook') }}" class="social"><i class=" fa fa-facebook"></i> Facebook</a>
+                {{--<div class="text-center">--}}
+                    {{--<p>--OR--</p>--}}
+                    {{--<p>Login with</p>--}}
+                    {{--<a href="{{ url('/facebook') }}" class="social"><i class=" fa fa-facebook"></i> Facebook</a>--}}
 
-                    <a href="{{ url('/google') }}" class="social text-danger"><i class=" fa fa-google-plus"></i> Google</a>
+                    {{--<a href="{{ url('/google') }}" class="social text-danger"><i class=" fa fa-google-plus"></i> Google</a>--}}
 
                     {{--<a href="{{ url('/twitter') }}" class="social"><i class=" fa fa-twitter"></i> Twitter</a>--}}
 
-                    <a href="{{ url('/linkedin') }}" class="social"><i class=" fa fa-linkedin"></i> LinkedIn</a>
-                </div>
+                    {{--<a href="{{ url('/linkedin') }}" class="social"><i class=" fa fa-linkedin"></i> LinkedIn</a>--}}
+                {{--</div>--}}
 
             </div>
-            <br>
         <div class="bg-light animation flipInX">
             <a href="{{ route('adtech.core.auth.forgot') }}" id="forgot_pwd_title">Forgot Password?</a>
         </div>
