@@ -64,7 +64,7 @@ class Controller extends BaseController
 
         //get setting value
         $settings = Setting::all();
-        $settingView = array();
+        $settingView = array('logo' => '', 'title' => '', 'favicon' => '', 'logo_link' => '');
         if (count($settings) > 0) {
             foreach ($settings as $setting) {
                 switch ($setting->name) {
