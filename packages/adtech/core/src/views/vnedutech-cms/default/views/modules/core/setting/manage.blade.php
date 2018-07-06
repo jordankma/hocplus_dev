@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-sm-8">
 
-                        <label>Title Page</label>
+                        <label>{{ trans('adtech-core::labels.setting.title_page') }}</label>
                         <div class="form-group">
                             {!! Form::text('title', $title, array('class' => 'form-control', 'autofocus'=>'autofocus', 'placeholder'=> trans('adtech-core::common.setting.title_here'))) !!}
                         </div>

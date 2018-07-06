@@ -63,7 +63,7 @@ class Controller extends BaseController
         }
 
         //get setting value
-        $settings = Setting::all();
+        $settings = Setting::where('domain_id', $this->domainDefault)->get();
         $settingView = array('logo' => '', 'logo_mini' => '', 'title' => '', 'favicon' => '', 'logo_link' => '');
         if (count($settings) > 0) {
             foreach ($settings as $setting) {

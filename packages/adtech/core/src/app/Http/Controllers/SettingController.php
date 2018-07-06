@@ -19,7 +19,7 @@ class SettingController extends Controller
 
     public function manage(Request $request)
     {
-        $settings = Setting::all();
+        $settings = Setting::where('domain_id', $this->domainDefault)->get();
         $title = $logo = $logo_mini = $logo_link = $favicon = $company_name = $address = $email = $phone = $hotline = $ga_code = $chat_code = '';
 
         if (count($settings) > 0) {
@@ -97,9 +97,11 @@ class SettingController extends Controller
                         $setting = $this->setting->findBy('name', $k);
                         if (null == $setting) {
                             $setting = new Setting();
+                            $setting->domain_id = $this->domainDefault;
                             $setting->name = $k;
                         }
                         $setting->value = (empty($input)) ? '' : $input;
+                        $setting->domain_id = $this->domainDefault;
                         $setting->save();
                     }
 

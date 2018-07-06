@@ -66,7 +66,7 @@ class RoleController extends Controller
 
         if (null != $role) {
 
-            $this->role->deleteID($role_id);
+            $this->role->delete($role_id);
             activity('role')
                 ->performedOn($role)
                 ->withProperties($request->all())
@@ -170,7 +170,7 @@ class RoleController extends Controller
     {
         $role_id = $this->_user->role_id;
         $role = $this->role->find($role_id);
-        $roles = Role::where('sort', '>=', $role->sort)->where('visible', 1)->get();
+        $roles = Role::where('sort', '>=', $role->sort)->get();
 
         return Datatables::of($roles)
             ->editColumn('status', function ($roles) {
@@ -210,6 +210,7 @@ class RoleController extends Controller
                 }
                 return $actions;
             })
+            ->addIndexColumn()
             ->rawColumns(['actions', 'name', 'status'])
             ->make();
     }
