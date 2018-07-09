@@ -6,17 +6,9 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Adtech\Application\Cms\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Adtech\Core\App\Models\User;
 
 class LoginController extends Controller
 {
-    protected $user;
-
-    public function __construct(User $user){
-        parent::__construct();
-        $this->user = $user;
-    }
-
     public function login(Request $request)
     {
         // grab credentials from the request
