@@ -8,13 +8,17 @@
 
         @if ($menu->parent == 0)
         <li class="menu_more">
-            <a href="#">
+            <a href="{{ ($menu->route_name != '#') ? route($menu->route_name) : '#' }}">
                 <i class="livicon" data-name="{{ ($menu->icon != '') ? $menu->icon : 'question' }}" data-size="18" data-c="{{ $COLOR_LIST[rand(0, 5)] }}" data-hc="{{ $COLOR_LIST[rand(0, 5)] }}"
                    data-loop="true"></i>
                 <span class="title">{{ $menu->name }}</span>
                 <span class="fa arrow"></span>
             </a>
-            <ul class="sub-menu">
+            @if (isset($MENU_LEFT[$key + 1]))
+                @if ($MENU_LEFT[$key + 1]->parent > 0)
+                    <ul class="sub-menu">
+                @endif
+            @endif
         @endif
 
         @if ($menu->parent > 0)
@@ -32,7 +36,11 @@
         @endif
         <?php $stt++; ?>
     @endforeach
-            </ul>
+        @if (isset($MENU_LEFT[$key + 1]))
+            @if ($MENU_LEFT[$key + 1]->parent > 0)
+                    </ul>
+            @endif
+        @endif
         </li>
 @endif
 
@@ -41,18 +49,21 @@
         $(function () {
             $( "li.menu_more" ).each(function( i, element ) {
                 var sub_menu = element.querySelector('ul.sub-menu');
-                if (sub_menu.children.length > 0) {
-                    var checkActive = sub_menu.querySelector('li.active');
-                    if (checkActive != null) {
-                        element.classList.add('active');
+                if (sub_menu) {
+                    if (sub_menu.children.length > 0) {
+                        var checkActive = sub_menu.querySelector('li.active');
+                        if (checkActive != null) {
+                            element.classList.add('active');
+                        }
+                    } else {
+                        element.querySelector('ul.sub-menu').remove();
+                        element.querySelector('a > span.fa').remove();
                     }
                 } else {
-                    element.style.display = 'none';
+                    element.querySelector('a > span.fa').remove();
                 }
+
             });
         });
-        function hasClass(element, className) {
-            return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
-        }
     </script>
 @stop

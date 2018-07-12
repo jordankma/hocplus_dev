@@ -55,8 +55,8 @@
                             <select class="form-control select2" title="Select route name..." name="route_name"
                                     id="parent">
                                 <option value="#">No Link</option>
-                                @foreach($listRouteName as $routeName)
-                                    <option value="{{ $routeName }}">{{ $routeName }}</option>
+                                @foreach($listRouteName as $route_name => $routeName)
+                                    <option value="{{ $route_name }}">{{ $routeName }}</option>
                                 @endforeach
                             </select>
                             <span class="help-block">{{ $errors->first('route_name', ':message') }}</span>

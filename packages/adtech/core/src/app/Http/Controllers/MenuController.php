@@ -85,15 +85,24 @@ class MenuController extends Controller
         $app = app();
         $listRouteName = array();
         $routes = $app->routes->getRoutes();
+        $adminPrefix = config('site.admin_prefix');
+        foreach ($routes as $k => $route) {
+            if ($type == 0) {
+                if (isset($route->action['prefix']) != $adminPrefix) {
+                    continue;
+                }
+            } else {
+                if (isset($route->action['prefix']) == $adminPrefix) {
+                    continue;
+                }
+            }
 
-        foreach ($routes as $route) {
-            if (isset($route->action['as'])) {
-                $listRouteName[] = $route->action['as'];
+            if (isset($route->wheres['as']) && isset($route->action['as'])) {
+                $listRouteName[$route->action['as']] = $route->wheres['as'];
             }
         }
 
         $menusGroups =$this->_menuTop;
-
         return view('ADTECH-CORE::modules.core.menu.create', compact('domain_id', 'menus', 'listRouteName', 'menusGroups', 'type'));
     }
 
@@ -138,22 +147,36 @@ class MenuController extends Controller
         $menu_id = $request->input('menu_id');
         $menu = $this->menu->find($menu_id);
 
-        self::getMenu($menu->domain_id);
-        $menus = $this->_menuList;
+        if ($menu) {
+            self::getMenu($menu->domain_id);
+            $menus = $this->_menuList;
 
-        //get route name list
-        $app = app();
-        $listRouteName = array();
-        $routes = $app->routes->getRoutes();
+            //get route name list
+            $app = app();
+            $type = $menu->type;
+            $listRouteName = array();
+            $routes = $app->routes->getRoutes();
+            $adminPrefix = config('site.admin_prefix');
+            foreach ($routes as $k => $route) {
+                if ($type == 0) {
+                    if (isset($route->action['prefix']) != $adminPrefix) {
+                        continue;
+                    }
+                } else {
+                    if (isset($route->action['prefix']) == $adminPrefix) {
+                        continue;
+                    }
+                }
 
-        foreach ($routes as $route) {
-            if (isset($route->action['as'])) {
-                $listRouteName[] = $route->action['as'];
+                if (isset($route->wheres['as']) && isset($route->action['as'])) {
+                    $listRouteName[$route->action['as']] = $route->wheres['as'];
+                }
             }
+        } else {
+            return redirect()->route('adtech.core.menu.manage')->with('error', trans('adtech-core::messages.error.create'));
         }
 
         $menusGroups = $this->_menuTop;
-
         return view('ADTECH-CORE::modules.core.menu.edit', compact('menu', 'menus', 'listRouteName', 'menusGroups'));
     }
 

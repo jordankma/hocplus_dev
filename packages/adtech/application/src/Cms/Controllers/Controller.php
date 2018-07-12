@@ -143,6 +143,7 @@ class Controller extends BaseController
         }
 
         $this->_menuTop = $menuGroups;
+        $this->_menuList = new Collection();
         if (count($menus) > 0) {
             foreach ($menus as $menu) {
 
@@ -152,7 +153,6 @@ class Controller extends BaseController
                 $menuData['items'][$menu_id] = $menu;
                 $menuData['parents'][$parent_id][] = $menu_id;
             }
-            $this->_menuList = new Collection();
             self::buildMenu(0, $menuData);
         }
     }
