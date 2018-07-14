@@ -85,6 +85,12 @@
                             <span class="help-block">{{ $errors->first('name', ':message') }}</span>
                         </div>
 
+                        <label>Alias</label>
+                        <div class="form-group {{ $errors->first('alias', 'has-error') }}">
+                            {!! Form::text('alias', null, array('class' => 'form-control', 'placeholder'=>trans('adtech-core::common.menu.alias_here'))) !!}
+                            <span class="help-block">{{ $errors->first('alias', ':message') }}</span>
+                        </div>
+
                         <label>Sort</label>
                         <div class="form-group {{ $errors->first('sort', 'has-error') }}">
                             {!! Form::number('sort', null, array('min' => 0, 'max' => 99,'class' => 'form-control', 'placeholder'=> trans('adtech-core::common.menu.sort_here'))) !!}

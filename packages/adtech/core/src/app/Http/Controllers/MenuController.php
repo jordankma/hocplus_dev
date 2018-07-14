@@ -37,17 +37,30 @@ class MenuController extends Controller
             $parent = $request->input('parent', 0);
             $route_name = $request->input('route_name', '');
             $domain_id = $request->input('domain_id',  0);
+            $name = $request->input('name', '');
             $type = $request->input('type', 0);
             $group = $request->input('group', '');
+            $sort = $request->input('sort', 99);
+            $icon = $request->input('icon', 'question');
+            $alias = strtolower(preg_replace('([^a-zA-Z0-9])', '', self::stripUnicode($name)));
 
             if ($parent > 0) {
                 if (!Route::has($route_name))
                     return redirect()->route('adtech.core.menu.manage', ['domain_id' => $domain_id])->with('error', trans('adtech-core::messages.error.create'));
             }
 
+            if ($alias != '') {
+                if (null != $this->menu->findBy('alias', $alias)) {
+                    return redirect()->route('adtech.core.menu.manage', ['domain_id' => $domain_id])->with('error', trans('adtech-core::messages.error.create'));
+                }
+            }
+
             $menu = new Menu($request->all());
             $menu->domain_id = $domain_id;
             $menu->group = $group;
+            $menu->sort = (int) $sort;
+            $menu->icon = (string) $icon;
+            $menu->alias = $alias;
             $menu->save();
 
             if ($menu->menu_id) {
@@ -92,8 +105,10 @@ class MenuController extends Controller
                     continue;
                 }
             } else {
-                if (isset($route->action['prefix']) == $adminPrefix) {
-                    continue;
+                if (isset($route->action['prefix'])) {
+                    if ($route->action['prefix'] == $adminPrefix) {
+                        continue;
+                    }
                 }
             }
 
@@ -163,8 +178,10 @@ class MenuController extends Controller
                         continue;
                     }
                 } else {
-                    if (isset($route->action['prefix']) == $adminPrefix) {
-                        continue;
+                    if (isset($route->action['prefix'])) {
+                        if ($route->action['prefix'] == $adminPrefix) {
+                            continue;
+                        }
                     }
                 }
 
@@ -186,6 +203,7 @@ class MenuController extends Controller
         $parent = $request->input('parent');
         $group = $request->input('group');
         $name = $request->input('name');
+        $alias = $request->input('alias');
         $route_name = $request->input('route_name');
         $domain_id = $request->input('domain_id');
         $type = $request->input('type');
@@ -203,9 +221,10 @@ class MenuController extends Controller
         $menu->parent = $parent;
         $menu->group = $group;
         $menu->name = $name;
+        $menu->alias = $alias;
         $menu->route_name = $route_name;
-        $menu->sort = $sort;
-        $menu->icon = $icon;
+        $menu->sort = (int) $sort;
+        $menu->icon = (string) $icon;
 
         if ($menu->save()) {
 

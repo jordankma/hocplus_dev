@@ -60,7 +60,7 @@ class LoginController extends Controller
     {
         $this->_guard()->logout();
 
-//        $request->session()->flush();
+        $request->session()->flush();
 
         //$request->session()->regenerate();
 

@@ -40,7 +40,8 @@ class MenuRequest extends FormRequest
             case 'PUT':{
                 return [
                     'menu_id' => 'required',
-                    'name' => 'required'
+                    'name' => 'required',
+                    'alias' => 'required'
                 ];
             }
             case 'PATCH':

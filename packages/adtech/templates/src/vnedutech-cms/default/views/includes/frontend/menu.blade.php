@@ -2,7 +2,11 @@
 <?php $stt = 0; ?>
 @foreach( $MENU_LEFT as $key => $menu )
 @if ($stt > 0 && $menu->parent == 0)
+@if (isset($MENU_LEFT[$key - 1]))
+@if ($MENU_LEFT[$key - 1]->parent > 0)
 </ul>
+@endif
+@endif
 </li>
 @endif
 
@@ -32,8 +36,10 @@
                             </li>
                         @endif
                     @endif
+
                     <?php $stt++; ?>
                     @endforeach
+
                     @if (isset($MENU_LEFT[$key + 1]))
                         @if ($MENU_LEFT[$key + 1]->parent > 0)
                 </ul>
