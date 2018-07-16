@@ -32,7 +32,7 @@
 
 <body class="skin-josh">
 <header class="header">
-    <a href="{{ (empty($SETTING['logo_link']) || $SETTING['logo_link'] == '') ? route('backend.homepage') : $SETTING['logo_link'] }}" class="logo">
+    <a href="{{ route('adtech.core.menu.tab', ['tab' => '']) }}" class="logo">
         <img src="{{ (empty($SETTING['logo_mini'])) ? '' : asset($SETTING['logo_mini']) }}" alt="logo" style="height: 35px; max-width: 200px">
     </a>
     <nav class="navbar navbar-static-top" role="navigation">

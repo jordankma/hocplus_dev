@@ -36,10 +36,12 @@ class Controller extends BaseController
                 $domain_id = $domain->domain_id;
             }
         }
+
         $this->domainDefault = $domain_id;
         if(isset($_GET["domain_id"])) {
             $domain_id = $_GET["domain_id"];
         }
+
         self::getMenu($this->domainDefault);
         $arrColor = ['#4089C7', '#00BB8D', '#58BEDC', '#F99928', '#F06E6B', '#A7B4BA'];
 
@@ -117,6 +119,7 @@ class Controller extends BaseController
             'MENU_TOP' => $this->_menuTop,
             'COLOR_LIST' => $arrColor,
             'SETTING' => $settingView,
+            'DATATABLE_TRANS' => json_encode(trans('adtech-core::datatable'), JSON_UNESCAPED_UNICODE),
             'group_name'  => config('site.group_name'),
             'template'  => config('site.desktop.template'),
             'skin'  => config('site.desktop.skin'),
@@ -131,14 +134,14 @@ class Controller extends BaseController
         if (Cache::has('menuGroups' . $domain_id)) {
             $menuGroups = Cache::get('menuGroups' . $domain_id);
         } else {
-            $menuGroups = Menu::select('group')->where('group', '!=', '')->distinct()->get();
+            $menuGroups = Menu::select('group')->where('group', '!=', '')->where('domain_id', $domain_id)->where('type', 0)->distinct()->get();
             Cache::put('menuGroups' . $domain_id, $menuGroups);
         }
 
         if (Cache::has('menus' . $domain_id)) {
             $menus = Cache::get('menus' . $domain_id);
         } else {
-            $menus = Menu::where('domain_id', $domain_id)->orderBy('parent')->orderBy('sort')->get();
+            $menus = Menu::where('domain_id', $domain_id)->where('type', 0)->orderBy('parent')->orderBy('sort')->get();
             Cache::put('menus' . $domain_id, $menus);
         }
 

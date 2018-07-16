@@ -54,7 +54,7 @@
                                     id="parent">
                                 <option value="#" {{ $menu->route_name == '#' ? ' selected="selected"' : '' }}>No Link</option>
                                 @foreach($listRouteName as $route_name => $routeName)
-                                    <option value="{{ $route_name }}" {{ ($routeName == $menu->route_name) ? ' selected="selected"' : '' }}>{{ $routeName }}</option>
+                                    <option value="{{ $route_name }}" {{ ($route_name == $menu->route_name) ? ' selected="selected"' : '' }}>{{ $routeName }}</option>
                                 @endforeach
                             </select>
                             <span class="help-block">{{ $errors->first('route_name', ':message') }}</span>

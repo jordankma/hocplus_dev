@@ -100,16 +100,27 @@ class MenuController extends Controller
         $routes = $app->routes->getRoutes();
         $adminPrefix = config('site.admin_prefix');
         foreach ($routes as $k => $route) {
-            if ($type == 0) {
-                if (isset($route->action['prefix']) != $adminPrefix) {
+
+            if (isset($route->action['prefix'])) {
+                $arrPrefix = explode('/', $route->action['prefix']);
+                $arrPrefix = array_values(array_filter($arrPrefix));
+
+                if (count($arrPrefix) > 0) {
+                    if ($type == 0) {
+                        if ('/' . $arrPrefix[0] != $adminPrefix) {
+                            continue;
+                        }
+                    } else {
+                        if ('/' . $arrPrefix[0] == $adminPrefix) {
+                            continue;
+                        }
+                    }
+                } else {
                     continue;
                 }
+
             } else {
-                if (isset($route->action['prefix'])) {
-                    if ($route->action['prefix'] == $adminPrefix) {
-                        continue;
-                    }
-                }
+                continue;
             }
 
             if (isset($route->wheres['as']) && isset($route->action['as'])) {
@@ -153,6 +164,11 @@ class MenuController extends Controller
         if ($request->has('type')) {
             $type = $request->input('type');
         }
+
+        shell_exec('cd ../ && /egserver/php/bin/php artisan view:clear');
+        shell_exec('cd ../ && /egserver/php/bin/php artisan route:clear');
+        shell_exec('cd ../ && /egserver/php/bin/php artisan config:clear');
+//        shell_exec('cd ../ && /egserver/php/bin/composer dump-autoload');
 
         return view('ADTECH-CORE::modules.core.menu.manage', compact('domains', 'domain_id', 'type'));
     }
@@ -338,7 +354,7 @@ class MenuController extends Controller
     }
 
     function getMenu($domain_id = 0, $type = 0) {
-        $menusGroups = Menu::select('group')->where('group', '!=', '')->distinct()->get();
+        $menusGroups = Menu::select('group')->where('domain_id', $domain_id)->where('type', $type)->where('group', '!=', '')->distinct()->get();
         $this->_menuTop = $menusGroups;
 
         $menus = Menu::where('domain_id', $domain_id)->where('type', $type)->orderBy('parent')->orderBy('sort')->get();
