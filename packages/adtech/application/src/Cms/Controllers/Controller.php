@@ -26,6 +26,7 @@ class Controller extends BaseController
         //
         $id = Auth::id();
         $this->user = Auth::user();
+
         $email = $this->user ? $this->user->email : null;
         $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
         $domain_id = 0;
@@ -45,22 +46,40 @@ class Controller extends BaseController
         self::getMenu($this->domainDefault);
         $arrColor = ['#4089C7', '#00BB8D', '#58BEDC', '#F99928', '#F06E6B', '#A7B4BA'];
 
-        if (null != $this->_menuList) {
+        if (null != $this->_menuList && $this->user) {
             if (count($this->_menuList) > 0) {
                 $tab = (session()->has('tab')) ? session('tab') : '';
                 $checkGroup = 1;
                 foreach ($this->_menuList as $key => $item) {
-                    if ($item->parent == 0 && $tab != '') {
-                        if ($item->group != $tab) {
-                            $checkGroup = 0;
+                    $checkPer = 1;
+                    if ($item->route_name != '#') {
+                        if (!$this->user->canAccess($item->route_name)) {
                             $this->_menuList->forget($key);
-                        } else {
-                            $checkGroup = 1;
+                            $checkPer = 0;
                         }
-                    } elseif ($tab != '' && $checkGroup == 0) {
-                        $this->_menuList->forget($key);
+                    }
+
+                    if ($checkPer == 1) {
+                        if ($item->parent == 0 && $tab != '') {
+                            if ($item->group != $tab) {
+                                $checkGroup = 0;
+                                $this->_menuList->forget($key);
+                            } else {
+                                $checkGroup = 1;
+                            }
+                        } elseif ($tab != '' && $checkGroup == 0) {
+                            $this->_menuList->forget($key);
+                        }
                     }
                 }
+
+                $reloadMenuList = new Collection();
+                if (count($this->_menuList) > 0) {
+                    foreach ($this->_menuList as $key => $item) {
+                        $reloadMenuList->push($item);
+                    }
+                }
+                $this->_menuList = $reloadMenuList;
             }
         }
 
@@ -131,6 +150,7 @@ class Controller extends BaseController
     }
 
     function getMenu($domain_id = 0) {
+        Cache::forget('menuGroups' . $domain_id);
         if (Cache::has('menuGroups' . $domain_id)) {
             $menuGroups = Cache::get('menuGroups' . $domain_id);
         } else {
@@ -138,6 +158,7 @@ class Controller extends BaseController
             Cache::put('menuGroups' . $domain_id, $menuGroups);
         }
 
+        Cache::forget('menus' . $domain_id);
         if (Cache::has('menus' . $domain_id)) {
             $menus = Cache::get('menus' . $domain_id);
         } else {

@@ -30,6 +30,7 @@ class LoginController extends Controller
         $remember = $request->input('remember', false);
         if ($this->_guard()->attempt(['u_name' => $u_name, 'password' => $password], $remember)) {
             $request->session()->regenerateToken();
+            shell_exec('cd ../ && /egserver/php/bin/php artisan view:clear');
             \Session::flash('flash_messenger', trans('adtech-core::messages.login_success'));
             $routeName = 'frontend.homepage';
             return redirect()->intended(route($routeName));
@@ -49,6 +50,11 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        if ($this->user) {
+            $routeName = 'frontend.homepage';
+            return redirect()->intended(route($routeName));
+        }
+
         if ($request->isMethod('post')) {
             return $this->_authenticate($request);
         }

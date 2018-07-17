@@ -53,7 +53,7 @@
                                  class="img-circle img-responsive pull-left"/>
                         <div class="riot">
                             <div>
-                                <p class="user_name_max">{{ $USER_LOGGED->name }}</p>
+                                <p class="user_name_max">{{ ($USER_LOGGED) ? $USER_LOGGED->name : 'Guest' }}</p>
                                 <span>
                                     <i class="caret"></i>
                                 </span>

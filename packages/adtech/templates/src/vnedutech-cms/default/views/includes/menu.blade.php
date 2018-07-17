@@ -11,6 +11,10 @@
         @endif
 
         @if ($menu->parent == 0)
+            @if (!$USER_LOGGED->canAccess($menu->route_name) && $menu->route_name != '#')
+                @continue
+            @endif
+
             <li class="menu_more">
                 <a href="{{ ($menu->route_name != '#') ? route($menu->route_name) : '#' }}">
                     <i class="livicon" data-name="{{ ($menu->icon != '') ? $menu->icon : 'question' }}" data-size="18" data-c="{{ $COLOR_LIST[rand(0, 5)] }}" data-hc="{{ $COLOR_LIST[rand(0, 5)] }}"

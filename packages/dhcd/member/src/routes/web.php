@@ -11,16 +11,6 @@ Route::group(array('prefix' => null), function () {
         // Route::get('', '\Adtech\Core\App\Http\Controllers\FrontendController@index')->name('frontend.homepage');
 
         Route::get('logout', 'Auth\LoginController@logout')->name('dhcd.member.auth.logout');
-
-        Route::get('test1', function (){
-            echo 'test1';
-        })->name('test1');
-        Route::get('test2', function (){
-            echo 'test2';
-        })->name('test2');
-        Route::get('test3', function (){
-            echo 'test3';
-        })->name('test3');
     });
 });
 
@@ -48,7 +38,7 @@ Route::group(array('prefix' => $adminPrefix), function() {
     });
 });
 
-Route::group(array('prefix' => 'dev'), function() {
+Route::group(array('prefix' => 'resource/dev'), function() {
     Route::post('post/login', 'ApiMemberController@postLogin');
     Route::get('get/register', 'ApiMemberController@getRegister');
     Route::get('get/getuserinfo', 'ApiMemberController@getUserInfo');

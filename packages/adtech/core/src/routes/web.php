@@ -7,7 +7,7 @@ Route::group(array('prefix' => $adminPrefix), function () {
     /*
      * auth - login
      */
-    Route::get('admin/adtech/core/menu/tab', 'MenuController@tab')->name('adtech.core.menu.tab');
+    Route::get('adtech/core/menu/tab', 'MenuController@tab')->name('adtech.core.menu.tab');
 
     Route::match(['get', 'post'], 'login', 'Auth\LoginController@login')->name('adtech.core.auth.login');
 
