@@ -29,6 +29,12 @@ return [
         "update" => "Update Domain",
         "list" => "Domains list",
     ],
+    "locale" => [
+        "manage" => "Manage Locale",
+        "create" => "Create Locale",
+        "update" => "Update Locale",
+        "list" => "Locale list",
+    ],
     "menu" => [
         "manage" => "Manage Menus",
         "create" => "Create Menu",

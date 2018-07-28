@@ -237,10 +237,12 @@ class PackageController extends Controller
                             //migrate + seed
 
                             self::setAppurl();
-                            $db_connection = "mysql_" . $package->package_alias;
+                            $db_connection = ($package->package_alias == 'adtech') ? "mysql_core" : "mysql_" . $package->package_alias;
                             $pathDatabase = 'packages/' . $package->package_alias . '/' . $package->module_alias . '/src/database/migrations';
+                            if ($this->files->isDirectory('../' . $pathDatabase)) {
 //                            shell_exec('cd ../ && /egserver/php/bin/php artisan migrate:refresh --path="' . $pathDatabase . '" --database="' . $db_connection . '"');
-                            shell_exec('cd ../ && php artisan migrate:refresh --path="' . $pathDatabase . '" --database="' . $db_connection . '"');
+                                shell_exec('cd ../ && php artisan migrate:refresh --path="' . $pathDatabase . '" --database="' . $db_connection . '"');
+                            }
                         }
                     }
                     return redirect()->route('adtech.core.package.manage', ['id' => $domain_id])->with('success', trans('adtech-core::messages.success.update'));
@@ -311,9 +313,10 @@ class PackageController extends Controller
                         self::setAppurl();
                         $db_connection = "mysql_" . $package->package_alias;
                         $pathDatabase = 'packages/' . $package->package_alias . '/' . $package->module_alias . '/src/database/migrations';
+                        if ($this->files->isDirectory('../' . $pathDatabase)) {
 //                        shell_exec('cd ../ && /egserver/php/bin/php artisan migrate --path="' . $pathDatabase . '" --database="' . $db_connection . '"');
-                        shell_exec('cd ../ && php artisan migrate --path="' . $pathDatabase . '" --database="' . $db_connection . '"');
-
+//                            shell_exec('cd ../ && php artisan migrate --path="' . $pathDatabase . '" --database="' . $db_connection . '"');
+                        }
                         // Dump autoload.
 //                        $this->composer->dumpAutoloads();
 //                        shell_exec('cd ../ && /egserver/php/bin/composer dump-autoload');
@@ -347,13 +350,6 @@ class PackageController extends Controller
 
                 $package = $this->package->find($package_id);
                 //khai bao trong composer root
-//                $path = base_path('composer.json');
-//                $composerFile = file_get_contents($path);
-//                $composerObject = json_decode($composerFile, true);
-//                $repositories = $repositoriesEmpty = $composerObject['repositories'];
-//                $require = $composerObject['require'];
-//                $autoload_dev_classmap = $composerObject['autoload-dev']['classmap'];
-//                $autoload_psr4 = $composerObject['autoload']['psr-4'];
                 $urlRepositorie = "packages"."/".$package->package_alias."/".$package->module_alias;
 
                 $path = base_path('composer.json');
@@ -407,9 +403,10 @@ class PackageController extends Controller
                 self::setAppurl();
                 $db_connection = "mysql_" . $package->package_alias;
                 $pathDatabase = 'packages/' . $package->package_alias . '/' . $package->module_alias . '/src/database/migrations';
+                if ($this->files->isDirectory('../' . $pathDatabase)) {
 //                shell_exec('cd ../ && /egserver/php/bin/php artisan migrate:reset --path="' . $pathDatabase . '" --database="' . $db_connection . '"');
-                shell_exec('cd ../ && php artisan migrate:reset --path="' . $pathDatabase . '" --database="' . $db_connection . '"');
-
+//                    shell_exec('cd ../ && php artisan migrate:reset --path="' . $pathDatabase . '" --database="' . $db_connection . '"');
+                }
                 //Delete folder package
                 if ($package->package_alias != 'adtech')
                     shell_exec('cd ../ && rm -rf packages/' . $package->package_alias . '/' . $package->module_alias);

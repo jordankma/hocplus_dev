@@ -7,6 +7,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Collection;
 use Adtech\Core\App\Models\Domain;
 use Adtech\Core\App\Models\Menu;
+use Adtech\Core\App\Models\Locale;
 use Adtech\Core\App\Models\Setting;
 use Session;
 use Cache;
@@ -24,10 +25,10 @@ class Controller extends BaseController
     public function __construct()
     {
         //
-        $id = Auth::id();
         $this->user = Auth::user();
-
+        $id = $this->user ? $this->user->user_id : 0;
         $email = $this->user ? $this->user->email : null;
+
         $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
         $domain_id = 0;
         if ($host) {
@@ -43,6 +44,7 @@ class Controller extends BaseController
             $domain_id = $_GET["domain_id"];
         }
 
+        $this->_menuTop = [];
         self::getMenu($this->domainDefault);
         $arrColor = ['#4089C7', '#00BB8D', '#58BEDC', '#F99928', '#F06E6B', '#A7B4BA'];
 
@@ -50,12 +52,26 @@ class Controller extends BaseController
             if (count($this->_menuList) > 0) {
                 $tab = (session()->has('tab')) ? session('tab') : '';
                 $checkGroup = 1;
+                $menuGroups = [];
                 foreach ($this->_menuList as $key => $item) {
+                    if ($item->route_name != '#') {
+                        if (!$this->user->canAccess($item->route_name)) {
+                            $this->_menuList->forget($key);
+                            continue;
+                        } else {
+                            if (!in_array($item->group, $menuGroups)) {
+                                $tab = ($tab == '') ? $item->group : $tab;
+                                $menuGroups[] = $item->group;
+                            }
+                        }
+                    }
+
                     $checkPer = 1;
                     if ($item->route_name != '#') {
                         if (!$this->user->canAccess($item->route_name)) {
                             $this->_menuList->forget($key);
-                            $checkPer = 0;
+//                            $checkPer = 0;
+                            continue;
                         }
                     }
 
@@ -64,15 +80,27 @@ class Controller extends BaseController
                             if ($item->group != $tab) {
                                 $checkGroup = 0;
                                 $this->_menuList->forget($key);
+                                continue;
                             } else {
                                 $checkGroup = 1;
                             }
                         } elseif ($tab != '' && $checkGroup == 0) {
                             $this->_menuList->forget($key);
+                            continue;
                         }
                     }
                 }
 
+                $menuTops = [];
+                if (count($menuGroups) > 0) {
+                    foreach ($menuGroups as $group) {
+                        $object = new \stdClass();
+                        $object->group = $group;
+                        $menuTops[] = $object;
+                    }
+                }
+
+                $this->_menuTop = $menuTops;
                 $reloadMenuList = new Collection();
                 if (count($this->_menuList) > 0) {
                     foreach ($this->_menuList as $key => $item) {
@@ -84,7 +112,25 @@ class Controller extends BaseController
         }
 
         //get setting value
-        $settings = Setting::where('domain_id', $this->domainDefault)->get();
+        $locales = [];
+
+        Cache::forget('locales' . $this->domainDefault);
+        if (Cache::has('locales' . $this->domainDefault)) {
+            $locales = Cache::get('locales' . $this->domainDefault);
+        } else {
+            $locales = Locale::where('domain_id', $this->domainDefault)->get();
+            Cache::put('locales' . $this->domainDefault, $locales);
+        }
+
+        //get setting value
+        $settings = [];
+        Cache::forget('settings' . $this->domainDefault);
+        if (Cache::has('settings' . $this->domainDefault)) {
+            $settings = Cache::get('settings' . $this->domainDefault);
+        } else {
+            $settings = Setting::where('domain_id', $this->domainDefault)->get();
+            Cache::put('settings' . $this->domainDefault, $settings);
+        }
         $settingView = array('logo' => '', 'logo_mini' => '', 'title' => '', 'favicon' => '', 'logo_link' => '');
         if (count($settings) > 0) {
             foreach ($settings as $setting) {
@@ -138,6 +184,7 @@ class Controller extends BaseController
             'MENU_TOP' => $this->_menuTop,
             'COLOR_LIST' => $arrColor,
             'SETTING' => $settingView,
+            'LOCALES' => $locales,
             'DATATABLE_TRANS' => json_encode(trans('adtech-core::datatable'), JSON_UNESCAPED_UNICODE),
             'group_name'  => config('site.group_name'),
             'template'  => config('site.desktop.template'),
@@ -150,15 +197,7 @@ class Controller extends BaseController
     }
 
     function getMenu($domain_id = 0) {
-        Cache::forget('menuGroups' . $domain_id);
-        if (Cache::has('menuGroups' . $domain_id)) {
-            $menuGroups = Cache::get('menuGroups' . $domain_id);
-        } else {
-            $menuGroups = Menu::select('group')->where('group', '!=', '')->where('domain_id', $domain_id)->where('type', 0)->distinct()->get();
-            Cache::put('menuGroups' . $domain_id, $menuGroups);
-        }
-
-        Cache::forget('menus' . $domain_id);
+//        Cache::forget('menus' . $domain_id);
         if (Cache::has('menus' . $domain_id)) {
             $menus = Cache::get('menus' . $domain_id);
         } else {
@@ -166,7 +205,6 @@ class Controller extends BaseController
             Cache::put('menus' . $domain_id, $menus);
         }
 
-        $this->_menuTop = $menuGroups;
         $this->_menuList = new Collection();
         if (count($menus) > 0) {
             foreach ($menus as $menu) {

@@ -122,7 +122,10 @@ return [
         'image/gif',
         'image/svg+xml',
         'application/pdf',
-        'text/plain',
+        'application/docx',
+        'audio/mp3',
+        'video/mp4',
+        'application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/docx','application/pdf','audio/mp3', 'video/mp4'
     ],
 
     /*
@@ -153,6 +156,8 @@ return [
         'png'  => 'PNG Image',
         'ppt'  => 'Microsoft PowerPoint',
         'pptx' => 'Microsoft PowerPoint',
+        'mp3' => 'mp3',
+        'mp4' => 'mp4',
     ],
 
     'file_icon_array' => [

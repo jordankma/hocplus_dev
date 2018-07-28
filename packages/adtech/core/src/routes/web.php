@@ -7,6 +7,7 @@ Route::group(array('prefix' => $adminPrefix), function () {
     /*
      * auth - login
      */
+
     Route::get('adtech/core/menu/tab', 'MenuController@tab')->name('adtech.core.menu.tab');
 
     Route::match(['get', 'post'], 'login', 'Auth\LoginController@login')->name('adtech.core.auth.login');
@@ -33,7 +34,7 @@ Route::group(array('prefix' => $adminPrefix), function () {
     });
 
     //
-    Route::group(['middleware' => ['adtech.auth', 'adtech.acl']], function () {
+    Route::group(['middleware' => ['adtech.auth', 'adtech.acl', 'adtech.locale']], function () {
 
         Route::get('', 'DashboardController@index')
             ->where('as', 'Trang quản trị')
@@ -43,7 +44,9 @@ Route::group(array('prefix' => $adminPrefix), function () {
             ->where('as', 'Cài đặt chung')
             ->name('adtech.core.setting.manage');
 
+        Route::get('adtech/core/setting/set-language', 'SettingController@setLanguage')->name('adtech.core.setting.set-language');
         Route::put('adtech/core/setting/update', 'SettingController@update')->name('adtech.core.setting.update');
+        Route::put('adtech/core/setting/translate', 'SettingController@translate')->name('adtech.core.setting.translate');
         Route::match(['get', 'post'], '/adtech/core/file/upload-test', 'DashboardController@fileuploadtest')->name('adtech.core.file.upload-test');
 
         Route::get('/adtech/core/file/manage', 'DashboardController@filemanage')
@@ -99,6 +102,18 @@ Route::group(array('prefix' => $adminPrefix), function () {
         Route::put('adtech/core/domain/update', 'DomainController@update')->name('adtech.core.domain.update');
         Route::get('adtech/core/domain/delete', 'DomainController@delete')->name('adtech.core.domain.delete');
         Route::get('adtech/core/domain/confirm-delete', 'DomainController@getModalDelete')->name('adtech.core.domain.confirm-delete');
+
+        Route::get('adtech/core/locale/manage', 'LocaleController@manage')
+            ->where('as', 'Quản lý ngôn ngữ')
+            ->name('adtech.core.locale.manage');
+        Route::get('adtech/core/locale/log', 'LocaleController@log')->name('adtech.core.locale.log');
+        Route::get('adtech/core/locale/data', 'LocaleController@data')->name('adtech.core.locale.data');
+        Route::get('adtech/core/locale/create', 'LocaleController@create')->name('adtech.core.locale.create');
+        Route::post('adtech/core/locale/add', 'LocaleController@add')->name('adtech.core.locale.add');
+        Route::get('adtech/core/locale/show', 'LocaleController@show')->name('adtech.core.locale.show');
+        Route::put('adtech/core/locale/update', 'LocaleController@update')->name('adtech.core.locale.update');
+        Route::get('adtech/core/locale/delete', 'LocaleController@delete')->name('adtech.core.locale.delete');
+        Route::get('adtech/core/locale/confirm-delete', 'LocaleController@getModalDelete')->name('adtech.core.locale.confirm-delete');
 
         Route::get('adtech/core/package/manage', 'PackageController@manage')
             ->where('as', 'Quản lý package')
