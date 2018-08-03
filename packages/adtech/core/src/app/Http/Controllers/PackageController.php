@@ -773,7 +773,7 @@ class PackageController extends Controller
                 $variable = 'APP_MODULES_' . strtoupper(str_replace('.', '_', $host));
                 if (strpos(file_get_contents($path), $variable . '=') > 0) {
                     file_put_contents($path, str_replace(
-                        $variable . '='.env($variable), $variable . '='.$newString,
+                        $variable . '=' . env($variable), $variable . '=' . $newString,
                         file_get_contents($path)
                     ));
                 } else {
@@ -787,8 +787,15 @@ class PackageController extends Controller
             ->editColumn('status', function ($packages) use ($domain_id) {
                 $status = '';
                 if (count($packages->domains) > 0) {
-                    $package = $packages->domains[count($packages->domains) - 1];
-                    if ($package->domain_id == $domain_id) {
+//                    $package = $packages->domains[count($packages->domains) - 1];
+                    $package = null;
+                    foreach ($packages->domains as $item) {
+                        if ($item->domain_id == $domain_id) {
+                            $package = $item;
+                            break;
+                        }
+                    }
+                    if (null != $package) {
                         if ($package->pivot->status == 1) {
                             if ($this->user->canAccess('adtech.core.package.confirm-status')) {
                                 $status = '<a href=' . route('adtech.core.package.confirm-status', ['package_id' => $packages->package_id, 'domain_id' => $domain_id]) . ' data-toggle="modal" data-target="#status_confirm"><span class="label label-sm label-success">Enable</span></a>

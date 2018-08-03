@@ -189,7 +189,7 @@ class SettingController extends Controller
                             $setting->domain_id = $this->domainDefault;
                             $setting->name = $k;
                         }
-                        $setting->value = (empty($input)) ? '' : $input;
+                        $setting->value = (empty($input) && $input != 0) ? '' : $input;
                         $setting->domain_id = $this->domainDefault;
                         $setting->save();
                     }

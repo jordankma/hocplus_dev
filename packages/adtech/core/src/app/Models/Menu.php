@@ -21,7 +21,7 @@ class Menu extends Model
 
     protected $primaryKey = 'menu_id';
 
-    public $translatedAttributes = ['name', 'content'];
+    public $translatedAttributes = ['name'];
 
     public $translationModel = 'Adtech\Core\App\Models\MenuLocale';
 
@@ -33,9 +33,4 @@ class Menu extends Model
     {
         return $this->hasMany('Adtech\Core\App\Models\Domain');
     }
-
-//    public function locale()
-//    {
-//        return $this->belongsToMany('Adtech\Core\App\Models\MenuLocale', 'adtech_core_menus_locale', 'menu_id', 'menu_id');
-//    }
 }

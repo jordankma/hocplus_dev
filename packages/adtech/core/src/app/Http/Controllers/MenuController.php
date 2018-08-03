@@ -56,7 +56,7 @@ class MenuController extends Controller
             }
 
             if ($alias != '') {
-                if (null != $this->menu->findBy('alias', $alias)) {
+                if (null != Menu::where('alias', $alias)->where('domain_id', $domain_id)->first()) {
                     return redirect()->route('adtech.core.menu.manage', ['domain_id' => $domain_id])->with('error', trans('adtech-core::messages.error.create'));
                 }
             }

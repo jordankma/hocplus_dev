@@ -54,6 +54,14 @@
     'name_here' => 'Nhập ngôn ngữ tại đây...',
       'alias_here' => 'Nhập tên miền viết tắt tại đây...',
   ),
+  'json' =>
+  array (
+    'name' => 'Json name',
+    'path' => 'Path',
+    'version' => 'Version',
+    'name_here' => 'Nhập json tại đây...',
+    'path_here' => 'Nhập path tại đây...'
+  ),
   'api' =>
   array (
     'name' => 'Tên api',

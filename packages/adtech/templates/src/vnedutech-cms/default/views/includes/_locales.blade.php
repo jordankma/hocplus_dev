@@ -14,6 +14,8 @@
         @endif
     </ul>
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 5px">
+        @if (isset($localeCurrent))
         <span><img src="{{ config('site.url_storage') . '/' . $localeCurrent->icon }}" width="40px" height="40px" /></span>
+        @endif
     </a>
 </li>
