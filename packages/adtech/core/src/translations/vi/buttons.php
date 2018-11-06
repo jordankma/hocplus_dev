@@ -19,5 +19,6 @@ return [
     "reset_password" => "Tạo lại mật khẩu",
     "edit" => "Sửa",
     "create_package" => "Tạo package",
-    "create_module" => "Tạo module"
+    "create_module" => "Tạo module",
+    "update" => "Lưu"
 ];

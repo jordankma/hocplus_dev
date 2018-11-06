@@ -2,15 +2,103 @@
 /**
  * Backend Routes
  */
+
+if (env('APP_URL') == 'http://files.dhcd.vnedutech.vn') {
+    Route::group(array('prefix' => 'administrator'), function () {
+        $as = 'unisharp.lfm.';
+        $namespace = '\UniSharp\LaravelFilemanager\Controllers';
+        Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show')->name('adtech.core.file.manager');
+        Route::group(['prefix' => 'laravel-filemanager', 'as' => $as], function () use ($namespace){
+
+            // Show integration error messages
+            Route::get('/errors', [
+                'uses' => $namespace . '\LfmController@getErrors',
+                'as' => 'getErrors',
+            ]);
+
+            // upload
+            Route::any('/upload', [
+                'uses' => $namespace . '\UploadController@upload',
+                'as' => 'upload',
+            ]);
+
+            // list images & files
+            Route::get('/jsonitems', [
+                'uses' => $namespace . '\ItemsController@getItems',
+                'as' => 'getItems',
+            ]);
+
+            // folders
+            Route::get('/newfolder', [
+                'uses' => $namespace . '\FolderController@getAddfolder',
+                'as' => 'getAddfolder',
+            ]);
+            Route::get('/deletefolder', [
+                'uses' => $namespace . '\FolderController@getDeletefolder',
+                'as' => 'getDeletefolder',
+            ]);
+            Route::get('/folders', [
+                'uses' => $namespace . '\FolderController@getFolders',
+                'as' => 'getFolders',
+            ]);
+
+            // crop
+            Route::get('/crop', [
+                'uses' => $namespace . '\CropController@getCrop',
+                'as' => 'getCrop',
+            ]);
+            Route::get('/cropimage', [
+                'uses' => $namespace . '\CropController@getCropimage',
+                'as' => 'getCropimage',
+            ]);
+            Route::get('/cropnewimage', [
+                'uses' => $namespace . '\CropController@getNewCropimage',
+                'as' => 'getCropimage',
+            ]);
+
+            // rename
+            Route::get('/rename', [
+                'uses' => $namespace . '\RenameController@getRename',
+                'as' => 'getRename',
+            ]);
+
+            // scale/resize
+            Route::get('/resize', [
+                'uses' => $namespace . '\ResizeController@getResize',
+                'as' => 'getResize',
+            ]);
+            Route::get('/doresize', [
+                'uses' => $namespace . '\ResizeController@performResize',
+                'as' => 'performResize',
+            ]);
+
+            // download
+            Route::get('/download', [
+                'uses' => $namespace . '\DownloadController@getDownload',
+                'as' => 'getDownload',
+            ]);
+
+            // delete
+            Route::get('/delete', [
+                'uses' => $namespace . '\DeleteController@getDelete',
+                'as' => 'getDelete',
+            ]);
+        });
+    });
+}
+
 $adminPrefix = config('site.admin_prefix');
 Route::group(array('prefix' => $adminPrefix), function () {
     /*
      * auth - login
      */
+    Route::get('api/{module}/{link}', 'ApiController@showdata')->name('adtech.core.api.showdata');
 
     Route::get('adtech/core/menu/tab', 'MenuController@tab')->name('adtech.core.menu.tab');
 
     Route::match(['get', 'post'], 'login', 'Auth\LoginController@login')->name('adtech.core.auth.login');
+
+    Route::get('login-token', 'Auth\LoginController@login')->name('adtech.core.auth.login-token');
 
     Route::match(['get', 'post'], 'register', 'Auth\RegisterController@create')->name('adtech.core.auth.register');
 
@@ -36,7 +124,7 @@ Route::group(array('prefix' => $adminPrefix), function () {
     //
     Route::group(['middleware' => ['adtech.auth', 'adtech.acl', 'adtech.locale']], function () {
 
-        Route::get('', 'DashboardController@index')
+        Route::get('', 'DashboardController@backend')
             ->where('as', 'Trang quản trị')
             ->name('backend.homepage');
 
@@ -49,11 +137,11 @@ Route::group(array('prefix' => $adminPrefix), function () {
         Route::put('adtech/core/setting/translate', 'SettingController@translate')->name('adtech.core.setting.translate');
         Route::match(['get', 'post'], '/adtech/core/file/upload-test', 'DashboardController@fileuploadtest')->name('adtech.core.file.upload-test');
 
+        Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show')->name('adtech.core.file.manager');
+        Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload')->name('adtech.core.file.upload');
         Route::get('/adtech/core/file/manage', 'DashboardController@filemanage')
             ->where('as', 'Quản lý file')
             ->name('adtech.core.file.manage');
-        Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show')->name('adtech.core.file.manager');
-        Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload')->name('adtech.core.file.upload');
 
         Route::get('adtech/core/role/manage', 'RoleController@manage')
             ->where('as', 'Quản lý role')
@@ -101,7 +189,23 @@ Route::group(array('prefix' => $adminPrefix), function () {
         Route::get('adtech/core/domain/show', 'DomainController@show')->name('adtech.core.domain.show');
         Route::put('adtech/core/domain/update', 'DomainController@update')->name('adtech.core.domain.update');
         Route::get('adtech/core/domain/delete', 'DomainController@delete')->name('adtech.core.domain.delete');
+        Route::get('adtech/core/domain/switch', 'DomainController@switch')->name('adtech.core.domain.switch');
         Route::get('adtech/core/domain/confirm-delete', 'DomainController@getModalDelete')->name('adtech.core.domain.confirm-delete');
+
+        Route::get('adtech/core/json/manage', 'JsonController@manage')
+            ->where('as', 'Quản lý Json')
+            ->name('adtech.core.json.manage');
+        Route::get('adtech/core/json/confirm-export', 'JsonController@getModalExport')->name('adtech.core.json.confirm-export');
+        Route::get('adtech/core/json/download', 'JsonController@download')->name('adtech.core.json.download');
+        Route::post('adtech/core/json/export', 'JsonController@export')->name('adtech.core.json.export');
+        Route::get('adtech/core/json/log', 'JsonController@log')->name('adtech.core.json.log');
+        Route::get('adtech/core/json/data', 'JsonController@data')->name('adtech.core.json.data');
+        Route::get('adtech/core/json/create', 'JsonController@create')->name('adtech.core.json.create');
+        Route::post('adtech/core/json/add', 'JsonController@add')->name('adtech.core.json.add');
+        Route::get('adtech/core/json/show', 'JsonController@show')->name('adtech.core.json.show');
+        Route::put('adtech/core/json/update', 'JsonController@update')->name('adtech.core.json.update');
+        Route::get('adtech/core/json/delete', 'JsonController@delete')->name('adtech.core.json.delete');
+        Route::get('adtech/core/json/confirm-delete', 'JsonController@getModalDelete')->name('adtech.core.json.confirm-delete');
 
         Route::get('adtech/core/locale/manage', 'LocaleController@manage')
             ->where('as', 'Quản lý ngôn ngữ')
@@ -167,5 +271,19 @@ Route::group(array('prefix' => $adminPrefix), function () {
             ->name('adtech.core.permission.manage-more');
 
         Route::post('adtech/core/permission/set', 'PermissionController@set')->name('adtech.core.permission.set');
+    });
+});
+
+Route::group(array('prefix' => ''), function() {
+    Route::group(['middleware' => []], function () {
+        Route::get('frontend/document/category', function () { })->name('document.frontend.cate')
+            ->where('type','tintuc')
+            ->where('view','list')
+            ->where('as','Tin tức - Danh mục');
+
+        Route::get('frontend/document/detail', function () { })->name('document.frontend.detail')
+            ->where('type','tintuc')
+            ->where('view','detail')
+            ->where('as','Tin tức - Chi tiết');
     });
 });

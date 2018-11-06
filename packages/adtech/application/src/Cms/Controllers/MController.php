@@ -10,17 +10,24 @@ use Adtech\Core\App\Models\Menu;
 use Adtech\Core\App\Models\Setting;
 use Session;
 use Cache;
-use Auth;
-
+use Auth,URL;
+use GuzzleHttp\Client;
 // Member controller
 class MController extends BaseController
 {
     use ValidatesRequests;
     protected $user;
+    protected $theme;
     protected $currentDomain;
     protected $_menuList;
     protected $_menuTop;
     protected $domainDefault;
+
+    private $header = [
+        'headers'  => [
+            'X-Requested-With' => 'XMLHttpRequest'
+        ]
+    ];
 
     private function _guard()
     {
@@ -29,8 +36,9 @@ class MController extends BaseController
 
     public function __construct()
     {
-        //
+        
         $id = $this->_guard()->id();
+        $this->theme = config('site.theme');
         $this->user = $this->_guard()->user();
         $email = $this->user ? $this->user->email : null;
         $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
@@ -91,6 +99,18 @@ class MController extends BaseController
                     case 'chat_code':
                         $settingView['chat_code'] = $setting->value;
                         break;
+                    case 'info_page_contact':
+                        $settingView['info_page_contact'] = $setting->value;
+                        break;
+                    case 'info_footer_1':
+                        $settingView['info_footer_1'] = $setting->value;
+                        break;
+                    case 'info_footer_2':
+                        $settingView['info_footer_2'] = $setting->value;
+                        break;
+                    case 'info_footer_3':
+                        $settingView['info_footer_3'] = $setting->value;
+                        break;
                 }
             }
         }
@@ -104,7 +124,7 @@ class MController extends BaseController
             'MENU_TOP' => $this->_menuTop,
             'COLOR_LIST' => $arrColor,
             'SETTING' => $settingView,
-            'group_name'  => config('site.group_name'),
+            'group_name'  => config('site.theme'),
             'template'  => config('site.desktop.template'),
             'skin'  => config('site.desktop.skin'),
             'mtemplate'  => config('site.mobile.template'),

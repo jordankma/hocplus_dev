@@ -5,10 +5,10 @@
 
 {{-- page styles --}}
 @section('header_styles')
-    <link href="{{ asset('/vendor/' . $group_name . '/' . $skin . '/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('/vendor/' . $group_name . '/' . $skin . '/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('/vendor/' . $group_name . '/' . $skin . '/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('/vendor/' . $group_name . '/' . $skin . '/css/pages/icon.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ config('site.url_static') . ('/vendor/' . $group_name . '/' . $skin . '/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ config('site.url_static') . ('/vendor/' . $group_name . '/' . $skin . '/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ config('site.url_static') . ('/vendor/' . $group_name . '/' . $skin . '/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ config('site.url_static') . ('/vendor/' . $group_name . '/' . $skin . '/css/pages/icon.css') }}" rel="stylesheet" type="text/css">
     <style type="text/css">
         .select2 {
             width: 100% !important;
@@ -93,7 +93,6 @@
                             {!! Form::hidden('typeView', null, ['id' => 'btn_typeView']) !!}
                         </div>
 
-                        @if ($type == 0)
                         <label>Nhóm</label>
                         <div class="form-group input-group {{ $errors->first('group', 'has-error') }}">
                             {!! Form::text('group', null, array('class' => 'form-control', 'id' => 'group_name_txt', 'disabled' => true, 'style' => 'display:none', 'placeholder'=> trans('adtech-core::common.menu.group_name_here'))) !!}
@@ -112,12 +111,21 @@
                                 </button>
                             </span>
                         </div>
-                        @endif
 
                         <label>Tên menu</label>
                         <div class="form-group {{ $errors->first('name', 'has-error') }}">
                             {!! Form::text('name', null, array('class' => 'form-control', 'autofocus'=>'autofocus','placeholder'=> trans('adtech-core::common.menu.name_here'))) !!}
                             <span class="help-block">{{ $errors->first('name', ':message') }}</span>
+                        </div>
+
+                        <label>Kiểu menu</label>
+                        <div class="form-group">
+                            <select class="form-control select2" title="Select type page..." name="typePage">
+                                <option value="#">No Type</option>
+                                @foreach($listTypeMenu as $key => $typeMenu)
+                                    <option value="{{ $key }}">{{ $typeMenu }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <label>Sắp xếp</label>
@@ -1396,8 +1404,8 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
     <!-- begining of page js -->
-    <script type="text/javascript" src="{{ asset('/vendor/' . $group_name . '/' . $skin . '/vendors/select2/js/select2.js') }}"></script>
-    <script src="{{ asset('/vendor/laravel-filemanager/js/lfm.js') }}" ></script>
+    <script type="text/javascript" src="{{ config('site.url_static') . ('/vendor/' . $group_name . '/' . $skin . '/vendors/select2/js/select2.js') }}"></script>
+    <script type="text/javascript" src="{{ config('site.url_static') . ('/vendor/laravel-filemanager/js/lfm.js?t=' . time()) }}" ></script>
     <!--end of page js-->
     <script>
         $(function () {
@@ -1448,7 +1456,7 @@
 
                 switch(typeData + '-' + typeView) {
                     case 'tintuc-list':
-                        txtUrl = '{{ Illuminate\Support\Facades\Route::has('dhcd.api.news.category') ? route('dhcd.api.news.category') : '' }}';
+                        txtUrl = '{{ Illuminate\Support\Facades\Route::has('vne.api.news.category') ? route('vne.api.news.category') : '' }}';
                         break;
                     case 'tintuc-detail':
                         txtUrl = '';
@@ -1458,13 +1466,14 @@
                         txtUrl = '{{ Illuminate\Support\Facades\Route::has('dhcd.api.tailieu.category') ? route('dhcd.api.tailieu.category') : '' }}';
                         break;
                     case 'tailieu-detail':
-{{--                        txtUrl = '{{ Illuminate\Support\Facades\Route::has('dhcd.api.tailieu.detail') ? route('dhcd.api.tailieu.detail') : '' }}';--}}
+                        txtUrl = '';
+                        txtModal = 'tailieu-detail';
                         break;
                     default:
                         txtUrl = '';
                 }
 
-                if (txtUrl != '') {
+                if (txtUrl !== '') {
                     $.ajax({
                         url: txtUrl,
                         type: 'get',
@@ -1494,7 +1503,7 @@
                     });
                 }
 
-                if (txtModal != '') {
+                if (txtModal !== '') {
                     $("#boxParams_detail").css('display', '');
                     $("#btn_typeData").attr('value', typeData);
                     $("#btn_typeView").attr('value', typeView);

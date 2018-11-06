@@ -56,7 +56,7 @@ class MenuController extends Controller
             }
 
             if ($alias != '') {
-                if (null != Menu::where('alias', $alias)->where('domain_id', $domain_id)->first()) {
+                if (null != Menu::where('alias', $alias)->where('group', $group)->where('domain_id', $domain_id)->first()) {
                     return redirect()->route('adtech.core.menu.manage', ['domain_id' => $domain_id])->with('error', trans('adtech-core::messages.error.create'));
                 }
             }
@@ -73,9 +73,10 @@ class MenuController extends Controller
             $menu->save();
 
             if ($menu->menu_id) {
-
-                Cache::forget('menuGroups' . $domain_id);
                 Cache::forget('menus' . $domain_id);
+                Cache::forget('api_menus_frontend_' . $domain_id);
+                Cache::forget('api_menus_frontend_home_' . $domain_id);
+                Cache::forget('api_menus_frontend_member_' . $domain_id);
 
                 activity('menu')
                     ->performedOn($menu)
@@ -105,6 +106,8 @@ class MenuController extends Controller
 
         //get route name list
         $app = app();
+        $listTypeMenu = ['Trang chủ', 'Chi tiết tin tức', 'Các ban ngành', 'Tra cứu kết quả', 'Tra cứu bảng xếp hạng',
+            'Timeline', 'Video dự thi', 'Danh mục tin tức', 'Liên hệ', 'Đăng nhập vào thi', 'Thông báo', 'Câu hỏi thường gặp'];
         $listRouteName = $listRouteType = $listRouteView = array();
         $routes = $app->routes->getRoutes();
         $adminPrefix = config('site.admin_prefix');
@@ -141,7 +144,8 @@ class MenuController extends Controller
         $listRouteType = json_encode($listRouteType);
         $listRouteView = json_encode($listRouteView);
 
-        return view('ADTECH-CORE::modules.core.menu.create', compact('domain_id', 'menus', 'listRouteName', 'menusGroups', 'type', 'listRouteType', 'listRouteView'));
+        return view('ADTECH-CORE::modules.core.menu.create', compact('domain_id', 'menus', 'listRouteName',
+            'menusGroups', 'type', 'listRouteType', 'listRouteView', 'listTypeMenu'));
     }
 
     public function delete(MenuRequest $request)
@@ -151,8 +155,11 @@ class MenuController extends Controller
 
         if ($menu->delete()) {
 
-            Cache::forget('menuGroups' . $menu->domain_id);
+//            Cache::forget('menuGroups' . $menu->domain_id);
             Cache::forget('menus' . $menu->domain_id);
+            Cache::forget('api_menus_frontend_' . $menu->domain_id);
+            Cache::forget('api_menus_frontend_home_' . $menu->domain_id);
+            Cache::forget('api_menus_frontend_member_' . $menu->domain_id);
 
             activity('menu')
                 ->performedOn($menu)
@@ -177,10 +184,10 @@ class MenuController extends Controller
             $type = $request->input('type');
         }
 
-        shell_exec('cd ../ && /egserver/php/bin/php artisan view:clear');
-        shell_exec('cd ../ && /egserver/php/bin/php artisan route:clear');
-        shell_exec('cd ../ && /egserver/php/bin/php artisan config:clear');
-//        shell_exec('cd ../ && /egserver/php/bin/composer dump-autoload');
+        shell_exec('cd ../ && php artisan view:clear');
+//        shell_exec('cd ../ && php artisan route:clear');
+//        shell_exec('cd ../ && php artisan config:clear');
+//        shell_exec('cd ../ && php /egserver/php/bin/composer dump-autoload');
 
         return view('ADTECH-CORE::modules.core.menu.manage', compact('domains', 'domain_id', 'type'));
     }
@@ -215,7 +222,10 @@ class MenuController extends Controller
                 $checkDisplay = '';
             }
             if ($typeData == 'tintuc' && $typeView == 'detail') {
-//                $listCate = app('Dhcd\News\App\Http\Controllers\NewsCatController')->getCateApi();
+                $route_params = $menu->route_params;
+                $checkDisplayDetail = '';
+            }
+            if ($typeData == 'tailieu' && $typeView == 'detail') {
                 $route_params = $menu->route_params;
                 $checkDisplayDetail = '';
             }
@@ -254,12 +264,15 @@ class MenuController extends Controller
             return redirect()->route('adtech.core.menu.manage')->with('error', trans('adtech-core::messages.error.create'));
         }
 
+        $listTypeMenu = ['Trang chủ', 'Chi tiết tin tức', 'Các ban ngành', 'Tra cứu kết quả', 'Tra cứu bảng xếp hạng',
+            'Timeline', 'Video dự thi', 'Danh mục tin tức', 'Liên hệ', 'Đăng nhập vào thi', 'Thông báo', 'Câu hỏi thường gặp'];
+
         $menusGroups = $this->_menuTop;
         $listRouteType = json_encode($listRouteType);
         $listRouteView = json_encode($listRouteView);
         return view('ADTECH-CORE::modules.core.menu.edit',
             compact('menu', 'menus', 'listRouteName', 'menusGroups', 'listRouteType', 'listRouteView',
-                'listCate', 'checkDisplay', 'checkDisplayDetail', 'route_params', 'type'));
+                'listCate', 'checkDisplay', 'checkDisplayDetail', 'route_params', 'type', 'listTypeMenu'));
     }
 
     public function update(MenuRequest $request)
@@ -299,8 +312,10 @@ class MenuController extends Controller
 
         if ($menu->save()) {
 
-            Cache::forget('menuGroups' . $domain_id);
             Cache::forget('menus' . $domain_id);
+            Cache::forget('api_menus_frontend_' . $domain_id);
+            Cache::forget('api_menus_frontend_home_' . $domain_id);
+            Cache::forget('api_menus_frontend_member_' . $domain_id);
 
             activity('menu')
                 ->performedOn($menu)
@@ -382,7 +397,7 @@ class MenuController extends Controller
                     return $name;
                 })
                 ->editColumn('icon', function ($menus) {
-                    $iconName = ($menus->icon != '') ? $menus->icon : 'question';
+                    $iconName = ($menus->icon == '') ? 'question' : (strrpos($menus->icon, '/') > 0) ? config('site.url_storage') . $menus->icon : $menus->icon;
 
                     if (strrpos($iconName, '/') > 0) {
                         $icon = '<img id="holder2" src="'.$iconName.'" style="max-height:40px;">';

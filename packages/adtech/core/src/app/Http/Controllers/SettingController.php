@@ -10,6 +10,7 @@ use Adtech\Core\App\Repositories\SettingRepository;
 use Adtech\Core\App\Models\Setting;
 use Adtech\Core\App\Models\Locale;
 use Validator;
+use Cache;
 use Auth;
 
 class SettingController extends Controller
@@ -73,13 +74,16 @@ class SettingController extends Controller
 //        $languageArr = config('translatable.locales');
         $languageArr = Locale::where('status', 1)->get();
         $settings = Setting::where('domain_id', $this->domainDefault)->get();
-        $title = $logo = $logo_mini = $logo_link = $favicon = $company_name = $address = $email = $phone = $hotline = $ga_code = $chat_code = '';
+        $title = $logo = $logo_mini = $logo_link = $favicon = $company_name = $address = $email = $phone = $hotline = $ga_code = $chat_code = $slogan = $app_version = $info_page_contact = $info_footer_1 = $info_footer_2 = $info_footer_3 = '';
 
         if (count($settings) > 0) {
             foreach ($settings as $setting) {
                 switch ($setting->name) {
                     case 'logo':
                         $logo = $setting->value;
+                        break;
+                    case 'app_version':
+                        $app_version = $setting->value;
                         break;
                     case 'logo_mini':
                         $logo_mini = $setting->value;
@@ -114,6 +118,21 @@ class SettingController extends Controller
                     case 'chat_code':
                         $chat_code = $setting->value;
                         break;
+                    case 'slogan':
+                        $slogan = $setting->value;
+                        break;
+                    case 'info_page_contact':
+                        $info_page_contact = $setting->value;
+                        break;
+                    case 'info_footer_1':
+                        $info_footer_1 = $setting->value;
+                        break;
+                    case 'info_footer_2':
+                        $info_footer_2 = $setting->value;
+                        break;
+                    case 'info_footer_3':
+                        $info_footer_3 = $setting->value;
+                        break;
                 }
             }
         }
@@ -126,6 +145,7 @@ class SettingController extends Controller
             'title' => $title,
             'tab' => $tab,
             'logo' => $logo,
+            'app_version' => $app_version,
             'company_name' => $company_name,
             'logo_mini' => $logo_mini,
             'logo_link' => $logo_link,
@@ -135,9 +155,13 @@ class SettingController extends Controller
             'phone' => $phone,
             'hotline' => $hotline,
             'ga_code' => $ga_code,
-            'chat_code' => $chat_code
+            'chat_code' => $chat_code,
+            'slogan' => $slogan,
+            'info_page_contact' => $info_page_contact,
+            'info_footer_1' => $info_footer_1,
+            'info_footer_2' => $info_footer_2,
+            'info_footer_3' => $info_footer_3
         ];
-
         return view('ADTECH-CORE::modules.core.setting.manage', $data);
     }
 
@@ -196,6 +220,12 @@ class SettingController extends Controller
 
                 }
             }
+
+
+
+            Cache::forget('settings' . $this->domainDefault);
+            Cache::forget('data_api_settings_versions_' . $this->domainDefault);
+            Cache::forget('data_api_settings_config_text_' . $this->domainDefault);
             return redirect()->route('adtech.core.setting.manage')->with('success', trans('adtech-core::messages.success.create'));
         }
     }
@@ -203,5 +233,27 @@ class SettingController extends Controller
     public function setLanguage(Request $request) {
         $request->session()->put('website_language', $request->input('language'));
         return back();
+    }
+
+    public function memcached() {
+        $encrypted = '';
+        return view('ADTECH-CORE::modules.core.setting.memcached', compact('encrypted'));
+    }
+
+    public function resetCache(Request $request) {
+        if ($request->has('cache_name')) {
+            if ($request->input('cache_name') == 'all') {
+                Cache::flush();
+                return redirect()->route('adtech.core.setting.memcached')->with('success', trans('adtech-core::messages.success.create'));
+            }
+            if (Cache::has($request->input('cache_name'))) {
+                Cache::forget($request->input('cache_name'));
+                return redirect()->route('adtech.core.setting.memcached')->with('success', trans('adtech-core::messages.success.create'));
+            } else {
+                $encrypted = $this->my_simple_crypt( $request->input('cache_name') . 'time='.time()*1000, 'e' );
+                return view('ADTECH-CORE::modules.core.setting.memcached', compact('encrypted'));
+            }
+        }
+        return redirect()->route('adtech.core.setting.memcached')->with('error', trans('adtech-core::messages.error.create'));
     }
 }

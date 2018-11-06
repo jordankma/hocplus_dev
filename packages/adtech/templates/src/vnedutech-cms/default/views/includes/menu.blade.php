@@ -11,8 +11,11 @@
         @endif
 
         @if ($menu->parent == 0)
-            @if (Illuminate\Support\Facades\Route::has($menu->route_name))
-                @if (!$USER_LOGGED->canAccess($menu->route_name) && $menu->route_name != '#')
+            @if ($menu->route_name != '#')
+                @if (!Illuminate\Support\Facades\Route::has($menu->route_name))
+                    @continue
+                @endif
+                @if (!$USER_LOGGED->canAccess($menu->route_name))
                     @continue
                 @endif
             @endif
@@ -60,6 +63,7 @@
     <script>
         $(function () {
             $( "li.menu_more" ).each(function( i, element ) {
+
                 var sub_menu = element.querySelector('ul.sub-menu');
                 if (sub_menu) {
                     if (sub_menu.children.length > 0) {
@@ -70,11 +74,15 @@
                     } else {
                         element.querySelector('ul.sub-menu').remove();
                         element.querySelector('a > span.fa').remove();
+                        var link = element.querySelector('a');
+                        if (link.getAttribute("href") === '#') {
+                            element.remove();
+                        }
                     }
                 } else {
                     element.querySelector('a > span.fa').remove();
                     var link = element.querySelector('a');
-                    if (link.getAttribute("href") == '#') {
+                    if (link.getAttribute("href") === '#') {
                         element.remove();
                     }
                 }

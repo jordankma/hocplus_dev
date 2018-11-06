@@ -55,19 +55,6 @@ return [
             'visibility' => 'public',
         ],
 
-        'ftp' => [
-            'driver'   => 'ftp',
-            'host'     => '123.30.174.148',
-            'username' => 'nhvv_vnedutech',
-            'password' => 'rDexyy56zpGAYbdMc7',
-            //Các thông số mở rộng
-            // 'port'     => 21,
-            // 'root'     => '',
-            // 'passive'  => true,
-            // 'ssl'      => true,
-            // 'timeout'  => 30,
-        ],
-
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_KEY'),

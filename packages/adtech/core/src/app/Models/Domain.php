@@ -20,7 +20,7 @@ class Domain extends Model
 
     protected $primaryKey = 'domain_id';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'alias'];
 
     protected $dates = ['deleted_at'];
 

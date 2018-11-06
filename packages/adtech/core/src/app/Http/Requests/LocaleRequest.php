@@ -34,7 +34,7 @@ class LocaleRequest extends FormRequest
             case 'POST': {
                 return [
                     'name' => 'required',
-                    'alias' => 'required|unique:mysql_core.adtech_core_locales,alias'
+                    'alias' => 'required|unique:mysql_core.adtech_core_locales,domain_id'
                 ];
             }
             case 'PUT':{

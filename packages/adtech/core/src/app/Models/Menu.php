@@ -25,7 +25,7 @@ class Menu extends Model
 
     public $translationModel = 'Adtech\Core\App\Models\MenuLocale';
 
-    protected $fillable = ['type', 'parent', 'route_name', 'domain_id', 'group', 'typeData', 'typeView'];
+    protected $fillable = ['type', 'parent', 'route_name', 'domain_id', 'group', 'typeData', 'typeView', 'typePage'];
 
     protected $dates = ['deleted_at'];
 

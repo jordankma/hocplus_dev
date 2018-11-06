@@ -9,21 +9,21 @@
         @show
     </title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <link rel="icon" href="{{ (!empty($SETTING['favicon'])) ? asset($SETTING['favicon']) : '' }}" type="image/png" sizes="32x32">
+    <link rel="icon" href="{{ (!empty($SETTING['favicon'])) ? config('site.url_storage') . ($SETTING['favicon']) : '' }}" type="image/png" sizes="32x32">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="{{ asset('/js/html5shiv.js?t=').time() }}"></script>
-    <script src="{{ asset('/js/respond.min.js?t=').time() }}"></script>
+    <script src="{{ config('site.url_static') . '/js/html5shiv.js' }}"></script>
+    <script src="{{ config('site.url_static') . '/js/respond.min.js' }}"></script>
     <![endif]-->
 
     {{--CSRF Token--}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- global css -->
-    <link rel="stylesheet" href="{{ asset('/vendor/' . $group_name . '/' . $skin . '/css/app.css?t=' . time()) }}"/>
-    <link rel="stylesheet" href="{{ asset('/vendor/' . $group_name . '/' . $skin . '/css/global.css?t=' . time()) }}"/>
+    <link rel="stylesheet" href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/css/app.css' }}"/>
+    <link rel="stylesheet" href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/css/global.css' }}"/>
     <!-- end of global css -->
 
     <!--page css-->
@@ -33,7 +33,7 @@
 <body class="skin-josh">
 <header class="header">
     <a href="{{ route('adtech.core.menu.tab', ['tab' => (count($MENU_TOP) > 0) ? $MENU_TOP[0]->group : '']) }}" class="logo">
-        <img src="{{ (empty($SETTING['logo_mini'])) ? '' : asset($SETTING['logo_mini']) }}" alt="logo" style="height: 35px; max-width: 200px">
+        <img src="{{ (empty($SETTING['logo_mini'])) ? '' : config('site.url_storage') . ($SETTING['logo_mini']) }}" alt="logo" style="height: 35px; max-width: 200px">
     </a>
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -59,13 +59,13 @@
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="left-side ">
         <section class="sidebar ">
-            <div class="page-sidebar  sidebar-nav">
+            <div class="page-sidebar">
                 <div class="nav_icons">
-                    <ul class="sidebar_threeicons">
+                    <ul style="padding-left: 10px">
                         @if ($USER_LOGGED->canAccess('adtech.core.package.manage'))
                             <li>
                                 <a href="{{ route('adtech.core.package.manage') }}">
-                                    <i class="livicon" data-name="table" title="Packages" data-loop="true"
+                                    <i class="livicon" data-name="table" title="Package" data-loop="true"
                                        data-color="#418BCA" data-hc="#418BCA" data-s="25"></i>
                                 </a>
                             </li>
@@ -94,19 +94,30 @@
                                 </a>
                             </li>
                         @endif
+                        {{--@if ($USER_LOGGED->canAccess('adtech.core.setting.manage'))--}}
+                            <li>
+                                <a href="javascript:void(0);" onclick="switchBox()">
+                                    <i class="livicon" data-name="recycled" title="Switch" data-loop="true"
+                                       data-color="#5bc0de" data-hc="#5bc0de" data-s="25"></i>
+                                </a>
+                            </li>
+                        {{--@endif--}}
                     </ul>
                 </div>
-                {{--<div class="clearfix"></div>--}}
-                {{--@if (count($LOCALES) > 0)--}}
-                {{--<select id="selectFlag" class="form-control select2">--}}
-                    {{--@foreach($LOCALES as $locale)--}}
-                        {{--<option value="{{ $locale->alias }}" {{ ($locale->alias == config('app.locale')) ? ' selected="selected"' : '' }} data-flag="{{ config('site.url_storage') . '/' . $locale->icon }}">{{ $locale->name }}</option>--}}
-                    {{--@endforeach--}}
-                {{--</select><br>--}}
-                {{--@endif--}}
+                <div class="clearfix"></div>
+                <div id="switchBox" class="form-group col-sm-12" style="display: none">
+                    <select id="listDomain" class="form-control" onchange="switchDomain()">
+                        @foreach( $DOMAIN_LIST as $key => $domain )
+                            <option value="{{ $domain->name }}" {{ $DOMAIN_ID === $domain->domain_id ? 'selected="selected"' : '' }}>{{ $domain->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class="clearfix"></div>
                 <!-- BEGIN SIDEBAR MENU -->
-                @include('includes._left_menu')
+                <div class="sidebar-nav">
+                    @include('includes._left_menu')
+                </div>
                 <!-- END SIDEBAR MENU -->
             </div>
         </section>
@@ -129,19 +140,29 @@
     <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
 </a>
 <!-- global js -->
-<script src="{{ asset('/vendor/' . $group_name . '/' . $skin . '/js/jquery-1.11.1.min.js?t=').time() }}"></script>
-<script src="{{ asset('/vendor/' . $group_name . '/' . $skin . '/js/jquery-ui.min.js?t=').time() }}"></script>
-<script src="{{ asset('/vendor/' . $group_name . '/' . $skin . '/js/bootstrap.min.js?t=').time() }}"></script>
-<script src="{{ asset('/vendor/' . $group_name . '/' . $skin . '/js/raphael-min.js?t=').time() }}"></script>
-<script src="{{ asset('/vendor/' . $group_name . '/' . $skin . '/js/livicons-1.4.min.js?t=').time() }}"></script>
-<script src="{{ asset('/vendor/' . $group_name . '/' . $skin . '/js/metisMenu.js?t=').time() }}"></script>
-<script src="{{ asset('/vendor/' . $group_name . '/' . $skin . '/js/josh.js?t=').time() }}"></script>
-<script src="{{ asset('/vendor/' . $group_name . '/' . $skin . '/js/holder.min.js?t=').time() }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/js/jquery-1.11.1.min.js' }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/js/jquery-ui.min.js' }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/js/bootstrap.min.js' }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/js/raphael-min.js' }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/js/livicons-1.4.min.js' }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/js/metisMenu.js' }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/js/josh.js' }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/js/holder.min.js' }}"></script>
 
 <!-- end of global js -->
 <!-- begin page level js -->
 @yield('footer_scripts')
 @yield('footer_scripts_more')
+<script>
+    function switchBox() {
+        $("#switchBox").toggle(500);
+    }
+    function switchDomain() {
+        var domain = document.getElementById("listDomain").value;
+        var url = '{{ route('adtech.core.domain.switch') }}?domain=' + domain;
+        window.open(url, '_blank');
+    }
+</script>
 <!-- end page level js -->
 </body>
 </html>

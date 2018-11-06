@@ -25,14 +25,8 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.clockface1 {
-  min-width: 80px;
-}
-.clockface2 {
-  min-width: 80px;
-}
 .clockface {
-  width: 120px;
+  width: 160px;
   padding: 3px;
   text-align: center;
   /*

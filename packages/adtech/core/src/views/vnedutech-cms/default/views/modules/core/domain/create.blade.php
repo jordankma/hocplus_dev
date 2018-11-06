@@ -5,11 +5,10 @@
 
 {{-- page styles --}}
 @section('header_styles')
-    <link href="{{ asset('/vendor/' . $group_name . '/' . $skin . '/vendors/bootstrap-switch/css/bootstrap-switch.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('/vendor/' . $group_name . '/' . $skin . '/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ config('site.url_static') . ('/vendor/' . $group_name . '/' . $skin . '/vendors/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ config('site.url_static') . ('/vendor/' . $group_name . '/' . $skin . '/vendors/select2/css/select2-bootstrap.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ config('site.url_static') . ('/vendor/' . $group_name . '/' . $skin . '/css/pages/blog.css') }}" rel="stylesheet" type="text/css">
 @stop
-<!--end of page css-->
-
 
 {{-- Page content --}}
 @section('content')
@@ -35,11 +34,22 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                 <div class="row">
                     <div class="col-sm-8">
+
                         <label>Domain Name</label>
                         <div class="form-group {{ $errors->first('name', 'has-error') }}">
                             {!! Form::text('name', null, array('class' => 'form-control', 'autofocus'=>'autofocus','placeholder'=> trans('adtech-core::common.domain.name_here'))) !!}
                             <span class="help-block">{{ $errors->first('name', ':message') }}</span>
                         </div>
+
+                        <label>Chọn nguồn</label>
+                        <div class="form-group">
+                            <select class="form-control select2" title="Select ..." name="nguon">
+                                @foreach($listDomain as $domain)
+                                    <option value="{{ $domain->name }}">{{ $domain->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                     </div>
                     <!-- /.col-sm-8 -->
                     <div class="col-sm-4">
@@ -64,13 +74,13 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
     <!-- begining of page js -->
-    <script src="{{ asset('/vendor/' . $group_name . '/' . $skin . '/vendors/bootstrap-switch/js/bootstrap-switch.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('/vendor/' . $group_name . '/' . $skin . '/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('/vendor/' . $group_name . '/' . $skin . '/js/pages/add_domain.js') }}" type="text/javascript"></script>
-    <!--end of page js-->
-    <script>
+    <script type="text/javascript" src="{{ config('site.url_static') . ('/vendor/' . $group_name . '/' . $skin . '/vendors/select2/js/select2.js') }}"></script>
+    <script type="text/javascript">
         $(function () {
-            $("[name='permission_locked']").bootstrapSwitch();
-        })
+            $(".select2").select2({
+                theme:"bootstrap"
+            });
+        });
     </script>
+    <!--end of page js-->
 @stop

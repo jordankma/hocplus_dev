@@ -1,6 +1,6 @@
 <?php
 
-return [
+$config_lfm = [
     /*
     |--------------------------------------------------------------------------
     | Routing
@@ -80,8 +80,8 @@ return [
     // If true, the uploading file's size will be verified for over than max_image_size/max_file_size.
     'should_validate_size' => false,
 
-    'max_image_size' => 50000,
-    'max_file_size' => 50000,
+    'max_image_size' => 100000,
+    'max_file_size' => 100000,
 
     // If true, the uploading file's mime type will be valid in valid_image_mimetypes/valid_file_mimetypes.
     'should_validate_mime' => false,
@@ -113,7 +113,7 @@ return [
     'create_file_mode' => 0644,
 
     // available since v1.3.0
-    // only when '/admin/laravel-filemanager?type=Files'
+    // only when '/laravel-filemanager?type=Files'
     'valid_file_mimetypes' => [
         'image/png',
         'image/jpeg',
@@ -125,6 +125,7 @@ return [
         'application/docx',
         'audio/mp3',
         'video/mp4',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/docx','application/pdf','audio/mp3', 'video/mp4'
     ],
 
@@ -144,9 +145,9 @@ return [
     */
 
     'file_type_array' => [
-        'pdf'  => 'Adobe Acrobat',
-        'doc'  => 'Microsoft Word',
-        'docx' => 'Microsoft Word',
+        'pdf'  => 'pdf',
+        'doc'  => 'doc',
+        'docx' => 'docx',
         'xls'  => 'Microsoft Excel',
         'xlsx' => 'Microsoft Excel',
         'zip'  => 'Archive',
@@ -191,3 +192,9 @@ return [
     ],
 
 ];
+
+$forward = (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : '';
+if (env('APP_URL') == 'http://dhcd-release.vnedutech.vn' || $forward == 'dhcd-release.vnedutech.vn') {
+    $config_lfm['url_prefix'] = 'http://dhcd-release.vnedutech.vn/administrator/laravel-filemanager';
+}
+return $config_lfm;

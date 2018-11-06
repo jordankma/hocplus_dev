@@ -11,7 +11,10 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Support\Collection;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Filesystem\Filesystem;
-use Validator;
+use Adtech\Core\App\Models\DomainsPackage;
+use Adtech\Core\App\Models\Menu;
+use Adtech\Core\App\Models\MenuLocale;
+use Validator, Auth;
 
 class DomainController extends Controller
 {
@@ -35,32 +38,69 @@ class DomainController extends Controller
 
     public function add(DomainRequest $request)
     {
-        $domain = new Domain($request->all());
-        $domain->save();
+        $rootDomain = $request->input('nguon');
+        if ($this->is_valid_domain_name($rootDomain)) {
+            $rootDetail = Domain::where('name', $rootDomain)->first();;
 
-        if ($domain->domain_id) {
+            $domain = new Domain($request->all());
+            $domain->save();
 
-            $directory = '../packages/adtech/application/src/configs/' . $domain->name;
-            if (!$this->files->isDirectory($directory)) {
-                //copy folder chua configs
-                mkdir($directory, 0755, true);
-                shell_exec('cd ../ && cp -r packages/adtech/application/src/configs/default.local.vn/*' . ' packages/adtech/application/src/configs/' . $domain->name);
+            if (null != $rootDetail && $domain->domain_id) {
 
-                $path = base_path('packages/adtech/application/src/configs/' . $domain->name . '/app.php');
-                $appFile = file_get_contents($path);
-                file_put_contents($path, str_replace('\/', '/', str_replace('default.local.vn', $domain->name, $appFile)));
+                $listPackage = DomainsPackage::where('domain_id', $rootDetail->domain_id)
+                    ->whereNull('deleted_at')->get()->toArray();
+                if (count($listPackage) > 0) {
+                    foreach ($listPackage as $k => $package) {
+                        unset($listPackage[$k]['id']);
+                        $listPackage[$k]['domain_id'] = $domain->domain_id;
+                    }
+                    DomainsPackage::insert($listPackage);
+                }
 
-                $path = base_path('packages/adtech/application/src/configs/' . $domain->name . '/session.php');
-                $sessionFile = file_get_contents($path);
-                file_put_contents($path, str_replace('\/', '/', str_replace('default.local.vn', $domain->name, $sessionFile)));
+                $listMenu = Menu::where('domain_id', $rootDetail->domain_id)
+                    ->whereNull('deleted_at')->get()->toArray();
+                if (count($listMenu) > 0) {
+                    foreach ($listMenu as $k => $menu) {
+
+                        unset($listMenu[$k]['menu_id']);
+                        unset($listMenu[$k]['translations']);
+                        $listMenu[$k]['domain_id'] = $domain->domain_id;
+
+                        $menuItem = new Menu($listMenu[$k]);
+                        $menuItem->alias = $listMenu[$k]['alias'];
+                        $menuItem->save();
+                    }
+                }
+
+                $directory = '../packages/adtech/application/src/configs/' . $domain->name;
+                if (!$this->files->isDirectory($directory)) {
+                    //copy folder chua configs
+                    mkdir($directory, 0755, true);
+                    shell_exec('cd ../ && cp -r packages/adtech/application/src/configs/' . $rootDomain . '/*' . ' packages/adtech/application/src/configs/' . $domain->name);
+
+                    $domainDir = base_path('packages/adtech/application/src/configs/' . $domain->name);
+                    $ls = @scandir($domainDir);
+                    if ($ls) {
+                        foreach ($ls as $index => $fileConfig) {
+                            if ($fileConfig === '.' || $fileConfig === '..') {
+                                continue;
+                            }
+                            $path = base_path('packages/adtech/application/src/configs/' . $domain->name . '/' . $fileConfig);
+                            $fileContent = file_get_contents($path);
+                            file_put_contents($path, str_replace('\/', '/', str_replace($rootDomain, $domain->name, $fileContent)));
+                        }
+                    }
+                }
+
+                activity('domain')
+                    ->performedOn($domain)
+                    ->withProperties($request->all())
+                    ->log('User: :causer.email - Add Domain - name: :properties.name, domain_id: ' . $domain->domain_id);
+
+                return redirect()->route('adtech.core.domain.manage')->with('success', trans('adtech-core::messages.success.create'));
+            } else {
+                return redirect()->route('adtech.core.domain.manage')->with('error', trans('adtech-core::messages.error.create'));
             }
-
-            activity('domain')
-                ->performedOn($domain)
-                ->withProperties($request->all())
-                ->log('User: :causer.email - Add Domain - name: :properties.name, domain_id: ' . $domain->domain_id);
-
-            return redirect()->route('adtech.core.domain.manage')->with('success', trans('adtech-core::messages.success.create'));
         } else {
             return redirect()->route('adtech.core.domain.manage')->with('error', trans('adtech-core::messages.error.create'));
         }
@@ -68,7 +108,8 @@ class DomainController extends Controller
 
     public function create()
     {
-        return view('ADTECH-CORE::modules.core.domain.create');
+        $listDomain = Domain::all();
+        return view('ADTECH-CORE::modules.core.domain.create', compact('listDomain'));
     }
 
     public function delete(DomainRequest $request)
@@ -97,6 +138,16 @@ class DomainController extends Controller
     public function manage()
     {
         return view('ADTECH-CORE::modules.core.domain.manage');
+    }
+
+    public function switch(Request $request)
+    {
+        $token = str_random(60);
+        $user = Auth::user();
+        $user->update([
+            'remember_token' => $token
+        ]);
+        return redirect('http://' . $request->input('domain') . '/admin/login-token?token=' . $token);
     }
 
     public function show(DomainRequest $request)
@@ -175,22 +226,36 @@ class DomainController extends Controller
     //Table Data to index page
     public function data()
     {
+        $listDomain = Domain::all();
         $domainsDir = base_path() . '/packages/adtech/application/src/configs';
         $ls = @scandir($domainsDir);
         if ($ls) {
             foreach ($ls as $index => $domain_name) {
                 if ($this->is_valid_domain_name($domain_name)) {
+
                     $domain = $this->domain->findBy('name', addslashes($domain_name));
                     if (null === $domain) {
                         $domain = new Domain();
                         $domain->name = addslashes($domain_name);
                         $domain->save();
                     }
+
+                    $check = false;
+                    foreach($listDomain as $obj) {
+                        if ($domain_name == $obj->name) {
+                            $check = true;
+                            break;
+                        }
+                    }
+                    if (!$check) {
+                        $listDomain = self::array_remove_object($listDomain, $domain_name, 'name');
+                    }
                 }
             }
         }
 
-        return Datatables::of($this->domain->findAll())
+//        return Datatables::of($this->domain->findAll())
+        return Datatables::of($listDomain)
             ->editColumn('name', function ($domains) {
                 if ($this->user->canAccess('adtech.core.package.manage')) {
                     return $actions = '<a href=' . route('adtech.core.package.manage', ['id' => $domains->domain_id]) . '>' . $domains->name . '</a>';
@@ -206,9 +271,9 @@ class DomainController extends Controller
                 if ($this->user->canAccess('adtech.core.package.manage')) {
                     $actions .= '<a href=' . route('adtech.core.package.manage', ['id' => $domains->domain_id]) . '><i class="livicon" data-name="gear" data-size="18" data-loop="true" data-c="#6CC66C" data-hc="#6CC66C" title="package manage"></i></a>';
                 }
-                if ($this->user->canAccess('adtech.core.domain.show')) {
-                    $actions .= '<a href=' . route('adtech.core.domain.show', ['domain_id' => $domains->domain_id]) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update domain"></i></a>';
-                }
+//                if ($this->user->canAccess('adtech.core.domain.show')) {
+//                    $actions .= '<a href=' . route('adtech.core.domain.show', ['domain_id' => $domains->domain_id]) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update domain"></i></a>';
+//                }
                 if ($this->user->canAccess('adtech.core.domain.confirm-delete')) {
                     $actions .= '<a href=' . route('adtech.core.domain.confirm-delete', ['domain_id' => $domains->domain_id]) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="trash" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete domains"></i></a>';
                 }
@@ -225,5 +290,12 @@ class DomainController extends Controller
         return (preg_match("/^([a-z\d](-*[a-z\d])*)(\.([a-z\d](-*[a-z\d])*))*$/i", $domain_name) //valid chars check
             && preg_match("/^.{1,253}$/", $domain_name) //overall length check
             && preg_match("/^[^\.]{1,63}(\.[^\.]{1,63})*$/", $domain_name)   ); //length of each label
+    }
+
+    function array_remove_object(&$array, $value, $prop)
+    {
+        return array_filter($array, function($a) use($value, $prop) {
+            return $a->$prop !== $value;
+        });
     }
 }

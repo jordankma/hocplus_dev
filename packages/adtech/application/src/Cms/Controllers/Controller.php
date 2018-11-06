@@ -29,6 +29,28 @@ class Controller extends BaseController
         $id = $this->user ? $this->user->user_id : 0;
         $email = $this->user ? $this->user->email : null;
 
+        $listDomain = Domain::all();
+        $listNewDomain = [];
+        $domainsDir = base_path() . '/packages/adtech/application/src/configs';
+        $ls = @scandir($domainsDir);
+        if ($ls) {
+            foreach ($ls as $index => $domain_name) {
+                if ($this->is_valid_domain_name($domain_name)) {
+                    $check = false;
+                    foreach($listDomain as $obj) {
+                        if ($domain_name == $obj->name) {
+                            $check = true;
+                            break;
+                        }
+                    }
+                    if ($check && $domain_name != 'default.local.vn') {
+                        $listNewDomain[] = $obj;
+                    }
+
+                }
+            }
+        }
+        $listDomain = $listNewDomain;
         $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
         $domain_id = 0;
         if ($host) {
@@ -112,9 +134,9 @@ class Controller extends BaseController
         }
 
         //get setting value
-        $locales = [];
+//        $locales = [];
 
-        Cache::forget('locales' . $this->domainDefault);
+//        Cache::forget('locales' . $this->domainDefault);
         if (Cache::has('locales' . $this->domainDefault)) {
             $locales = Cache::get('locales' . $this->domainDefault);
         } else {
@@ -123,8 +145,8 @@ class Controller extends BaseController
         }
 
         //get setting value
-        $settings = [];
-        Cache::forget('settings' . $this->domainDefault);
+//        $settings = [];
+//        Cache::forget('settings' . $this->domainDefault);
         if (Cache::has('settings' . $this->domainDefault)) {
             $settings = Cache::get('settings' . $this->domainDefault);
         } else {
@@ -185,6 +207,7 @@ class Controller extends BaseController
             'COLOR_LIST' => $arrColor,
             'SETTING' => $settingView,
             'LOCALES' => $locales,
+            'DOMAIN_LIST' => $listDomain,
             'DATATABLE_TRANS' => json_encode(trans('adtech-core::datatable'), JSON_UNESCAPED_UNICODE),
             'group_name'  => config('site.group_name'),
             'template'  => config('site.desktop.template'),
@@ -253,6 +276,93 @@ class Controller extends BaseController
             'y'=>'ý|ỳ|ỷ|ỹ|ỵ',
         );
         foreach($unicode as $nonUnicode=>$uni) $str = preg_replace("/($uni)/i",$nonUnicode,$str);
+        return $str;
+    }
+
+    function removeAccents( $str )
+    {
+        $a = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð',
+            'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã',
+            'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ',
+            'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'Ā', 'ā', 'Ă', 'ă', 'Ą', 'ą', 'Ć', 'ć', 'Ĉ',
+            'ĉ', 'Ċ', 'ċ', 'Č', 'č', 'Ď', 'ď', 'Đ', 'đ', 'Ē', 'ē', 'Ĕ', 'ĕ', 'Ė', 'ė', 'Ę', 'ę',
+            'Ě', 'ě', 'Ĝ', 'ĝ', 'Ğ', 'ğ', 'Ġ', 'ġ', 'Ģ', 'ģ', 'Ĥ', 'ĥ', 'Ħ', 'ħ', 'Ĩ', 'ĩ', 'Ī', 'ī',
+            'Ĭ', 'ĭ', 'Į', 'į', 'İ', 'ı', 'Ĳ', 'ĳ', 'Ĵ', 'ĵ', 'Ķ', 'ķ', 'Ĺ', 'ĺ', 'Ļ', 'ļ', 'Ľ', 'ľ',
+            'Ŀ', 'ŀ', 'Ł', 'ł', 'Ń', 'ń', 'Ņ', 'ņ', 'Ň', 'ň', 'ŉ', 'Ō', 'ō', 'Ŏ', 'ŏ', 'Ő', 'ő', 'Œ',
+            'œ', 'Ŕ', 'ŕ', 'Ŗ', 'ŗ', 'Ř', 'ř', 'Ś', 'ś', 'Ŝ', 'ŝ', 'Ş', 'ş', 'Š', 'š', 'Ţ', 'ţ', 'Ť',
+            'ť', 'Ŧ', 'ŧ', 'Ũ', 'ũ', 'Ū', 'ū', 'Ŭ', 'ŭ', 'Ů', 'ů', 'Ű', 'ű', 'Ų', 'ų', 'Ŵ', 'ŵ', 'Ŷ',
+            'ŷ', 'Ÿ', 'Ź', 'ź', 'Ż', 'ż', 'Ž', 'ž', 'ſ', 'ƒ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ǎ', 'ǎ', 'Ǐ', 'ǐ',
+            'Ǒ', 'ǒ', 'Ǔ', 'ǔ', 'Ǖ', 'ǖ', 'Ǘ', 'ǘ', 'Ǚ', 'ǚ', 'Ǜ', 'ǜ', 'Ǻ', 'ǻ', 'Ǽ', 'ǽ', 'Ǿ', 'ǿ');
+        $b = array('A', 'A', 'A', 'A', 'A', 'A', 'AE', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'D', 'N', 'O',
+            'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 's', 'a', 'a', 'a', 'a', 'a', 'a', 'ae', 'c',
+            'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'n', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u',
+            'y', 'y', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'D',
+            'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g',
+            'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'IJ', 'ij', 'J', 'j', 'K',
+            'k', 'L', 'l', 'L', 'l', 'L', 'l', 'L', 'l', 'L', 'l', 'N', 'n', 'N', 'n', 'N', 'n', 'n', 'O', 'o',
+            'O', 'o', 'O', 'o', 'OE', 'oe', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'S',
+            's', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W',
+            'w', 'Y', 'y', 'Y', 'Z', 'z', 'Z', 'z', 'Z', 'z', 's', 'f', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i',
+            'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'A', 'a', 'AE', 'ae', 'O', 'o');
+        return str_replace($a, $b, $str);
+    }
+    /**
+     * @param  String $str The input string
+     * @return String      The URL-friendly string (lower-cased, accent-stripped,
+     *                     spaces to dashes).
+     */
+    function toURLFriendly( $str )
+    {
+        $str = $this->removeAccents($str);
+        $str = preg_replace(array('/[^a-zA-Z0-9 \'-]/', '/[ -\']+/', '/^-|-$/'), array('', '-', ''), $str);
+        $str = preg_replace('/-inc$/i', '', $str);
+        return strtolower($str);
+    }
+
+    public function my_simple_crypt( $string, $action = 'e' ) {
+        // you may change these values to your own
+        $secret_key = env('SECRET_KEY');
+        $secret_iv = env('SECRET_IV');
+
+        $output = false;
+        $encrypt_method = "AES-256-CBC";
+        $key = substr( hash( 'sha256', $secret_key ), 0 ,32);
+        $iv = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+
+        if( $action == 'e' ) {
+            $output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
+        }
+        else if( $action == 'd' ){
+            $output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
+        }
+        return $output;
+    }
+
+    function is_valid_domain_name($domain_name)
+    {
+        return (preg_match("/^([a-z\d](-*[a-z\d])*)(\.([a-z\d](-*[a-z\d])*))*$/i", $domain_name) //valid chars check
+            && preg_match("/^.{1,253}$/", $domain_name) //overall length check
+            && preg_match("/^[^\.]{1,63}(\.[^\.]{1,63})*$/", $domain_name)   ); //length of each label
+    }
+
+    function array_remove_object(&$array, $value, $prop)
+    {
+        return array_filter($array, function($a) use($value, $prop) {
+            return $a->$prop !== $value;
+        });
+    }
+
+    function to_slug($str) {
+        $str = trim(mb_strtolower($str));
+        $str = preg_replace('/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/', 'a', $str);
+        $str = preg_replace('/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/', 'e', $str);
+        $str = preg_replace('/(ì|í|ị|ỉ|ĩ)/', 'i', $str);
+        $str = preg_replace('/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/', 'o', $str);
+        $str = preg_replace('/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/', 'u', $str);
+        $str = preg_replace('/(ỳ|ý|ỵ|ỷ|ỹ)/', 'y', $str);
+        $str = preg_replace('/(đ)/', 'd', $str);
+        $str = preg_replace('/[^a-z0-9-\s]/', '', $str);
+        $str = preg_replace('/([\s]+)/', '-', $str);
         return $str;
     }
 }

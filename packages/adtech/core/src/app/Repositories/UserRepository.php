@@ -39,6 +39,11 @@ class UserRepository extends Repository
         return $this->model->where('username', '=', $username)->first($columns);
     }
 
+    public function getByToken($token, $columns = ['*'])
+    {
+        return $this->model->where('remember_token', '=', $token)->first($columns);
+    }
+
     public function countAll($keyword, $matchThese, $limit, $order, $sort, $role)
     {
         $result = $this->model->whereHas('roles', function ($query) use ($role) {

@@ -9,6 +9,11 @@
   </thead>
   <tbody>
     @foreach($items as $item)
+        <?php
+        foreach($item as $key => $value) {
+            $item->$key = str_replace('http://dhcd-release.vnedutech.vn', 'http://files.dhcd.vnedutech.vn', $value);
+        }
+        ?>
     <tr>
       <td>
         <i class="fa {{ $item->icon }}"></i>
@@ -94,6 +99,10 @@
 	var obj =  $.parseJSON(typeParent);
 	var title = $(this).attr('title');
     var alerted = localStorage.getItem('alerted') || '';
+        console.log(obj);
+	if(type === "Thư mục"){
+		return true;
+	}
 	
 	if($.inArray(type,obj) != -1){
 		if(type === "image/jpeg" || type === "image/jpg" || type === "image/png" || type === "image/gif"){
@@ -112,15 +121,25 @@
 							
 		window.opener.setData(data);						
 		if(alerted != title){
-            alert("Đã chọn");
+            swal({
+                    title: "Đã chọn",
+                    text: '',
+                    html: true,
+                    confirmButtonColor: "#DD6B55"
+                });
             localStorage.setItem('alerted',title);
         }
 		return false;	
 			
 	}
 	else{					
-		if(alerted != title){
-            alert("File chọn không phù hợp với kiểu file bạn chọn");
+		if(alerted != title){            
+			swal({
+                    title: "File chọn không phù hợp với kiểu file bạn chọn",
+                    text: '',
+                    html: true,
+                    confirmButtonColor: "#DD6B55"
+            });
             localStorage.setItem('alerted',title);
         }
 		return false;
