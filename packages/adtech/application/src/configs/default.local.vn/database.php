@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => 'mysql',
+    'default' => 'mysql_contest',
 
     /*
     |--------------------------------------------------------------------------
@@ -32,56 +32,59 @@ return [
     */
 
     'connections' => [
-
-//        'sqlite' => [
-//            'driver' => 'sqlite',
-//            'database' => env('DB_DATABASE', database_path('database.sqlite')),
-//            'prefix' => '',
-//        ],
-
-        'mysql' => [
+        'mysql_core' => [
             'driver' => 'mysql',
-            'host' => 'host_ip',
-            'port' => '3306',
-            'database' => 'database_name',
-            'username' => 'username',
-            'password' => 'password',
+            'host' => explode(',', env('DB_HOST')),
+            'port' => env('DB_PORT'),
+            'database' => env('DB_DATABASE'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'engine' => 'InnoDB ROW_FORMAT=DYNAMIC',
             'prefix' => '',
             'strict' => true,
-            'engine' => null,
         ],
 
-        'mysql_more' => [
+        'mysql_contest' => [
             'driver' => 'mysql',
-            'host' => 'host_ip',
-            'port' => '3306',
-            'database' => 'database_name',
-            'username' => 'username',
-            'password' => 'password',
+            'host' => explode(',', env('DB1_HOST')),
+            'port' => env('DB1_PORT'),
+            'database' => env('DB1_DATABASE'),
+            'username' => env('DB1_USERNAME'),
+            'password' => env('DB1_PASSWORD'),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'engine' => 'InnoDB ROW_FORMAT=DYNAMIC',
             'prefix' => '',
             'strict' => true,
-            'engine' => null,
         ],
 
-//        'pgsql' => [
-//            'driver' => 'pgsql',
-//            'host' => env('DB_HOST', '127.0.0.1'),
-//            'port' => env('DB_PORT', '5432'),
-//            'database' => env('DB_DATABASE', 'forge'),
-//            'username' => env('DB_USERNAME', 'forge'),
-//            'password' => env('DB_PASSWORD', ''),
-//            'charset' => 'utf8',
-//            'prefix' => '',
-//            'schema' => 'public',
-//            'sslmode' => 'prefer',
-//        ],
+        'mysql_cuocthi' => [
+            'driver' => 'mysql',
+            'host' => explode(',', env('DB1_HOST')),
+            'port' => env('DB1_PORT'),
+            'database' => env('DB1_DATABASE'),
+            'username' => env('DB1_USERNAME'),
+            'password' => env('DB1_PASSWORD'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'engine' => 'InnoDB ROW_FORMAT=DYNAMIC',
+            'prefix' => '',
+            'strict' => true,
+        ],
 
+        'mongodb' => [
+            'driver'   => 'mongodb',
+            'host'     => '123.30.187.165',
+            'port'     => 27017,
+            'database' => 'vne_contest',
+            'username' => 'vne_contest',
+            'password' => 'jY2acnt3SUf5JyCw',
+            'options' => [
+                'database' =>  'vne_contest'
+            ]
+        ],
     ],
 
     /*

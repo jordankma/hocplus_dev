@@ -42,9 +42,14 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
+            'driver' => 'jwt',
+            'provider' => 'members',
         ],
+
+        'member' => [
+            'driver' => 'session',
+            'provider' => 'members',
+        ]
     ],
 
     /*
@@ -68,6 +73,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => Adtech\Core\App\Models\User::class,
+        ],
+
+        'members' => [
+            'driver' => 'eloquent',
+            'model' => Dhcd\Member\App\Models\Member::class,
         ],
 
 //        'users' => [
@@ -96,7 +106,7 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
-        ],
+        ]
     ],
 
 ];

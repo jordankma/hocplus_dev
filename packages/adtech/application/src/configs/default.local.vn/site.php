@@ -1,31 +1,41 @@
 <?php
 
+//$modulesConfig = [];
+//$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
+//if ($host) {
+//    $newString = 'adtech.api,core';
+//    $variable = 'APP_MODULES_' . strtoupper(str_replace('.', '_', $host));
+//    $path = base_path('.env');
+//    if (file_exists($path)) {
+//        if (strpos(file_get_contents($path), $variable . '=') > 0) {
+//            $appModules = (env($variable) != '') ? env($variable) : $newString;
+//            $packagesList = explode('_', $appModules);
+//            if (count($packagesList) > 0) {
+//                if (!in_array($newString, $packagesList))
+//                    array_unshift($packagesList, $newString);
+//                foreach ($packagesList as $packages) {
+//                    $modules = explode('.', $packages);
+//                    $modulesConfig[$modules[0]] = explode(',', $modules[1]);
+//                }
+//            }
+//        } else {
+//            file_put_contents($path, file_get_contents($path) . "\r\n" . $variable . '=' . $newString);
+//            header("Refresh:0");
+//        }
+//    }
+//}
 $modulesConfig = [];
+$modules = '{"adtech":["core"]}';
 $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
 if ($host) {
-    $newString = 'adtech.core';
     $variable = 'APP_MODULES_' . strtoupper(str_replace('.', '_', $host));
-    $path = base_path('.env');
+    $path = base_path('modules/' . $variable . '.json');
     if (file_exists($path)) {
-        if (strpos(file_get_contents($path), $variable . '=') > 0) {
-            $appModules = (env($variable) != '') ? env($variable) : $newString;
-            $packagesList = explode('_', $appModules);
-            if (count($packagesList) > 0) {
-                if (($key = array_search($newString, $packagesList)) !== false) {
-                    unset($packagesList[$key]);
-                }
-                array_push($packagesList, $newString);
-                foreach ($packagesList as $packages) {
-                    $modules = explode('.', $packages);
-                    $modulesConfig[$modules[0]] = explode(',', $modules[1]);
-                }
-            }
-        } else {
-            file_put_contents($path, file_get_contents($path) . "\r\n" . $variable . '=' . $newString);
-            header("Refresh:0");
-        }
+        $modules = file_get_contents($path);
     }
 }
+$modulesConfig = json_decode($modules, true);
+krsort($modulesConfig);
 
 return [
     'version' => '1.0.0',
@@ -58,6 +68,8 @@ return [
     | Website backend url
     |--------------------------------------------------------------------------
     */
+    'url_storage' => 'http://cuocthi.vnedutech.vn',
+    'url_static' => 'http://cuocthi.vnedutech.vn',
     'api_prefix' => '/resource/dev/get',
     'admin_prefix' => '/admin',
     'homepage' => [
@@ -65,13 +77,13 @@ return [
             'method' => 'get',
             'uri' => '/',
             'middleware' => [],
-            'action' => 'Adtech\Core\App\Http\Controllers\DashboardController@home',
+            'action' => 'Adtech\Core\App\Http\Controllers\DashboardController@frontend',
         ],
         'backend' => [
             'method' => 'get',
             'uri' => '/',
             'middleware' => [],
-            'action' => 'Adtech\Core\App\Http\Controllers\DashboardController@index',
+            'action' => 'Adtech\Core\App\Http\Controllers\DashboardController@backend',
         ],
     ],
 
