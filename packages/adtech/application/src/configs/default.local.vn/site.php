@@ -68,8 +68,8 @@ return [
     | Website backend url
     |--------------------------------------------------------------------------
     */
-    'url_storage' => 'http://cuocthi.vnedutech.vn',
-    'url_static' => 'http://cuocthi.vnedutech.vn',
+    'url_storage' => 'http://default.local.vn',
+    'url_static' => 'http://default.local.vn',
     'api_prefix' => '/resource/dev/get',
     'admin_prefix' => '/admin',
     'homepage' => [

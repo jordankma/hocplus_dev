@@ -258,7 +258,7 @@ class PackageController extends Controller
                                         } else {
                                             $db_connection = config('database.default');
                                         }
-                                        var_dump(shell_exec('cd ../ && /egserver/php/bin/php artisan migrate:refresh --path="' . $pathDatabase . '" --database="' . $db_connection . '"')); die;
+                                        shell_exec('cd ../ && php artisan migrate:refresh --path="' . $pathDatabase . '" --database="' . $db_connection . '"');
                                         break;
                                     }
                                 }
@@ -284,7 +284,7 @@ class PackageController extends Controller
                                         } else {
                                             $db_connection = config('database.default');
                                         }
-                                        shell_exec('cd ../ && /egserver/php/bin/php artisan migrate:refresh --path="' . $pathDatabase . '" --database="' . $db_connection . '"');
+                                        shell_exec('cd ../ && php artisan migrate:refresh --path="' . $pathDatabase . '" --database="' . $db_connection . '"');
                                         break;
                                     }
                                 }
@@ -366,7 +366,7 @@ class PackageController extends Controller
                         }
                         // Dump autoload.
 //                        $this->composer->dumpAutoloads();
-                        shell_exec('cd ../ && /egserver/php/bin/php /egserver/php/bin/composer dump-autoload');
+                        shell_exec('cd ../ && composer dump-autoload');
 //                        shell_exec('cd ../ && composer dump-autoload');
 
                         //bung file /views/publics module

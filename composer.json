@@ -16,6 +16,12 @@
     "options": {
       "symlink": true
     }
+  }, {
+    "type": "path",
+    "url": "packages/ptest/mtest",
+    "options": {
+      "symlink": true
+    }
   }],
   "require": {
     "php": "^7.1.3",
@@ -50,11 +56,19 @@
       "Adtech\\Application\\": "packages/adtech/application/src/",
       "Adtech\\Templates\\": "packages/adtech/templates/src/",
       "Adtech\\Core\\": "packages/adtech/core/src/",
-      "Adtech\\Api\\": "packages/adtech/api/src/"
+      "Adtech\\Api\\": "packages/adtech/api/src/",
+      "Ptest\\Mtest\\": "packages/ptest/mtest/src/"
     }
   },
   "autoload-dev": {
-    "classmap": ["database", "packages/adtech/application/src/", "packages/adtech/templates/src/", "packages/adtech/core/src/", "packages/adtech/api/src/"],
+    "classmap": [
+      "database",
+      "packages/adtech/application/src/",
+      "packages/adtech/templates/src/",
+      "packages/adtech/core/src/",
+      "packages/adtech/api/src/",
+      "packages/ptest/mtest/src/"
+    ],
     "psr-4": {
       "Tests\\": "tests/"
     }
