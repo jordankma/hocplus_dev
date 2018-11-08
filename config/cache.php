@@ -15,8 +15,7 @@ return [
     |
     */
 
-//    'default' => env('CACHE_DRIVER', 'file'),
-    'default' => 'memcached',
+    'default' => env('CACHE_DRIVER', 'file'),
 
     /*
     |--------------------------------------------------------------------------
