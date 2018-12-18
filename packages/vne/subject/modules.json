@@ -1,0 +1,41 @@
+{
+  "package": "cpvm",
+  "module": "subject",
+  "description": "Permission route by group",
+  "details": [
+    {
+      "name": "Quản lý môn",
+      "groups": [
+        {
+          "name": "View list",
+          "routes": [
+            "cpvm.subject.subject.log",
+            "cpvm.subject.subject.data",
+            "cpvm.subject.subject.manage"
+          ]
+        },
+        {
+          "name": "Create",
+          "routes": [
+            "cpvm.subject.subject.create",
+            "cpvm.subject.subject.add"
+          ]
+        },
+        {
+          "name": "Update",
+          "routes": [
+            "cpvm.subject.subject.show",
+            "cpvm.subject.subject.udpate"
+          ]
+        },
+        {
+          "name": "Delete",
+          "routes": [
+            "cpvm.subject.subject.confirm-delete",
+            "cpvm.subject.subject.delete"
+          ]
+        }
+      ]
+    }
+  ]
+}
