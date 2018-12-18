@@ -1,6 +1,6 @@
 <?php
 
-namespace Cpvm\Subject;
+namespace Vne\Subject;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider;
 class SubjectServiceProvider extends ServiceProvider
 {
 
-    protected $package = 'cpvm';
+    protected $package = 'vne';
     protected $module = 'subject';
 
     protected $namespace = __NAMESPACE__ . '\App\Http\Controllers';

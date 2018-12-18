@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 {{-- Page title --}}
-@section('title'){{ $title = trans('cpvm-classes::language.titles.classes.create') }}@stop
+@section('title'){{ $title = trans('vne-classes::language.titles.classes.create') }}@stop
 
 {{-- page styles --}}
 @section('header_styles')
@@ -32,49 +32,30 @@
         <div class="row">
             <div class="the-box no-border">
                 <!-- errors -->
-                <form action="{{ route('cpvm.classes.classes.add') }}" method="post" class="bf" id="form-add-classes">
+                <form action="{{ route('vne.classes.classes.add') }}" method="post" class="bf" id="form-add-classes">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                     <div class="row">
                         <div class="col-sm-4">
-                            <label>{{trans('cpvm-classes::language.label.classes.name')}} <span style="color: red">(*)</span></label>
+                            <label>{{trans('vne-classes::language.label.classes.name')}} <span style="color: red">(*)</span></label>
                             <div class="form-group">
-                                <input type="text" name="name" class="form-control" placeholder="{{trans('cpvm-classes::language.placeholder.classes.name')}}">
+                                <input type="text" name="name" class="form-control" placeholder="{{trans('vne-classes::language.placeholder.classes.name')}}">
                             </div>
-                            <label>{{trans('cpvm-classes::language.label.classes.type')}}</label>
+                            <label>{{trans('vne-classes::language.label.classes.priority')}}</label>
                             <div class="form-group">
-                                <div class="form-control" style="border: none;">
-                                <input type="radio" id="class" name="type" value="class" checked="checked">
-                                <label for="class">{{trans('cpvm-classes::language.label.classes.class')}}</label>
-                                <input type="radio" id="exam" name="type" value="exam">
-                                <label for="exam">{{trans('cpvm-classes::language.label.classes.exam')}}</label>
-                                </div>
-                            </div>
-                            <label>{{trans('cpvm-classes::language.label.classes.level')}}</label>
-                            <div class="form-group">
-                                <select class="form-control" name="level">
-                                @if(!empty($levels))
-                                @foreach($levels as $level)
-                                    <option value="{{$level->level_id}}">{{$level->name}}</option>
-                                @endforeach
-                                @endif
-                                </select>
+                                <input type="number" name="priority" class="form-control" min="0" placeholder="{{trans('vne-classes::language.placeholder.classes.priority')}}">
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label>{{trans('cpvm-classes::language.label.classes.priority')}}</label>
+                            <label>{{trans('vne-classes::language.label.classes.color_mobile')}}</label>
                             <div class="form-group">
-                                <input type="number" name="priority" class="form-control" min="0" placeholder="{{trans('cpvm-classes::language.placeholder.classes.priority')}}">
+                                <input id="mycp" type="text" name="color_mobile" class="form-control" placeholder="{{trans('vne-classes::language.placeholder.classes.color_mobile')}}" autofocus="">
                             </div>
-                            <label>{{trans('cpvm-classes::language.label.classes.color_mobile')}}</label>
-                            <div class="form-group">
-                                <input id="mycp" type="text" name="color_mobile" class="form-control" placeholder="{{trans('cpvm-classes::language.placeholder.classes.color_mobile')}}" autofocus="">
-                            </div>
-                            <label>{{trans('cpvm-classes::language.label.classes.background_mobile')}}<span style="color: red">(*)</span></label>
+                            <label>{{trans('vne-classes::language.label.classes.background_mobile')}}<span style="color: red">(*)</span></label>
                             <div class="form-group">
                                 <div class="input-group">
                                    <span class="input-group-btn">
                                      <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                                       <i class="fa fa-picture-o"></i> {{trans('cpvm-classes::language.label.classes.choise_image')}}
+                                       <i class="fa fa-picture-o"></i> {{trans('vne-classes::language.label.classes.choise_image')}}
                                      </a>
                                    </span>
                                    <input type="text" name="background_mobile" id="thumbnail" class="form-control">
@@ -87,9 +68,9 @@
                             <div class="form-group col-xs-12">
                                 <label for="blog_category" class="">Actions</label>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success">{{ trans('cpvm-classes::language.buttons.create') }}</button>
-                                    <a href="{!! route('cpvm.classes.classes.create') !!}"
-                                       class="btn btn-danger">{{ trans('cpvm-classes::language.buttons.discard') }}</a>
+                                    <button type="submit" class="btn btn-success">{{ trans('vne-classes::language.buttons.create') }}</button>
+                                    <a href="{!! route('vne.classes.classes.create') !!}"
+                                       class="btn btn-danger">{{ trans('vne-classes::language.buttons.discard') }}</a>
                                 </div>
                             </div>
                         </div>

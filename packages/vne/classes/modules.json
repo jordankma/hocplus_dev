@@ -1,5 +1,5 @@
 {
-  "package": "cpvm",
+  "package": "vne",
   "module": "classes",
   "description": "Permission route by group",
   "details": [
@@ -9,30 +9,30 @@
         {
           "name": "View list",
           "routes": [
-            "cpvm.classes.classes.log",
-            "cpvm.classes.classes.data",
-            "cpvm.classes.classes.manage"
+            "vne.classes.classes.log",
+            "vne.classes.classes.data",
+            "vne.classes.classes.manage"
           ]
         },
         {
           "name": "Create",
           "routes": [
-            "cpvm.classes.classes.create",
-            "cpvm.classes.classes.add"
+            "vne.classes.classes.create",
+            "vne.classes.classes.add"
           ]
         },
         {
           "name": "Update",
           "routes": [
-            "cpvm.classes.classes.show",
-            "cpvm.classes.classes.udpate"
+            "vne.classes.classes.show",
+            "vne.classes.classes.udpate"
           ]
         },
         {
           "name": "Delete",
           "routes": [
-            "cpvm.classes.classes.confirm-delete",
-            "cpvm.classes.classes.delete"
+            "vne.classes.classes.confirm-delete",
+            "vne.classes.classes.delete"
           ]
         }
       ]

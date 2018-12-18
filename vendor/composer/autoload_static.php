@@ -93,6 +93,8 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         ),
         'V' => 
         array (
+            'Vne\\Teacher\\' => 12,
+            'Vne\\Subject\\' => 12,
             'Vne\\Classes\\' => 12,
         ),
         'U' => 
@@ -258,6 +260,14 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Vne\\Teacher\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/vne/teacher/src',
+        ),
+        'Vne\\Subject\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/vne/subject/src',
         ),
         'Vne\\Classes\\' => 
         array (
@@ -1197,10 +1207,6 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Composer\\XdebugHandler\\Process' => __DIR__ . '/..' . '/composer/xdebug-handler/src/Process.php',
         'Composer\\XdebugHandler\\Status' => __DIR__ . '/..' . '/composer/xdebug-handler/src/Status.php',
         'Composer\\XdebugHandler\\XdebugHandler' => __DIR__ . '/..' . '/composer/xdebug-handler/src/XdebugHandler.php',
-        'Cpvm\\Classes\\App\\Http\\Controllers\\ClassesController' => __DIR__ . '/../..' . '/packages/vne/classes/src/app/Http/Controllers/ClassesController.php',
-        'Cpvm\\Classes\\App\\Models\\Classes' => __DIR__ . '/../..' . '/packages/vne/classes/src/app/Models/Classes.php',
-        'Cpvm\\Classes\\App\\Repositories\\ClassesRepository' => __DIR__ . '/../..' . '/packages/vne/classes/src/app/Repositories/ClassesRepository.php',
-        'Cpvm\\Classes\\ClassesServiceProvider' => __DIR__ . '/../..' . '/packages/vne/classes/src/ClassesServiceProvider.php',
         'CreateActivityLogTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2018_06_02_083923_create_activity_log_table.php',
         'CreateAdtechCoreAclTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_30_100000_create_adtech_core_acl_table.php',
         'CreateAdtechCoreDomainsPackageTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2018_05_17_101120_create_adtech_core_domains_package_table.php',
@@ -1214,8 +1220,12 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'CreateAdtechCoreRolesTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_20_100000_create_adtech_core_roles_table.php',
         'CreateAdtechCoreUsersRoleTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_20_100002_create_adtech_core_users_role_table.php',
         'CreateAdtechCoreUsersTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_20_100001_create_adtech_core_users_table.php',
-        'CreateCpvmClassesTable' => __DIR__ . '/../..' . '/packages/vne/classes/src/database/migrations/2018_08_06_150404_create_cpvm_classes_table.php',
+        'CreateClassHasSubjectTable' => __DIR__ . '/../..' . '/packages/vne/subject/src/database/migrations/2018_08_07_093405_create_class_has_subject_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_20_100003_create_password_resets_table.php',
+        'CreateSubjectTable' => __DIR__ . '/../..' . '/packages/vne/subject/src/database/migrations/2018_08_07_092606_create_subject_table.php',
+        'CreateTblTeacherClassHassSubjectTable' => __DIR__ . '/../..' . '/packages/vne/teacher/src/database/migrations/2018_12_19_045539_create_tbl_teacher_class_hass_subject_table.php',
+        'CreateTblTeachersTable' => __DIR__ . '/../..' . '/packages/vne/teacher/src/database/migrations/2018_12_19_045419_create_tbl_teachers_table.php',
+        'CreateVneClassesTable' => __DIR__ . '/../..' . '/packages/vne/classes/src/database/migrations/2018_08_06_150404_create_vne_classes_table.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/DayOfMonthField.php',
@@ -4725,11 +4735,9 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Google_Service_Compute_HealthCheckReference' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HealthCheckReference.php',
         'Google_Service_Compute_HealthStatus' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HealthStatus.php',
         'Google_Service_Compute_HostRule' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HostRule.php',
-        'Google_Service_Compute_HttpHealthCheck' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpHealthCheck.php',
         'Google_Service_Compute_HttpHealthCheckList' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpHealthCheckList.php',
         'Google_Service_Compute_HttpHealthCheckListWarning' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpHealthCheckListWarning.php',
         'Google_Service_Compute_HttpHealthCheckListWarningData' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpHealthCheckListWarningData.php',
-        'Google_Service_Compute_HttpsHealthCheck' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpsHealthCheck.php',
         'Google_Service_Compute_HttpsHealthCheckList' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpsHealthCheckList.php',
         'Google_Service_Compute_HttpsHealthCheckListWarning' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpsHealthCheckListWarning.php',
         'Google_Service_Compute_HttpsHealthCheckListWarningData' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpsHealthCheckListWarningData.php',
@@ -14053,6 +14061,20 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'UniSharp\\LaravelFilemanager\\Middlewares\\CreateDefaultFolder' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Middlewares/CreateDefaultFolder.php',
         'UniSharp\\LaravelFilemanager\\Middlewares\\MultiUser' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Middlewares/MultiUser.php',
         'UniSharp\\LaravelFilemanager\\Traits\\LfmHelpers' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Traits/LfmHelpers.php',
+        'Vne\\Classes\\App\\Http\\Controllers\\ClassesController' => __DIR__ . '/../..' . '/packages/vne/classes/src/app/Http/Controllers/ClassesController.php',
+        'Vne\\Classes\\App\\Models\\Classes' => __DIR__ . '/../..' . '/packages/vne/classes/src/app/Models/Classes.php',
+        'Vne\\Classes\\App\\Repositories\\ClassesRepository' => __DIR__ . '/../..' . '/packages/vne/classes/src/app/Repositories/ClassesRepository.php',
+        'Vne\\Classes\\ClassesServiceProvider' => __DIR__ . '/../..' . '/packages/vne/classes/src/ClassesServiceProvider.php',
+        'Vne\\Subject\\App\\Http\\Controllers\\SubjectController' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Http/Controllers/SubjectController.php',
+        'Vne\\Subject\\App\\Models\\ClassHasSubject' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Models/ClassHasSubject.php',
+        'Vne\\Subject\\App\\Models\\Subject' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Models/Subject.php',
+        'Vne\\Subject\\App\\Repositories\\SubjectRepository' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Repositories/SubjectRepository.php',
+        'Vne\\Subject\\SubjectServiceProvider' => __DIR__ . '/../..' . '/packages/vne/subject/src/SubjectServiceProvider.php',
+        'Vne\\Teacher\\App\\Http\\Controllers\\TeacherController' => __DIR__ . '/../..' . '/packages/vne/teacher/src/app/Http/Controllers/TeacherController.php',
+        'Vne\\Teacher\\App\\Models\\Teacher' => __DIR__ . '/../..' . '/packages/vne/teacher/src/app/Models/Teacher.php',
+        'Vne\\Teacher\\App\\Models\\TeacherClassSubject' => __DIR__ . '/../..' . '/packages/vne/teacher/src/app/Models/TeacherClassSubject.php',
+        'Vne\\Teacher\\App\\Repositories\\TeacherRepository' => __DIR__ . '/../..' . '/packages/vne/teacher/src/app/Repositories/TeacherReponsitory.php',
+        'Vne\\Teacher\\TeacherServiceProvider' => __DIR__ . '/../..' . '/packages/vne/teacher/src/TeacherServiceProvider.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',
         'Whoops\\Exception\\Formatter' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Formatter.php',

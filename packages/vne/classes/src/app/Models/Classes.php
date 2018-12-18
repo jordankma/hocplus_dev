@@ -1,6 +1,6 @@
 <?php
 
-namespace Cpvm\Classes\App\Models;
+namespace Vne\Classes\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -21,7 +21,7 @@ class Classes extends Model {
     protected $dates = ['deleted_at'];
 
     public function getSubject() {
-        return $this->belongsToMany('Cpvm\Subject\App\Models\Subject','class_has_subject','classes_id','subject_id');
+        return $this->belongsToMany('Vne\Subject\App\Models\Subject','class_has_subject','classes_id','subject_id');
     }
 
     public static function getAllSubjectByClass() {

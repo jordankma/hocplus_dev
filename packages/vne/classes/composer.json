@@ -1,5 +1,5 @@
 {
-    "name": "cpvm/classes",
+    "name": "vne/classes",
     "description": "classes",
     "license": "MIT",
     "authors": [
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Cpvm\\Classes\\": "src"
+            "Vne\\Classes\\": "src"
         }
     },
     "autoload-dev": {

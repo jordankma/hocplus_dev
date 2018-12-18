@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 {{-- Page title --}}
-@section('title'){{ $title = trans('cpvm-classes::language.titles.classes.manage') }}@stop
+@section('title'){{ $title = trans('vne-classes::language.titles.classes.manage') }}@stop
 
 {{-- page level styles --}}
 @section('header_styles')
@@ -35,9 +35,9 @@
                         {{ $title }}
                     </h4>
                     <div class="pull-right">
-                        @if ($USER_LOGGED->canAccess('cpvm.classes.classes.create'))
-                            <a href="{{ route('cpvm.classes.classes.create') }}" class="btn btn-sm btn-default">
-                                <span class="glyphicon glyphicon-plus"></span> {{ trans('cpvm-classes::language.buttons.create') }}
+                        @if ($USER_LOGGED->canAccess('vne.classes.classes.create'))
+                            <a href="{{ route('vne.classes.classes.create') }}" class="btn btn-sm btn-default">
+                                <span class="glyphicon glyphicon-plus"></span> {{ trans('vne-classes::language.buttons.create') }}
                             </a>
                         @endif
                     </div>
@@ -48,11 +48,11 @@
                         <table class="table table-bordered" id="table">
                             <thead>
                             <tr class="filters">
-                                <th class="fit-content">{{ trans('cpvm-classes::language.table.stt') }}</th>
-                                <th>{{ trans('cpvm-classes::language.table.classes.name') }}</th>
-                                <th>{{ trans('cpvm-classes::language.table.classes.color_mobile') }}</th>
-                                <th>{{ trans('cpvm-classes::language.table.classes.background_mobile') }}</th>
-                                <th>{{ trans('cpvm-classes::language.table.action') }}</th>
+                                <th class="fit-content">{{ trans('vne-classes::language.table.stt') }}</th>
+                                <th>{{ trans('vne-classes::language.table.classes.name') }}</th>
+                                <th>{{ trans('vne-classes::language.table.classes.color_mobile') }}</th>
+                                <th>{{ trans('vne-classes::language.table.classes.background_mobile') }}</th>
+                                <th>{{ trans('vne-classes::language.table.action') }}</th>
                             </tr>
                             </thead>
                         </table>
@@ -73,7 +73,7 @@
             var table = $('#table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('cpvm.classes.classes.data') }}',
+                ajax: '{{ route('vne.classes.classes.data') }}',
                 columns: [
                     { data: 'rownum', name: 'rownum' },
                     { data: 'name', name: 'name' },

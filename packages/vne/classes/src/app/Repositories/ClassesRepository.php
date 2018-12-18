@@ -1,13 +1,13 @@
 <?php
 
-namespace Cpvm\Classes\App\Repositories;
+namespace Vne\Classes\App\Repositories;
 
 use Adtech\Application\Cms\Repositories\Eloquent\Repository;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Class ClassesRepository
- * @package Cpvm\Classes\Repositories
+ * @package Vne\Classes\Repositories
  */
 class ClassesRepository extends Repository
 {
@@ -17,7 +17,7 @@ class ClassesRepository extends Repository
      */
     public function model()
     {
-        return 'Cpvm\Classes\App\Models\Classes';
+        return 'Vne\Classes\App\Models\Classes';
     }
 
     public function findAll() {

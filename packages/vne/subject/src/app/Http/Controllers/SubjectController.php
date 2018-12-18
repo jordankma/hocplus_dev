@@ -1,16 +1,16 @@
 <?php
 
-namespace Cpvm\Subject\App\Http\Controllers;
+namespace Vne\Subject\App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Adtech\Application\Cms\Controllers\Controller as Controller;
-use Cpvm\Subject\App\Repositories\SubjectRepository;
-use Cpvm\Subject\App\Models\Subject;
+use Vne\Subject\App\Repositories\SubjectRepository;
+use Vne\Subject\App\Models\Subject;
 
-use Cpvm\Classes\App\Repositories\ClassesRepository;
-use Cpvm\Classes\App\Models\Classes;
+use Vne\Classes\App\Repositories\ClassesRepository;
+use Vne\Classes\App\Models\Classes;
 
-use Cpvm\Subject\App\Models\ClassHasSubject;
+use Vne\Subject\App\Models\ClassHasSubject;
 
 use Spatie\Activitylog\Models\Activity;
 use Yajra\Datatables\Datatables;
@@ -34,7 +34,7 @@ class SubjectController extends Controller
 
     public function manage()
     {
-        return view('CPVM-SUBJECT::modules.subject.subject.manage');
+        return view('VNE-SUBJECT::modules.subject.subject.manage');
     }
 
     public function create()
@@ -43,7 +43,7 @@ class SubjectController extends Controller
         $data = [
             'classes' => $classes
         ];
-        return view('CPVM-SUBJECT::modules.subject.subject.create',$data);
+        return view('VNE-SUBJECT::modules.subject.subject.create',$data);
     }
 
     public function add(Request $request)
@@ -82,9 +82,9 @@ class SubjectController extends Controller
                     ->withProperties($request->all())
                     ->log('User: :causer.email - Add subject - name: :properties.name, subject_id: ' . $subject->subject_id);
 
-                return redirect()->route('cpvm.subject.subject.manage')->with('success', trans('cpvm-subject::language.messages.success.create'));
+                return redirect()->route('vne.subject.subject.manage')->with('success', trans('vne-subject::language.messages.success.create'));
             } else {
-                return redirect()->route('cpvm.subject.subject.manage')->with('error', trans('cpvm-subject::language.messages.error.create'));
+                return redirect()->route('vne.subject.subject.manage')->with('error', trans('vne-subject::language.messages.error.create'));
             }
         } else {
             $validator->messages();
@@ -106,14 +106,14 @@ class SubjectController extends Controller
                 $list_class_id[] = $value['classes_id'];
             }
             if($subject==null){
-                return redirect()->route('cpvm.subject.subject.manage')->with('error', trans('cpvm-subject::language.messages.error.update'));    
+                return redirect()->route('vne.subject.subject.manage')->with('error', trans('vne-subject::language.messages.error.update'));    
             }
             $data = [
                 'subject' => $subject,
                 'classes' => $classes,
                 'list_class_id' => $list_class_id
             ];
-            return view('CPVM-SUBJECT::modules.subject.subject.edit', $data);
+            return view('VNE-SUBJECT::modules.subject.subject.edit', $data);
         } else {
             return $validator->messages();
         }
@@ -158,9 +158,9 @@ class SubjectController extends Controller
                     ->withProperties($request->all())
                     ->log('User: :causer.email - Update subject - subject_id: :properties.subject_id, name: :properties.name');
 
-                return redirect()->route('cpvm.subject.subject.manage')->with('success', trans('cpvm-subject::language.messages.success.update'));
+                return redirect()->route('vne.subject.subject.manage')->with('success', trans('vne-subject::language.messages.success.update'));
             } else {
-                return redirect()->route('cpvm.subject.subject.show', ['subject_id' => $request->input('subject_id')])->with('error', trans('cpvm-subject::language.messages.error.update'));
+                return redirect()->route('vne.subject.subject.show', ['subject_id' => $request->input('subject_id')])->with('error', trans('cpvm-subject::language.messages.error.update'));
             }
         } else {
             return $validator->messages();
@@ -177,10 +177,10 @@ class SubjectController extends Controller
         ], $this->messages);
         if (!$validator->fails()) {
             try {
-                $confirm_route = route('cpvm.subject.subject.delete', ['subject_id' => $request->input('subject_id')]);
-                return view('CPVM-SUBJECT::modules.subject.modal.modal_confirmation', compact('error','type', 'model', 'confirm_route'));
+                $confirm_route = route('vne.subject.subject.delete', ['subject_id' => $request->input('subject_id')]);
+                return view('VNE-SUBJECT::modules.subject.modal.modal_confirmation', compact('error','type', 'model', 'confirm_route'));
             } catch (GroupNotFoundException $e) {
-                return view('CPVM-SUBJECT::modules.subject.modal.modal_confirmation', compact('error','type', 'model', 'confirm_route'));
+                return view('VNE-SUBJECT::modules.subject.modal.modal_confirmation', compact('error','type', 'model', 'confirm_route'));
             }
         } else {
             return $validator->messages();
@@ -200,9 +200,9 @@ class SubjectController extends Controller
                 ->withProperties($request->all())
                 ->log('User: :causer.email - Delete subject - subject_id: :properties.subject_id, name: ' . $subject->name);
 
-            return redirect()->route('cpvm.subject.subject.manage')->with('success', trans('cpvm-subject::language.messages.success.delete'));
+            return redirect()->route('vne.subject.subject.manage')->with('success', trans('vne-subject::language.messages.success.delete'));
         } else {
-            return redirect()->route('cpvm.subject.subject.manage')->with('error', trans('cpvm-subject::language.messages.error.delete'));
+            return redirect()->route('vne.subject.subject.manage')->with('error', trans('vne-subject::language.messages.error.delete'));
         }
     }
 
@@ -220,9 +220,9 @@ class SubjectController extends Controller
                     ['log_name', $model],
                     ['subject_id', $request->input('id')]
                 ])->get();
-                return view('CPVM-SUBJECT::modules.subject.modal.modal_table', compact('error', 'model', 'confirm_route', 'logs'));
+                return view('VNE-SUBJECT::modules.subject.modal.modal_table', compact('error', 'model', 'confirm_route', 'logs'));
             } catch (GroupNotFoundException $e) {
-                return view('CPVM-SUBJECT::modules.subject.modal.modal_table', compact('error', 'model', 'confirm_route'));
+                return view('VNE-SUBJECT::modules.subject.modal.modal_table', compact('error', 'model', 'confirm_route'));
             }
         } else {
             return $validator->messages();
@@ -236,14 +236,14 @@ class SubjectController extends Controller
         return Datatables::of($subjects)
             ->addColumn('actions', function ($subjects) {
                 $actions = '';
-                if ($this->user->canAccess('cpvm.subject.subject.log')) {
-                    $actions .= '<a href=' . route('cpvm.subject.subject.log', ['type' => 'subject', 'id' => $subjects->subject_id]) . ' data-toggle="modal" data-target="#log"><i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#F99928" data-hc="#F99928" title="log subject"></i></a>';
+                if ($this->user->canAccess('vne.subject.subject.log')) {
+                    $actions .= '<a href=' . route('vne.subject.subject.log', ['type' => 'subject', 'id' => $subjects->subject_id]) . ' data-toggle="modal" data-target="#log"><i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#F99928" data-hc="#F99928" title="log subject"></i></a>';
                 }
-                if ($this->user->canAccess('cpvm.subject.subject.show')) {
-                    $actions .= '<a href=' . route('cpvm.subject.subject.show', ['subject_id' => $subjects->subject_id]) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update subject"></i></a>';
+                if ($this->user->canAccess('vne.subject.subject.show')) {
+                    $actions .= '<a href=' . route('vne.subject.subject.show', ['subject_id' => $subjects->subject_id]) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update subject"></i></a>';
                 }
-                if ($this->user->canAccess('cpvm.subject.subject.confirm-delete')) {
-                    $actions .= '<a href=' . route('cpvm.subject.subject.confirm-delete', ['subject_id' => $subjects->subject_id]) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="trash" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete subject"></i></a>';
+                if ($this->user->canAccess('vne.subject.subject.confirm-delete')) {
+                    $actions .= '<a href=' . route('vne.subject.subject.confirm-delete', ['subject_id' => $subjects->subject_id]) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="trash" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete subject"></i></a>';
                 }
                 return $actions; 
             })

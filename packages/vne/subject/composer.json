@@ -1,5 +1,5 @@
 {
-    "name": "cpvm/subject",
+    "name": "vne/subject",
     "description": "subject",
     "license": "MIT",
     "authors": [
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Cpvm\\Subject\\": "src"
+            "Vne\\Subject\\": "src"
         }
     },
     "autoload-dev": {

@@ -12,6 +12,8 @@ return array(
     'XdgBaseDir\\' => array($vendorDir . '/dnoegel/php-xdg-base-dir/src'),
     'Whoops\\' => array($vendorDir . '/filp/whoops/src/Whoops'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
+    'Vne\\Teacher\\' => array($baseDir . '/packages/vne/teacher/src'),
+    'Vne\\Subject\\' => array($baseDir . '/packages/vne/subject/src'),
     'Vne\\Classes\\' => array($baseDir . '/packages/vne/classes/src'),
     'UniSharp\\LaravelFilemanager\\' => array($vendorDir . '/unisharp/laravel-filemanager/src'),
     'Underscore\\' => array($vendorDir . '/anahkiasen/underscore-php/src', $vendorDir . '/anahkiasen/underscore-php/tests'),

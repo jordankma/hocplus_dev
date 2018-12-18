@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 {{-- Page title --}}
-@section('title'){{ $title = trans('cpvm-subject::language.titles.subject.create') }}@stop
+@section('title'){{ $title = trans('vne-subject::language.titles.subject.create') }}@stop
 
 {{-- page styles --}}
 @section('header_styles')
@@ -34,24 +34,24 @@
         <div class="row">
             <div class="the-box no-border">
                 <!-- errors -->
-                <form action="{{ route('cpvm.subject.subject.add') }}" method="post" class="bf" id="form-add-subject">
+                <form action="{{ route('vne.subject.subject.add') }}" method="post" class="bf" id="form-add-subject">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                     <div class="row">
                         <div class="col-sm-4">
-                            <label>{{ trans('cpvm-subject::language.label.subject.name') }} <span style="color: red">(*)</span></label>
+                            <label>{{ trans('vne-subject::language.label.subject.name') }} <span style="color: red">(*)</span></label>
                             <div class="form-group">
-                                <input type="text" name="name" class="form-control" placeholder="{{trans('cpvm-subject::language.placeholder.subject.name')}}">
+                                <input type="text" name="name" class="form-control" placeholder="{{trans('vne-subject::language.placeholder.subject.name')}}">
                             </div>
-                            <label>{{trans('cpvm-subject::language.label.subject.background_color')}}<span style="color: red">(*)</span></label>
+                            <label>{{trans('vne-subject::language.label.subject.background_color')}}<span style="color: red">(*)</span></label>
                             <div class="form-group">
-                                <input id="mycp1" type="text" name="background_color" class="form-control colorpicker-element" placeholder="{{trans('cpvm-subject::language.placeholder.subject.background_color')}}">
+                                <input id="mycp1" type="text" name="background_color" class="form-control colorpicker-element" placeholder="{{trans('vne-subject::language.placeholder.subject.background_color')}}">
                             </div>
-                            <label>{{trans('cpvm-subject::language.label.subject.icon')}}<span style="color: red">(*)</span></label>
+                            <label>{{trans('vne-subject::language.label.subject.icon')}}<span style="color: red">(*)</span></label>
                             <div class="form-group">
                                 <div class="input-group">
                                    <span class="input-group-btn">
                                      <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="btn btn-primary">
-                                       <i class="fa fa-picture-o"></i> {{trans('cpvm-subject::language.label.subject.choise_image')}}
+                                       <i class="fa fa-picture-o"></i> {{trans('vne-subject::language.label.subject.choise_image')}}
                                      </a>
                                    </span>
                                    <input type="text" name="icon" id="thumbnail1" class="form-control">
@@ -60,20 +60,20 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label>{{ trans('cpvm-subject::language.label.subject.priority') }} <span style="color: red">(*)</span></label>
+                            <label>{{ trans('vne-subject::language.label.subject.priority') }} <span style="color: red">(*)</span></label>
                             <div class="form-group">
-                                <input type="number" min="0" name="priority" class="form-control" placeholder="{{trans('cpvm-subject::language.placeholder.subject.priority')}}">
+                                <input type="number" min="0" name="priority" class="form-control" placeholder="{{trans('vne-subject::language.placeholder.subject.priority')}}">
                             </div>
-                            <label>{{trans('cpvm-subject::language.label.subject.background_color_mobile')}}<span style="color: red">(*)</span></label>
+                            <label>{{trans('vne-subject::language.label.subject.background_color_mobile')}}<span style="color: red">(*)</span></label>
                             <div class="form-group">
-                                <input id="mycp2" type="text" name="background_color_mobile" class="form-control" placeholder="{{trans('cpvm-subject::language.placeholder.subject.background_color_mobile')}}" autofocus="">
+                                <input id="mycp2" type="text" name="background_color_mobile" class="form-control" placeholder="{{trans('vne-subject::language.placeholder.subject.background_color_mobile')}}" autofocus="">
                             </div>
-                            <label>{{trans('cpvm-subject::language.label.subject.icon_mobile')}}<span style="color: red">(*)</span></label>
+                            <label>{{trans('vne-subject::language.label.subject.icon_mobile')}}<span style="color: red">(*)</span></label>
                             <div class="form-group">
                                 <div class="input-group">
                                    <span class="input-group-btn">
                                      <a id="lfm2" data-input="thumbnail2" data-preview="holder2" class="btn btn-primary">
-                                       <i class="fa fa-picture-o"></i> {{trans('cpvm-subject::language.label.subject.choise_image')}}
+                                       <i class="fa fa-picture-o"></i> {{trans('vne-subject::language.label.subject.choise_image')}}
                                      </a>
                                    </span>
                                    <input type="text" name="icon_mobile" id="thumbnail2" class="form-control">
@@ -83,7 +83,7 @@
                         </div>
                         <!-- /.col-sm-8 -->
                         <div class="col-sm-4">
-                            <label>{{trans('cpvm-subject::language.label.subject.classes')}} <span style="color: red">(*)</span></label>
+                            <label>{{trans('vne-subject::language.label.subject.classes')}} <span style="color: red">(*)</span></label>
                             <div class="form-group">
                                 <select id="classes" class="form-control" name="classes[]" required="" multiple="multiple">
                                     @if(!empty($classes))
@@ -96,9 +96,9 @@
                             <div class="form-group col-xs-12">
                                 <label for="blog_category" class="">Actions</label>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success">{{ trans('cpvm-subject::language.buttons.create') }}</button>
-                                    <a href="{!! route('cpvm.subject.subject.manage') !!}"
-                                       class="btn btn-danger">{{ trans('cpvm-subject::language.buttons.discard') }}</a>
+                                    <button type="submit" class="btn btn-success">{{ trans('vne-subject::language.buttons.create') }}</button>
+                                    <a href="{!! route('vne.subject.subject.manage') !!}"
+                                       class="btn btn-danger">{{ trans('vne-subject::language.buttons.discard') }}</a>
                                 </div>
                             </div>
                         </div>

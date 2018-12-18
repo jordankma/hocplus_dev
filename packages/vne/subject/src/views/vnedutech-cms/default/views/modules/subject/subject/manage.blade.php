@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 {{-- Page title --}}
-@section('title'){{ $title = trans('cpvm-subject::language.titles.subject.manage') }}@stop
+@section('title'){{ $title = trans('vne-subject::language.titles.subject.manage') }}@stop
 
 {{-- page level styles --}}
 @section('header_styles')
@@ -35,10 +35,10 @@
                         {{ $title }}
                     </h4>
                     <div class="pull-right">
-                        @if ($USER_LOGGED->canAccess('cpvm.subject.subject.create'))
-                        <a href="{{ route('cpvm.subject.subject.create') }}" class="btn btn-sm btn-default">
+                        @if ($USER_LOGGED->canAccess('vne.subject.subject.create'))
+                        <a href="{{ route('vne.subject.subject.create') }}" class="btn btn-sm btn-default">
                             <span class="glyphicon glyphicon-plus"></span> 
-                            {{ trans('cpvm-subject::language.buttons.create') }}
+                            {{ trans('vne-subject::language.buttons.create') }}
                         </a>
                         @endif
                     </div>
@@ -49,14 +49,14 @@
                         <table class="table table-bordered" id="table">
                             <thead>
                             <tr class="filters">
-                                <th class="fit-content">{{ trans('cpvm-subject::language.table.stt') }}</th>
-                                <th>{{ trans('cpvm-subject::language.table.subject.name') }}</th>
-                                <th>{{ trans('cpvm-subject::language.table.subject.background_color') }}</th>
-                                <th style="width: 130px">{{ trans('cpvm-subject::language.table.subject.icon') }}</th>
-                                <th>{{ trans('cpvm-subject::language.table.subject.background_color_mobile') }}</th>
-                                <th style="width: 130px">{{ trans('cpvm-subject::language.table.subject.icon_mobile') }}</th>
-                                <th>{{ trans('cpvm-subject::language.table.subject.classes') }}</th>
-                                <th>{{ trans('cpvm-subject::language.table.action') }}</th>
+                                <th class="fit-content">{{ trans('vne-subject::language.table.stt') }}</th>
+                                <th>{{ trans('vne-subject::language.table.subject.name') }}</th>
+                                <th>{{ trans('vne-subject::language.table.subject.background_color') }}</th>
+                                <th style="width: 130px">{{ trans('vne-subject::language.table.subject.icon') }}</th>
+                                <th>{{ trans('vne-subject::language.table.subject.background_color_mobile') }}</th>
+                                <th style="width: 130px">{{ trans('vne-subject::language.table.subject.icon_mobile') }}</th>
+                                <th>{{ trans('vne-subject::language.table.subject.classes') }}</th>
+                                <th>{{ trans('vne-subject::language.table.action') }}</th>
                             </tr>
                             </thead>
                         </table>
@@ -77,7 +77,7 @@
             var table = $('#table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('cpvm.subject.subject.data') }}',
+                ajax: '{{ route('vne.subject.subject.data') }}',
                 columns: [
                     { data: 'rownum', name: 'rownum' },
                     { data: 'name', name: 'name' },
