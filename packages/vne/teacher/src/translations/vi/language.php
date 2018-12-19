@@ -18,12 +18,18 @@ return [
         ]
     ],
     "buttons" => [
-        "create" => "Create",
-        "discard" => "Discard"
+        "create" => "Thêm",
+        "update" => "Cập nhật",
+        "discard" => "Hủy"
+    ],
+    "label" => [
+        "teacher" => [
+            "name" => "Tên"
+        ]
     ],
     "placeholder" => [
         "teacher" => [
-            "name_here" => "Name here..."
+            "name_here" => "Nhập tên ở đây"
         ]
     ],
     "messages" => [

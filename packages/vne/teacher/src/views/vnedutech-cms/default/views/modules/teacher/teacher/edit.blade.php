@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 {{-- Page title --}}
-@section('title'){{ $title = trans('vne-teacher::language.titles.demo.update') }}@stop
+@section('title'){{ $title = trans('vne-teacher::language.titles.teacher.update') }}@stop
 
 {{-- page styles --}}
 @section('header_styles')
@@ -30,16 +30,16 @@
         <!--main content-->
         <div class="row">
             <div class="the-box no-border">
-                {!! Form::model($demo, ['url' => route('vne.teacher.demo.update'), 'method' => 'put', 'class' => 'bf', 'files'=> true]) !!}
+                {!! Form::model($teacher, ['url' => route('vne.teacher.teacher.update'), 'method' => 'put', 'class' => 'bf', 'files'=> true]) !!}
                 <div class="row">
                     <div class="col-sm-8">
-                        <label>Demo Name</label>
+                        <label>teacher Name</label>
                         <div class="form-group {{ $errors->first('title', 'has-error') }}">
-                            {!! Form::text('name', null, array('class' => 'form-control', 'autofocus'=>'autofocus', 'placeholder'=>trans('vne-teacher::language.placeholder.demo.name_here'))) !!}
+                            {!! Form::text('name', null, array('class' => 'form-control', 'autofocus'=>'autofocus', 'placeholder'=>trans('vne-teacher::language.placeholder.teacher.name_here'))) !!}
                             <span class="help-block">{{ $errors->first('title', ':message') }}</span>
                         </div>
                         <div class="form-group">
-                            {!! Form::hidden('demo_id') !!}
+                            {!! Form::hidden('teacher_id') !!}
                         </div>
                     </div>
                     <!-- /.col-sm-8 -->
@@ -47,7 +47,7 @@
                         <label for="blog_category" class="">Actions</label>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">{{ trans('adtech-core::buttons.save') }}</button>
-                            <a href="{!! route('vne.teacher.demo.create') !!}"
+                            <a href="{!! route('vne.teacher.teacher.create') !!}"
                                class="btn btn-danger">{{ trans('vne-teacher::language.buttons.discard') }}</a>
                         </div>
                     </div>

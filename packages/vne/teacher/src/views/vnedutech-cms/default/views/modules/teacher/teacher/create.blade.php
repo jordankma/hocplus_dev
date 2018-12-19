@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 {{-- Page title --}}
-@section('title'){{ $title = trans('vne-teacher::language.titles.vne.create') }}@stop
+@section('title'){{ $title = trans('vne-teacher::language.titles.teacher.create') }}@stop
 
 {{-- page styles --}}
 @section('header_styles')
@@ -31,13 +31,15 @@
         <div class="row">
             <div class="the-box no-border">
                 <!-- errors -->
-                {!! Form::open(array('url' => route('vne.teacher.vne.add'), 'method' => 'post', 'class' => 'bf', 'id' => 'vneForm', 'files'=> true)) !!}
+                <form action="{{ route('vne.teacher.teacher.add') }}" method="POST" class="bf" id="form-add-teacher">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                 <div class="row">
                     <div class="col-sm-8">
-                        <label>vne Name</label>
+                        <label>{{ trans('vne-teacher::language.label.teacher.name') }}</label>
                         <div class="form-group {{ $errors->first('name', 'has-error') }}">
-                            {!! Form::text('name', null, array('class' => 'form-control', 'autofocus'=>'autofocus','placeholder'=> trans('vne-teacher::language.placeholder.vne.name_here'))) !!}
+                            <div class="form-group">
+                                <input type="text" name="name" class="form-control" placeholder="{{trans('vne-subject::language.placeholder.subject.name')}}">
+                            </div>  
                             <span class="help-block">{{ $errors->first('name', ':message') }}</span>
                         </div>
                     </div>
@@ -46,15 +48,14 @@
                         <div class="form-group col-xs-12">
                             <label for="blog_category" class="">Actions</label>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success">{{ trans('adtech-core::buttons.create') }}</button>
-                                <a href="{!! route('vne.teacher.vne.create') !!}"
-                                   class="btn btn-danger">{{ trans('vne-teacher::language.buttons.discard') }}</a>
+                                <button type="submit" class="btn btn-success">{{ trans('vne-teacher::language.buttons.create') }}</button>
+                                <a href="{!! route('vne.teacher.teacher.create') !!}"  class="btn btn-danger">{{ trans('vne-teacher::language.buttons.discard') }}</a>
                             </div>
                         </div>
                     </div>
                     <!-- /.col-sm-4 -->
                 </div>
-                {!! Form::close() !!}
+                </form>
             </div>
         </div>
         <!--main content ends-->

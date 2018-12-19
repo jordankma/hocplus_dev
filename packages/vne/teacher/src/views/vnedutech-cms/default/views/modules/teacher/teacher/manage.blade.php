@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 {{-- Page title --}}
-@section('title'){{ $title = trans('vne-teacher::language.titles.demo.manage') }}@stop
+@section('title'){{ $title = trans('vne-teacher::language.titles.teacher.manage') }}@stop
 
 {{-- page level styles --}}
 @section('header_styles')
@@ -35,7 +35,7 @@
                         {{ $title }}
                     </h4>
                     <div class="pull-right">
-                        <a href="{{ route('vne.teacher.demo.create') }}" class="btn btn-sm btn-default"><span
+                        <a href="{{ route('vne.teacher.teacher.create') }}" class="btn btn-sm btn-default"><span
                                     class="glyphicon glyphicon-plus"></span> {{ trans('vne-teacher::language.buttons.create') }}</a>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                             <thead>
                             <tr class="filters">
                                 <th class="fit-content">{{ trans('adtech-core::common.sequence') }}</th>
-                                <th>{{ trans('vne-teacher::language.table.demo.name') }}</th>
+                                <th>{{ trans('vne-teacher::language.table.teacher.name') }}</th>
                                 <th style="width: 120px">{{ trans('vne-teacher::language.table.created_at') }}</th>
                                 <th style="width: 120px">{{ trans('vne-teacher::language.table.updated_at') }}</th>
                                 <th>{{ trans('vne-teacher::language.table.action') }}</th>
@@ -70,7 +70,7 @@
             var table = $('#table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('vne.teacher.demo.data') }}',
+                ajax: '{{ route('vne.teacher.teacher.data') }}',
                 columns: [
                     { data: 'DT_Row_Index', name: 'id' },
                     { data: 'name', name: 'name' },
