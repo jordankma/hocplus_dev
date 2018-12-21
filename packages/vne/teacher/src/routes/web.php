@@ -9,7 +9,7 @@ Route::group(array('prefix' => $adminPrefix), function() {
             Route::get('create', 'TeacherController@create')->name('vne.teacher.teacher.create');
             Route::post('add', 'TeacherController@add')->name('vne.teacher.teacher.add');
             Route::get('show', 'TeacherController@show')->name('vne.teacher.teacher.show');
-            Route::put('update', 'TeacherController@update')->name('vne.teacher.teacher.update');
+            Route::post('update', 'TeacherController@update')->name('vne.teacher.teacher.update');
             Route::get('delete', 'TeacherController@delete')->name('vne.teacher.teacher.delete');
             Route::get('confirm-delete', 'TeacherController@getModalDelete')->name('vne.teacher.teacher.confirm-delete');
         });

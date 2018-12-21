@@ -13,7 +13,7 @@ class CreateSubjectTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_vne')->create('subject', function (Blueprint $table) {
+        Schema::create('subject', function (Blueprint $table) {
             $table->increments('subject_id');
             $table->string('create_by')->comment('nguoi tao mon');
             $table->string('name');
@@ -41,6 +41,6 @@ class CreateSubjectTable extends Migration
      */
     public function down()
     {
-        Schema::connection('mysql_vne')->dropIfExists('subject');
+        Schema::dropIfExists('subject');
     }
 }

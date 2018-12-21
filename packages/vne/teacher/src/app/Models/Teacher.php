@@ -12,7 +12,7 @@ class Teacher extends Model {
      *
      * @var string
      */
-    protected $table = 'tbl_teachers';
+    protected $table = 'teachers';
 
     protected $primaryKey = 'teacher_id';
 

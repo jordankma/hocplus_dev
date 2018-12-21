@@ -72,7 +72,7 @@
                 serverSide: true,
                 ajax: '{{ route('vne.teacher.teacher.data') }}',
                 columns: [
-                    { data: 'DT_Row_Index', name: 'id' },
+                    { data: 'DT_Row_Index', name: 'teacher_id' },
                     { data: 'name', name: 'name' },
                     { data: 'created_at', name: 'created_at'},
                     { data: 'updated_at', name: 'updated_at'},

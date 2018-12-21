@@ -13,7 +13,7 @@ class CreateClassHasSubjectTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_vne')->create('class_has_subject', function (Blueprint $table) {
+        Schema::create('class_has_subject', function (Blueprint $table) {
             $table->increments('class_has_subject_id');
             $table->integer('classes_id', false, true);
             $table->integer('subject_id', false, true);
@@ -32,6 +32,6 @@ class CreateClassHasSubjectTable extends Migration
      */
     public function down()
     {
-        Schema::connection('mysql_vne')->dropIfExists('class_has_subject');
+        Schema::dropIfExists('class_has_subject');
     }
 }

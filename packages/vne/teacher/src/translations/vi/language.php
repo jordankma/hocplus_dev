@@ -24,12 +24,36 @@ return [
     ],
     "label" => [
         "teacher" => [
-            "name" => "Tên"
+            "name" => "Tên",
+            "phone" => "Số điện thoại",
+            "email" => "Email",
+            "intro" => "Giới thiệu",
+            "year_graduation" => "Năm tốt nghiệp",
+            "address" => "Địa chỉ",
+            "experience" => "Số năm kinh nghiệm",
+            "facebook" => "Địa chỉ facebook",
+            "workplace" => "Nơi làm việc",
+            "achievements" => "Thành tích",
+            "degree" => "Trình độ",
+            "avatar" => "Ảnh đại diện",
+            "choise_image" => "Chọn ảnh đại diện",
+            "video_intro" => "Video giới thiệu",
+            "choise_video_intro" => "Chọn video giới thiệu"
         ]
     ],
     "placeholder" => [
         "teacher" => [
-            "name_here" => "Nhập tên ở đây"
+            "name" => "Tên",
+            "phone" => "Số điện thoại",
+            "email" => "Email",
+            "intro" => "Giới thiệu",
+            "year_graduation" => "Năm tốt nghiệp",
+            "address" => "Địa chỉ",
+            "experience" => "Số năm kinh nghiệm",
+            "facebook" => "Địa chỉ facebook",
+            "workplace" => "Nơi làm việc",
+            "achievements" => "Thành tích",
+            "degree" => "Trình độ"
         ]
     ],
     "messages" => [
