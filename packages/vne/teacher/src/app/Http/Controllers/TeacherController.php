@@ -64,7 +64,8 @@ class TeacherController extends Controller
             $teachers->facebook = $request->input('facebook');
             $teachers->experience = $request->input('experience');
             $teachers->workplace = $request->input('workplace');
-            $teachers->avatar = $request->input('avatar');
+            $teachers->avatar_index = $request->input('avatar_index');
+            $teachers->avatar_detail = $request->input('avatar_detail');
             $teachers->video_intro = $request->input('video_intro');
             $teachers->achievements = $request->input('achievements');
             $teachers->rating = $request->input('rating');
@@ -138,8 +139,8 @@ class TeacherController extends Controller
         $teacher->facebook = $request->input('facebook');
         $teacher->experience = $request->input('experience');
         $teacher->workplace = $request->input('workplace');
-        $teacher->avatar = $request->input('avatar');
-        $teacher->video_intro = $request->input('video_intro');
+        $teacher->avatar_index = $request->input('avatar_index');
+        $teacher->avatar_detail = $request->input('avatar_detail');
         $teacher->achievements = $request->input('achievements');
         $teacher->rating = $request->input('rating');
         $teacher->degree = $request->input('degree');

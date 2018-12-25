@@ -95,6 +95,7 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         array (
             'Vne\\Teacher\\' => 12,
             'Vne\\Subject\\' => 12,
+            'Vne\\Member\\' => 11,
             'Vne\\Classes\\' => 12,
         ),
         'U' => 
@@ -268,6 +269,10 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Vne\\Subject\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/vne/subject/src',
+        ),
+        'Vne\\Member\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/vne/member/src',
         ),
         'Vne\\Classes\\' => 
         array (
@@ -1221,10 +1226,11 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'CreateAdtechCoreUsersRoleTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_20_100002_create_adtech_core_users_role_table.php',
         'CreateAdtechCoreUsersTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_20_100001_create_adtech_core_users_table.php',
         'CreateClassHasSubjectTable' => __DIR__ . '/../..' . '/packages/vne/subject/src/database/migrations/2018_08_07_093405_create_class_has_subject_table.php',
+        'CreateMembersTable' => __DIR__ . '/../..' . '/packages/vne/member/src/database/migrations/2018_12_25_083911_create_members_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_20_100003_create_password_resets_table.php',
         'CreateSubjectTable' => __DIR__ . '/../..' . '/packages/vne/subject/src/database/migrations/2018_08_07_092606_create_subject_table.php',
-        'CreateTblTeacherClassHassSubjectTable' => __DIR__ . '/../..' . '/packages/vne/teacher/src/database/migrations/2018_12_19_045539_create_tbl_teacher_class_hass_subject_table.php',
-        'CreateTblTeachersTable' => __DIR__ . '/../..' . '/packages/vne/teacher/src/database/migrations/2018_12_19_045419_create_tbl_teachers_table.php',
+        'CreateTeacherClassHassSubjectTable' => __DIR__ . '/../..' . '/packages/vne/teacher/src/database/migrations/2018_12_19_045539_create_teacher_class_hass_subject_table.php',
+        'CreateTeachersTable' => __DIR__ . '/../..' . '/packages/vne/teacher/src/database/migrations/2018_12_19_045419_create_teachers_table.php',
         'CreateVneClassesTable' => __DIR__ . '/../..' . '/packages/vne/classes/src/database/migrations/2018_08_06_150404_create_vne_classes_table.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
@@ -4735,9 +4741,11 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Google_Service_Compute_HealthCheckReference' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HealthCheckReference.php',
         'Google_Service_Compute_HealthStatus' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HealthStatus.php',
         'Google_Service_Compute_HostRule' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HostRule.php',
+        'Google_Service_Compute_HttpHealthCheck' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpHealthCheck.php',
         'Google_Service_Compute_HttpHealthCheckList' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpHealthCheckList.php',
         'Google_Service_Compute_HttpHealthCheckListWarning' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpHealthCheckListWarning.php',
         'Google_Service_Compute_HttpHealthCheckListWarningData' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpHealthCheckListWarningData.php',
+        'Google_Service_Compute_HttpsHealthCheck' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpsHealthCheck.php',
         'Google_Service_Compute_HttpsHealthCheckList' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpsHealthCheckList.php',
         'Google_Service_Compute_HttpsHealthCheckListWarning' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpsHealthCheckListWarning.php',
         'Google_Service_Compute_HttpsHealthCheckListWarningData' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Compute/HttpsHealthCheckListWarningData.php',
@@ -14065,6 +14073,13 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Vne\\Classes\\App\\Models\\Classes' => __DIR__ . '/../..' . '/packages/vne/classes/src/app/Models/Classes.php',
         'Vne\\Classes\\App\\Repositories\\ClassesRepository' => __DIR__ . '/../..' . '/packages/vne/classes/src/app/Repositories/ClassesRepository.php',
         'Vne\\Classes\\ClassesServiceProvider' => __DIR__ . '/../..' . '/packages/vne/classes/src/ClassesServiceProvider.php',
+        'Vne\\Member\\App\\Http\\Controllers\\DemoController' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Http/Controllers/DemoController.php',
+        'Vne\\Member\\App\\Http\\Controllers\\MemberController' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Http/Controllers/MemberController.php',
+        'Vne\\Member\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Models/Demo.php',
+        'Vne\\Member\\App\\Models\\Member' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Models/Member.php',
+        'Vne\\Member\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Repositories/DemoRepository.php',
+        'Vne\\Member\\App\\Repositories\\MemberRepository' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Repositories/MemberRepository.php',
+        'Vne\\Member\\MemberServiceProvider' => __DIR__ . '/../..' . '/packages/vne/member/src/MemberServiceProvider.php',
         'Vne\\Subject\\App\\Http\\Controllers\\SubjectController' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Http/Controllers/SubjectController.php',
         'Vne\\Subject\\App\\Models\\ClassHasSubject' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Models/ClassHasSubject.php',
         'Vne\\Subject\\App\\Models\\Subject' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Models/Subject.php',

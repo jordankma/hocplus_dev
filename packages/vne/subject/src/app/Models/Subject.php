@@ -23,4 +23,9 @@ class Subject extends Model {
     public function getClass() {
         return $this->belongsToMany('Vne\Classes\App\Models\Classes', 'class_has_subject', 'subject_id', 'classes_id');
     }
+    
+    public static function listSubject(){
+        $subjects =  Subject::where(['status' => 'enable'])->get()->toArray();
+        return $subjects;
+    }
 }

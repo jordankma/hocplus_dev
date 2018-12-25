@@ -43,4 +43,9 @@ class Classes extends Model {
         }
         return $data;
     }
+    
+    public static function listClass(){
+        $classes = Classes::where(['status' => 'enable'])->get()->toArray();
+        return $classes;
+    }
 }

@@ -61,7 +61,8 @@
                         <label>{{ trans('vne-teacher::language.label.teacher.intro') }}</label>
                         <div class="form-group {{ $errors->first('intro', 'has-error') }}">
                             <div class="form-group">
-                                <input type="text" name="intro" value="{{ $teacher->intro }}" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.intro')}}">
+                                <textarea name="intro" class="form-control" rows="5">{{ $teacher->intro }}</textarea>
+                                {{-- <input type="text" name="intro" value="{{ $teacher->intro }}" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.intro')}}"> --}}
                             </div>  
                             <span class="help-block">{{ $errors->first('intro', ':message') }}</span>
                         </div>
@@ -72,35 +73,37 @@
                             </div>  
                             <span class="help-block">{{ $errors->first('year_graduation', ':message') }}</span>
                         </div>
-                        <label>{{trans('vne-teacher::language.label.teacher.avatar')}}</label>
+                        <label>{{trans('vne-teacher::language.label.teacher.avatar_index')}}</label>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="btn btn-primary">
-                                    <i class="fa fa-picture-o"></i> {{trans('vne-teacher::language.label.teacher.choise_image')}}
+                                    <i class="fa fa-picture-o"></i> {{trans('vne-teacher::language.label.teacher.choise_avatar_index')}}
                                     </a>
                                 </span>
-                                <input type="text" name="avatar" value="{{ $teacher->avatar }}" id="thumbnail1" class="form-control">
+                                <input type="text" name="avatar_index" value="{{ $teacher->avatar_index }}" id="thumbnail1" class="form-control">
                             </div>
-                            <img id="holder1" src="{{ $teacher->avatar }}" style="margin-top:15px;max-height:100px;">
+                            <img id="holder1" src="{{ $teacher->avatar_index }}" style="margin-top:15px;max-height:100px;">
                         </div>
-                        <label>{{trans('vne-teacher::language.label.teacher.video_intro')}}</label>
+                        <label>{{trans('vne-teacher::language.label.teacher.avatar_detail')}}</label>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-btn">
-                                    <a id="lfm2" data-input="thumbnail2" data-preview="holder1" class="btn btn-primary">
-                                    <i class="fa fa-picture-o"></i> {{trans('vne-teacher::language.label.teacher.choise_video_intro')}}
+                                    <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="btn btn-primary">
+                                    <i class="fa fa-picture-o"></i> {{trans('vne-teacher::language.label.teacher.choise_avatar_detail')}}
                                     </a>
                                 </span>
-                                <input type="text" name="video_intro" value="{{ $teacher->video_intro }}" id="thumbnail2" class="form-control">
+                                <input type="text" name="avatar_detail" value="{{ $teacher->avatar_detail }}" id="thumbnail1" class="form-control">
                             </div>
+                            <img id="holder1" src="{{ $teacher->avatar_detail }}" style="margin-top:15px;max-height:100px;">
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <label>{{ trans('vne-teacher::language.label.teacher.address') }}</label>
                         <div class="form-group {{ $errors->first('address', 'has-error') }}">
                             <div class="form-group">
-                                <input type="text" name="address" value="{{ $teacher->address }}" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.address')}}">
+                                <textarea name="address" class="form-control" rows="5">{{ $teacher->address }}</textarea>
+                                {{-- <input type="text" name="address" value="{{ $teacher->address }}" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.address')}}"> --}}
                             </div>  
                             <span class="help-block">{{ $errors->first('address', ':message') }}</span>
                         </div>
@@ -121,14 +124,16 @@
                         <label>{{ trans('vne-teacher::language.label.teacher.workplace') }}</label>
                         <div class="form-group {{ $errors->first('workplace', 'has-error') }}">
                             <div class="form-group">
-                                <input type="text" name="workplace" value="{{ $teacher->workplace }}" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.workplace')}}">
+                                <textarea name="workplace" class="form-control" rows="5">{{ $teacher->workplace }}</textarea>
+                                {{-- <input type="text" name="workplace" value="{{ $teacher->workplace }}" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.workplace')}}"> --}}
                             </div>  
                             <span class="help-block">{{ $errors->first('workplace', ':message') }}</span>
                         </div>
                         <label>{{ trans('vne-teacher::language.label.teacher.achievements') }}</label>
                         <div class="form-group {{ $errors->first('achievements', 'has-error') }}">
                             <div class="form-group">
-                                <input type="text" name="achievements" value="{{ $teacher->achievements }}" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.achievements')}}">
+                                <textarea name="achievements" class="form-control" rows="5">{{ $teacher->achievements }}</textarea>
+                                {{-- <input type="text" name="achievements" value="{{ $teacher->achievements }}" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.achievements')}}"> --}}
                             </div>  
                             <span class="help-block">{{ $errors->first('achievements', ':message') }}</span>
                         </div>

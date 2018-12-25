@@ -2,10 +2,10 @@
 
 return [
     "titles" => [
-        "teacher" => [
-            "manage" => "Quản lý giáo viên",
-            "update" => "Cập nhật giáo viên",
-            "create" => "Thêm mới giáo viên"
+        "member" => [
+            "manage" => "Quản lý tài khoản",
+            "update" => "Cập nhật tài khoản",
+            "create" => "Thêm mới tài khoản"
         ]
     ],
     "table" => [
@@ -13,7 +13,7 @@ return [
         "created_at" => "Created at",
         "updated_at" => "Updated at",
         "action" => "Actions",
-        "teacher" => [
+        "member" => [
             "name" => "Name"
         ]
     ],
@@ -23,37 +23,36 @@ return [
         "discard" => "Hủy"
     ],
     "label" => [
-        "teacher" => [
+        "member" => [
             "name" => "Tên",
+            "user_name" => "Tên tài khoản",
+            "gender" => "Giới tính",
+            "password" => "Mật khẩu",
+            "conf_password" => "Nhập lại mật khẩu",
             "phone" => "Số điện thoại",
             "email" => "Email",
+            "type" => "Loại người dùng",
             "intro" => "Giới thiệu",
-            "year_graduation" => "Năm tốt nghiệp",
             "address" => "Địa chỉ",
-            "experience" => "Số năm kinh nghiệm",
             "facebook" => "Địa chỉ facebook",
-            "workplace" => "Nơi làm việc",
-            "achievements" => "Thành tích",
-            "degree" => "Trình độ",
-            "avatar_index" => "Ảnh đại diện trang chủ",
-            "avatar_detail" => "Ảnh đại đại diện chi tiết",
-            "choise_avatar_index" => "Chọn ảnh đại diện trang chủ",
-            "choise_avatar_detail" => "Chọn ảnh đại diện chi tiết"
+            "birthday" => "Ngày sinh",
+            "avatar" => "Ảnh đại diện",
+            "choise_avatar" => "Chọn ảnh đại diện",
         ]
     ],
     "placeholder" => [
-        "teacher" => [
+        "member" => [
             "name" => "Tên",
+            "user_name" => "Tên tài khoản",
+            "password" => "Mật khẩu",
+            "conf_password" => "Nhập lại mật khẩu",
             "phone" => "Số điện thoại",
             "email" => "Email",
             "intro" => "Giới thiệu",
-            "year_graduation" => "Năm tốt nghiệp",
             "address" => "Địa chỉ",
-            "experience" => "Số năm kinh nghiệm",
+            "birthday" => "Chọn ngày sinh",
             "facebook" => "Địa chỉ facebook",
-            "workplace" => "Nơi làm việc",
-            "achievements" => "Thành tích",
-            "degree" => "Trình độ"
+            "birthday" => "Ngày sinh"
         ]
     ],
     "messages" => [
