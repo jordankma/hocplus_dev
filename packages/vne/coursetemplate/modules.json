@@ -1,0 +1,39 @@
+{
+  "package": "vne",
+  "module": "coursetemplate",
+  "description": "Permission route by group",
+  "details": [
+    {
+      "name": "Quản lý template khóa học",
+      "groups": [
+        {
+          "name": "View list",
+          "routes": [
+             "vne.coursetemplate.manage",
+             "vne.coursetemplate.log"            
+          ]
+        },
+        {
+          "name": "Create",
+          "routes": [
+            "vne.coursetemplate.add",
+            "vne.coursetemplate.create"
+          ]
+        },
+        {
+          "name": "Update",
+          "routes": [
+            "vne.coursetemplate.edit",
+            "vne.coursetemplate.update"
+          ]
+        },
+        {
+          "name": "Delete",
+          "routes": [
+            "vne.coursetemplate.delete"
+          ]
+        }
+      ]
+    }    
+  ]
+}

@@ -15,6 +15,7 @@ return array(
     'Vne\\Teacher\\' => array($baseDir . '/packages/vne/teacher/src'),
     'Vne\\Subject\\' => array($baseDir . '/packages/vne/subject/src'),
     'Vne\\Member\\' => array($baseDir . '/packages/vne/member/src'),
+    'Vne\\Coursetemplate\\' => array($baseDir . '/packages/vne/coursetemplate/src'),
     'Vne\\Classes\\' => array($baseDir . '/packages/vne/classes/src'),
     'UniSharp\\LaravelFilemanager\\' => array($vendorDir . '/unisharp/laravel-filemanager/src'),
     'Underscore\\' => array($vendorDir . '/anahkiasen/underscore-php/src', $vendorDir . '/anahkiasen/underscore-php/tests'),

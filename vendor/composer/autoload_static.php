@@ -96,6 +96,7 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
             'Vne\\Teacher\\' => 12,
             'Vne\\Subject\\' => 12,
             'Vne\\Member\\' => 11,
+            'Vne\\Coursetemplate\\' => 19,
             'Vne\\Classes\\' => 12,
         ),
         'U' => 
@@ -273,6 +274,10 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Vne\\Member\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/vne/member/src',
+        ),
+        'Vne\\Coursetemplate\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src',
         ),
         'Vne\\Classes\\' => 
         array (
@@ -1226,6 +1231,7 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'CreateAdtechCoreUsersRoleTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_20_100002_create_adtech_core_users_role_table.php',
         'CreateAdtechCoreUsersTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_20_100001_create_adtech_core_users_table.php',
         'CreateClassHasSubjectTable' => __DIR__ . '/../..' . '/packages/vne/subject/src/database/migrations/2018_08_07_093405_create_class_has_subject_table.php',
+        'CreateHocplusCourseTemplateTable' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/database/migrations/2018_12_19_045419_create_hocplus_course_template_table.php',
         'CreateMembersTable' => __DIR__ . '/../..' . '/packages/vne/member/src/database/migrations/2018_12_25_083911_create_members_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_20_100003_create_password_resets_table.php',
         'CreateSubjectTable' => __DIR__ . '/../..' . '/packages/vne/subject/src/database/migrations/2018_08_07_092606_create_subject_table.php',
@@ -14073,11 +14079,14 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Vne\\Classes\\App\\Models\\Classes' => __DIR__ . '/../..' . '/packages/vne/classes/src/app/Models/Classes.php',
         'Vne\\Classes\\App\\Repositories\\ClassesRepository' => __DIR__ . '/../..' . '/packages/vne/classes/src/app/Repositories/ClassesRepository.php',
         'Vne\\Classes\\ClassesServiceProvider' => __DIR__ . '/../..' . '/packages/vne/classes/src/ClassesServiceProvider.php',
-        'Vne\\Member\\App\\Http\\Controllers\\DemoController' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Http/Controllers/DemoController.php',
+        'Vne\\CourseTemplate\\App\\Http\\Controllers\\CoursetemplateController' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Http/Controllers/CoursetemplateController.php',
+        'Vne\\CourseTemplate\\App\\Models\\CourseTemplate' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Models/CourseTemplate.php',
+        'Vne\\Coursetemplate\\App\\Http\\Controllers\\DemoController' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Http/Controllers/DemoController.php',
+        'Vne\\Coursetemplate\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Models/Demo.php',
+        'Vne\\Coursetemplate\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Repositories/DemoRepository.php',
+        'Vne\\Coursetemplate\\CoursetemplateServiceProvider' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/CoursetemplateServiceProvider.php',
         'Vne\\Member\\App\\Http\\Controllers\\MemberController' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Http/Controllers/MemberController.php',
-        'Vne\\Member\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Models/Demo.php',
         'Vne\\Member\\App\\Models\\Member' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Models/Member.php',
-        'Vne\\Member\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Repositories/DemoRepository.php',
         'Vne\\Member\\App\\Repositories\\MemberRepository' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Repositories/MemberRepository.php',
         'Vne\\Member\\MemberServiceProvider' => __DIR__ . '/../..' . '/packages/vne/member/src/MemberServiceProvider.php',
         'Vne\\Subject\\App\\Http\\Controllers\\SubjectController' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Http/Controllers/SubjectController.php',
