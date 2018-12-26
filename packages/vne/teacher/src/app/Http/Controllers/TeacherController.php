@@ -56,6 +56,9 @@ class TeacherController extends Controller
             $teachers = new Teacher();
             $teachers->name = $request->input('name');
             $teachers->alias = str_slug( $request->input('name'), "-" );
+            $teachers->gender = $request->input('gender');
+            $teachers->user_name = $request->input('user_name');
+            $teachers->password = bcrypt($request->input('password'));
             $teachers->phone = $request->input('phone');
             $teachers->email = $request->input('email');
             $teachers->intro = $request->input('intro');
@@ -131,6 +134,7 @@ class TeacherController extends Controller
         $teacher = $this->teacher->find($teacher_id);
         $teacher->name = $request->input('name');
         $teacher->alias = str_slug( $request->input('name'), "-" );
+        $teacher->gender = $request->input('gender');
         $teacher->phone = $request->input('phone');
         $teacher->email = $request->input('email');
         $teacher->intro = $request->input('intro');

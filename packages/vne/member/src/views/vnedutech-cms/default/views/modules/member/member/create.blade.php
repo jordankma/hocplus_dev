@@ -100,7 +100,7 @@
                                 <div class="form-group">
                                     <label class="radio-inline"><input type="radio" name="type" value="student" checked>Học sinh</label>
                                     <label class="radio-inline"><input type="radio" name="type" value="parent">Phụ huynh</label>
-                                    <label class="radio-inline"><input type="radio" name="type" value="teacher">Giáo viên</label>
+                                    {{-- <label class="radio-inline"><input type="radio" name="type" value="teacher">Giáo viên</label> --}}
                                 </div>
                                 <label>{{trans('vne-member::language.label.member.avatar')}}</label>
                                 <div class="form-group">

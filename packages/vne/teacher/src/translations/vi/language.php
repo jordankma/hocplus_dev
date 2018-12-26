@@ -27,6 +27,10 @@ return [
             "name" => "Tên",
             "phone" => "Số điện thoại",
             "email" => "Email",
+            "user_name" => "Tên tài khoản",
+            "gender" => "Giới tính",
+            "password" => "Mật khẩu",
+            "conf_password" => "Nhập lại mật khẩu",
             "intro" => "Giới thiệu",
             "year_graduation" => "Năm tốt nghiệp",
             "address" => "Địa chỉ",
@@ -44,6 +48,9 @@ return [
     "placeholder" => [
         "teacher" => [
             "name" => "Tên",
+            "user_name" => "Tên tài khoản",
+            "password" => "Mật khẩu",
+            "conf_password" => "Nhập lại mật khẩu",
             "phone" => "Số điện thoại",
             "email" => "Email",
             "intro" => "Giới thiệu",

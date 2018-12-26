@@ -4,8 +4,12 @@ namespace Vne\Member\App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Adtech\Application\Cms\Controllers\Controller as Controller;
+
 use Vne\Member\App\Repositories\MemberRepository;
+
 use Vne\Member\App\Models\Member;
+use Vne\Teacher\App\Models\Teacher;
+
 use Spatie\Activitylog\Models\Activity;
 use Yajra\Datatables\Datatables;
 use Validator,DateTime;
@@ -222,6 +226,10 @@ class MemberController extends Controller
             if ($member) {
                 $data['valid'] = false; // true là có user
             }
+            $teacher =  Teacher::where(['user_name' => $request->user_name])->first();
+            if ($teacher) {
+                $data['valid'] = false; // true là có user
+            }
         }
         echo json_encode($data);
     }
@@ -233,6 +241,10 @@ class MemberController extends Controller
             if ($member) {
                 $data['valid'] = false; // true là có user
             }
+            $teacher =  Teacher::where(['email' => $request->email])->first();
+            if ($teacher) {
+                $data['valid'] = false; // true là có user
+            }
         }
         echo json_encode($data);
     }
@@ -242,6 +254,10 @@ class MemberController extends Controller
         if ($request->ajax()) {
             $member =  Member::where(['phone' => $request->phone])->first();
             if ($member) {
+                $data['valid'] = false; // true là có user
+            }
+            $teacher =  Teacher::where(['phone' => $request->phone])->first();
+            if ($teacher) {
                 $data['valid'] = false; // true là có user
             }
         }

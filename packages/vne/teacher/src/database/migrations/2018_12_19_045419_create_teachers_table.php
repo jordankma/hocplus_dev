@@ -16,6 +16,9 @@ class CreateTeachersTable extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->increments('teacher_id');
             $table->string('name');
+            $table->string('gender')->nullable()->comment('male nam, female nữ');
+            $table->string('user_name');
+            $table->string('password');
             $table->string('alias');
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
@@ -31,6 +34,13 @@ class CreateTeachersTable extends Migration
             $table->text('achievements')->nullable();
             $table->string('rating')->nullable();
             $table->text('degree')->nullable();
+
+            $table->tinyInteger('status', false, true)->default(1);
+            $table->tinyInteger('lock', false, true)->default(0);
+            $table->dateTime('lock_time')->nullable();
+            $table->tinyInteger('activated', false, true)->default(0);
+            $table->rememberToken();
+            
             $table->softDeletes();
             $table->timestamps();
         });

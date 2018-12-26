@@ -102,7 +102,7 @@
                                 <div class="form-group">
                                     <label class="radio-inline"><input type="radio" name="type" @if($member->type == 'student') checked @endif value="student">Học sinh</label>
                                     <label class="radio-inline"><input type="radio" name="type" @if($member->type == 'parent') checked @endif value="parent">Phụ huynh</label>
-                                    <label class="radio-inline"><input type="radio" name="type" @if($member->type == 'teacher') checked @endif value="teacher">Giáo viên</label>
+                                    {{-- <label class="radio-inline"><input type="radio" name="type" @if($member->type == 'teacher') checked @endif value="teacher">Giáo viên</label> --}}
                                 </div>
                                 <label>{{trans('vne-member::language.label.member.avatar')}}</label>
                                 <div class="form-group">
