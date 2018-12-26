@@ -134,6 +134,9 @@ class TeacherController extends Controller
         $teacher = $this->teacher->find($teacher_id);
         $teacher->name = $request->input('name');
         $teacher->alias = str_slug( $request->input('name'), "-" );
+        if($request->has('password') && $request->input('password') != '' ){
+            $teacher->password = bcrypt($request->input('password'));
+        }
         $teacher->gender = $request->input('gender');
         $teacher->phone = $request->input('phone');
         $teacher->email = $request->input('email');

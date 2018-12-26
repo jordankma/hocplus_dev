@@ -83,17 +83,18 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
+                            <span style="color:red">Nếu không đổi mật khẩu vui lòng bỏ trống</span>
                             <label>{{ trans('vne-teacher::language.label.teacher.password') }}</label>
                             <div class="form-group {{ $errors->first('password', 'has-error') }}">
                                 <div class="form-group">
-                                    <input type="password" name="password" value="{{ $teacher->password }}" disabled class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.password')}}">
+                                    <input type="password" name="password" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.password')}}">
                                 </div>  
                                 <span class="help-block">{{ $errors->first('password', ':message') }}</span>
                             </div>
                             <label>{{ trans('vne-teacher::language.label.teacher.conf_password') }}</label>
                             <div class="form-group {{ $errors->first('conf_password', 'has-error') }}">
                                 <div class="form-group">
-                                    <input type="password" name="conf_password" value="{{ $teacher->password }}" disabled class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.conf_password')}}">
+                                    <input type="password" name="conf_password" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.conf_password')}}">
                                 </div>  
                                 <span class="help-block">{{ $errors->first('conf_password', ':message') }}</span>
                             </div>

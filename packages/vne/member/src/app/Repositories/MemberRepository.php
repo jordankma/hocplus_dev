@@ -20,9 +20,14 @@ class MemberRepository extends Repository
         return 'Vne\Member\App\Models\Member';
     }
 
-    public function findAll() {
-
-        $result = $this->model::query();
+    public function findAll($type=null) {
+        if($type == null ){
+            $result = $this->model::query();
+        } else {
+            $result = $this->model::where('type', $type)->get(); 
+        }
+        
+        
         return $result;
     }
 }

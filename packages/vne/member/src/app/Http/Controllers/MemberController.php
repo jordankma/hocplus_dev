@@ -32,6 +32,14 @@ class MemberController extends Controller
     {
         return view('VNE-MEMBER::modules.member.member.manage');
     }
+    public function manageStudent()
+    {
+        return view('VNE-MEMBER::modules.member.member.manage_student');
+    }
+    public function manageParent()
+    {
+        return view('VNE-MEMBER::modules.member.member.manage_parent');
+    }
 
     public function create()
     {
@@ -200,6 +208,50 @@ class MemberController extends Controller
     public function data()
     {
         $members = $this->member->findAll();
+        return Datatables::of($members)
+            ->addColumn('actions', function ($members) {
+                $actions = '';
+                if ($this->user->canAccess('vne.member.member.log')) {
+                    $actions .= '<a href=' . route('vne.member.member.log', ['type' => 'member', 'id' => $members->member_id]) . ' data-toggle="modal" data-target="#log"><i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#F99928" data-hc="#F99928" title="log member"></i></a>';
+                }
+                if ($this->user->canAccess('vne.member.member.show')) {
+                    $actions .= '<a href=' . route('vne.member.member.show', ['member_id' => $members->member_id]) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update member"></i></a>';
+                }
+                if ($this->user->canAccess('vne.member.member.confirm-delete')) {
+                    $actions .= '<a href=' . route('vne.member.member.confirm-delete', ['member_id' => $members->member_id]) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="trash" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete demo"></i></a>';
+                }
+                return $actions;
+            })
+            ->addIndexColumn()
+            ->rawColumns(['actions'])
+            ->make();
+    }
+    public function dataStudent()
+    {
+        $type = 'student';
+        $members = $this->member->findAll($type);
+        return Datatables::of($members)
+            ->addColumn('actions', function ($members) {
+                $actions = '';
+                if ($this->user->canAccess('vne.member.member.log')) {
+                    $actions .= '<a href=' . route('vne.member.member.log', ['type' => 'member', 'id' => $members->member_id]) . ' data-toggle="modal" data-target="#log"><i class="livicon" data-name="info" data-size="18" data-loop="true" data-c="#F99928" data-hc="#F99928" title="log member"></i></a>';
+                }
+                if ($this->user->canAccess('vne.member.member.show')) {
+                    $actions .= '<a href=' . route('vne.member.member.show', ['member_id' => $members->member_id]) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update member"></i></a>';
+                }
+                if ($this->user->canAccess('vne.member.member.confirm-delete')) {
+                    $actions .= '<a href=' . route('vne.member.member.confirm-delete', ['member_id' => $members->member_id]) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="trash" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete demo"></i></a>';
+                }
+                return $actions;
+            })
+            ->addIndexColumn()
+            ->rawColumns(['actions'])
+            ->make();
+    }
+    public function dataParent()
+    {
+        $type = 'parent';
+        $members = $this->member->findAll($type);
         return Datatables::of($members)
             ->addColumn('actions', function ($members) {
                 $actions = '';
