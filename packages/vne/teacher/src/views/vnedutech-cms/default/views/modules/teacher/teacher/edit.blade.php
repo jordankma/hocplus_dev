@@ -135,7 +135,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-btn">
-                                            <a id="lfm1" data-input="thumbnail2" data-preview="holder2" class="btn btn-primary">
+                                            <a id="lfm2" data-input="thumbnail2" data-preview="holder2" class="btn btn-primary">
                                             <i class="fa fa-picture-o"></i> {{trans('vne-teacher::language.label.teacher.choise_avatar_detail')}}
                                             </a>
                                         </span>
@@ -254,7 +254,7 @@
         $(document).ready(function () {
             var domain = "/admin/laravel-filemanager/";
             $("#lfm1").filemanager('image', {prefix: domain});
-            $("#lfm2").filemanager('file', {prefix: domain});
+            $("#lfm2").filemanager('image', {prefix: domain});
             $('#class_subject').multiselect({
                 buttonWidth: '100%',
                 nonSelectedText: 'Chọn lớp',

@@ -253,7 +253,7 @@
         $(document).ready(function () {
             var domain = "/admin/laravel-filemanager/";
             $("#lfm1").filemanager('image', {prefix: domain});
-            $("#lfm2").filemanager('file', {prefix: domain});
+            $("#lfm2").filemanager('image', {prefix: domain});
 
             $('#class_subject').multiselect({
                 buttonWidth: '100%',
