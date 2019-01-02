@@ -135,13 +135,13 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-btn">
-                                            <a id="lfm1" data-input="thumbnail2" data-preview="holder1" class="btn btn-primary">
+                                            <a id="lfm1" data-input="thumbnail2" data-preview="holder2" class="btn btn-primary">
                                             <i class="fa fa-picture-o"></i> {{trans('vne-teacher::language.label.teacher.choise_avatar_detail')}}
                                             </a>
                                         </span>
                                         <input type="text" name="avatar_detail" value="{{ $teacher->avatar_detail }}" id="thumbnail2" class="form-control">
                                     </div>
-                                    <img id="holder1" src="{{ $teacher->avatar_detail }}" style="margin-top:15px;max-height:100px;">
+                                    <img id="holder2" src="{{ $teacher->avatar_detail }}" style="margin-top:15px;max-height:100px;">
                                 </div>
                             </div>
                             <div class="col-sm-4">
