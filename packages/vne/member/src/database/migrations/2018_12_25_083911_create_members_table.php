@@ -35,6 +35,7 @@ class CreateMembersTable extends Migration
             $table->tinyInteger('status', false, true)->default(1);
             $table->tinyInteger('lock', false, true)->default(0);
             $table->dateTime('lock_time')->nullable();
+            $table->string('activated_code')->nullable();
             $table->tinyInteger('activated', false, true)->default(0);
             $table->rememberToken();
 
