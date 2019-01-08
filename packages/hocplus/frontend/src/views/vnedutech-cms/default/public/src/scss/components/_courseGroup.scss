@@ -1,0 +1,83 @@
+@import '../variables';
+
+.c-course-group {
+    .c-item-course {
+        margin-bottom: 10px;
+
+        .inner .name a {
+            display: block;
+            height: 3em;
+            overflow: hidden;
+        }
+    }
+
+    .course-group__header {
+        display: flex;
+        justify-content: space-between;
+
+        .headline {
+            @extend .title-text;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            text-transform: uppercase;
+
+            >img {
+                margin-right: 10px;
+            }
+
+            a {
+                text-decoration: none;
+                color: $c-dark;
+
+                >span {
+                    color: $cl-04;
+                }
+            }
+        }
+
+        .filter {
+            display: none;
+
+            @media (min-width: $breakpoints-lg) {
+                display: flex;
+            }
+
+            .form-group {
+                margin-right: 15px;
+
+                .form-control {
+                    border: 1px solid $bc-03;
+                    border-radius: $round;
+                    width: 130px;
+                    padding: 6px 10px;
+                }
+
+                &:last-of-type {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    .group {
+        margin-top: 10px;
+        margin-left: -15px;
+        margin-right: -15px;
+
+        @media (min-width: $breakpoints-lg) {
+            transform: scale(-1);
+
+            .c-item-course,
+            .c-item-lecturers {
+                transform: scale(-1);
+            }
+        }
+
+        .slick-list {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+    }
+}

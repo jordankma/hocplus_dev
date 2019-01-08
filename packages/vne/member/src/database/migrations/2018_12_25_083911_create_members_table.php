@@ -15,11 +15,11 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->increments('member_id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('user_name');
             $table->string('password');
-            $table->string('phone')->unique();
-            $table->string('email')->unique();
+            $table->string('phone')->unique()->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('type')->default('student')->comment('student, parent, teacher');
             $table->string('avatar')->nullable();
             $table->dateTime('birthday')->nullable();

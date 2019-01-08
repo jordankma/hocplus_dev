@@ -177,6 +177,11 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
             'Intervention\\Image\\' => 19,
             'Illuminate\\' => 11,
         ),
+        'H' => 
+        array (
+            'Hocplus\\Frontend\\' => 17,
+            'Hocplus\\Coursegroup\\' => 20,
+        ),
         'G' => 
         array (
             'GuzzleHttp\\Stream\\' => 18,
@@ -475,6 +480,14 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
+        ),
+        'Hocplus\\Frontend\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/hocplus/frontend/src',
+        ),
+        'Hocplus\\Coursegroup\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/hocplus/coursegroup/src',
         ),
         'GuzzleHttp\\Stream\\' => 
         array (
@@ -10772,6 +10785,31 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Hamcrest\\Type\\IsString' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsString.php',
         'Hamcrest\\Util' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
         'Hamcrest\\Xml\\HasXPath' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
+        'Hocplus\\Coursegroup\\App\\Http\\Controllers\\DemoController' => __DIR__ . '/../..' . '/packages/hocplus/coursegroup/src/app/Http/Controllers/DemoController.php',
+        'Hocplus\\Coursegroup\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/hocplus/coursegroup/src/app/Models/Demo.php',
+        'Hocplus\\Coursegroup\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/hocplus/coursegroup/src/app/Repositories/DemoRepository.php',
+        'Hocplus\\Coursegroup\\CoursegroupServiceProvider' => __DIR__ . '/../..' . '/packages/hocplus/coursegroup/src/CoursegroupServiceProvider.php',
+        'Hocplus\\Frontend\\App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Http/Controllers/Auth/ForgotPasswordController.php',
+        'Hocplus\\Frontend\\App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Http/Controllers/Auth/LoginController.php',
+        'Hocplus\\Frontend\\App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Http/Controllers/Auth/RegisterController.php',
+        'Hocplus\\Frontend\\App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Http/Controllers/Auth/ResetPasswordController.php',
+        'Hocplus\\Frontend\\App\\Http\\Controllers\\CourseController' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Http/Controllers/CourseController.php',
+        'Hocplus\\Frontend\\App\\Http\\Controllers\\CourseGroupController' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Http/Controllers/CourseGroupController.php',
+        'Hocplus\\Frontend\\App\\Http\\Controllers\\HomepageController' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Http/Controllers/HomepageController.php',
+        'Hocplus\\Frontend\\App\\Middleware\\AuthMiddleware' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Middleware/AuthMiddleware.php',
+        'Hocplus\\Frontend\\App\\Models\\Classes' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Models/Classes.php',
+        'Hocplus\\Frontend\\App\\Models\\Course' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Models/Course.php',
+        'Hocplus\\Frontend\\App\\Models\\Lesson' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Models/Lesson.php',
+        'Hocplus\\Frontend\\App\\Models\\Member' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Models/Member.php',
+        'Hocplus\\Frontend\\App\\Models\\News' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Models/News.php',
+        'Hocplus\\Frontend\\App\\Models\\Subject' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Models/Subject.php',
+        'Hocplus\\Frontend\\App\\Models\\Teacher' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Models/Teacher.php',
+        'Hocplus\\Frontend\\App\\Models\\TeacherClassSubject' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Models/TeacherClassSubject.php',
+        'Hocplus\\Frontend\\App\\Repositories\\CourseRepository' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Repositories/CourseRepository.php',
+        'Hocplus\\Frontend\\App\\Repositories\\NewsRepository' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Repositories/NewsRepository.php',
+        'Hocplus\\Frontend\\App\\Repositories\\SubjectRepository' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Repositories/SubjectRepository.php',
+        'Hocplus\\Frontend\\App\\Repositories\\TeacherRepository' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/app/Repositories/TeacherRepository.php',
+        'Hocplus\\Frontend\\FrontendServiceProvider' => __DIR__ . '/../..' . '/packages/hocplus/frontend/src/FrontendServiceProvider.php',
         'Illuminate\\Auth\\Access\\AuthorizationException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/AuthorizationException.php',
         'Illuminate\\Auth\\Access\\Gate' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/Gate.php',
         'Illuminate\\Auth\\Access\\HandlesAuthorization' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/HandlesAuthorization.php',

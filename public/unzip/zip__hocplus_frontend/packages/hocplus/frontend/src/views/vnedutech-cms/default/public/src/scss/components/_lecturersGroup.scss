@@ -1,0 +1,7 @@
+@import '../variables';
+
+.c-lecturers-group {
+    @extend .c-course-group;
+    padding: 30px 0;
+    background: $cl-08;
+}
