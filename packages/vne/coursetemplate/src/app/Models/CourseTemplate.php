@@ -1,13 +1,13 @@
 <?php
 
-namespace Vne\CourseTemplate\App\Models;
+namespace Vne\Coursetemplate\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Vne\Classes\App\Models\Classes;
 use Vne\Subject\App\Models\Subject;
 use Vne\Teacher\App\Models\Teacher;
-use Vne\TemplateTesson\App\Models\Templatelesson;
+use Vne\Templatelesson\App\Models\TemplateLesson;
 
 class CourseTemplate extends Model {
     use SoftDeletes;
@@ -58,7 +58,7 @@ class CourseTemplate extends Model {
     }
     
     public static function customSearch($params){
-        $query = Coursetemplate::orderBy('course_template_id', 'desc');
+        $query = CourseTemplate::orderBy('course_template_id', 'desc');
         $limit = !empty($params['limit']) ? $params['limit'] : 20;
         if(!empty($params['teacher_id'])){
             $query->where(['teacher_id' => $params['teacher_id']]);

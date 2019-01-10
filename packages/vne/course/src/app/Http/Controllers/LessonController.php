@@ -133,6 +133,38 @@ class LessonController extends Controller
         return view('VNE-COURSE::modules.course.lesson.manage', compact('lessons'));
     }
     
+    public function editList(Request $request){
+         $validator = Validator::make($request->all(), [
+            'course_id' => 'required|numeric'           
+        ], $this->messages);
+         
+        if($validator->fails()){
+            return redirect()->back()->with(['error' => 'Sửa buổi học không thành công']);  
+        } else {
+            //validate data            
+            foreach($request->lesson_id as $i => $lessonId){
+                if(empty($lessonId) || !isset($request->name[$i]) 
+                        || !isset($request->date_start[$i]) || !isset($request->content[$i])
+                                || !isset($request->ordinal[$i]) || empty($request->name[$i]) ||
+                        empty($request->date_start[$i]) || empty($request->content[$i]) || empty($request->ordinal[$i])  ){
+                    return redirect()->back()->with(['error' => 'Sửa buổi học không thành công']);
+                }                
+            }
+            
+            //validate thanh cong
+            foreach($request->lesson_id as $i => $lessonId){                
+                Lesson::where('lesson_id', $lessonId)->update([
+                    'name' => $request->name[$i],
+                    'date_start' => strtotime($request->date_start[$i]),
+                    'content' => $request->content[$i],
+                    'ordinal' => $request->ordinal[$i],
+                    'active' => $request->active[$i]
+                ]);
+            }
+            return redirect()->route('vne.lesson.manage', ['course_id' => $request->course_id])->with(['success' => 'Sửa buổi học thành công']);
+        }
+    }
+    
     public function delete(Request $request){
        
         $validator = Validator::make($request->all(), [

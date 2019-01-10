@@ -12,7 +12,7 @@ class Classes extends Model {
      *
      * @var string
      */
-    protected $table = 'classes';
+    protected $table = 'vne_classes';
 
     protected $primaryKey = 'classes_id';
 

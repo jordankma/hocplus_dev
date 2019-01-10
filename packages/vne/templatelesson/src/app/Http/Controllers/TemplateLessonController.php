@@ -4,12 +4,12 @@ namespace Vne\Templatelesson\App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Adtech\Application\Cms\Controllers\Controller as Controller;
-use Vne\TemplateLesson\App\Models\Demo;
+use Vne\Templatelesson\App\Models\Demo;
 use Spatie\Activitylog\Models\Activity;
 use Vne\Classes\App\Models\Classes;
 use Vne\Subject\App\Models\Subject;
-use Vne\Coursetemplate\App\Models\Coursetemplate;
-use Vne\TemplateLesson\App\Models\TemplateLesson;
+use Vne\Coursetemplate\App\Models\CourseTemplate;
+use Vne\Templatelesson\App\Models\TemplateLesson;
 use Validator;
 
 class TemplateLessonController extends Controller
@@ -74,7 +74,7 @@ class TemplateLessonController extends Controller
             } else {
                 
                 $template = TemplateLesson::findOrFail($request->template_lesson_id);
-                $courseTemplates = Coursetemplate::customSearch([]);
+                $courseTemplates = CourseTemplate::customSearch([]);
                 $classes = Classes::listClass();
                 $subjects = Subject::listSubject();
                 

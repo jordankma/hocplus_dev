@@ -5,10 +5,11 @@ namespace Vne\Course\App\Http\Controllers;
 use Illuminate\Http\Request;
 use Adtech\Application\Cms\Controllers\Controller as Controller;
 use Vne\Course\App\Models\Course;
-use Vne\CourseTemplate\App\Models\CourseTemplate;
+use Vne\Coursetemplate\App\Models\CourseTemplate;
 use Vne\Classes\App\Models\Classes;
 use Vne\Subject\App\Models\Subject;
-use Vne\TemplateLesson\App\Models\TemplateLesson;
+use Vne\Templatelesson\App\Models\TemplateLesson;
+use Vne\Course\App\Models\Lesson;
 use Vne\Teacher\App\Models\TeacherClassSubject;
 use Vne\Teacher\App\Models\Teacher;
 use Spatie\Activitylog\Models\Activity;
@@ -44,14 +45,17 @@ class CourseController extends Controller
                 throw new \Exception('Bạn chưa nhập đầy đủ thông tin');
             } else {
                 
-                $item = $request->course;                                 
+                $item = $request->course; 
+                $date_start = $item['date_start']. ' ' . (isset($item['time_start']) ? $item['time_start'] : '00:00');
+                $date_end = $item['date_end']. ' ' .(isset($item['time_end']) ? $item['time_end'] : '00:00');
+               
                 $classSubject = explode("-", $item['classes']);
                 $dataInsert = [
                     'student_limit' => $item['student_limit'],
                     'time' => $item['time'],
                     'price' => $item['price'],
-                    'date_start' => strtotime($item['date_start']),
-                    'date_end' => strtotime($item['date_end']),                   
+                    'date_start' => strtotime($date_start),
+                    'date_end' => strtotime($date_end),                   
                     'active' => $item['active'],
                     'discount' => $item['discount'],
                     'discount_exp' => strtotime($item['discount_exp']),
@@ -134,7 +138,7 @@ class CourseController extends Controller
                         ]);
                         
                     } else{
-                        throw new \Exception('Tạo khoash học không thành công');
+                        throw new \Exception('Tạo khóa học không thành công');
                     }
                 }
                
@@ -279,6 +283,29 @@ class CourseController extends Controller
         }
     }
     
+    public function getLessonTemplate(Request $request){
+        try {          
+            if(empty($request->template_id)){
+                 throw new \Exception('Bạn chưa chọn template khóa học'); 
+            } 
+            $params = [
+                'course_template_id' => $request->template_id,
+                'sort' => 'asc'
+            ];
+            
+            $lessons = TemplateLesson::customSearch($params);
+            $courseTemplateId = $request->template_id;
+            $html = view('VNE-COURSE::modules.course._item_lesson', compact('lessons', 'courseTemplateId'));
+            return response()->json([
+                'status' => true,
+                'msg' => 'successfully',
+                'html' => $html->render()
+            ]);
+        } catch (\Exception $ex) {
+            
+        }
+    }        
+    
     public function _buildDataClassSubject($teacher_id){
         $teacher = Teacher::findOrFail($teacher_id);
         $classes = $teacher->getClasses ? $teacher->getClasses->toArray() : [];
@@ -299,5 +326,5 @@ class CourseController extends Controller
             }
         }
         return $data;
-    }
+    }        
 }

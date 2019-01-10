@@ -12,7 +12,7 @@ class Subject extends Model {
      *
      * @var string
      */
-    protected $table = 'subject';
+    protected $table = 'vne_subject';
 
     protected $primaryKey = 'subject_id';
 

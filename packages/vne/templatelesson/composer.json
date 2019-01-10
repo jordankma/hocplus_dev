@@ -1,39 +1,32 @@
 {
-  "package": "vne",
-  "module": "templatelesson",
-  "description": "Permission route by group",
-  "details": [
-    {
-      "name": "Quản lý template buổi học",
-      "groups": [
+    "name": "vne/templatelesson",
+    "description": "templatelesson",
+    "license": "MIT",
+    "authors": [
         {
-          "name": "View list",
-          "routes": [
-             "vne.templatelesson.manage",
-             "vne.templatelesson.log"            
-          ]
-        },
-        {
-          "name": "Create",
-          "routes": [
-            "vne.templatelesson.add",
-            "vne.templatelesson.create"
-          ]
-        },
-        {
-          "name": "Update",
-          "routes": [
-            "vne.templatelesson.edit",
-            "vne.templatelesson.update"
-          ]
-        },
-        {
-          "name": "Delete",
-          "routes": [
-            "vne.templatelesson.delete"
-          ]
+            "name": "electric",
+            "email": "huydien.it@gmail.com"
         }
-      ]
-    }    
-  ]
+    ],
+    "minimum-stability": "dev",
+    "require": {
+
+    },
+    "require-dev": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "Vne\\Templatelesson\\": "src"
+        }
+    },
+    "autoload-dev": {
+
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    }
 }

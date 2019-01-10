@@ -4,6 +4,7 @@ namespace Adtech\Application\Cms\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Hocplus\Frontend\App\Models\Subject;
 use Illuminate\Support\Collection;
 use Adtech\Core\App\Models\Domain;
 use Adtech\Core\App\Models\Menu;
@@ -12,6 +13,7 @@ use Session;
 use Cache;
 use Auth,URL;
 use GuzzleHttp\Client;
+
 // Member controller
 class MController extends BaseController
 {
@@ -36,7 +38,6 @@ class MController extends BaseController
 
     public function __construct()
     {
-        
         $id = $this->_guard()->id();
         $this->theme = config('site.theme');
         $this->user = $this->_guard()->user();
@@ -57,6 +58,35 @@ class MController extends BaseController
         self::getMenu($this->domainDefault);
         $arrColor = ['#4089C7', '#00BB8D', '#58BEDC', '#F99928', '#F06E6B', '#A7B4BA'];
 
+        //get danh muc mon - lop
+        $subjectArr = [];
+        $subjectClass = Subject::with('getClass')->select('subject_id', 'name')->get();
+        if (count($subjectClass) > 0) {
+            foreach ($subjectClass as $k => $subject) {
+                $classArr = [];
+                if ($subject->getClass != null) {
+                    if (count($subject->getClass) > 0) {
+                        foreach ($subject->getClass as $class) {
+                            $item = new \stdClass();
+                            $item->classes_id = $class->classes_id;
+                            $item->classes_name = $class->name;
+                            $classArr[] = $item;
+                        }
+                        //
+                    }
+                }
+
+                $item = new \stdClass();
+                $item->subject_id = $subject->subject_id;
+                $item->subject_name = $subject->name;
+                $item->subject_classes = $classArr;
+                $subjectArr[] = $item;
+                //
+
+            }
+            //
+
+        }
         //get setting value
         $settings = Setting::where('domain_id', $this->domainDefault)->get();
         $settingView = array('logo' => '', 'logo_mini' => '', 'title' => '', 'favicon' => '', 'logo_link' => '');
@@ -124,11 +154,12 @@ class MController extends BaseController
             'MENU_TOP' => $this->_menuTop,
             'COLOR_LIST' => $arrColor,
             'SETTING' => $settingView,
-            'group_name'  => config('site.theme'),
+            'group_name'  => config('site.group_name'),
             'template'  => config('site.desktop.template'),
             'skin'  => config('site.desktop.skin'),
             'mtemplate'  => config('site.mobile.template'),
             'mskin'  => config('site.mobile.skin'),
+            'subjectClass' => $subjectArr
         ];
 
         view()->share($share);

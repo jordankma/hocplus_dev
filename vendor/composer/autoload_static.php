@@ -93,11 +93,15 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         ),
         'V' => 
         array (
+            'Vne\\Templatelesson\\' => 19,
             'Vne\\Teacher\\' => 12,
             'Vne\\Subject\\' => 12,
+            'Vne\\News\\' => 9,
             'Vne\\Member\\' => 11,
             'Vne\\Coursetemplate\\' => 19,
+            'Vne\\Course\\' => 11,
             'Vne\\Classes\\' => 12,
+            'Vne\\Banner\\' => 11,
         ),
         'U' => 
         array (
@@ -268,6 +272,10 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
+        'Vne\\Templatelesson\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/vne/templatelesson/src',
+        ),
         'Vne\\Teacher\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/vne/teacher/src',
@@ -275,6 +283,10 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Vne\\Subject\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/vne/subject/src',
+        ),
+        'Vne\\News\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/vne/news/src',
         ),
         'Vne\\Member\\' => 
         array (
@@ -284,9 +296,17 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         array (
             0 => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src',
         ),
+        'Vne\\Course\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/vne/course/src',
+        ),
         'Vne\\Classes\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/vne/classes/src',
+        ),
+        'Vne\\Banner\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/vne/banner/src',
         ),
         'UniSharp\\LaravelFilemanager\\' => 
         array (
@@ -1244,7 +1264,10 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'CreateAdtechCoreUsersRoleTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_20_100002_create_adtech_core_users_role_table.php',
         'CreateAdtechCoreUsersTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_20_100001_create_adtech_core_users_table.php',
         'CreateClassHasSubjectTable' => __DIR__ . '/../..' . '/packages/vne/subject/src/database/migrations/2018_08_07_093405_create_class_has_subject_table.php',
+        'CreateHocplusCourseTable' => __DIR__ . '/../..' . '/packages/vne/course/src/database/migrations/2018_12_19_045419_create_hocplus_course_table.php',
         'CreateHocplusCourseTemplateTable' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/database/migrations/2018_12_19_045419_create_hocplus_course_template_table.php',
+        'CreateHocplusLessonTable' => __DIR__ . '/../..' . '/packages/vne/course/src/database/migrations/2018_12_19_045419_create_hocplus_lesson_table.php',
+        'CreateHocplusTemplateLessonTable' => __DIR__ . '/../..' . '/packages/vne/templatelesson/src/database/migrations/2018_12_19_045419_create_hocplus_template_lesson_table.php',
         'CreateMembersTable' => __DIR__ . '/../..' . '/packages/vne/member/src/database/migrations/2018_12_25_083911_create_members_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/packages/adtech/core/src/database/migrations/2017_04_20_100003_create_password_resets_table.php',
         'CreateSubjectTable' => __DIR__ . '/../..' . '/packages/vne/subject/src/database/migrations/2018_08_07_092606_create_subject_table.php',
@@ -10785,7 +10808,6 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Hamcrest\\Type\\IsString' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsString.php',
         'Hamcrest\\Util' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
         'Hamcrest\\Xml\\HasXPath' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
-        'Hocplus\\Coursegroup\\App\\Http\\Controllers\\DemoController' => __DIR__ . '/../..' . '/packages/hocplus/coursegroup/src/app/Http/Controllers/DemoController.php',
         'Hocplus\\Coursegroup\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/hocplus/coursegroup/src/app/Models/Demo.php',
         'Hocplus\\Coursegroup\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/hocplus/coursegroup/src/app/Repositories/DemoRepository.php',
         'Hocplus\\Coursegroup\\CoursegroupServiceProvider' => __DIR__ . '/../..' . '/packages/hocplus/coursegroup/src/CoursegroupServiceProvider.php',
@@ -12103,6 +12125,9 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Monolog\\ResettableInterface' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/ResettableInterface.php',
         'Monolog\\SignalHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/SignalHandler.php',
         'Monolog\\Utils' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Utils.php',
+        'NewsCatTableSeeder' => __DIR__ . '/../..' . '/packages/vne/news/src/database/seeds/NewsCatTableSeeder.php',
+        'NewsTableSeeder' => __DIR__ . '/../..' . '/packages/vne/news/src/database/seeds/NewsTableSeeder.php',
+        'NewsTagTableSeeder' => __DIR__ . '/../..' . '/packages/vne/news/src/database/seeds/NewsTagTableSeeder.php',
         'Normalizer' => __DIR__ . '/..' . '/patchwork/utf8/src/Normalizer.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php',
@@ -14113,13 +14138,41 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'UniSharp\\LaravelFilemanager\\Middlewares\\CreateDefaultFolder' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Middlewares/CreateDefaultFolder.php',
         'UniSharp\\LaravelFilemanager\\Middlewares\\MultiUser' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Middlewares/MultiUser.php',
         'UniSharp\\LaravelFilemanager\\Traits\\LfmHelpers' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Traits/LfmHelpers.php',
+        'VneBannerPositionTable' => __DIR__ . '/../..' . '/packages/vne/banner/src/database/migrations/2018_07_05_164347_vne_banner_position_table.php',
+        'VneBannerTable' => __DIR__ . '/../..' . '/packages/vne/banner/src/database/migrations/2018_06_30_160658_vne_banner_table.php',
+        'VneCatHasBoxCreate' => __DIR__ . '/../..' . '/packages/vne/news/src/database/migrations/2018_10_08_061629_vne_cat_has_box_create.php',
+        'VneNewsBoxCreate' => __DIR__ . '/../..' . '/packages/vne/news/src/database/migrations/2018_09_12_090602_vne_news_box_create.php',
+        'VneNewsCatTable' => __DIR__ . '/../..' . '/packages/vne/news/src/database/migrations/2018_06_19_172547_vne_news_cat_table.php',
+        'VneNewsHasBoxCreate' => __DIR__ . '/../..' . '/packages/vne/news/src/database/migrations/2018_09_12_090728_vne_news_has_box_create.php',
+        'VneNewsHasCatTable' => __DIR__ . '/../..' . '/packages/vne/news/src/database/migrations/2018_06_19_172558_vne_news_has_cat_table.php',
+        'VneNewsHasTagTable' => __DIR__ . '/../..' . '/packages/vne/news/src/database/migrations/2018_06_20_063829_vne_news_has_tag_table.php',
+        'VneNewsTable' => __DIR__ . '/../..' . '/packages/vne/news/src/database/migrations/2018_06_19_172533_vne_news_table.php',
+        'VneNewsTagTable' => __DIR__ . '/../..' . '/packages/vne/news/src/database/migrations/2018_06_20_063652_vne_news_tag_table.php',
+        'Vne\\Banner\\App\\Http\\Controllers\\ApiBannerController' => __DIR__ . '/../..' . '/packages/vne/banner/src/app/Http/Controllers/ApiBannerController.php',
+        'Vne\\Banner\\App\\Http\\Controllers\\BannerController' => __DIR__ . '/../..' . '/packages/vne/banner/src/app/Http/Controllers/BannerController.php',
+        'Vne\\Banner\\App\\Http\\Controllers\\PositionController' => __DIR__ . '/../..' . '/packages/vne/banner/src/app/Http/Controllers/PositionController.php',
+        'Vne\\Banner\\App\\Http\\Requests\\BannerRequest' => __DIR__ . '/../..' . '/packages/vne/banner/src/app/Http/Requests/BannerRequest.php',
+        'Vne\\Banner\\App\\Http\\Requests\\PositionRequest' => __DIR__ . '/../..' . '/packages/vne/banner/src/app/Http/Requests/PositionRequest.php',
+        'Vne\\Banner\\App\\Models\\Banner' => __DIR__ . '/../..' . '/packages/vne/banner/src/app/Models/Banner.php',
+        'Vne\\Banner\\App\\Models\\Position' => __DIR__ . '/../..' . '/packages/vne/banner/src/app/Models/Position.php',
+        'Vne\\Banner\\App\\Repositories\\BannerRepository' => __DIR__ . '/../..' . '/packages/vne/banner/src/app/Repositories/BannerRepository.php',
+        'Vne\\Banner\\App\\Repositories\\PositionRepository' => __DIR__ . '/../..' . '/packages/vne/banner/src/app/Repositories/PositionRepository.php',
+        'Vne\\Banner\\BannerServiceProvider' => __DIR__ . '/../..' . '/packages/vne/banner/src/BannerServiceProvider.php',
         'Vne\\Classes\\App\\Http\\Controllers\\ClassesController' => __DIR__ . '/../..' . '/packages/vne/classes/src/app/Http/Controllers/ClassesController.php',
         'Vne\\Classes\\App\\Models\\Classes' => __DIR__ . '/../..' . '/packages/vne/classes/src/app/Models/Classes.php',
         'Vne\\Classes\\App\\Repositories\\ClassesRepository' => __DIR__ . '/../..' . '/packages/vne/classes/src/app/Repositories/ClassesRepository.php',
         'Vne\\Classes\\ClassesServiceProvider' => __DIR__ . '/../..' . '/packages/vne/classes/src/ClassesServiceProvider.php',
-        'Vne\\CourseTemplate\\App\\Http\\Controllers\\CoursetemplateController' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Http/Controllers/CoursetemplateController.php',
-        'Vne\\CourseTemplate\\App\\Models\\CourseTemplate' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Models/CourseTemplate.php',
+        'Vne\\Course\\App\\Http\\Controllers\\CourseController' => __DIR__ . '/../..' . '/packages/vne/course/src/app/Http/Controllers/CourseController.php',
+        'Vne\\Course\\App\\Http\\Controllers\\DemoController' => __DIR__ . '/../..' . '/packages/vne/course/src/app/Http/Controllers/DemoController.php',
+        'Vne\\Course\\App\\Http\\Controllers\\LessonController' => __DIR__ . '/../..' . '/packages/vne/course/src/app/Http/Controllers/LessonController.php',
+        'Vne\\Course\\App\\Models\\Course' => __DIR__ . '/../..' . '/packages/vne/course/src/app/Models/Course.php',
+        'Vne\\Course\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/vne/course/src/app/Models/Demo.php',
+        'Vne\\Course\\App\\Models\\Lesson' => __DIR__ . '/../..' . '/packages/vne/course/src/app/Models/Lesson.php',
+        'Vne\\Course\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/vne/course/src/app/Repositories/DemoRepository.php',
+        'Vne\\Course\\CourseServiceProvider' => __DIR__ . '/../..' . '/packages/vne/course/src/CourseServiceProvider.php',
+        'Vne\\Coursetemplate\\App\\Http\\Controllers\\CoursetemplateController' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Http/Controllers/CoursetemplateController.php',
         'Vne\\Coursetemplate\\App\\Http\\Controllers\\DemoController' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Http/Controllers/DemoController.php',
+        'Vne\\Coursetemplate\\App\\Models\\CourseTemplate' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Models/CourseTemplate.php',
         'Vne\\Coursetemplate\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Models/Demo.php',
         'Vne\\Coursetemplate\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Repositories/DemoRepository.php',
         'Vne\\Coursetemplate\\CoursetemplateServiceProvider' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/CoursetemplateServiceProvider.php',
@@ -14127,6 +14180,31 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Vne\\Member\\App\\Models\\Member' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Models/Member.php',
         'Vne\\Member\\App\\Repositories\\MemberRepository' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Repositories/MemberRepository.php',
         'Vne\\Member\\MemberServiceProvider' => __DIR__ . '/../..' . '/packages/vne/member/src/MemberServiceProvider.php',
+        'Vne\\News\\App\\Http\\Controllers\\ApiNewsController' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Http/Controllers/ApiNewsController.php',
+        'Vne\\News\\App\\Http\\Controllers\\NewsBoxController' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Http/Controllers/NewsBoxController.php',
+        'Vne\\News\\App\\Http\\Controllers\\NewsCatController' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Http/Controllers/NewsCatController.php',
+        'Vne\\News\\App\\Http\\Controllers\\NewsController' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Http/Controllers/NewsController.php',
+        'Vne\\News\\App\\Http\\Controllers\\NewsTagController' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Http/Controllers/NewsTagController.php',
+        'Vne\\News\\App\\Http\\Controllers\\PageController' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Http/Controllers/PageController.php',
+        'Vne\\News\\App\\Http\\Requests\\ApiNewsRequest' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Http/Requests/ApiNewsRequest.php',
+        'Vne\\News\\App\\Http\\Requests\\NewsCatRequest' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Http/Requests/NewsCatRequest.php',
+        'Vne\\News\\App\\Http\\Requests\\NewsRequest' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Http/Requests/NewsRequest.php',
+        'Vne\\News\\App\\Http\\Requests\\NewsTagRequest' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Http/Requests/NewsTagRequest.php',
+        'Vne\\News\\App\\Http\\Resources\\NewsResource' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Http/Resources/NewsResource.php',
+        'Vne\\News\\App\\Models\\News' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Models/News.php',
+        'Vne\\News\\App\\Models\\NewsBox' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Models/NewsBox.php',
+        'Vne\\News\\App\\Models\\NewsCat' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Models/NewsCat.php',
+        'Vne\\News\\App\\Models\\NewsHasBox' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Models/NewsHasBox.php',
+        'Vne\\News\\App\\Models\\NewsHasCat' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Models/NewsHasCat.php',
+        'Vne\\News\\App\\Models\\NewsHasTag' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Models/NewsHasTag.php',
+        'Vne\\News\\App\\Models\\NewsTag' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Models/NewsTag.php',
+        'Vne\\News\\App\\Repositories\\NewsBoxRepository' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Repositories/NewsBoxRepository.php',
+        'Vne\\News\\App\\Repositories\\NewsCatRepository' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Repositories/NewsCatRepository.php',
+        'Vne\\News\\App\\Repositories\\NewsHasCatRepository' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Repositories/NewsHasCatRepository.php',
+        'Vne\\News\\App\\Repositories\\NewsHasTagRepository' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Repositories/NewsHasTagRepository.php',
+        'Vne\\News\\App\\Repositories\\NewsRepository' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Repositories/NewsRepository.php',
+        'Vne\\News\\App\\Repositories\\NewsTagRepository' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Repositories/NewsTagRepository.php',
+        'Vne\\News\\NewsServiceProvider' => __DIR__ . '/../..' . '/packages/vne/news/src/NewsServiceProvider.php',
         'Vne\\Subject\\App\\Http\\Controllers\\SubjectController' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Http/Controllers/SubjectController.php',
         'Vne\\Subject\\App\\Models\\ClassHasSubject' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Models/ClassHasSubject.php',
         'Vne\\Subject\\App\\Models\\Subject' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Models/Subject.php',
@@ -14137,6 +14215,12 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Vne\\Teacher\\App\\Models\\TeacherClassSubject' => __DIR__ . '/../..' . '/packages/vne/teacher/src/app/Models/TeacherClassSubject.php',
         'Vne\\Teacher\\App\\Repositories\\TeacherRepository' => __DIR__ . '/../..' . '/packages/vne/teacher/src/app/Repositories/TeacherReponsitory.php',
         'Vne\\Teacher\\TeacherServiceProvider' => __DIR__ . '/../..' . '/packages/vne/teacher/src/TeacherServiceProvider.php',
+        'Vne\\Templatelesson\\App\\Http\\Controllers\\DemoController' => __DIR__ . '/../..' . '/packages/vne/templatelesson/src/app/Http/Controllers/DemoController.php',
+        'Vne\\Templatelesson\\App\\Http\\Controllers\\TemplateLessonController' => __DIR__ . '/../..' . '/packages/vne/templatelesson/src/app/Http/Controllers/TemplateLessonController.php',
+        'Vne\\Templatelesson\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/vne/templatelesson/src/app/Models/Demo.php',
+        'Vne\\Templatelesson\\App\\Models\\TemplateLesson' => __DIR__ . '/../..' . '/packages/vne/templatelesson/src/app/Models/TemplateLesson.php',
+        'Vne\\Templatelesson\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/vne/templatelesson/src/app/Repositories/DemoRepository.php',
+        'Vne\\Templatelesson\\TemplatelessonServiceProvider' => __DIR__ . '/../..' . '/packages/vne/templatelesson/src/TemplatelessonServiceProvider.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',
         'Whoops\\Exception\\Formatter' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Formatter.php',

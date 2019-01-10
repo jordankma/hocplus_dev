@@ -13,7 +13,7 @@ class Teacher extends Model {
      *
      * @var string
      */
-    protected $table = 'teachers';
+    protected $table = 'vne_teachers';
 
     protected $primaryKey = 'teacher_id';
 

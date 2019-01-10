@@ -4,7 +4,7 @@ namespace Vne\Templatelesson\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Vne\CourseTemplate\App\Models\CourseTemplate;
+use Vne\Coursetemplate\App\Models\CourseTemplate;
 
 class TemplateLesson extends Model {
     use SoftDeletes;

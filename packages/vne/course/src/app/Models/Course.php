@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Vne\Subject\App\Models\Subject;
 use Vne\Teacher\App\Models\Teacher;
-use Vne\TemplateLesson\App\Models\TemplateLesson;
+use Vne\Course\App\Models\Lesson;
 use Vne\Classes\App\Models\Classes;
 
 class Course extends Model {
@@ -69,8 +69,8 @@ class Course extends Model {
         if(!empty($params['subject_id'])){
             return $query->where('subject_id', $params['subject_id']);
         }
-        if(!empty($params['classé_id'])){
-            return $query->where('classé_id', $params['classé_id']);
+        if(!empty($params['classes_id'])){
+            return $query->where('classes_id', $params['classes_id']);
         }
         $data = $query->paginate($limit)->appends($params);
         return $data;
@@ -89,6 +89,6 @@ class Course extends Model {
     }
     
     public function getLesson(){
-        return $this->hasMany();
+        return $this->hasMany(Lesson::class, 'course_id');
     }
 }

@@ -67,8 +67,8 @@ return [
     | Website backend url
     |--------------------------------------------------------------------------
     */
-    'url_storage' => 'http://hocplus.local.vn',
-    'url_static' => 'http://hocplus.local.vn',
+    'url_storage' => 'http://hocplus.vnedutech.vn',
+    'url_static' => 'http://hocplus.vnedutech.vn',
     'api_prefix' => '/resource/dev/get',
     'admin_prefix' => '/admin',
     'url_source' => 'gthd.vnedutech.vn/client/cocos3',

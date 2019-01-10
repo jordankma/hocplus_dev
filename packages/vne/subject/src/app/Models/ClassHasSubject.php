@@ -12,7 +12,7 @@ class ClassHasSubject extends Model {
      *
      * @var string
      */
-    protected $table = 'class_has_subject';
+    protected $table = 'vne_class_has_subject';
 
     protected $primaryKey = 'class_has_subject_id';
 

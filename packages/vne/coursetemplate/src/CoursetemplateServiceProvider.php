@@ -12,15 +12,17 @@ class CoursetemplateServiceProvider extends ServiceProvider
     protected $module = 'coursetemplate';
 
     protected $namespace = __NAMESPACE__ . '\App\Http\Controllers';
-
+   
     /**
      * Bootstrap the application services.
      */
     public function boot()
     {
+       
         $routesDir = __DIR__ . '/routes';
+        
         $ls = @scandir($routesDir);
-        if ($ls) {
+        if ($ls) {           
             foreach ($ls as $index => $routeFile) {
                 switch (substr($routeFile, 0, -4)) {
                     case 'web':

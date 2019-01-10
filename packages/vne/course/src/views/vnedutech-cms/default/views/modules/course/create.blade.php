@@ -17,9 +17,19 @@
 <link href="{{asset('vendor/vnedutech-cms/default/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{ asset('/vendor/' . $group_name . '/' . $skin .'/vendors/bootstrap-multiselect/css/bootstrap-multiselect.css') }}">
 <link rel="stylesheet" href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/css/pages/tab.css' }}" />
+
+<link href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/pickadate/css/default.css' }}" rel="stylesheet" type="text/css">
+<link href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/pickadate/css/default.date.css' }}" rel="stylesheet" type="text/css">
+<link href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/pickadate/css/default.time.css' }}" rel="stylesheet" type="text/css">
+<link href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/flatpickrCalendar/css/flatpickr.min.css' }}" rel="stylesheet" type="text/css" />
+<link href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/airDatepicker/css/datepicker.min.css' }}" rel="stylesheet" type="text/css" />
+
 <style>
     .error {
         border-color: red !important;
+    }
+    .flatpickr-wrapper{
+        z-index: 99999 !important;
     }
 </style>
 @stop
@@ -52,14 +62,20 @@
                         <div class="form-group" >
                             <label class="col-md-3 control-label" for="name">Ngày bắt đầu</label>
                             <div class="col-md-4">
-                                <input id="date_start" name="date_start" type="text" class="form-control">
+                                <input id="date_start" name="date_start" type="text" class="form-control">                                
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control flatpickr" id='time_start' data-time_24hr=true name="time_start" data-enabletime=true data-nocalendar=true data-timeFormat="H:i">
                             </div>
                         </div>    
 
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="name">Ngày kết thúc</label>
                             <div class="col-md-4">
-                                <input id="date_end" name="date_end" type="text" class="form-control">
+                                <input id="date_end" name="date_end"  type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control flatpickr" id='time_end' name="time_end" data-time_24hr=true data-enabletime=true data-nocalendar=true data-timeFormat="H:i">
                             </div>
                         </div>                         
                         <div class="form-group">
@@ -73,18 +89,7 @@
                             <div class="col-md-4">
                                 <input id="time" name="time" type="text" class="form-control">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label notify-template" for="message">Template khóa học</label>
-                            <div class="col-md-6" id="div_template_title" style="display: none;">
-                                <input type="text" class="form-control" name="course_template_title" id="course_template_title" disabled="true" >
-                            </div>
-                            <div class="col-md-2">
-                                <input type="hidden" name="course_template_id" value="" id="course_template_id">
-
-                                <a class="btn btn-primary btn-show-template">Chọn</a>                             
-                            </div>
-                        </div>
+                        </div>                        
                     </div>
                     <div class="col-md-6">                       
                         <div class="form-group">
@@ -115,9 +120,25 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="message">Ngày hết hạn</label>
                             <div class="col-md-8">
-                                <input id="discount_exp" name="discount_exp" type="text" class="form-control">                             
+                                <input id="discount_exp" name="discount_exp" type="text" data-enabletime=true data-time_24hr=true data-timeFormat="H:i" class="form-control">                             
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label notify-template" for="message">Template khóa học</label>
+                            <div class="col-md-8" id="div_template_title" style="display: none;">
+                                <input type="text" class="form-control" name="course_template_title" id="course_template_title" disabled="true" >
+                            </div>
+                            <div class="col-md-2">
+                                <input type="hidden" name="course_template_id" value="" id="course_template_id">
+
+                                <a class="btn btn-primary btn-show-template">Chọn</a>                             
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="load_list_date_lesson">
+                        
                     </div>
                     <div class="form-group">
                         <div class="col-md-12 text-center">
@@ -272,6 +293,13 @@
 <script src="{{asset('vendor/vnedutech-cms/default/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
 <script type="text/javascript" src="{{ asset('/vendor/' . $group_name . '/' . $skin .'/vendors/bootstrap-multiselect/js/bootstrap-multiselect.js') }}"></script>
 
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/pickadate/js/picker.js' }}" type="text/javascript"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/pickadate/js/picker.date.js' }}" type="text/javascript"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/pickadate/js/picker.time.js' }}" type="text/javascript"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/airDatepicker/js/datepicker.min.js' }}" type="text/javascript"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/airDatepicker/js/datepicker.en.js' }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/flatpickrCalendar/js/flatpickr.min.js' }}"></script>
+
 <!--end of page js-->
 <script>
 var domain = "/admin/laravel-filemanager/";
@@ -282,9 +310,25 @@ $('input[type="checkbox"].square, input[type="radio"].square').iCheck({
     increaseArea: '20%'
 });
 
-$("#date_start").datetimepicker({format: 'YYYY-MM-DD HH:mm'});
-$("#date_end").datetimepicker({format: 'YYYY-MM-DD HH:mm'});
-$("#discount_exp").datetimepicker({format: 'YYYY-MM-DD HH:mm'});
+//$("#date_start").datetimepicker({format: 'YYYY-MM-DD HH:mm'});
+//$("#date_end").datetimepicker({format: 'YYYY-MM-DD HH:mm'});
+flatpickr("#discount_exp", { minDate: new Date(), dateFormat: 'Y-m-d' });
+
+var check_in = flatpickr("#date_start", { minDate: new Date(), dateFormat: 'Y-m-d' });
+var check_out = flatpickr("#date_end", { minDate: new Date(), dateFormat: 'Y-m-d' });
+
+check_in.set("onChange", function(d) {
+    check_out.set("minDate", d.fp_incr(1)); //increment by one day
+     $('#form-add-course').bootstrapValidator('revalidateField', 'date_start');
+});
+check_out.set("onChange", function(d) {
+    check_in.set("maxDate", d);
+    $('#form-add-course').bootstrapValidator('revalidateField', 'date_end');
+});
+
+var calendars = flatpickr(".flatpickr");
+flatpickr(".calendar");
+
 
 $('body').on('click', '.btn-show-template', function () {
     $('#modalTemplate').modal('show');
@@ -355,13 +399,42 @@ $('body').on('click', 'a.paginate', function (e) {
 });
 
 $('body').on('click', '.btn-add-template', function () {
-    $("#course_template_id").val($(this).attr('template-id'));
-    $("#course_template_title").val($(this).attr('template-name'));
-    $("#div_template_title").show();
-    $('#modalTemplate').modal('hide');
+    let template_id = $(this).attr('template-id');
+    
+    
+    
+    if(template_id && $('#date_start').val() && $('#date_end').val()){
+        
+        $("#course_template_id").val(template_id);
+        $("#course_template_title").val($(this).attr('template-name'));
+        $("#div_template_title").show();
+        $('#modalTemplate').modal('hide');
+        
+        $.ajax({
+            url: "/admin/vne/course/get-lesson-template",
+            type: 'GET',
+            cache: false,
+            data: {
+                template_id: template_id
+            },
+            success: function (response) {
+                if (response.status == true) {
+                    $("#load_list_date_lesson").html(response.html);
+                    flatpickr(".lesson_date", { minDate: $('#date_start').val(), maxDate: $('#date_end').val() ,dateFormat: 'Y-m-d' });                                 
+                    
+                } else {
+                    alert(response.msg);
+                }
+            }
+        }, 'json');
+    } else {
+        alert('Bạn chưa nhập ngày bắt đầu hoặc ngày kết thúc khóa học');
+    }
+    
 });
 
 $('body').on('click', '.btn-preview', function () {
+    
     if ($('#form-add-course').bootstrapValidator('validate').has('.has-error').length) {
         alert('Bạn chưa nhập đầy đủ thông tin khóa học');        
         return;
@@ -381,6 +454,7 @@ $('body').on('click', '.btn-preview', function () {
                     $("#preview").html(response.html);
                     $('#modalPreview').modal('show');
                     loadCourseDetail();
+                    flatpickr(".preview_lesson_date_start", { minDate: $('#date_start').val(), maxDate: $('#date_end').val(), dateFormat: 'Y-m-d' });                                                            
                 } else {
                     alert(response.msg);
                 }
@@ -433,13 +507,7 @@ $('body').on('click', '.btn-save, .btn-save-to-template', function (e) {
         alert('Bạn chưa nhập ngày bắt đầu');
         $('#modalPreview').modal('hide');
         return;
-    } else {
-        if (!isDate($("#date_start").val())) {
-            $("#date_start").addClass('error');
-            alert('Dữ liệu không chính xác');
-            $('#modalPreview').modal('hide');
-            return;
-        }
+    } else {        
         course.date_start = $("#date_start").val();
     }
 
@@ -497,6 +565,8 @@ $('body').on('click', '.btn-save, .btn-save-to-template', function (e) {
     course.request_content = $("#request").val();
     course.active = $('input[name^="active"]:checked').val();
     course.is_hot = $('input[name^="ishot"]:checked').val();
+    course.time_start = $('input[name^="time_start"]').val();
+    course.time_end = $('input[name^="time_end"]').val();
     console.log(course);
 
     //validate lesson
@@ -644,6 +714,7 @@ $('#form-add-course').bootstrapValidator({
             }
         },
         date_start: {
+            trigger: 'change keyup',
             validators: {
                 notEmpty: {
                     message: 'Chưa nhập ngày bắt đầu khóa học'
@@ -654,6 +725,7 @@ $('#form-add-course').bootstrapValidator({
             }
         },
         date_end: {
+            trigger: 'change keyup',
             validators: {
                 notEmpty: {
                     message: 'Chưa nhập ngày kết thúc khóa học'
@@ -667,9 +739,11 @@ $('#form-add-course').bootstrapValidator({
     }
 });
 
+
+
 function loadCourseDetail() {
-    $("#preview_course_date_start").text($('#date_start').val());
-    $("#preview_course_date_end").text($('#date_end').val());
+    $("#preview_course_date_start").text($('#date_start').val() + ' ' + $('#time_start').val() );
+    $("#preview_course_date_end").text($('#date_end').val() + ' ' + $('#time_end').val());
     $("#preview_course_student_limit").text($('#student_limit').val());
     $("#preview_course_time").text($('#time').val());
     $("#preview_course_price").text($('#price').val());
@@ -681,11 +755,21 @@ function loadCourseDetail() {
         txt = 'Có';
     }
     $("#preview_course_acitve").text(txt);
-
+    
+    $('#preview input[name^="lesson_date_start"]').each(function (i, index) {
+        let idLesson = $(this).attr('data-id');
+             
+        $(this).val($("#lesson_date_"+idLesson).val());
+    });
 }
 
 var isDate = function (date) {
     return (new Date(date) !== "Invalid Date" && !isNaN(new Date(date))) ? true : false;
+}
+
+function toDate(dateStr) {
+  var parts = dateStr.split("-")
+  return new Date(parts[2], parts[1] - 1, parts[0])
 }
 
 

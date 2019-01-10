@@ -1,11 +1,11 @@
 <?php
 
-namespace Vne\CourseTemplate\App\Http\Controllers;
+namespace Vne\Coursetemplate\App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Adtech\Application\Cms\Controllers\Controller as Controller;
 use Spatie\Activitylog\Models\Activity;
-use Vne\CourseTemplate\App\Models\CourseTemplate;
+use Vne\Coursetemplate\App\Models\CourseTemplate;
 use Validator;
 use Vne\Classes\App\Models\Classes;
 use Vne\Subject\App\Models\Subject;

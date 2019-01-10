@@ -24,7 +24,7 @@ class SubjectRepository extends Repository
 
         DB::statement(DB::raw('set @rownum=0'));
         $result = $this->model::query()->with('getClass');
-        $result->select('subject.*', DB::raw('@rownum  := @rownum  + 1 AS rownum'));
+        $result->select('vne_subject.*', DB::raw('@rownum  := @rownum  + 1 AS rownum'));
 
         return $result;
     }

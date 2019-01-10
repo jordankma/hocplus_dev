@@ -14,7 +14,7 @@ class Classes extends Model {
      *
      * @var string
      */
-    protected $table = 'classes';
+    protected $table = 'vne_classes';
 
     protected $primaryKey = 'classes_id';
 
@@ -23,6 +23,6 @@ class Classes extends Model {
     protected $dates = ['deleted_at'];
 
     public function getSubject() {
-        return $this->belongsToMany('Vne\Subject\App\Models\Subject','class_has_subject','classes_id','subject_id');
+        return $this->belongsToMany('Vne\Subject\App\Models\Subject','vne_class_has_subject','classes_id','subject_id');
     }
 }

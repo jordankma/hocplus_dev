@@ -41,17 +41,16 @@ return [
 
         'mysql_vne' => [
             'driver' => 'mysql',
-            'host' => 'localhost',
-            'port' => '3306',
-            'database' => 'hocplus_local_package_dbs',
-            'username' => 'root',
-            'password' => '',
+            'host' => explode(',', env('DB1_HOST')),
+            'port' => env('DB1_PORT'),
+            'database' => env('DB1_DATABASE'),
+            'username' => env('DB1_USERNAME'),
+            'password' => env('DB1_PASSWORD'),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'engine' => 'InnoDB ROW_FORMAT=DYNAMIC',
             'prefix' => '',
             'strict' => true,
-            'engine' => null,
         ],
 
         'mysql_more' => [

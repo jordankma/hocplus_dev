@@ -54,7 +54,7 @@
                             <tr>
                                 <th style="text-align: center;">STT</th>
                                 <th>Ảnh</th>
-                                <th>Tên Template</th>
+                                <th>Tên khóa học</th>
                                 <th>Lớp</th>
                                 <th>Môn</th>
                                 <th>Giáo viên</th>                                                                           

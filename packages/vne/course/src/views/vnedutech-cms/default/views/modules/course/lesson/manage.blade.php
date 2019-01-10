@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 {{-- Page title --}}
-@section('title'){{ $title = "Danh sách template buổi học" }}@stop
+@section('title'){{ $title = "Danh sách buổi học" }}@stop
 
 {{-- page styles --}}
 @section('header_styles')

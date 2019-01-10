@@ -16,7 +16,7 @@ class Teacher extends Model {
      *
      * @var string
      */
-    protected $table = 'teachers';
+    protected $table = 'vne_teachers';
 
     protected $primaryKey = 'teacher_id';
 
@@ -25,7 +25,7 @@ class Teacher extends Model {
     protected $dates = ['deleted_at'];
 
     public function getClasses(){        
-        return $this->belongsToMany(Classes::class, 'teacher_class_subject', 'teacher_id', 'classes_id')->with('getSubject')->select('classes.classes_id', 'name')->distinct();
+        return $this->belongsToMany(Classes::class, 'vne_teacher_class_subject', 'teacher_id', 'classes_id')->with('getSubject')->select('classes.classes_id', 'name')->distinct();
     }
     
     public function getSubject(){

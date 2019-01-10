@@ -13,7 +13,7 @@ class CreateVneClassesTable extends Migration
      */
     public function up()
     {
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('vne_classes', function (Blueprint $table) {
             $table->increments('classes_id');
             $table->string('create_by')->comment('cua nguoi dang tin');
             $table->string('name');
@@ -38,6 +38,6 @@ class CreateVneClassesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classes');
+        Schema::dropIfExists('vne_classes');
     }
 }

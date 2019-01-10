@@ -12,7 +12,7 @@ class TeacherClassSubject extends Model {
      *
      * @var string
      */
-    protected $table = 'teacher_class_subject';
+    protected $table = 'vne_teacher_class_subject';
 
     protected $primaryKey = 'teacher_class_subject_id';
 

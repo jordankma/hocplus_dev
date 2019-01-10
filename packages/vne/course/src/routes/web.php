@@ -11,6 +11,7 @@ Route::group(array('prefix' => $adminPrefix), function() {
             Route::get('delete', 'CourseController@delete')->name('vne.course.delete');
             Route::get('log', 'CourseController@log')->name('vne.course.log');
             Route::get('find-template', 'CourseController@findTemplate')->name('vne.course.findTemplate');
+            Route::get('get-lesson-template', 'CourseController@getLessonTemplate')->name('vne.course.getLessonTemplate');
             Route::get('preview-template', 'CourseController@previewTemplate')->name('vne.course.previewTemplate');
         });
         
@@ -19,6 +20,7 @@ Route::group(array('prefix' => $adminPrefix), function() {
             Route::post('add', 'LessonController@add')->name('vne.lesson.add');
             Route::get('update', 'LessonController@update')->name('vne.lesson.update');
             Route::post('edit', 'LessonController@edit')->name('vne.lesson.edit');
+            Route::post('editList', 'LessonController@editList')->name('vne.lesson.editList');
             Route::get('manage', 'LessonController@manage')->name('vne.lesson.manage')->where('as','Buổi học - Danh sách');
             Route::get('delete', 'LessonController@delete')->name('vne.lesson.delete');
             Route::get('log', 'LessonController@log')->name('vne.lesson.log');

@@ -174,6 +174,7 @@
                             @endforeach                                                        
                         </ul>
                         <div id="lessonContent" class="tab-content">
+                            
                             @foreach($courseTemplate->getTemplateLesson as $i => $template)
                                 @php                                    
                                     $css= $i == 0 ? 'active in' : '';
@@ -199,7 +200,7 @@
                                     <div class="form-group" >
                                         <label class="col-md-4 control-label" for="name">Ngày bắt đầu</label>
                                         <div class="col-md-8">
-                                            <input id="date_start"  name="lesson_date_start[{{$i}}]" type="text" value="" class="date_start form-control">
+                                            <input data-id='{{$template->template_lesson_id}}'  name="lesson_date_start[{{$i}}]" type="text" value="" data-enabletime=true data-time_24hr=true data-timeFormat="H:i" class="preview_lesson_date_start form-control" >
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -299,7 +300,7 @@
 </form>
 
 <script type="text/javascript">
-    $('textarea#will_learn').ckeditor({
+$('textarea#will_learn').ckeditor({
     height: '150px',
     toolbar: [
         {name: 'clipboard', groups: ['clipboard', 'undo'], items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
