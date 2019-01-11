@@ -18,17 +18,25 @@ class CourseGroupController extends Controller
         $this->course = $courseRepository;
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $subject_id = null, $classes_id = null)
     {
         $list_subjects = Subject::select('subject_id', 'name', 'icon')->get();
         $list_classes = Classes::select('classes_id', 'name')->get();
         $list_banners = Banner::select('banner_id', 'name','link','image')->where('position',1)->orderBy('priority','desc')->get();
-        $listCourse = $this->course->findAll();
+
+        $listCourse = array();
+        $params = $request->all();
+        if(count($params) == 0){
+            $listCourse = $this->course->findAll();
+        } else{
+            $listCourse = $this->course->search($params);    
+        }
         $data = [
             'list_subjects' => $list_subjects,   
             'list_classes' => $list_classes,   
             'list_banners' => $list_banners,   
-            'listCourse' => $listCourse   
+            'listCourse' => $listCourse,   
+            'params' => $params   
         ];
         return view('HOCPLUS-COURSEGROUP::modules.frontend.course-group.index',$data);
     }

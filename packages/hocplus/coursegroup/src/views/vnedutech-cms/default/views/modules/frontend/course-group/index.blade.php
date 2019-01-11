@@ -43,5 +43,11 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-
+    <script>
+        $(document).ready(function () {
+            $('body').on('change','#sort',function(){
+                console.log('1');
+            });
+        });
+    </script>
 @stop

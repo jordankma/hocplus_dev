@@ -1,3 +1,4 @@
+@if(!empty($listCourse))
 <section class="row section list-item-course">
         @foreach($listCourse as $course)
         <figure class="col-12 col-md-6 col-lg-4 c-item-course">
@@ -56,3 +57,6 @@
         {{$listCourse->links()}}
     </div>
 </nav> <!-- / navigation -->
+@else 
+    <p>HIỆN CHƯA CÓ KHÓA HỌC</p>
+@endif
