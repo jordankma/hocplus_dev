@@ -43,6 +43,22 @@ class CourseRepository extends Repository
         if (!empty($params['course_now']) && $params['course_now'] != null) {
             $query->where('date_start', '<', $timeNow)->where('date_end', '>', $timeNow);    
         }
+        if (!empty($params['sort']) && $params['sort'] != null) {
+            switch ($params['sort']) {
+                case 'new':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                case 'old':
+                    $query->orderBy('created_at', 'asc');
+                    break;
+                case 'price_up':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_down':
+                    $query->orderBy('price', 'desc');
+                    break;
+            }   
+        }
         $result = $query->paginate(3);
         return $result;
     }

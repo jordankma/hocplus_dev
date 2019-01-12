@@ -47,10 +47,10 @@
                     <div class="form-group">
                         <select class="form-control" id="sort" name="sort">
                             <option>Chọn kiểu</option>
-                            <option value="new">Mới nhất</option>
-                            <option value="old">Cũ nhất</option>
-                            <option value="price_up">Giá từ thấp đến cao</option>
-                            <option value="price_down">Giá từ cao đến thấp</option>
+                            <option value="new"  @if(isset($params['sort']) && $params['sort'] == 'new') selected @endif>Mới nhất</option>
+                            <option value="old" @if(isset($params['sort']) && $params['sort'] == 'old') selected @endif>Cũ nhất</option>
+                            <option value="price_up" @if(isset($params['sort']) && $params['sort'] == 'price_up') selected @endif>Giá từ thấp đến cao</option>
+                            <option value="price_down" @if(isset($params['sort']) && $params['sort'] == 'price_down') selected @endif>Giá từ cao đến thấp</option>
                         </select>
                     </div>
                 </div> <!-- / right -->

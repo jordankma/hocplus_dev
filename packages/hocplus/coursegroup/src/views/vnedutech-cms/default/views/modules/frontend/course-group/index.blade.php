@@ -46,7 +46,24 @@
     <script>
         $(document).ready(function () {
             $('body').on('change','#sort',function(){
-                console.log('1');
+                var type = $( "select#sort option:checked" ).val()
+                var url_full = document.URL;
+                var flag = url_full.indexOf("?");
+                if(flag == -1){
+                    url_full += '?sort=' + type; 
+                } else{
+                    var flag2 = url_full.indexOf("sort");
+
+                    if(flag2 == -1){
+                        url_full += '&sort=' + type; 
+                    } else{
+                        const searchParams = new URLSearchParams(url_full);
+                        searchParams.set('sort', type);
+                        console.log(url_full);
+                    }
+                }
+                console.log(url_full);
+                window.location = url_full;
             });
         });
     </script>
