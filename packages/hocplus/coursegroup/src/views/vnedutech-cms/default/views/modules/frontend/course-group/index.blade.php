@@ -52,15 +52,7 @@
                 if(flag == -1){
                     url_full += '?sort=' + type; 
                 } else{
-                    var flag2 = url_full.indexOf("sort");
-
-                    if(flag2 == -1){
-                        url_full += '&sort=' + type; 
-                    } else{
-                        const searchParams = new URLSearchParams(url_full);
-                        searchParams.set('sort', type);
-                        console.log(url_full);
-                    }
+                    url_full += '&sort=' + type;
                 }
                 console.log(url_full);
                 window.location = url_full;

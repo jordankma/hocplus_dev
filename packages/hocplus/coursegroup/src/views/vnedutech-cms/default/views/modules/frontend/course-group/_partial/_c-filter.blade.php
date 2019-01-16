@@ -1,7 +1,7 @@
 <div class="section c-filter">
         <div class="container">
             <div class="inner">
-                <form action="{{ route('hocplus.course-group') }}" method="GET">
+                <form action="{{ route('hocplus.course.list') }}" method="GET">
                 <div class="left">
                     <button class="btn btn-filter" type="submit">Lọc kết quả</button>
                     <div class="form-group form-check">

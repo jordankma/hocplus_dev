@@ -5,7 +5,7 @@
             @if(!empty($list_subjects))
             @foreach($list_subjects as $element)
                 <li class="list-item">
-                    <a href="{{ route('hocplus.course-group', ['subject_id' => $element->subject_id]) }}">
+                    <a href="{{ route('hocplus.course.list', ['subject_id' => $element->subject_id]) }}">
                         <img src="{{ config('site.url_static') .  $element->icon }}" alt=""><span>{{ $element->name}}</span>
                     </a>
                 </li>
