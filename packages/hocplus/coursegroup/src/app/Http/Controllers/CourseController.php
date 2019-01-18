@@ -29,8 +29,13 @@ class CourseController extends Controller
         if(empty($course)){
             return redirect()->route('hocplus.frontend.index');
         }
+        $list_course_relate = Course::where('classes_id',$course->classes_id)->take(5)->get();
+        if(empty($list_course_relate)){
+            $list_course_relate = Course::take(5)->get();
+        }
         $data = [
-            'course' => $course
+            'course' => $course,
+            'list_course_relate' => $list_course_relate
         ];
         return view('HOCPLUS-COURSEGROUP::modules.frontend.course.index',$data);
     }
