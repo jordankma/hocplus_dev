@@ -23,6 +23,6 @@ class Subject extends Model {
     protected $dates = ['deleted_at'];
 
     public function getClass() {
-        return $this->belongsToMany('Vne\Classes\App\Models\Classes', 'vne_class_has_subject', 'subject_id', 'classes_id');
+        return $this->belongsToMany('Hocplus\Frontend\App\Models\Classes', 'vne_class_has_subject', 'subject_id', 'classes_id');
     }
 }

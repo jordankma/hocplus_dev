@@ -7,7 +7,7 @@
                 <div class="inner">
                     <div class="img">
                         <a href="">
-                            <img src="{{ $news->image }}" alt="">
+                            <img src="{{ config('site.url_static') . $news->image }}" alt="">
                         </a>
                     </div>
                     <div class="content">

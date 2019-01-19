@@ -46,67 +46,67 @@
                         <a class="btn btn-lecturers" href="">Trở thành giảng viên</a> <!-- / button lecturers -->
                         @if($USER_LOGGED)
                             {{ $USER_LOGGED->email }} |&nbsp;&nbsp;&nbsp;<a href="{{ route('hocplus.frontend.auth.logout') }}">Logout</a>&nbsp;&nbsp;&nbsp;
+                            <div class=" notification">
+                                <div class="icon">
+                                    <i class="fa fa-bell"></i>
+                                    <span class="number">6</span>
+                                    <div class="inner">
+                                        <div class="wrapper">
+                                            <div class="title">Thông báo</div>
+                                            <ol class="list">
+                                                <li class="item">
+                                                    <a class="item-inner" href="">
+                                                        <div class="img"><span><img src="images/c1.png" alt=""></span></div>
+                                                        <div class="info">
+                                                            <div class="info-title">Khóa học bồi dưỡng môn Sinh sẽ</div>
+                                                            <div class="info-date">diễn ra vào 15:00 chiều nay</div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="item">
+                                                    <a class="item-inner" href="">
+                                                        <div class="img"><span><img src="images/c1.png" alt=""></span></div>
+                                                        <div class="info">
+                                                            <div class="info-title">Khóa học bồi dưỡng môn Sinh sẽ</div>
+                                                            <div class="info-date">diễn ra vào 15:00 chiều nay</div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="item">
+                                                    <a class="item-inner" href="">
+                                                        <div class="img"><span><img src="images/c1.png" alt=""></span></div>
+                                                        <div class="info">
+                                                            <div class="info-title">Khóa học bồi dưỡng môn Sinh sẽ</div>
+                                                            <div class="info-date">diễn ra vào 15:00 chiều nay</div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="item">
+                                                    <a class="item-inner" href="">
+                                                        <div class="img"><span><img src="images/c1.png" alt=""></span></div>
+                                                        <div class="info">
+                                                            <div class="info-title">Khóa học bồi dưỡng môn Sinh sẽ</div>
+                                                            <div class="info-date">diễn ra vào 15:00 chiều nay</div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="item">
+                                                    <a class="item-inner" href="">
+                                                        <div class="img"><span><img src="images/c1.png" alt=""></span></div>
+                                                        <div class="info">
+                                                            <div class="info-title">Khóa học bồi dưỡng môn Sinh sẽ</div>
+                                                            <div class="info-date">diễn ra vào 15:00 chiều nay</div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- / notification -->
                         @else
                             <button class="btn btn-user">Đăng nhập</button> <!-- / user -->
                         @endif
-                        <div class=" notification">
-                            <div class="icon">
-                                <i class="fa fa-bell"></i>
-                                <span class="number">6</span>
-                                <div class="inner">
-                                    <div class="wrapper">
-                                        <div class="title">Thông báo</div>
-                                        <ol class="list">
-                                            <li class="item">
-                                                <a class="item-inner" href="">
-                                                    <div class="img"><span><img src="images/c1.png" alt=""></span></div>
-                                                    <div class="info">
-                                                        <div class="info-title">Khóa học bồi dưỡng môn Sinh sẽ</div>
-                                                        <div class="info-date">diễn ra vào 15:00 chiều nay</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="item">
-                                                <a class="item-inner" href="">
-                                                    <div class="img"><span><img src="images/c1.png" alt=""></span></div>
-                                                    <div class="info">
-                                                        <div class="info-title">Khóa học bồi dưỡng môn Sinh sẽ</div>
-                                                        <div class="info-date">diễn ra vào 15:00 chiều nay</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="item">
-                                                <a class="item-inner" href="">
-                                                    <div class="img"><span><img src="images/c1.png" alt=""></span></div>
-                                                    <div class="info">
-                                                        <div class="info-title">Khóa học bồi dưỡng môn Sinh sẽ</div>
-                                                        <div class="info-date">diễn ra vào 15:00 chiều nay</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="item">
-                                                <a class="item-inner" href="">
-                                                    <div class="img"><span><img src="images/c1.png" alt=""></span></div>
-                                                    <div class="info">
-                                                        <div class="info-title">Khóa học bồi dưỡng môn Sinh sẽ</div>
-                                                        <div class="info-date">diễn ra vào 15:00 chiều nay</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="item">
-                                                <a class="item-inner" href="">
-                                                    <div class="img"><span><img src="images/c1.png" alt=""></span></div>
-                                                    <div class="info">
-                                                        <div class="info-title">Khóa học bồi dưỡng môn Sinh sẽ</div>
-                                                        <div class="info-date">diễn ra vào 15:00 chiều nay</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!-- / notification -->
                     </div> <!-- / right -->
                 </div> <!-- / inner -->
             </div> <!-- / container -->

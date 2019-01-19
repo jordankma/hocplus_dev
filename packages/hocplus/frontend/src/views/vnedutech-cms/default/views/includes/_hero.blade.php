@@ -1,13 +1,11 @@
 <section class="c-hero">
     <div class="backgrounb">
-        <img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/hero.png" alt="">
+        <img src="{{ config('site.url_static') . $bannerHome->image }}" alt="">
     </div> <!-- / backgrounb -->
     <div class="container">
         <div class="content">
-            <h3 class="title"> Trở thành <span style="color: #fff000;">“Cao thủ học đường”</span><br>với <span style="color: #fff000;">Học
-                Plus</span></h3>
-            <div class="summary">Hãy cùng khám phá những bí kíp và phương pháp khoa học để trở thành “siêu học sinh”
-                như một cách để tri ân người cha, người mẹ của mình…</div>
+            <h3 class="title">{{ $bannerHome->name }}</h3>
+            <div class="summary">{{ $bannerHome->desc }}</div>
         </div> <!-- / content -->
         <div class="button-group">
             <div class="row">

@@ -3,31 +3,31 @@
         <div class="course-group__header">
             <h2 class="headline">
                 <img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/icon/icon-07.png" alt="">
-                <a href="list-khoa-hoc.html"><span>Khóa học sắp diễn ra</span></a>
+                <a href="list-khoa-hoc.html"><span>Khóa học đang diễn ra</span></a>
             </h2>
             <div class="filter">
                 <div class="form-group">
-                    <select class="form-control" id="group-course-filter-classes" onchange="filterCourseComming()">
+                    <select class="form-control" id="group-course-run-filter-classes" onchange="filterCourseRunning()">
                         <option value="0" selected="true">Theo lớp</option>
-                        @foreach($arrClassesComming as $classes)
+                        @foreach($arrClassesRunning as $classes)
                             <option value="{{ $classes['id'] }}">{{ $classes['name'] }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <select class="form-control" id="group-course-filter-subject" onchange="filterCourseComming()">
+                    <select class="form-control" id="group-course-run-filter-subject" onchange="filterCourseRunning()">
                         <option value="0" selected="true">Theo Môn</option>
-                        @foreach($arrSubjectComming as $subject)
+                        @foreach($arrSubjectRunning as $subject)
                             <option value="{{ $subject['id'] }}">{{ $subject['name'] }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
         </div>
-        <div class="group row" id="boxCourseGroupComming">
+        <div class="group row" id="boxCourseGroupRunning">
 
-            @if (count($listCourseComming) > 0)
-                @foreach($listCourseComming as $course)
+            @if (count($listCourseRuning) > 0)
+                @foreach($listCourseRuning as $course)
                     <figure class="col-12 col-md-6 col-lg-3 c-item-course">
                         <div class="inner">
                             <div class="img">

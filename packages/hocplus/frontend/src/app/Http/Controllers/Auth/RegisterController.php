@@ -9,8 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Adtech\Core\App\Models\User;
-use Adtech\Core\App\Models\Role;
+use Hocplus\Frontend\App\Models\Member;
 
 class RegisterController extends Controller
 {
@@ -48,19 +47,18 @@ class RegisterController extends Controller
     {
 //        $data['captcha'] = $this->captchaCheck();
         $validator = Validator::make($data, [
-            'email' => 'required|email|unique:vne_members',
+            'email' => 'required|email|unique:members',
             'password' => 'required|min:6|max:30',
-            'confirmPassword' => 'required|same:password',
-//            'g-recaptcha-response' => 'required',
-//            'captcha' => 'required|min:1'
+            'confirmPassword' => 'required|same:password'
         ], [
                 'email.required' => trans('adtech-core::messages.email_required'),
+                'email.unique' => trans('hocplus-frontend::messages.email_unique'),
                 'email.email' => trans('adtech-core::messages.email_invalid'),
+                'confirmPassword.required' => trans('hocplus-frontend::messages.confirm_password_required'),
+                'confirmPassword.same' => trans('hocplus-frontend::messages.confirm_password_same'),
                 'password.required' => trans('adtech-core::messages.password_required'),
                 'password.min' => trans('adtech-core::messages.password_min'),
-                'password.max' => trans('adtech-core::messages.password_max'),
-                'g-recaptcha-response.required' => trans('adtech-core::messages.captcha_required'),
-                'captcha.min' => trans('adtech-core::messages.captcha_invalid')
+                'password.max' => trans('adtech-core::messages.password_max')
             ]
         );
         return $validator;
@@ -76,16 +74,20 @@ class RegisterController extends Controller
 //                    return redirect()->back()->withErrors($validator);
                     echo json_encode($validator->errors());
                 } else {
-                    $user = User::create([
+                    $member = Member::create([
                         'email' => $data['email'],
                         'password' => Hash::make($data['password']),
-                        'activated_code' => str_random(64),
-                        'salt' => str_random(3),
-                        'status' => -1,
+                        'activated' => 1,
+                        'status' => 1,
                     ]);
-                    $role = Role::whereName('User')->first();
-                    $user->assignRole($role);
-                    $this->initiateEmailActivation($user);
+                    if ($member->member_id) {
+                        echo json_encode(['success' => true]);
+                    } else {
+                        echo json_encode(['error' => 'Some things error!']);
+                    }
+//                    $role = Role::whereName('User')->first();
+//                    $user->assignRole($role);
+//                    $this->initiateEmailActivation($user);
                 }
             }
         } else {

@@ -16,7 +16,7 @@
 
         @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._why')
 
-        @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._course-group')
+        @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._course-run-group')
 
         @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._course-group')
 
@@ -33,5 +33,9 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-
+    <script type="text/javascript">
+        var routeApigetCourse = '{{ route('hocplus.frontend.api.getCourse') }}';
+        var routeApigetCourseRun = '{{ route('hocplus.frontend.api.getCourseRun') }}';
+    </script>
+    <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/script/homepage.js' }}"></script>
 @stop

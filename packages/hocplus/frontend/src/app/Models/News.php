@@ -23,14 +23,14 @@ class News extends Model
     
     
     public function getCats() {
-        return $this->belongsToMany('Vne\News\App\Models\NewsCat', 'vne_news_has_cat', 'news_id', 'news_cat_id');
+        return $this->belongsToMany('Hocplus\Frontend\App\Models\NewsCat', 'vne_news_has_cat', 'news_id', 'news_cat_id');
     }
 
     public function getTags() {
-        return $this->belongsToMany('Vne\News\App\Models\NewsTag', 'vne_news_has_tag', 'news_id', 'news_tag_id');
+        return $this->belongsToMany('Hocplus\Frontend\App\Models\NewsTag', 'vne_news_has_tag', 'news_id', 'news_tag_id');
     }
 
     public function getBoxs() {
-        return $this->belongsToMany('Vne\News\App\Models\NewsBox', 'vne_news_has_box', 'news_id', 'news_box_id');
+        return $this->belongsToMany('Hocplus\Frontend\App\Models\NewsBox', 'vne_news_has_box', 'news_id', 'news_box_id');
     }
 }

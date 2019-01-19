@@ -3,15 +3,19 @@
 .c-user {
     position: fixed;
     z-index: 9991;
-    top: 20%;
+    top: 90px;
     left: 50%;
-    width: calc(100% - 30px);
+    width: calc(100% - 20px);
     max-width: 810px;
     transform: translate3d(-50%,50px,0);
     opacity: 0;
     pointer-events: none;
     box-shadow: $bs-02;
     transition: $transition;
+    @media (min-width: $breakpoints-lg) {
+        top: 20%;
+        width: calc(100% - 30px);
+    }
     .exit {
         position: absolute;
         top: 0;
@@ -38,14 +42,21 @@
         }
     }
     .inner {
-        display: flex;
+        @media (min-width: $breakpoints-lg) {
+            display: flex;
+        }
         .left,
         .right {
-            flex: 0 0 50%;
-            max-width: 50%;
+            @media (min-width: $breakpoints-lg) {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
         }
         .left {
-            display: flex;
+            display: none;
+            @media (min-width: $breakpoints-lg) {
+                display: flex;
+            }
             justify-content: center;
             align-items: center;
             position: relative;
@@ -265,5 +276,19 @@
         transform: translate3d(0,0,0);
         opacity: 1;
         pointer-events: auto;
+    }
+    &.slideout-active  {
+        .c-user {
+            z-index: 999999;
+            transform: translate3d(-50%,0,0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .over-body {
+            z-index: 999998;
+            transform: translate3d(0,0,0);
+            opacity: 1;
+            pointer-events: auto;
+        }
     }
 }

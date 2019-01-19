@@ -76,7 +76,11 @@ if (userManage) {
   const formRegisterPassword = $('.js-user .form-restore-password');
   const btnForgotPassword = $('.js-user .btn-forgot-password');
   const other = $('.js-user .other');
+  const btnRemove = $('.js-user .closed');
 
+  btnRemove.on('click', function () {
+    $(this).parent().remove();
+  });
   btnRegistration.on('click', function () {
     body.addClass(ACTIVE_CLASS);
   });
@@ -108,43 +112,43 @@ if (userManage) {
 }
 
 // carousel
-const carouselCourseItems = $('.c-course-group .group');
-if (carouselCourseItems) {
-  for (let i = 0; i < carouselCourseItems.length; i++) {
-    const carouselCourseItem = carouselCourseItems[i];
-    $(carouselCourseItem).slick({
-      speed: 300,
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 2000,
-      responsive: [{
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            arrows: false
-          }
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2,
-            arrows: false
+// const carouselCourseItems = $('.c-course-group .group');
+// if (carouselCourseItems) {
+//   for (let i = 0; i < carouselCourseItems.length; i++) {
+//     const carouselCourseItem = carouselCourseItems[i];
+//     $(carouselCourseItem).slick({
+//       speed: 300,
+//       slidesToShow: 4,
+//       slidesToScroll: 1,
+//       autoplay: true,
+//       autoplaySpeed: 2000,
+//       responsive: [{
+//           breakpoint: 1024,
+//           settings: {
+//             slidesToShow: 3,
+//             arrows: false
+//           }
+//         },
+//         {
+//           breakpoint: 600,
+//           settings: {
+//             slidesToShow: 2,
+//             arrows: false
 
-          }
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            arrows: false
-          }
-        }
-      ]
-    });
+//           }
+//         },
+//         {
+//           breakpoint: 480,
+//           settings: {
+//             slidesToShow: 1,
+//             arrows: false
+//           }
+//         }
+//       ]
+//     });
 
-  }
-}
+//   }
+// }
 const carouselCertificateItems = $('.c-lecturers-group .group');
 if (carouselCertificateItems) {
   for (let i = 0; i < carouselCertificateItems.length; i++) {

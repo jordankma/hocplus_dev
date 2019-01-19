@@ -4,28 +4,28 @@
             <h2 class="headline">
                 <a href="">giảng viên <span>VIP</span></a>
             </h2>
-            <div class="filter">
-                <div class="form-group">
-                    <select class="form-control">
-                        <option selected="true" disabled="disabled">Theo lớp</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <select class="form-control">
-                        <option selected="true" disabled="disabled">Theo Môn</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
-            </div>
+            {{--<div class="filter">--}}
+                {{--<div class="form-group">--}}
+                    {{--<select class="form-control">--}}
+                        {{--<option selected="true" disabled="disabled">Theo lớp</option>--}}
+                        {{--<option>1</option>--}}
+                        {{--<option>2</option>--}}
+                        {{--<option>3</option>--}}
+                        {{--<option>4</option>--}}
+                        {{--<option>5</option>--}}
+                    {{--</select>--}}
+                {{--</div>--}}
+                {{--<div class="form-group">--}}
+                    {{--<select class="form-control">--}}
+                        {{--<option selected="true" disabled="disabled">Theo Môn</option>--}}
+                        {{--<option>1</option>--}}
+                        {{--<option>2</option>--}}
+                        {{--<option>3</option>--}}
+                        {{--<option>4</option>--}}
+                        {{--<option>5</option>--}}
+                    {{--</select>--}}
+                {{--</div>--}}
+            {{--</div>--}}
         </div>
         <div class="group">
             @foreach($listTeacher as $teacher)
@@ -34,7 +34,7 @@
                     <div class="avatar-certificate">
                         <div class="wrapper">
                             <a href="">
-                                <img src="{{ $teacher->avatar_index }}" alt="">
+                                <img src="{{ config('site.url_static') . $teacher->avatar_index }}" alt="">
                             </a>
                             <div class="certificate">{{ $teacher->degree }}</div>
                         </div>

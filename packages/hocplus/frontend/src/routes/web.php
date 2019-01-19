@@ -32,6 +32,12 @@ Route::group(array('prefix' => $prefix), function() {
         });
     });
 
+    Route::group(array('prefix' => 'api'), function() {
+        Route::get('/getCourse', 'HomepageController@getCourseComming')->name('hocplus.frontend.api.getCourse');
+        Route::get('/getCourseRun', 'HomepageController@getCourseRunning')->name('hocplus.frontend.api.getCourseRun');
+    });
+
     Route::get('/', 'HomepageController@index')->name('hocplus.frontend.index');
     Route::get('/course', 'CourseController@index')->name('hocplus.frontend.course');
+    Route::get('/course-group', 'CourseGroupController@index')->name('hocplus.frontend.course-group');
 });
