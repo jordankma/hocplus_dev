@@ -1,0 +1,269 @@
+@import '../variables';
+
+.c-user {
+    position: fixed;
+    z-index: 9991;
+    top: 20%;
+    left: 50%;
+    width: calc(100% - 30px);
+    max-width: 810px;
+    transform: translate3d(-50%,50px,0);
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: $bs-02;
+    transition: $transition;
+    .exit {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 20px;
+        background: $c-cyan;
+        cursor: pointer;
+        &::after,
+        &::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 1px;
+            top: 50%;
+            left: 50%;
+            background: $c-white;
+        }
+        &::after {
+            transform: translate3d(-50%,-50%, 0) rotate(45deg);
+        }
+        &::before {
+            transform: translate3d(-50%,-50%, 0) rotate(-45deg);
+        }
+    }
+    .inner {
+        display: flex;
+        .left,
+        .right {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+        .left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            .bg {
+                @extend .img-cover;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    background: $cl-16;
+                }
+                >span {
+                    @extend .img-cover__wrapper;
+                }
+            }
+            .wrapper {
+                position: relative;
+                z-index: 2;
+                color: $c-white;
+                text-align: center;
+                .content {
+                    display: none;
+                    &.show {
+                        display: block;
+                    }
+                    >strong {
+                        @extend .title-text;
+                    }
+                }
+                .btn {
+                    width: 250px;
+                    padding: 7px 50px;
+                    border-color: $c-white;
+                    color: $c-white;
+                    background: transparent;
+                    &:hover,
+                    &:focus {
+                        background: $c-blue;
+                        border-color: $c-blue;
+                    }
+                }
+            }
+        }
+        .right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 35px 15px;
+            background: $c-white;
+            text-align: center;
+            .right-inner {
+                width: 270px;
+                max-width: 100%;
+                .title {
+                    @extend .title-text;
+                   font-weight: 700;
+                }
+                .content {
+                    margin-top: 15px;
+                    color: $cl-17;
+                }
+                .form {
+                    display: none;
+                    &.show {
+                        display: block;
+                    }
+                    .form-group {
+                        margin-top: 20px;
+                        &.form-check {
+                            display: flex;
+                            justify-content: space-between;
+                            >span {
+                                display: flex;
+                                align-items: center;
+                                color: $cl-17;
+                                .form-check-input {
+                                    margin-right: 5px;
+                                }
+                            }
+                        }
+                        &.notification {
+                            position: relative;
+                            background: $cl-18;
+                            border: 1px solid $bc-05;
+                            border-radius: $round;
+                            padding: 10px;
+                            .text {
+                                @extend .small-text;
+                                color: $cl-19;
+                            }
+                            .closed {
+                                position: absolute;
+                                width: 20px;
+                                height: 20px;
+                                top: 0;
+                                right: 0;
+                                cursor: pointer;
+                                background: transparent;
+                                border: 0;
+                                &::after,
+                                &::before {
+                                    content: '';
+                                    position: absolute;
+                                    height: 1px;
+                                    width: 10px;
+                                    background: $cl-17;
+                                    top: 50%;
+                                    left: 50%;
+                                }
+                                &::after {
+                                    transform: translate3d(-50%,-50%,0) rotate(45deg);
+                                }
+                                &::before {
+                                    transform: translate3d(-50%,-50%,0) rotate(-45deg);
+                                }
+                            }
+                        }
+                        .form-control  {
+                            width: 100%;
+                            padding: 11px 15px 11px 40px;
+                            border: 1px solid $bc-02;
+                        }
+                        &.email .form-control {
+                            background: url(../images/mail.png) no-repeat left 15px top 12px;
+                        }
+                        &.password .form-control {
+                            background: url(../images/pass.png) no-repeat left 15px top 9px;
+                        }
+                        &.phone .form-control {
+                            background: url(../images/phone.png) no-repeat left 15px top 9px;
+                        }
+                    }
+                    .btn {
+                        width: 100%;
+                        margin-top: 20px;
+                        background: $cl-04;
+                        color: $c-white;
+                        padding: 7px 25px;
+                        &:hover,
+                        &:focus {
+                            background: $c-blue;
+                            border-collapse: $c-blue;
+                        }
+                    }
+                    .btn-forgot-password {
+                        position: relative;
+                        border: none;
+                        background: transparent;
+                        font-style: italic;
+                        color: $cl-17;
+                        cursor: pointer;
+                        padding: 0;
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            width: 0;
+                            height: 1px;
+                            background: $cl-17;
+                            transition: $transition;
+                        }
+                        &:hover {
+                            &::after {
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+                .other {
+                    display: none;
+                    &.show {
+                        display: block;
+                    }
+                    >p {
+                        color: $c-secondary;
+                        margin: 10px 0;
+                    }
+                    .btn {
+                        width: 100%;
+                        color: $c-white;
+                        padding: 7px 25px;
+                        &:hover,
+                        &:focus {
+                            opacity: .8;
+                        }
+                    }
+                    .btn-facebook {
+                        background: #3b5998;
+                    }
+                    .btn-goole {
+                        background: #dc4a38;
+                        margin-top: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.user-anage-active {
+    .c-user {
+        transform: translate3d(-50%,0,0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .over-body {
+        transform: translate3d(0,0,0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+}

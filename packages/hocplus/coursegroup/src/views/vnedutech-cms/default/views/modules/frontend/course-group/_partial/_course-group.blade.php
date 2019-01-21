@@ -14,8 +14,8 @@
         </ul>
     </nav> <!-- / nav list -->
 
-    @include('HOCPLUS-FRONTEND::modules.frontend.course-group._partial._why')
+    @include('HOCPLUS-COURSEGROUP::modules.frontend.course-group._partial._why')
 
-    @include('HOCPLUS-FRONTEND::modules.frontend.course-group._partial._tag')
+    @include('HOCPLUS-COURSEGROUP::modules.frontend.course-group._partial._tag')
 
 </div> <!-- / main left -->

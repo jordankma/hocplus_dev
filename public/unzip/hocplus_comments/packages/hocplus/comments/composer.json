@@ -1,0 +1,32 @@
+{
+    "name": "hocplus/comments",
+    "description": "comments",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "electric",
+            "email": "huydien.it@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+
+    },
+    "require-dev": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "Hocplus\\Comments\\": "src"
+        }
+    },
+    "autoload-dev": {
+
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

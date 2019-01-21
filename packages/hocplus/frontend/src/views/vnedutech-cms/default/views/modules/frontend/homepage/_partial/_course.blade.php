@@ -3,11 +3,11 @@
         <figure class="col-12 col-md-6 col-lg-3 c-item-course">
             <div class="inner">
                 <div class="img">
-                    <a href="chi-tiet-khoa-hoc.html">
+                    <a href="{{ route('hocplus.course.detail',$course->course_id) }}">
                         <img src="{{ config('site.url_static') . $course->avartar }}" alt="">
                     </a>
                 </div>
-                <h3 class="name"><a href="chi-tiet-khoa-hoc.html">{{ $course->name }}</a></h3>
+                <h3 class="name"><a href="{{ route('hocplus.course.detail',$course->course_id) }}">{{ $course->name }}</a></h3>
                 <div class="info">
                     <div class="info-lecturers">
                         <div class="lecturers">
@@ -36,7 +36,7 @@
             </div>
             <div class="tooltip">
                 <div class="tooltip-wrappwe">
-                    <h3 class="tooltip-name"><a href="chi-tiet-khoa-hoc.html">{{ $course->name }}</a></h3>
+                    <h3 class="tooltip-name"><a href="{{ route('hocplus.course.detail',$course->course_id) }}">{{ $course->name }}</a></h3>
                     <div class="tooltip-info">
                         <span class="info-time"><i class="fa fa-play"></i> {{ count($course->getLesson) }}</span>
                         <div class="info-class"><i class="fa fa-folder-open"></i> Lớp {{ $course->isClass->name }}</div>
