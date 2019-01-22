@@ -98,6 +98,7 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
             'Vne\\Subject\\' => 12,
             'Vne\\News\\' => 9,
             'Vne\\Member\\' => 11,
+            'Vne\\Filemanager\\' => 16,
             'Vne\\Coursetemplate\\' => 19,
             'Vne\\Course\\' => 11,
             'Vne\\Classes\\' => 12,
@@ -293,6 +294,10 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Vne\\Member\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/vne/member/src',
+        ),
+        'Vne\\Filemanager\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/vne/filemanager/src',
         ),
         'Vne\\Coursetemplate\\' => 
         array (
@@ -14219,6 +14224,21 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Vne\\Coursetemplate\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Models/Demo.php',
         'Vne\\Coursetemplate\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/app/Repositories/DemoRepository.php',
         'Vne\\Coursetemplate\\CoursetemplateServiceProvider' => __DIR__ . '/../..' . '/packages/vne/coursetemplate/src/CoursetemplateServiceProvider.php',
+        'Vne\\Filemanager\\App\\FileManager' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/FileManager.php',
+        'Vne\\Filemanager\\App\\FileManagerServiceProvider' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/FileManagerServiceProvider.php',
+        'Vne\\Filemanager\\App\\Http\\Controllers\\FileManagerController' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/Http/Controllers/FileManagerController.php',
+        'Vne\\Filemanager\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/Models/Demo.php',
+        'Vne\\Filemanager\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/Repositories/DemoRepository.php',
+        'Vne\\Filemanager\\App\\Requests\\CustomErrorMessage' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/Http/Requests/CustomErrorMessage.php',
+        'Vne\\Filemanager\\App\\Requests\\RequestValidator' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/Http/Requests/RequestValidator.php',
+        'Vne\\Filemanager\\App\\Traits\\CheckTrait' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/Traits/CheckTrait.php',
+        'Vne\\Filemanager\\App\\Traits\\ContentTrait' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/Traits/ContentTrait.php',
+        'Vne\\Filemanager\\App\\Traits\\PathTrait' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/Traits/PathTrait.php',
+        'Vne\\Filemanager\\App\\TransferService\\ExternalTransfer' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/TransferService/ExternalTransfer.php',
+        'Vne\\Filemanager\\App\\TransferService\\LocalTransfer' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/TransferService/LocalTransfer.php',
+        'Vne\\Filemanager\\App\\TransferService\\Transfer' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/TransferService/Transfer.php',
+        'Vne\\Filemanager\\App\\TransferService\\TransferFactory' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/app/TransferService/TransferFactory.php',
+        'Vne\\Filemanager\\FilemanagerServiceProvider' => __DIR__ . '/../..' . '/packages/vne/filemanager/src/FilemanagerServiceProvider.php',
         'Vne\\Member\\App\\Http\\Controllers\\MemberController' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Http/Controllers/MemberController.php',
         'Vne\\Member\\App\\Models\\Member' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Models/Member.php',
         'Vne\\Member\\App\\Repositories\\MemberRepository' => __DIR__ . '/../..' . '/packages/vne/member/src/app/Repositories/MemberRepository.php',

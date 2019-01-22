@@ -48,14 +48,14 @@
                     <div class="tab-pane active" id="info-required">
                         <div class="row">
                             <div class="col-sm-4">
-                                <label>{{ trans('vne-teacher::language.label.teacher.name') }}</label>
+                                <label>{{ trans('vne-teacher::language.label.teacher.name') }} <span style="color:red">*</span></label>
                                 <div class="form-group {{ $errors->first('name', 'has-error') }}">
                                     <div class="form-group">
                                         <input type="text" name="name" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.name')}}">
                                     </div>  
                                     <span class="help-block">{{ $errors->first('name', ':message') }}</span>
                                 </div>
-                                <label>{{ trans('vne-teacher::language.label.teacher.user_name') }}</label>
+                                <label>{{ trans('vne-teacher::language.label.teacher.user_name') }} <span style="color:red">*</span></label>
                                 <div class="form-group {{ $errors->first('user_name', 'has-error') }}">
                                     <div class="form-group">
                                         <input type="text" name="user_name" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.user_name')}}">
@@ -64,14 +64,14 @@
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                <label>{{ trans('vne-teacher::language.label.teacher.phone') }}</label>
+                                <label>{{ trans('vne-teacher::language.label.teacher.phone') }} <span style="color:red">*</span></label>
                                 <div class="form-group {{ $errors->first('phone', 'has-error') }}">
                                     <div class="form-group">
                                         <input type="text" name="phone" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.phone')}}">
                                     </div>  
                                     <span class="help-block">{{ $errors->first('phone', ':message') }}</span>
                                 </div>
-                                <label>{{ trans('vne-teacher::language.label.teacher.email') }}</label>
+                                <label>{{ trans('vne-teacher::language.label.teacher.email') }} <span style="color:red">*</span></label>
                                 <div class="form-group {{ $errors->first('email', 'has-error') }}">
                                     <div class="form-group">
                                         <input type="text" name="email" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.email')}}">
@@ -85,14 +85,14 @@
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                <label>{{ trans('vne-teacher::language.label.teacher.password') }}</label>
+                                <label>{{ trans('vne-teacher::language.label.teacher.password') }} <span style="color:red">*</span></label>
                                 <div class="form-group {{ $errors->first('password', 'has-error') }}">
                                     <div class="form-group">
                                         <input type="password" name="password" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.password')}}">
                                     </div>  
                                     <span class="help-block">{{ $errors->first('password', ':message') }}</span>
                                 </div>
-                                <label>{{ trans('vne-teacher::language.label.teacher.conf_password') }}</label>
+                                <label>{{ trans('vne-teacher::language.label.teacher.conf_password') }} <span style="color:red">*</span></label>
                                 <div class="form-group {{ $errors->first('conf_password', 'has-error') }}">
                                     <div class="form-group">
                                         <input type="password" name="conf_password" class="form-control" placeholder="{{trans('vne-teacher::language.placeholder.teacher.conf_password')}}">
@@ -220,6 +220,7 @@
                     <!-- /.tab-pane -->
                 </div>
                 <!-- /.tab-content -->
+                
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group col-xs-12">

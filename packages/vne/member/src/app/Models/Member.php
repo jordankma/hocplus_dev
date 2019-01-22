@@ -19,13 +19,11 @@ class Member extends Model implements AuthenticatableContract, CanResetPasswordC
      */
     protected $guard = "member";
 
-    protected $table = 'members';
+    protected $table = 'vne_members';
 
     protected $primaryKey = 'member_id';
 
     protected $guarded = ['member_id'];
-
-    protected $fillable = ['name'];
 
     protected $hidden = ['password', 'remember_token'];
 

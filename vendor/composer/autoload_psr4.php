@@ -17,6 +17,7 @@ return array(
     'Vne\\Subject\\' => array($baseDir . '/packages/vne/subject/src'),
     'Vne\\News\\' => array($baseDir . '/packages/vne/news/src'),
     'Vne\\Member\\' => array($baseDir . '/packages/vne/member/src'),
+    'Vne\\Filemanager\\' => array($baseDir . '/packages/vne/filemanager/src'),
     'Vne\\Coursetemplate\\' => array($baseDir . '/packages/vne/coursetemplate/src'),
     'Vne\\Course\\' => array($baseDir . '/packages/vne/course/src'),
     'Vne\\Classes\\' => array($baseDir . '/packages/vne/classes/src'),

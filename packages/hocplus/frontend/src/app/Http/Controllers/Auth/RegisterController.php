@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Hocplus\Frontend\App\Models\Member;
+use Vne\Member\App\Models\Member;
 
 class RegisterController extends Controller
 {
@@ -47,7 +47,7 @@ class RegisterController extends Controller
     {
 //        $data['captcha'] = $this->captchaCheck();
         $validator = Validator::make($data, [
-            'email' => 'required|email|unique:members',
+            'email' => 'required|email|unique:vne_members',
             'password' => 'required|min:6|max:30',
             'confirmPassword' => 'required|same:password'
         ], [
