@@ -184,6 +184,7 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         ),
         'H' => 
         array (
+            'Hocplus\\Teacherfrontend\\' => 24,
             'Hocplus\\News\\' => 13,
             'Hocplus\\Frontend\\' => 17,
             'Hocplus\\Coursegroup\\' => 20,
@@ -507,6 +508,10 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
+        ),
+        'Hocplus\\Teacherfrontend\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src',
         ),
         'Hocplus\\News\\' => 
         array (
@@ -10880,6 +10885,19 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Hocplus\\News\\App\\Models\\News' => __DIR__ . '/../..' . '/packages/hocplus/news/src/app/Models/News.php',
         'Hocplus\\News\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/hocplus/news/src/app/Repositories/DemoRepository.php',
         'Hocplus\\News\\NewsServiceProvider' => __DIR__ . '/../..' . '/packages/hocplus/news/src/NewsServiceProvider.php',
+        'Hocplus\\Teacherfrontend\\App\\Http\\Controllers\\TeacherfrontendController' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Http/Controllers/TeacherfrontendController.php',
+        'Hocplus\\Teacherfrontend\\App\\Models\\Banner' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Models/Banner.php',
+        'Hocplus\\Teacherfrontend\\App\\Models\\Classes' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Models/Classes.php',
+        'Hocplus\\Teacherfrontend\\App\\Models\\Course' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Models/Course.php',
+        'Hocplus\\Teacherfrontend\\App\\Models\\Lesson' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Models/Lesson.php',
+        'Hocplus\\Teacherfrontend\\App\\Models\\Subject' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Models/Subject.php',
+        'Hocplus\\Teacherfrontend\\App\\Models\\Teacher' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Models/Teacher.php',
+        'Hocplus\\Teacherfrontend\\App\\Models\\TeacherClassSubject' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Models/TeacherClassSubject.php',
+        'Hocplus\\Teacherfrontend\\App\\Repositories\\CourseRepository' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Repositories/CourseRepository.php',
+        'Hocplus\\Teacherfrontend\\App\\Repositories\\NewsRepository' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Repositories/NewsRepository.php',
+        'Hocplus\\Teacherfrontend\\App\\Repositories\\SubjectRepository' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Repositories/SubjectRepository.php',
+        'Hocplus\\Teacherfrontend\\App\\Repositories\\TeacherRepository' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Repositories/TeacherRepository.php',
+        'Hocplus\\Teacherfrontend\\TeacherfrontendServiceProvider' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/TeacherfrontendServiceProvider.php',
         'Illuminate\\Auth\\Access\\AuthorizationException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/AuthorizationException.php',
         'Illuminate\\Auth\\Access\\Gate' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/Gate.php',
         'Illuminate\\Auth\\Access\\HandlesAuthorization' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/HandlesAuthorization.php',

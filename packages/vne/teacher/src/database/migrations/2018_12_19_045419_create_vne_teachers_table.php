@@ -17,7 +17,7 @@ class CreateVneTeachersTable extends Migration
             $table->increments('teacher_id');
             $table->string('name');
             $table->string('gender')->nullable()->comment('male nam, female nữ');
-            $table->string('user_name');
+            $table->string('user_name')->nullable();
             $table->string('password');
             $table->string('alias');
             $table->string('phone')->nullable();
@@ -33,6 +33,7 @@ class CreateVneTeachersTable extends Migration
             $table->string('video_intro')->nullable();
             $table->text('achievements')->nullable();
             $table->string('rating')->nullable();
+            $table->string('try_create_course')->nullable();
             $table->text('degree')->nullable();
 
             $table->tinyInteger('status', false, true)->default(1);

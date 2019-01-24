@@ -70,6 +70,7 @@ return array(
     'JakubOnderka\\PhpConsoleColor\\' => array($vendorDir . '/jakub-onderka/php-console-color/src'),
     'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src/Intervention/Image'),
     'Illuminate\\' => array($vendorDir . '/laravel/framework/src/Illuminate'),
+    'Hocplus\\Teacherfrontend\\' => array($baseDir . '/packages/hocplus/teacherfrontend/src'),
     'Hocplus\\News\\' => array($baseDir . '/packages/hocplus/news/src'),
     'Hocplus\\Frontend\\' => array($baseDir . '/packages/hocplus/frontend/src'),
     'Hocplus\\Coursegroup\\' => array($baseDir . '/packages/hocplus/coursegroup/src'),

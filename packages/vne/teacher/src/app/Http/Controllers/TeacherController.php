@@ -259,4 +259,37 @@ class TeacherController extends Controller
             ->rawColumns(['actions'])
             ->make();
     }
+
+    public function checkUserNameExist(Request $request){
+        $data['valid'] = true;
+        if ($request->ajax()) {
+            $teacher =  Teacher::where(['user_name' => $request->user_name])->first();
+            if ($teacher) {
+                $data['valid'] = false; // true là có user
+            }
+        }
+        echo json_encode($data);
+    }
+
+    public function checkEmailExist(Request $request){
+        $data['valid'] = true;
+        if ($request->ajax()) {
+            $teacher =  Teacher::where(['email' => $request->email])->first();
+            if ($teacher) {
+                $data['valid'] = false; // true là có user
+            }
+        }
+        echo json_encode($data);
+    }
+
+    public function checkPhoneExist(Request $request){
+        $data['valid'] = true;
+        if ($request->ajax()) {
+            $teacher =  Teacher::where(['phone' => $request->phone])->first();
+            if ($teacher) {
+                $data['valid'] = false; // true là có user
+            }
+        }
+        echo json_encode($data);
+    }
 }

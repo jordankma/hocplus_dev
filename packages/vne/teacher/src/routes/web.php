@@ -1,6 +1,9 @@
 <?php
 $adminPrefix = config('site.admin_prefix');
 Route::group(array('prefix' => $adminPrefix), function() {
+    Route::get('vne/teacher/teacher/check-username-exist', 'TeacherController@checkUserNameExist')->name('vne.teacher.teacher.check-username-exist');
+    Route::get('vne/teacher/teacher/check-email-exist', 'TeacherController@checkEmailExist')->name('vne.teacher.teacher.check-email-exist');
+    Route::get('vne/teacher/teacher/check-phone-exist', 'TeacherController@checkPhoneExist')->name('vne.teacher.teacher.check-phone-exist');
     Route::group(['middleware' => ['adtech.auth', 'adtech.acl']], function () {
         Route::group(array('prefix' => 'vne/teacher/teacher'), function() {
             Route::get('log', 'TeacherController@log')->name('vne.teacher.teacher.log');

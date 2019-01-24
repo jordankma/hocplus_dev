@@ -21,7 +21,7 @@ class Classes extends Model {
     protected $dates = ['deleted_at'];
 
     public function getSubject() {
-        return $this->belongsToMany('Vne\Subject\App\Models\Subject','class_has_subject','classes_id','subject_id');
+        return $this->belongsToMany('Vne\Subject\App\Models\Subject','vne_class_has_subject','classes_id','subject_id');
     }
 
     public static function getAllSubjectByClass() {

@@ -35,6 +35,7 @@
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/jquery-3.3.1.min.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/jquery.fancybox.min.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/slick.min.js' }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/jquery.multiselect.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/main.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/script/auth.js' }}"></script>
 

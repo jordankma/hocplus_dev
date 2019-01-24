@@ -278,10 +278,6 @@ class MemberController extends Controller
             if ($member) {
                 $data['valid'] = false; // true là có user
             }
-            $teacher =  Teacher::where(['user_name' => $request->user_name])->first();
-            if ($teacher) {
-                $data['valid'] = false; // true là có user
-            }
         }
         echo json_encode($data);
     }
@@ -293,10 +289,6 @@ class MemberController extends Controller
             if ($member) {
                 $data['valid'] = false; // true là có user
             }
-            $teacher =  Teacher::where(['email' => $request->email])->first();
-            if ($teacher) {
-                $data['valid'] = false; // true là có user
-            }
         }
         echo json_encode($data);
     }
@@ -306,10 +298,6 @@ class MemberController extends Controller
         if ($request->ajax()) {
             $member =  Member::where(['phone' => $request->phone])->first();
             if ($member) {
-                $data['valid'] = false; // true là có user
-            }
-            $teacher =  Teacher::where(['phone' => $request->phone])->first();
-            if ($teacher) {
                 $data['valid'] = false; // true là có user
             }
         }

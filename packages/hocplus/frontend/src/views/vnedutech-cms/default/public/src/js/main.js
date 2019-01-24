@@ -78,6 +78,27 @@ if (userManage) {
   const other = $('.js-user .other');
   const btnRemove = $('.js-user .closed');
 
+  const tabParentsStudent = $('.js-user .tabs .tabs-parents-student');
+  const tabTeacher = $('.js-user .tabs .tabs-teacher');
+  const parentsStudent = $('.js-user .parents-student');
+  const teacher = $('.js-user .teacher');
+  const ACTIVE_TAB_CLASS = 'tabs-active';
+
+  tabParentsStudent.on('click', function () {
+    tabTeacher.removeClass(ACTIVE_TAB_CLASS);
+    $(this).addClass(ACTIVE_TAB_CLASS);
+    parentsStudent.addClass(SHOW_CLASS);
+    teacher.removeClass(SHOW_CLASS);
+    other.addClass(SHOW_CLASS);
+  });
+  tabTeacher.on('click', function () {
+    tabParentsStudent.removeClass(ACTIVE_TAB_CLASS);
+    $(this).addClass(ACTIVE_TAB_CLASS);
+    teacher.addClass(SHOW_CLASS);
+    parentsStudent.removeClass(SHOW_CLASS);
+    other.removeClass(SHOW_CLASS);
+  });
+
   btnRemove.on('click', function () {
     $(this).parent().remove();
   });
@@ -89,6 +110,11 @@ if (userManage) {
     contentLogIn.removeClass(SHOW_CLASS);
     form.removeClass(SHOW_CLASS);
     formLogIn.addClass(SHOW_CLASS);
+    other.addClass(SHOW_CLASS);
+    tabTeacher.removeClass(ACTIVE_TAB_CLASS);
+    tabParentsStudent.addClass(ACTIVE_TAB_CLASS);
+    parentsStudent.addClass(SHOW_CLASS);
+    teacher.removeClass(SHOW_CLASS);
     other.addClass(SHOW_CLASS);
   });
   btnLogInActive.on('click', function () {
@@ -149,6 +175,22 @@ if (userManage) {
 
 //   }
 // }
+
+const carouselAboutLecturers = $('.js-about-lecturers');
+if (carouselAboutLecturers) {
+  const carousel = carouselAboutLecturers;
+  carousel.slick({
+    dots: true,
+    infinite: true,
+    speed: 300,
+    fade: true,
+    cssEase: 'linear',
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 2500
+  });
+
+}
 const carouselCertificateItems = $('.c-lecturers-group .group');
 if (carouselCertificateItems) {
   for (let i = 0; i < carouselCertificateItems.length; i++) {
@@ -226,8 +268,6 @@ if (carouselLibrary) {
   });
 }
 
-
-
 // slideout
 const slideout = $('.js-slideout');
 if (slideout) {
@@ -269,4 +309,299 @@ if (slideout) {
 
 }
 
-// 
+//-------------------------- Tweezer
+class Tweezer {
+  constructor(opts = {}) {
+    this.duration = opts.duration || 1000;
+    this.ease = opts.easing || this._defaultEase;
+    this.start = opts.start;
+    this.end = opts.end;
+
+    this.frame = null;
+    this.next = null;
+    this.isRunning = false;
+    this.events = {};
+    this.direction = this.start < this.end ? 'up' : 'down';
+  }
+
+  begin() {
+    if (!this.isRunning && this.next !== this.end) {
+      this.frame = window.requestAnimationFrame(this._tick.bind(this));
+    }
+    return this;
+  }
+
+  stop() {
+    window.cancelAnimationFrame(this.frame);
+    this.isRunning = false;
+    this.frame = null;
+    this.timeStart = null;
+    this.next = null;
+    return this;
+  }
+
+  on(name, handler) {
+    this.events[name] = this.events[name] || [];
+    this.events[name].push(handler);
+    return this;
+  }
+
+  emit(name, val) {
+    let e = this.events[name];
+    e && e.forEach(handler => handler.call(this, val));
+  }
+
+  _tick(currentTime) {
+    this.isRunning = true;
+
+    let lastTick = this.next || this.start;
+
+    if (!this.timeStart) this.timeStart = currentTime;
+    this.timeElapsed = currentTime - this.timeStart;
+    this.next = Math.round(this.ease(this.timeElapsed, this.start, this.end - this.start, this.duration));
+
+    if (this._shouldTick(lastTick)) {
+      this.emit('tick', this.next);
+      this.frame = window.requestAnimationFrame(this._tick.bind(this));
+    } else {
+      this.emit('tick', this.end);
+      this.emit('done', null);
+    }
+  }
+
+  _shouldTick(lastTick) {
+    return {
+      up: this.next < this.end && lastTick <= this.next,
+      down: this.next > this.end && lastTick >= this.next
+    } [this.direction];
+  }
+
+  _defaultEase(t, b, c, d) {
+    if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+    return -c / 2 * ((--t) * (t - 2) - 1) + b;
+  }
+}
+
+//----------------------- Tweezer end;
+
+const elements = document.querySelectorAll('[data-scroll]');
+if (elements) {
+  for (let i = 0; i < elements.length; i++) {
+
+    const button = elements[i];
+    const targetValues = elements[i].getAttribute('data-scroll');
+    const targets = document.querySelectorAll(targetValues);
+    if (targets) {
+      for (let i = 0; i < targets.length; i++) {
+        button.addEventListener('click', () => {
+          const scrollTop = (window.scrollY || window.pageYOffset || document.documentElement.scrollTop);
+          new Tweezer({
+              start: scrollTop,
+              end: targets[i].getBoundingClientRect().top + scrollTop,
+            })
+            .on('tick', v => window.scrollTo(0, v))
+            .begin();
+        });
+      }
+    } else {
+      console.log('wrong id');
+    }
+  }
+}
+
+const mlTable = $('.js-ml-list');
+if (mlTable) {
+  const action = $('.js-ml-list .action');
+  if (action) {
+    action.parent().css('vertical-align', 'middle');
+  }
+}
+
+// pay
+const pay = $('js-pay');
+if (pay) {
+  const elements = document.querySelectorAll('[data-pay]');
+
+  for (let i = 0; i < elements.length; i++) {
+    const button = elements[i];
+    const CLASS_TAB_ACTIVE = 'species-active';
+    const CLASS_ACTIVE = 'pay-active';
+
+    $(button).on('click', function () {
+      $(this).addClass(CLASS_TAB_ACTIVE).siblings().removeClass(CLASS_TAB_ACTIVE);
+      const item = button.getAttribute('data-pay');
+      $(item).addClass(CLASS_ACTIVE).siblings().removeClass(CLASS_ACTIVE);
+    });
+  }
+
+  const tabs = document.querySelectorAll('[data-tab]');
+  if (tabs) {
+    for (let i = 0; i < tabs.length; i++) {
+      const button = tabs[i];
+      const CLASS_TAB_ACTIVE = 'tabs-active';
+      const CLASS_ACTIVE = 'bank-card-active';
+
+      $(button).on('click', function () {
+        $(this).addClass(CLASS_TAB_ACTIVE).siblings().removeClass(CLASS_TAB_ACTIVE);
+        const item = button.getAttribute('data-tab');
+        $(item).addClass(CLASS_ACTIVE).siblings().removeClass(CLASS_ACTIVE);
+      });
+    }
+  }
+}
+
+// setting
+const templateSetting = $('.js-setting');
+if (templateSetting) {
+  if ($('#exampleInputTemplateResult').length > 0) {
+    CKEDITOR.replace('exampleInputTemplateResult');
+  }
+  if ($('#exampleInputTemplateTarget').length > 0) {
+    CKEDITOR.replace('exampleInputTemplateTarget');
+  }
+  if ($('#exampleInputTemplateRequest').length > 0) {
+    CKEDITOR.replace('exampleInputTemplateRequest');
+  }
+
+
+  const availableItem = $('.js-setting .template-available .item');
+  if (availableItem) {
+    const ACTIVE_CLASS = 'active';
+    availableItem.on('click', function () {
+      $(this).toggleClass(ACTIVE_CLASS).siblings().removeClass(ACTIVE_CLASS);
+    });
+  }
+
+  const tabs = document.querySelectorAll('[data-choose]');
+  if (tabs) {
+    for (let i = 0; i < tabs.length; i++) {
+      const button = tabs[i];
+      const CLASS_TAB_ACTIVE = 'menu-active';
+      const CLASS_ACTIVE = 'template-active';
+
+      $(button).on('click', function () {
+        $(this).addClass(CLASS_TAB_ACTIVE).siblings().removeClass(CLASS_TAB_ACTIVE);
+        const item = button.getAttribute('data-choose');
+        $(item).addClass(CLASS_ACTIVE).siblings().removeClass(CLASS_ACTIVE);
+      });
+    }
+  }
+
+  const posts = $('.js-setting .template-new .posts');
+  if (posts) {
+    const container = $('.js-setting .template-new .posts .posts-list');
+    const button = $('.js-setting .template-new .posts .btn-new');
+    let postsID = 1;
+    button.on('click', function () {
+      let ID = postsID++;
+      container.append(`
+      <div class="posts-item">
+        <div class="grid inner">
+          <div class="grid-left">
+            <div class="title">Bài ${ID} *</div>
+          </div>
+          <div class="grid-right">
+            <textarea id="posts-${ID}" name="posts-${ID}"></textarea>
+          </div>
+        </div>
+      </div>
+      `);
+      CKEDITOR.replace("posts-" + ID);
+    });
+  }
+
+  const dateSetting = $('.js-setting .js-date');
+  if (dateSetting) {
+    const container = $('.js-setting .js-date .group');
+    const button = $('.js-setting .js-date .btn-new');
+    let dateID = 1;
+    button.on('click', function () {
+      let ID = dateID++;
+      container.append(`
+      <div class="grid form-group">
+        <div class="grid-left">
+          <label for="exampleInputTemplateDateStart">Buổi ${ID} *</label>
+        </div>
+        <div class="grid-right">
+          <div class="grid grid-mg15">
+            <div class="grid-50 grid-p15">
+              <div class="grid grid-mg7">
+                <div class="grid-60 grid-p7">
+                  <input class="form-control" type="date" id="exampleInputTemplateDateStart-${ID}" name="exampleInputTemplateDateStart-${ID}" value="2019-01-01">
+                </div>
+                <div class="grid-40 grid-p7">
+                  <input class="form-control" type="time" id="exampleInputTemplateTimeStart-${ID}" name="exampleInputTemplateTimeStart-${ID}" value="00:00">
+                </div>
+              </div>
+            </div>
+            <div class="grid-50 grid-p15">
+              <div class="grid grid-mg7">
+                <div class="grid-60 grid-p7">
+                  <input class="form-control" type="date" id="exampleInputTemplateDateEnd-${ID}" name="exampleInputTemplateDateEnd-${ID}" value="2019-01-01">
+                </div>
+                <div class="grid-40 grid-p7">
+                  <input class="form-control" type="time" id="exampleInputTemplateTimeEnd-${ID}" name="exampleInputTemplateTimeEnd-${ID}" value="00:00">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      `);
+    });
+  }
+}
+
+// file navbar
+const fileNavbar = $('.js-file-navbar');
+if (fileNavbar) {
+
+  const SUB_MENU_CLASS = 'sub-menu';
+  const DROPDOWN_CLASS = 'dropdown';
+  const ACTIVE_CLASS = 'active';
+
+  const subMenu = $('.js-file-navbar>.nav>li ul');
+  subMenu.addClass(SUB_MENU_CLASS);
+  subMenu.parent().addClass(DROPDOWN_CLASS);
+
+  const dropdown = $('.js-file-navbar .dropdown');
+  const dropdownButton = $('.js-file-navbar .dropdown>a');
+
+  dropdownButton.on('click', function () {
+    $(this).parent().toggleClass(ACTIVE_CLASS).siblings().removeClass(ACTIVE_CLASS);
+    return false;
+  });
+}
+
+// question
+const question = $('.question');
+if (question) {
+  const btnSearch = $('.js-question .question-inner .btn-search');
+  const btnClosed = $('.js-question .question-search .closed');
+  const body = $('body');
+  const overBody = $('.over-body');
+
+  const QUESTION_ACTIVE_CLASS = 'question-search-active';
+  btnSearch.on('click', function () {
+    body.addClass(QUESTION_ACTIVE_CLASS);
+  });
+  overBody.on('click', function () {
+    body.removeClass(QUESTION_ACTIVE_CLASS);
+  });
+  btnClosed.on('click', function () {
+    body.removeClass(QUESTION_ACTIVE_CLASS);
+  });
+}
+
+const multiselect = $('.multiselect');
+
+if (multiselect) {
+  multiselect.multiselect({
+    columns: 4,
+    placeholder: 'Bộ môn giảng dạy, Giảng dạy các lớp',
+    search: true,
+    searchOptions: {
+        'default': 'Tìm kiếm'
+    }
+  });
+}

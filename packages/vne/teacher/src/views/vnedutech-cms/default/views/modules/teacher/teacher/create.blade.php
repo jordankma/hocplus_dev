@@ -294,7 +294,7 @@
                             remote: {
                                 type: 'get',
                                 message: 'Tên đăng nhập đã tồn tại',
-                                url: '{{route('vne.member.member.check-username-exist')}}',
+                                url: '{{route('vne.teacher.teacher.check-username-exist')}}',
                             }
                         }
                     },
@@ -315,7 +315,7 @@
                             remote: {
                                 type: 'get',
                                 message: 'Số điện thoại đã tồn tại',
-                                url: '{{route('vne.member.member.check-phone-exist')}}',
+                                url: '{{route('vne.teacher.teacher.check-phone-exist')}}',
                             }
                         }
                     },
@@ -330,7 +330,7 @@
                             remote: {
                                 type: 'get',
                                 message: 'Email đã tồn tại',
-                                url: '{{route('vne.member.member.check-email-exist')}}',
+                                url: '{{route('vne.teacher.teacher.check-email-exist')}}',
                             }
                         }
                     },
