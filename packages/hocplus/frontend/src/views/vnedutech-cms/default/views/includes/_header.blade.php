@@ -23,9 +23,12 @@
                                                 @if(count($subject->subject_classes) > 0)
                                                 <ul class="list">
                                                     @foreach($subject->subject_classes as $k => $classes)
-                                                    <li class="list-item"><a href="{{ route('hocplus.course.list',['classes_id' => $classes->classes_id,'subject_id' => $subject->subject_id]) }}">
+                                                    <li class="list-item">
+                                                        <a href="{{ route('hocplus.course.list',['classes_id' => $classes->classes_id,'subject_id' => $subject->subject_id]) }}">
                                                             <img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/icon/icon-11.png" alt="">
-                                                            {{ $classes->classes_name }}</a></li>
+                                                            {{ $classes->classes_name }}
+                                                        </a>
+                                                    </li>
                                                     @endforeach
                                                 </ul>
                                                 @endif
@@ -43,9 +46,9 @@
                                 <button class="btn" type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div> <!-- / search -->
-                        <a class="btn btn-lecturers" href="">Trở thành giảng viên</a> <!-- / button lecturers -->
+                        <a class="btn btn-lecturers" href="{{ route('hocplus.get.register.teacher') }}">Trở thành giảng viên</a> <!-- / button lecturers -->
                         @if($USER_LOGGED)
-                            {{ $USER_LOGGED->email }} |&nbsp;&nbsp;&nbsp;<a href="{{ route('hocplus.frontend.auth.logout') }}">Logout</a>&nbsp;&nbsp;&nbsp;
+                            {{ ($USER_LOGGED->email != '') ? $USER_LOGGED->email : ($USER_LOGGED->phone != '') ? $USER_LOGGED->email : $USER_LOGGED->user_name }}&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{ route('hocplus.frontend.auth.logout') }}">Logout</a>&nbsp;&nbsp;&nbsp;
                             {{-- <div class=" notification">
                                 <div class="icon">
                                     <i class="fa fa-bell"></i>

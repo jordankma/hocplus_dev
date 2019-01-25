@@ -45,6 +45,9 @@ class TeacherfrontendController extends Controller
     public function save(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required',
+            'password' => 'required',
+            'phone' => 'required',
+            'email' => 'required'
         ], $this->messages);
         if (!$validator->fails()) {
             $class_subject = $request->input('class_subject');

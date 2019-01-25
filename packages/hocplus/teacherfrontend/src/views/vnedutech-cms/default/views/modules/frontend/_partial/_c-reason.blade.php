@@ -13,7 +13,7 @@
         <figure class="col-12 col-md-6 col-lg-3 item">
           <div class="inner">
             <div class="icon">
-              <span style="background: #fe4a49;"><img src="images/icon/w1.png" alt=""></span>
+              <span style="background: #fe4a49;"><img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/icon/w1.png" alt=""></span>
             </div>
             <div class="info">
               <h3 class="title" style="color: #fe4a49;">Chia sẻ lợi nhuận 30%-100%</h3>
@@ -24,7 +24,7 @@
         <figure class="col-12 col-md-6 col-lg-3 item">
           <div class="inner">
             <div class="icon">
-              <span style="background: #2ab7ca;"><img src="images/icon/w2.png" alt=""></span>
+              <span style="background: #2ab7ca;"><img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/icon/w2.png" alt=""></span>
             </div>
             <div class="info">
               <h3 class="title" style="color: #2ab7ca;">Làm 1 lần - Bán n lần</h3>
@@ -35,7 +35,7 @@
         <figure class="col-12 col-md-6 col-lg-3 item">
           <div class="inner">
             <div class="icon">
-              <span style="background: #f37736;"><img src="images/icon/w3.png" alt=""></span>
+              <span style="background: #f37736;"><img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/icon/w3.png" alt=""></span>
             </div>
             <div class="info">
               <h3 class="title" style="color: #f37736;">Thời gian linh hoạt</h3>
@@ -46,7 +46,7 @@
         <figure class="col-12 col-md-6 col-lg-3 item">
           <div class="inner">
             <div class="icon">
-              <span style="background: #7bc043;"><img src="images/icon/w4.png" alt=""></span>
+              <span style="background: #7bc043;"><img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/icon/w4.png" alt=""></span>
             </div>
             <div class="info">
               <h3 class="title" style="color: #7bc043;">Dạy trực tuyến - Livestream</h3>

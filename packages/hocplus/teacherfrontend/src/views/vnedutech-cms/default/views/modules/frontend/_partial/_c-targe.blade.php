@@ -7,7 +7,7 @@
         <figure class="col-12 col-md-6 col-lg-3 item">
           <div class="inner">
             <div class="icon">
-              <span><img src="images/icon/t1.png" alt=""></span>
+              <span><img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/icon/t1.png" alt=""></span>
             </div>
             <div class="info">
               <h3 class="title">Giáo viên</h3>
@@ -17,7 +17,7 @@
         <figure class="col-12 col-md-6 col-lg-3 item">
           <div class="inner">
             <div class="icon">
-              <span><img src="images/icon/t2.png" alt=""></span>
+              <span><img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/icon/t2.png" alt=""></span>
             </div>
             <div class="info">
               <h3 class="title">Giảng viên đại học</h3>
@@ -27,7 +27,7 @@
         <figure class="col-12 col-md-6 col-lg-3 item">
           <div class="inner">
             <div class="icon">
-              <span><img src="images/icon/t3.png" alt=""></span>
+              <span><img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/icon/t3.png" alt=""></span>
             </div>
             <div class="info">
               <h3 class="title">Chuyên gia</h3>
@@ -37,7 +37,7 @@
         <figure class="col-12 col-md-6 col-lg-3 item">
           <div class="inner">
             <div class="icon">
-              <span><img src="images/icon/t4.png" alt=""></span>
+              <span><img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/icon/t4.png" alt=""></span>
             </div>
             <div class="info">
               <h3 class="title">Sinh viên sư phạm</h3>

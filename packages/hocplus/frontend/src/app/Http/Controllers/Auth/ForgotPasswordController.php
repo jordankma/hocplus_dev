@@ -6,6 +6,7 @@ use Adtech\Core\App\Mail\Password as PasswordMailer;
 use Adtech\Application\Cms\Controllers\MController as Controller;
 use Adtech\Core\App\Repositories\PasswordResetRepository;
 use Adtech\Core\App\Repositories\UserRepository as UserRepository;
+use Hocplus\Frontend\App\Models\Member;
 use Illuminate\Http\Request;
 use Mail;
 
@@ -22,8 +23,6 @@ class ForgotPasswordController extends Controller
     {
         parent::__construct();
 
-        $this->middleware('member');
-
         $this->_userRepository = $userRepository;
 
         $this->_resetPasswordRepository = $passwordResetRepository;
@@ -32,11 +31,13 @@ class ForgotPasswordController extends Controller
     public function forgot(Request $request)
     {
         if ($request->isMethod('post')) {
-            $email = $request->input('inputEmail');
+            $email = $request->input('email');
 
-            if (($user = $this->_userRepository->findBy('email', $email)) == null) {
+            if (($user = Member::where('email', $email)->first()) == null) {
                 \Session::flash('flash_messenger', trans('adtech-core::messages.forgot_password_email_not_found'));
-                return redirect(route('adtech.core.auth.forgot'));
+//                return redirect(route('adtech.core.auth.forgot'));
+                echo json_encode(['success' => false]);
+                die();
             }
 
             $from = config('mail.from.address');
@@ -45,11 +46,11 @@ class ForgotPasswordController extends Controller
             $title = trans('adtech-core::mail.forgot_password.title');
 
             $forgotPasswordMailer = new PasswordMailer();
-            $resetPasswordLink = route('adtech.core.auth.reset', ['token' => $randomToken = str_random(60)]);
+            $resetPasswordLink = route('hocplus.frontend.auth.reset', ['token' => $randomToken = str_random(60)]);
 
-            $forgotPasswordMailer->setViewFile('modules.core.auth.mail.forgot_password')
+            $forgotPasswordMailer->setViewFile('HOCPLUS-FRONTEND::modules.frontend.email.forgot-password-mailer')
                 ->with([
-                    'toName' => $user->first_name,
+                    'toName' => $user->email,
                     'resetPasswordLink' => $resetPasswordLink
                 ])
                 ->from($from, $fromName)
@@ -65,11 +66,13 @@ class ForgotPasswordController extends Controller
 
                 Mail::to($user->email, $user->last_name)->send($forgotPasswordMailer);
                 \Session::flash('flash_messenger', trans('adtech-core::messages.forgot_password_success'));
-                return redirect(route('adtech.core.auth.forgot'));
+//                return redirect(route('adtech.core.auth.forgot'));
+                echo json_encode(['success' => true]);
             } catch (Exception $e) {
+                echo json_encode(['success' => false]);
             }
         }
 
-        return view('ADTECH-CORE::modules.core.auth.forgotpwd');
+//        return view('ADTECH-CORE::modules.core.auth.forgotpwd');
     }
 }

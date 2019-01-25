@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Vne\Member\App\Models\Member;
+use Hocplus\Frontend\App\Models\Member;
 
 class RegisterController extends Controller
 {
@@ -77,6 +77,7 @@ class RegisterController extends Controller
                     $member = Member::create([
                         'email' => $data['email'],
                         'password' => Hash::make($data['password']),
+                        'type' => $data['type'],
                         'activated' => 1,
                         'status' => 1,
                     ]);

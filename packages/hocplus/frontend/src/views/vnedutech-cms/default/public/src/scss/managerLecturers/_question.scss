@@ -1,0 +1,43 @@
+@import '../variables';
+
+.ml-question-new {
+    box-shadow: $bs-01;
+
+    .question-headline {
+        padding: 20px 20px 15px 20px;
+
+        .title {
+            @extend .big-text;
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+        }
+    }
+    .question-inner {
+        padding: 30px 20px;
+        background: $c-white;
+        border-top: 1px solid $bc-01;
+        min-height: 750px;
+    }
+    .table-responsive {
+        border-top: 1px solid $bc-01;
+        border-left: 1px solid $bc-01;
+        text-align: center;
+        .w-555 {
+            width: 555px;
+            text-align: left;
+        }
+        .table {
+            tr {
+                border-bottom: 1px solid $bc-01;
+                border-spacing: 0;
+            }
+
+            td,
+            th {
+                border-right: 1px solid $bc-01;
+                padding: 10px 14px;
+            }
+        }
+    }
+}

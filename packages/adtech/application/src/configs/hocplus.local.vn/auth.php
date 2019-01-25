@@ -42,13 +42,19 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
+            'driver' => 'jwt',
+            'provider' => 'members',
         ],
+
         'member' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'members',
         ],
+
+        'teacher' => [
+            'driver' => 'session',
+            'provider' => 'teachers',
+        ]
     ],
 
     /*
@@ -73,10 +79,16 @@ return [
             'driver' => 'eloquent',
             'model' => Adtech\Core\App\Models\User::class,
         ],
-        // 'members' => [
-        //     'driver' => 'eloquent',
-        //     'model' => Vne\Member\App\Models\Member::class,
-        // ],
+
+        'members' => [
+            'driver' => 'eloquent',
+            'model' => Hocplus\Frontend\App\Models\Member::class,
+        ],
+
+        'teachers' => [
+            'driver' => 'eloquent',
+            'model' => Hocplus\Frontend\App\Models\Teacher::class,
+        ],
 
 //        'users' => [
 //             'driver' => 'database',
@@ -105,6 +117,16 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+        'members' => [
+            'provider' => 'members',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'teachers' => [
+            'provider' => 'members',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ]
     ],
 
 ];

@@ -20,7 +20,7 @@ class AuthMiddleware
 
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard('member')->check() == false) {
+        if (Auth::guard('member')->check() == false && Auth::guard('teacher')->check() == false) {
             if ($request->ajax()) {
                 $response = [
                     'status' => 'NOT_LOGIN',

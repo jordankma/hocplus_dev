@@ -33,7 +33,10 @@ class MController extends BaseController
 
     private function _guard()
     {
-        return Auth::guard('member');
+        if (Auth::guard('teacher')->check())
+            return Auth::guard('teacher');
+        else
+            return Auth::guard('member');
     }
 
     public function __construct()
@@ -87,6 +90,7 @@ class MController extends BaseController
             //
 
         }
+
         //get setting value
         $settings = Setting::where('domain_id', $this->domainDefault)->get();
         $settingView = array('logo' => '', 'logo_mini' => '', 'title' => '', 'favicon' => '', 'logo_link' => '');
@@ -154,6 +158,7 @@ class MController extends BaseController
             'MENU_TOP' => $this->_menuTop,
             'COLOR_LIST' => $arrColor,
             'SETTING' => $settingView,
+            'resetToken' => '',
             'group_name'  => config('site.group_name'),
             'template'  => config('site.desktop.template'),
             'skin'  => config('site.desktop.skin'),

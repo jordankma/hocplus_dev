@@ -38,6 +38,11 @@
 @section('footer_scripts')
   <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/bootstrapvalidator/js/bootstrapValidator.min.js' }}" type="text/javascript"></script>
   <script>
+    var notify = '{{ Session::get("success") }}' + '{{ Session::get("error") }}' ;
+    console.log($('.c-register-lecturers').offset().top);
+    if(notify != ''){
+        $('body').scrollTop($('.c-register-lecturers').offset());
+    }
     $('#form-register-teacher').bootstrapValidator({
       feedbackIcons: {
           // validating: 'glyphicon glyphicon-refresh',
@@ -94,11 +99,11 @@
               validators: {
                   notEmpty: {
                       message: 'Trường này không được bỏ trống'
-                  },
-                  regexp: {
-                      regexp: "^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,}$",
-                      message: 'Mật khẩu phải chứa 8 ký tự : chứa ít nhất 1 số, 1 chữ viết hoa, 1 chữ viết thường, 1 ký tự đặc biệt'
                   }
+                //   regexp: {
+                //       regexp: "^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,}$",
+                //       message: 'Mật khẩu phải chứa 8 ký tự : chứa ít nhất 1 số, 1 chữ viết hoa, 1 chữ viết thường, 1 ký tự đặc biệt'
+                //   }
               }
           },
           conf_password: {

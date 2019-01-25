@@ -13,7 +13,7 @@
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <div class="img-wrapper">
-                  <a href="thong-tin-giang-vien.html"><img src="images/ab.png" alt=""></a>
+                  <a href="thong-tin-giang-vien.html"><img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/ab.png" alt=""></a>
                 </div>
               </div>
             </div>
@@ -45,7 +45,7 @@
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <div class="img-wrapper">
-                  <a href="thong-tin-giang-vien.html"><img src="images/ab.png" alt=""></a>
+                  <a href="thong-tin-giang-vien.html"><img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/ab.png" alt=""></a>
                 </div>
               </div>
             </div>
@@ -77,7 +77,7 @@
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <div class="img-wrapper">
-                  <a href="thong-tin-giang-vien.html"><img src="images/ab.png" alt=""></a>
+                  <a href="thong-tin-giang-vien.html"><img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/ab.png" alt=""></a>
                 </div>
               </div>
             </div>

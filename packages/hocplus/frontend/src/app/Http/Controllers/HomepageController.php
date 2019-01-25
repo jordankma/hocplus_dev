@@ -9,21 +9,26 @@ use Hocplus\Frontend\App\Repositories\NewsRepository;
 use Hocplus\Frontend\App\Repositories\CourseRepository;
 use Hocplus\Frontend\App\Repositories\TeacherRepository;
 use Hocplus\Frontend\App\Repositories\BannerRepository;
+use Adtech\Core\App\Repositories\PasswordResetRepository;
 
 class HomepageController extends Controller
 {
-    public function __construct(CourseRepository $courseRepository, TeacherRepository $teacherRepository, NewsRepository $newsRepository, BannerRepository $bannerRepository)
+    private $_passwordResetRepository;
+
+    public function __construct(CourseRepository $courseRepository, TeacherRepository $teacherRepository,
+                                NewsRepository $newsRepository, BannerRepository $bannerRepository,
+                                PasswordResetRepository $passwordResetRepository)
     {
         parent::__construct();
         $this->news = $newsRepository;
         $this->course = $courseRepository;
         $this->banner = $bannerRepository;
         $this->teacher = $teacherRepository;
+        $this->_passwordResetRepository = $passwordResetRepository;
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $resetToken = '')
     {
-        
         $listNews = $this->news->findForNews();
         $listEval = $this->news->findForEval();
         $listTeacher = $this->teacher->findAll();
@@ -74,12 +79,29 @@ class HomepageController extends Controller
         asort($arrClassesRunning);
         asort($arrSubjectRunning);
 
+        $resetTokenEmail = '';
+        if ($resetToken != '') {
+            $passwordReset = $this->_passwordResetRepository->findWhere(['token' => $resetToken])->sortBy('created_at', 0, true)->first();
+            if (null == $passwordReset) {
+                $resetToken = '1';
+            } else {
+                $createAtTimestamp = strtotime($passwordReset->created_at);
+                if ((time() - $createAtTimestamp) > 10 * 60000) {
+                $this->_passwordResetRepository->delete($passwordReset->id);
+                    $resetToken = '2';
+                }
+                $resetTokenEmail = $passwordReset->email;
+            }
+        }
+
         $data = [
             'libHome' => $libHome,
             'whyHome' => $whyHome,
             'ads1Home' => $ads1Home,
             'listEval' => $listEval,
             'listNews' => $listNews,
+            'resetToken' => $resetToken,
+            'resetTokenEmail' => $resetTokenEmail,
             'bannerHome' => $bannerHome,
             'listTeacher' => $listTeacher,
             'listCourseRuning' => $listCourseRuning,
@@ -89,6 +111,7 @@ class HomepageController extends Controller
             'arrSubjectRunning' => $arrSubjectRunning,
             'arrClassesRunning' => $arrClassesRunning
         ];
+        view()->share(['resetToken' => $resetToken]);
         return view('HOCPLUS-FRONTEND::modules.frontend.homepage.index', $data);
     }
 

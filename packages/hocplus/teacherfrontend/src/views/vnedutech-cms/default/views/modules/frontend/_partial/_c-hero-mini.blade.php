@@ -1,6 +1,6 @@
 <section class="c-hero-mini">
     <div class="bg">
-      <span><img src="images/bg-mini.png" alt=""></span>
+      <span><img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/bg-mini.png" alt=""></span>
     </div>
     <div class="centent">
       <div class="container inner">

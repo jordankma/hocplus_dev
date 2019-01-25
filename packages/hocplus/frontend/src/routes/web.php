@@ -10,11 +10,15 @@ Route::group(array('prefix' => $prefix), function() {
 
         Route::match(['get', 'post'], 'login', 'Auth\LoginController@login')->name('login');
 
+        Route::match(['get', 'post'], 'login-teacher', 'Auth\LoginController@loginTeacher')->name('login-teacher');
+
         Route::match(['get', 'post'], 'register', 'Auth\RegisterController@create')->name('register');
 
         Route::match(['get', 'post'], 'forgot-password', 'Auth\ForgotPasswordController@forgot')->name('forgot');
 
-        Route::match(['get', 'post'], 'reset-password/{reset_token}', 'Auth\ResetPasswordController@reset')->name('reset');
+        Route::get('reset-password/{reset_token}', 'HomepageController@index')->name('hocplus.frontend.index');
+
+        Route::match(['post'], 'reset-password/{reset_token}', 'Auth\ResetPasswordController@reset')->name('reset');
 
         Route::group(['middleware' => ['member.auth']], function () {
             /*

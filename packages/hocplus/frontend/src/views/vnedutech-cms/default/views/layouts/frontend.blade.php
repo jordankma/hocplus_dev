@@ -9,7 +9,7 @@
     <title>@section('title') | {{ (!empty($SETTING['title'])) ? $SETTING['title'] : 'HOCPLUS' }} @show</title>
 
     <link rel="stylesheet" href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/css/jquery.fancybox.min.css' }}"/>
-    <link rel="stylesheet" href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/css/main.min.css' }}"/>
+    <link rel="stylesheet" href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/css/main.min.css?time=' . time() }}"/>
 
     <!--page css-->
     @yield('header_styles')
@@ -32,14 +32,16 @@
 
 <!-- js -->
 
+<script type="text/javascript">var resetToken = '{{ $resetToken }}';</script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/jquery-3.3.1.min.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/jquery.fancybox.min.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/slick.min.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/jquery.multiselect.js' }}"></script>
-<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/main.js' }}"></script>
-<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/script/auth.js' }}"></script>
 
 @yield('footer_scripts')
+
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/main.js' }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/script/auth.js' }}"></script>
 
 </body>
 

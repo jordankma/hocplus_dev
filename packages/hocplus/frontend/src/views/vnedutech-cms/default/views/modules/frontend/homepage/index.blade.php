@@ -34,6 +34,8 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
     <script type="text/javascript">
+        var resetToken = '{{ $resetToken }}';
+        var resetTokenEmail = '{{ $resetTokenEmail }}';
         var routeApigetCourse = '{{ route('hocplus.frontend.api.getCourse') }}';
         var routeApigetCourseRun = '{{ route('hocplus.frontend.api.getCourseRun') }}';
     </script>
