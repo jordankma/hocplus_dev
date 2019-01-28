@@ -28,7 +28,7 @@ class AuthMiddleware
                 ];
                 return response(json_encode($response), 401);
             } else {
-                return redirect()->guest(route('hocplus.frontend.index'));
+                return redirect()->guest(route('hocplus.frontend.index'))->with('isLogin','false');
             }
         }
         return $next($request);

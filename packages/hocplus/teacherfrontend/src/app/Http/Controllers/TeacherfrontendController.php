@@ -77,4 +77,8 @@ class TeacherfrontendController extends Controller
             return $validator->messages();
         }
     }
+
+    public function getMyCourse(){
+        
+    }
 }

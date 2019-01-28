@@ -42,7 +42,20 @@
 
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/main.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/script/auth.js' }}"></script>
-
+<script>
+    var isLogin = '{{Session::get("isLogin")}}';
+    var isLoginCheck = '{{Auth::guard("member")->check()}}';
+    if(isLogin == 'false'){
+        $('body').addClass('user-anage-active');
+    }
+    $(document).ready(function () {
+        $('body').on('click','.btn-registration',function(e){
+            e.preventDefault();
+            $('body').addClass('user-anage-active');
+            return false;
+        });
+    });
+</script>
 </body>
 
 </html>

@@ -222,7 +222,21 @@ class MemberController extends Controller
                 }
                 return $actions;
             })
+            ->addColumn('name', function ($members) {
+                $name = ''; 
+                if( isset($members->name) && $members->name != ''){
+                	$name .= "Tên: " . $members->name ;	
+                }
+                if( isset($members->phone) && $members->phone != ''){
+                	$name .= " -" . "Sdt: " . $members->phone ;	
+                }
+                if( isset($members->email) && $members->email != ''){
+                	$name .= " -" . "Email: " . $members->email ;	
+                }
+                return $name;   
+            })
             ->addIndexColumn()
+            ->rawColumns(['actions', 'name'])
             ->rawColumns(['actions'])
             ->make();
     }
@@ -244,8 +258,21 @@ class MemberController extends Controller
                 }
                 return $actions;
             })
+            ->addColumn('name', function ($members) {
+                $name = ''; 
+                if( isset($members->name) && $members->name != ''){
+                	$name .= "Tên: " . $members->name ;	
+                }
+                if( isset($members->phone) && $members->phone != ''){
+                	$name .= " -" . "Sdt: " . $members->phone ;	
+                }
+                if( isset($members->email) && $members->email != ''){
+                	$name .= " -" . "Email: " . $members->email ;	
+                }
+                return $name;   
+            })
             ->addIndexColumn()
-            ->rawColumns(['actions'])
+            ->rawColumns(['actions', 'name'])
             ->make();
     }
     public function dataParent()
@@ -266,8 +293,21 @@ class MemberController extends Controller
                 }
                 return $actions;
             })
+            ->addColumn('name', function ($members) {
+                $name = ''; 
+                if( isset($members->name) && $members->name != ''){
+                	$name .= "Tên: " . $members->name ;	
+                }
+                if( isset($members->phone) && $members->phone != ''){
+                	$name .= " -" . "Sdt: " . $members->phone ;	
+                }
+                if( isset($members->email) && $members->email != ''){
+                	$name .= " -" . "Email: " . $members->email ;	
+                }
+                return $name;   
+            })
             ->addIndexColumn()
-            ->rawColumns(['actions'])
+            ->rawColumns(['actions', 'name'])
             ->make();
     }
 
