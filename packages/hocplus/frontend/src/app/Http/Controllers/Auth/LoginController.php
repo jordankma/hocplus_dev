@@ -69,7 +69,7 @@ class LoginController extends Controller
             return ['success' => false];
         }
 
-        if ($this->_guardTeacher()->attempt(['user_name' => $user->user_name, 'password' => $password], $remember)) {
+        if ($this->_guardTeacher()->attempt(['email' => $user->email, 'password' => $password], $remember)) {
             $request->session()->regenerateToken();
             $this->clearLoginAttempts($request);
 

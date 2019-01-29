@@ -34,7 +34,7 @@
                         <div class="form-group notification" id="login-notification" style="display: none;">
                             <div class="text">Thông tin đăng nhập không chính xác.
                                 <br>Vui lòng kiểm tra lại.</div>
-                            <span class="closed"></span>
+                            <span class="hiddenLabel"></span>
                         </div>
                         <div class="form-group email">
                             <input class="form-control " type="email,phone" id="login-email" placeholder="Email hoặc số điện thoại">
@@ -49,13 +49,13 @@
                             </span>
                             <span><span class="btn-forgot-password">Quên mật khẩu?</span></span>
                         </div>
-                        <button class="btn" type="submit">Đăng nhập</button>
+                        <button class="btn" type="submit" id="login-btn-submit">Đăng nhập</button>
                     </form>
                     <form class="teacher" id="form-login-teacher" method="post" action="{{ route('hocplus.frontend.auth.login-teacher') }}">
                         <div class="form-group notification" id="login-notification-teacher" style="display: none;">
                             <div class="text">Thông tin đăng nhập không chính xác.
                                 <br>Vui lòng kiểm tra lại.</div>
-                            <span class="closed"></span>
+                            <span class="hiddenLabel"></span>
                         </div>
                         <div class="form-group email">
                             <input class="form-control " type="email,phone" id="login-email-teacher" placeholder="Email hoặc số điện thoại">
@@ -72,7 +72,7 @@
                               <span class="btn-forgot-password">Quên mật khẩu?</span>
                             </span>
                         </div>
-                        <button class="btn" type="submit">Đăng nhập</button>
+                        <button class="btn" type="submit" id="login-teacher-btn-submit">Đăng nhập</button>
                     </form>
                 </div>
 
@@ -80,7 +80,11 @@
                     <div class="title">Đăng ký</div>
                     <div class="form-group notification" id="register-notification" style="display: none;">
                         <div class="text" id="register-notification-text"></div>
-                        <span class="closed"></span>
+                        <span class="hiddenLabel"></span>
+                    </div>
+                    <div class="form-group notification" id="register-notification-done" style="display: none;">
+                        <div class="text" id="forgot-notification-text">Chúc mừng bạn đã đăng ký tài khoản thành công. Xin mời đăng nhập!</div>
+                        <button class="hiddenLabel"></button>
                     </div>
                     <div class="form-group email">
                         <input class="form-control " type="email,phone" id="register-email" placeholder="Email hoặc số điện thoại">
@@ -107,7 +111,7 @@
                             <span class="checkmark"></span>
                         </div>
                     </div>
-                    <button class="btn" type="submit">Đăng ký</button>
+                    <button class="btn" type="submit" id="register-btn-submit">Đăng ký</button>
                 </form>
 
                 <form class="form form-restore-password" id="form-forgot" method="post" action="{{ route('hocplus.frontend.auth.forgot') }}">
@@ -119,17 +123,17 @@
                     <div class="form-group notification" id="forgot-notification" style="display: none;">
                         <div class="text" id="forgot-notification-text">Một email/tin nhắn chứa nội dung hướng dẫn tạo mới mật khẩu đã được gửi đi. Bạn
                             vui lòng kiểm tra và làm theo hướng dẫn.</div>
-                        <button class="closed"></button>
+                        <button class="hiddenLabel"></button>
                     </div>
-                    <div class="form-group notification" id="login-notification-err" style="display: none;">
+                    <div class="form-group notification" id="forgot-notification-err" style="display: none;">
                         <div class="text">Email/số điện thoại không chính xác.
                             <br>Vui lòng kiểm tra lại.</div>
-                        <span class="closed"></span>
+                        <span class="hiddenLabel"></span>
                     </div>
                     <div class="form-group email">
                         <input class="form-control" type="email,phone" id="forgot-email" placeholder="Email hoặc số điện thoại">
                     </div>
-                    <button class="btn" type="submit">Tiếp tục</button>
+                    <button class="btn" type="submit" id="forgot-btn-submit">Tiếp tục</button>
                 </form>
 
                 <form class="form form-new-password" id="form-forgot-password" method="post" action="{{ route('hocplus.frontend.auth.reset', ['resetToken' => $resetToken]) }}">
@@ -140,12 +144,12 @@
                     </div>
                     <div class="form-group notification" id="forgot-password-notification" style="display: none;">
                         <div class="text" id="forgot-notification-text">Tạo mới mật khẩu thành công. Mời bạn đăng nhập.</div>
-                        <button class="closed"></button>
+                        <button class="hiddenLabel"></button>
                     </div>
                     <div class="form-group notification" id="forgot-password-notification-err" style="display: none;">
                         <div class="text">Tạo mới mật khẩu không thành thành công.
                             <br>Vui lòng kiểm tra lại.</div>
-                        <span class="closed"></span>
+                        <span class="hiddenLabel"></span>
                     </div>
                     <div class="form-group password">
                         <input class="form-control " type="password" id="forgot-password-new" placeholder="Mật khẩu">
@@ -153,7 +157,7 @@
                     <div class="form-group password">
                         <input class="form-control " type="password" id="forgot-password-renew" placeholder="Xác nhận mật khẩu">
                     </div>
-                    <button class="btn" type="submit">Hoàn thành</button>
+                    <button class="btn" type="submit" id="reset-btn-submit">Hoàn thành</button>
                 </form>
 
                 <form class="form form-new-password-1">

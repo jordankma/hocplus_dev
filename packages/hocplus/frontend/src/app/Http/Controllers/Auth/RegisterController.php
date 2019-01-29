@@ -47,7 +47,7 @@ class RegisterController extends Controller
     {
 //        $data['captcha'] = $this->captchaCheck();
         $validator = Validator::make($data, [
-            'email' => 'required|email|unique:vne_members',
+            'email' => 'required|unique:vne_members',
             'password' => 'required|min:6|max:30',
             'confirmPassword' => 'required|same:password'
         ], [
@@ -74,18 +74,24 @@ class RegisterController extends Controller
 //                    return redirect()->back()->withErrors($validator);
                     echo json_encode($validator->errors());
                 } else {
-                    $member = Member::create([
-                        'email' => $data['email'],
-                        'password' => Hash::make($data['password']),
-                        'type' => $data['type'],
-                        'activated' => 1,
-                        'status' => 1,
-                    ]);
-                    if ($member->member_id) {
-                        echo json_encode(['success' => true]);
+
+                    if (preg_match('/^[0-9]{10}+$/', $data['email']) || filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                        $member = Member::create([
+                            'email' => $data['email'],
+                            'password' => Hash::make($data['password']),
+                            'type' => $data['type'],
+                            'activated' => 1,
+                            'status' => 1,
+                        ]);
+                        if ($member->member_id) {
+                            echo json_encode(['success' => true]);
+                        } else {
+                            echo json_encode(['error' => 'Some things error!']);
+                        }
                     } else {
-                        echo json_encode(['error' => 'Some things error!']);
+                        echo json_encode(['error' => 'Email/SĐT không chính xác!']);
                     }
+
 //                    $role = Role::whereName('User')->first();
 //                    $user->assignRole($role);
 //                    $this->initiateEmailActivation($user);

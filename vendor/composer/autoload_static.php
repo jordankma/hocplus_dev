@@ -96,6 +96,7 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
             'Vne\\Templatelesson\\' => 19,
             'Vne\\Teacher\\' => 12,
             'Vne\\Subject\\' => 12,
+            'Vne\\Pay\\' => 8,
             'Vne\\News\\' => 9,
             'Vne\\Member\\' => 11,
             'Vne\\Filemanager\\' => 16,
@@ -185,6 +186,7 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'H' => 
         array (
             'Hocplus\\Teacherfrontend\\' => 24,
+            'Hocplus\\Teacher\\' => 16,
             'Hocplus\\News\\' => 13,
             'Hocplus\\Frontend\\' => 17,
             'Hocplus\\Coursegroup\\' => 20,
@@ -287,6 +289,10 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Vne\\Subject\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/vne/subject/src',
+        ),
+        'Vne\\Pay\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/vne/pay/src',
         ),
         'Vne\\News\\' => 
         array (
@@ -512,6 +518,10 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Hocplus\\Teacherfrontend\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src',
+        ),
+        'Hocplus\\Teacher\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/hocplus/teacher/src',
         ),
         'Hocplus\\News\\' => 
         array (
@@ -10885,6 +10895,17 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Hocplus\\News\\App\\Models\\News' => __DIR__ . '/../..' . '/packages/hocplus/news/src/app/Models/News.php',
         'Hocplus\\News\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/hocplus/news/src/app/Repositories/DemoRepository.php',
         'Hocplus\\News\\NewsServiceProvider' => __DIR__ . '/../..' . '/packages/hocplus/news/src/NewsServiceProvider.php',
+        'Hocplus\\Teacher\\App\\Http\\Controllers\\DemoController' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/app/Http/Controllers/DemoController.php',
+        'Hocplus\\Teacher\\App\\Http\\Controllers\\TeacherController' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/app/Http/Controllers/TeacherController.php',
+        'Hocplus\\Teacher\\App\\Models\\Course' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/app/Models/Course.php',
+        'Hocplus\\Teacher\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/app/Models/Demo.php',
+        'Hocplus\\Teacher\\App\\Models\\Lesson' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/app/Models/Lesson.php',
+        'Hocplus\\Teacher\\App\\Models\\Subject' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/app/Models/Subject.php',
+        'Hocplus\\Teacher\\App\\Models\\TblClass' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/app/Models/TblClass.php',
+        'Hocplus\\Teacher\\App\\Models\\Teacher' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/app/Models/Teacher.php',
+        'Hocplus\\Teacher\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/app/Repositories/DemoRepository.php',
+        'Hocplus\\Teacher\\App\\Repositories\\TeacherRepository' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/app/Repositories/TeacherRepository.php',
+        'Hocplus\\Teacher\\TeacherServiceProvider' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/TeacherServiceProvider.php',
         'Hocplus\\Teacherfrontend\\App\\Http\\Controllers\\TeacherfrontendController' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Http/Controllers/TeacherfrontendController.php',
         'Hocplus\\Teacherfrontend\\App\\Models\\Banner' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Models/Banner.php',
         'Hocplus\\Teacherfrontend\\App\\Models\\Classes' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Models/Classes.php',
@@ -14286,6 +14307,19 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Vne\\News\\App\\Repositories\\NewsRepository' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Repositories/NewsRepository.php',
         'Vne\\News\\App\\Repositories\\NewsTagRepository' => __DIR__ . '/../..' . '/packages/vne/news/src/app/Repositories/NewsTagRepository.php',
         'Vne\\News\\NewsServiceProvider' => __DIR__ . '/../..' . '/packages/vne/news/src/NewsServiceProvider.php',
+        'Vne\\Pay\\App\\Http\\Controllers\\DemoController' => __DIR__ . '/../..' . '/packages/vne/pay/src/app/Http/Controllers/DemoController.php',
+        'Vne\\Pay\\App\\Http\\Controllers\\PayController' => __DIR__ . '/../..' . '/packages/vne/pay/src/app/Http/Controllers/PayController.php',
+        'Vne\\Pay\\App\\Models\\Cod' => __DIR__ . '/../..' . '/packages/vne/pay/src/app/Models/Cod.php',
+        'Vne\\Pay\\App\\Models\\Course' => __DIR__ . '/../..' . '/packages/vne/pay/src/app/Models/Course.php',
+        'Vne\\Pay\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/vne/pay/src/app/Models/Demo.php',
+        'Vne\\Pay\\App\\Models\\Order' => __DIR__ . '/../..' . '/packages/vne/pay/src/app/Models/Order.php',
+        'Vne\\Pay\\App\\Models\\PayMethod' => __DIR__ . '/../..' . '/packages/vne/pay/src/app/Models/PayMethod.php',
+        'Vne\\Pay\\App\\Models\\Quanhuyen' => __DIR__ . '/../..' . '/packages/vne/pay/src/app/Models/Quanhuyen.php',
+        'Vne\\Pay\\App\\Models\\Thanhpho' => __DIR__ . '/../..' . '/packages/vne/pay/src/app/Models/Thanhpho.php',
+        'Vne\\Pay\\App\\Models\\Voucher' => __DIR__ . '/../..' . '/packages/vne/pay/src/app/Models/Voucher.php',
+        'Vne\\Pay\\App\\Models\\Xaphuong' => __DIR__ . '/../..' . '/packages/vne/pay/src/app/Models/Xaphuong.php',
+        'Vne\\Pay\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/vne/pay/src/app/Repositories/DemoRepository.php',
+        'Vne\\Pay\\PayServiceProvider' => __DIR__ . '/../..' . '/packages/vne/pay/src/PayServiceProvider.php',
         'Vne\\Subject\\App\\Http\\Controllers\\SubjectController' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Http/Controllers/SubjectController.php',
         'Vne\\Subject\\App\\Models\\ClassHasSubject' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Models/ClassHasSubject.php',
         'Vne\\Subject\\App\\Models\\Subject' => __DIR__ . '/../..' . '/packages/vne/subject/src/app/Models/Subject.php',

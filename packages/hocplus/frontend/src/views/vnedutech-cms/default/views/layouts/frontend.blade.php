@@ -40,22 +40,25 @@
 
 @yield('footer_scripts')
 
-<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/main.js' }}"></script>
-<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/script/auth.js' }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/js/main.js?time=' . time() }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/script/auth.js?time=' . time() }}"></script>
+
+</body>
 <script>
-    var isLogin = '{{Session::get("isLogin")}}';
-    var isLoginCheck = '{{Auth::guard("member")->check()}}';
+    var isLogin = '{{ Session::get("isLogin") }}';
+    var isLoginCheck = {{ $isLoginCheck }};
     if(isLogin == 'false'){
         $('body').addClass('user-anage-active');
     }
+
     $(document).ready(function () {
         $('body').on('click','.btn-registration',function(e){
             e.preventDefault();
-            $('body').addClass('user-anage-active');
+            if(isLoginCheck == 0){
+                $('body').addClass('user-anage-active');
+            }
             return false;
         });
     });
 </script>
-</body>
-
 </html>

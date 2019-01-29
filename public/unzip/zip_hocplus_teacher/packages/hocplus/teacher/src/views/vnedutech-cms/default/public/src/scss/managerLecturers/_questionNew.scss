@@ -1,0 +1,96 @@
+@import '../variables';
+
+.ml-question-new {
+    box-shadow: $bs-01;
+
+    >.headline {
+        padding: 20px 20px 15px 20px;
+
+        .title {
+            @extend .big-text;
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    >.inner {
+        background: $c-white;
+        padding: 10px 20px 30px 20px;
+
+        .grid {
+            display: flex;
+            margin-top: 20px;
+            margin-left: -10px;
+            margin-right: -10px;
+
+            &:nth-child(1) {
+                margin-top: 0;
+            }
+
+            .grid-right {
+                width: 75%;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .grid-left {
+                width: 25%;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .grid-50 {
+                width: 50%;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .grid-60 {
+                width: 60%;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .grid-66 {
+                width: 66%;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .grid-33 {
+                width: 33%;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .grid-40 {
+                width: 40%;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .grid-mg15 {
+                margin-right: -15px;
+                margin-left: -15px;
+            }
+
+            .grid-mg7 {
+                margin-right: -7.5px;
+                margin-left: -7.5px;
+            }
+
+            .grid-p15 {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .grid-p7 {
+                padding-left: 7.5px;
+                padding-right: 7.5px;
+            }
+        }
+
+        .form-group {}
+    }
+}

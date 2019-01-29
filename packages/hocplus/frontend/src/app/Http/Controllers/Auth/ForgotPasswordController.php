@@ -48,7 +48,7 @@ class ForgotPasswordController extends Controller
             $forgotPasswordMailer = new PasswordMailer();
             $resetPasswordLink = route('hocplus.frontend.auth.reset', ['token' => $randomToken = str_random(60)]);
 
-            $forgotPasswordMailer->setViewFile('HOCPLUS-FRONTEND::modules.frontend.email.forgot-password-mailer')
+            $forgotPasswordMailer->setViewFile('modules.core.auth.mail.forgot_password')
                 ->with([
                     'toName' => $user->email,
                     'resetPasswordLink' => $resetPasswordLink

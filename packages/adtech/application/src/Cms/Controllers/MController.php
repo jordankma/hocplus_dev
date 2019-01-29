@@ -148,7 +148,7 @@ class MController extends BaseController
                 }
             }
         }
-
+        $isLoginCheck = Auth::guard("member")->check() == true ? 1 : 0;
         $share = [
             'USER_LOGGED' => $this->user,
             'USER_LOGGED_EMAIL' => $email,
@@ -164,7 +164,8 @@ class MController extends BaseController
             'skin'  => config('site.desktop.skin'),
             'mtemplate'  => config('site.mobile.template'),
             'mskin'  => config('site.mobile.skin'),
-            'subjectClass' => $subjectArr
+            'subjectClass' => $subjectArr,
+            'isLoginCheck' => $isLoginCheck
         ];
 
         view()->share($share);
