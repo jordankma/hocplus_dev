@@ -16,7 +16,7 @@ class TeacherRepository extends Repository
 
     public function findAll() {
         $result = $this->model
-            ->select('teacher_id', 'name', 'avatar_index', 'intro')
+            ->select('teacher_id', 'name', 'alias', 'avatar_index', 'intro')
             ->where('status', 1)
             ->skip(0)->take(10)->get();
         return $result;

@@ -93,5 +93,11 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-
+    <script>
+        $(document).ready(function () {
+            $('body').on('click','.statu',function(){
+                
+            });
+        });
+    </script>
 @stop

@@ -22,5 +22,9 @@
             </li>
         </ol>
     </div>
-    <a class="btn btn-registration" href="">Đăng ký ngay</a>
+    @if(!$is_register)
+        <a class="btn btn-registration" href="{{ route("vne.pay.buyCourse",['course_id' => $course->course_id]) }}">Đăng ký ngay</a>
+    @else 
+
+    @endif
 </div> <!-- / course info -->

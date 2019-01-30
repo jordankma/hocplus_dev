@@ -42,7 +42,7 @@
                                         <div class="avatar">
                                             <img src="{{ config('site.url_static') . $course->isTeacher->avatar_index }}" alt="">
                                         </div>
-                                        <a class="name-lecturers" href="{{ route('home.teacher.detail',$course->isTeacher->teacher_id) }}">{{ $course->isTeacher->name }}</a>
+                                        <a class="name-lecturers" href="{{ route('home.teacher.detail',$course->isTeacher->teacher_id . '-' . $course->isTeacher->alias) }}">{{ $course->isTeacher->name }}</a>
                                     </div>
                                     <div class="star">
                                         <i class="fa fa-star"></i>

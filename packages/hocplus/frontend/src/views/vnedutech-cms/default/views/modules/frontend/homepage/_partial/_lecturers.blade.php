@@ -33,13 +33,13 @@
                 <div class="inner">
                     <div class="avatar-certificate">
                         <div class="wrapper">
-                            <a href="{{ route('home.teacher.detail',$teacher->teacher_id) }}">
+                            <a href="{{ route('home.teacher.detail',$teacher->teacher_id . '-' . $teacher->alias) }}">
                                 <img src="{{ config('site.url_static') . $teacher->avatar_index }}" alt="">
                             </a>
                             <div class="certificate">{{ $teacher->degree }}</div>
                         </div>
                     </div>
-                    <h3 class="name"><a href="{{ route('home.teacher.detail',$teacher->teacher_id) }}">{{ $teacher->name }}</a></h3>
+                    <h3 class="name"><a href="{{ route('home.teacher.detail',$teacher->teacher_id . '-' . $teacher->alias) }}">{{ $teacher->name }}</a></h3>
                     <div class="star">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>

@@ -47,6 +47,7 @@
 <script>
     var isLogin = '{{ Session::get("isLogin") }}';
     var isLoginCheck = {{ $isLoginCheck }};
+    console.log(isLoginCheck);
     if(isLogin == 'false'){
         $('body').addClass('user-anage-active');
     }

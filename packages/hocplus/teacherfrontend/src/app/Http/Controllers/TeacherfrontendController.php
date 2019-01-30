@@ -78,7 +78,20 @@ class TeacherfrontendController extends Controller
         }
     }
 
-    public function getMyCourse(){
-        
+    public function getMyCourse($teacher_id){
+        $teacher_id = intval($teacher_id); 
+        $teacher = Teacher::find($teacher_id);
+        $timeNow = date('Y-m-d');
+        $courses = Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->paginate(6);
+        $courses_will =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->where('date_start', '>', $timeNow)->paginate(6);
+        $courses_now =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->where('date_start', '<', $timeNow)->where('date_end', '>', $timeNow)->paginate(6);
+        $courses_end =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->where('date_end', '<', $timeNow)->limit(4)->paginate(6);
+        $data = [
+            'courses' => $courses,
+            'courses_will' => $courses_will,
+            'courses_now' => $courses_now,
+            'courses_end' => $courses_end
+        ];
+        return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.profileteacher.mycourse',$data);   
     }
 }

@@ -6,12 +6,12 @@
             <figure class="col-12 col-lg-4 c-item-new">
                 <div class="inner">
                     <div class="img">
-                        <a href="{{ route('hocplus.news.detail', $news->news_id ) }}">
+                        <a href="{{ route('hocplus.news.detail', $news->news_id . '-' . $news->title_alias ) }}">
                             <img src="{{ config('site.url_static') . $news->image }}" alt="">
                         </a>
                     </div>
                     <div class="content">
-                        <h3 class="title"><a href="{{ route('hocplus.news.detail', $news->news_id ) }}">{{ $news->title }}</a></h3>
+                        <h3 class="title"><a href="{{ route('hocplus.news.detail', $news->news_id . '-' . $news->title_alias) }}">{{ $news->title }}</a></h3>
                         <div class="summary">
                             {{ $news->desc }}
                         </div>

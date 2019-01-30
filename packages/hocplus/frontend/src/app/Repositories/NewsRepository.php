@@ -19,7 +19,7 @@ class NewsRepository extends Repository
             ->whereHas('getCats', function ($query) use ($catId) {
                 if ($catId != 0) $query->where('vne_news_has_cat.news_cat_id', $catId);
             })
-            ->select('news_id', 'title', 'image', 'desc')
+            ->select('news_id', 'title', 'title_alias', 'image', 'desc')
             ->skip(0)->take(3)->get();
         return $result;
     }
@@ -29,7 +29,7 @@ class NewsRepository extends Repository
             ->whereHas('getCats', function ($query) use ($catId) {
                 if ($catId != 0) $query->where('vne_news_has_cat.news_cat_id', $catId);
             })
-            ->select('news_id', 'title', 'image', 'desc')
+            ->select('news_id', 'title', 'title_alias', 'image', 'desc')
             ->skip(0)->take(3)->get();
         return $result;
     }
