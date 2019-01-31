@@ -5,7 +5,7 @@
         @foreach($list_course_relate as $element)
         <li class="item">
             <div class="img">
-                <a href="">
+                <a href="{{ route('hocplus.course.detail',$element->course_id) }}">
                     <img src="
                     {{ $element->avartar != '' ? config('site.url_static') . $element->avartar  : 
                      config('site.url_static') . '/vendor/vnedutech-cms/default/hocplus/frontend/src/images/c7.png' }}
@@ -14,7 +14,7 @@
             </div>
             <div class="inner">
             <h4 class="title">
-                <a href="">{{ $element->name }}</a> 
+                <a href="{{ route('hocplus.course.detail',$element->course_id) }}">{{ $element->name }}</a> 
             </h4>
                 <div class="price">
                     <img src="{{ config('site.url_static') . '/vendor/vnedutech-cms/default/hocplus/frontend/src/images/tag.png' }}" alt=""> 

@@ -54,11 +54,11 @@
 
     $(document).ready(function () {
         $('body').on('click','.btn-registration',function(e){
-            e.preventDefault();
             if(isLoginCheck == 0){
+                e.preventDefault();
                 $('body').addClass('user-anage-active');
+                return false;
             }
-            return false;
         });
     });
 </script>
