@@ -29,7 +29,6 @@ class HomepageController extends Controller
 
     public function index(Request $request, $resetToken = '')
     {
-        // dd(Auth::guard('member')->user());
         $listNews = $this->news->findForNews();
         $listEval = $this->news->findForEval();
         $listTeacher = $this->teacher->findAll();

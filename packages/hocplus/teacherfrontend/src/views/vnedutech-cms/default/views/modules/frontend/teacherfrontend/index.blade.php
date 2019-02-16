@@ -1,4 +1,4 @@
-@extends('HOCPLUS-FRONTEND::layouts.frontend')
+@extends('HOCPLUS-TEACHERFRONTEND::layouts.frontendteacher')
 
 {{-- Page title --}}
 @section('title'){{ 'Đăng ký giảng viên' }}@stop

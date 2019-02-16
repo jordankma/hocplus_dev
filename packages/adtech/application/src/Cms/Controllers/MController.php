@@ -149,6 +149,9 @@ class MController extends BaseController
             }
         }
         $isLoginCheck = Auth::guard("member")->check() == true ? 1 : 0;
+        if($isLoginCheck == 0){
+            $isLoginCheck = Auth::guard("teacher")->check() == true ? 1 : 0;
+        }
         $share = [
             'USER_LOGGED' => $this->user,
             'USER_LOGGED_EMAIL' => $email,

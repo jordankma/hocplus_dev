@@ -42,4 +42,8 @@ Route::group(array('prefix' => $prefix), function() {
     });
 
     Route::get('/', 'HomepageController@index')->name('hocplus.frontend.index');
+
+    Route::group(['middleware' => ['teacher.auth']], function () {
+        Route::get('/create-course', 'CreatecourseController@index')->name('hocplus.frontend.create-course.index');
+    });
 });

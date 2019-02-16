@@ -1,4 +1,4 @@
-@extends('HOCPLUS-TEACHERFRONTEND::layouts.frontendteacher')
+@extends('HOCPLUS-FRONTEND::layouts.frontend')
 
 {{-- Page title --}}
 @section('title'){{ 'Khóa học của tôi' }}@stop
@@ -16,7 +16,7 @@
     <div class="row">
 
       <div class="col-12 col-md-4 col-lg-3 ml-left">
-          @include('HOCPLUS-TEACHERFRONTEND::modules.frontend._partial.profileteacher._ml-info')
+          @include('HOCPLUS-TEACHERFRONTEND::modules.frontend._partial.profilestudent._ml-info')
       </div> <!-- / col-3 -->
       <div class="col-12 col-md-8 col-lg-9 ml-right">
         <section class="ml-list js-ml-list">

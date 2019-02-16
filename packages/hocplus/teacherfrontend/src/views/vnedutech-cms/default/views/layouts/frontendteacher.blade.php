@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/css/jquery.fancybox.min.css' }}"/>
     <link rel="stylesheet" href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/css/main.min.css?time=' . time() }}"/>
+    <link rel="stylesheet" href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/src/css/main_teacher.min.css?time=' . time() }}"/>
 
     <!--page css-->
     @yield('header_styles')
@@ -20,13 +21,13 @@
 
 <div id="app">
 
-    @include('HOCPLUS-FRONTEND::includes._header')
+    @include('HOCPLUS-TEACHERFRONTEND::includes._header_teacher')
 
     @yield('content')
 
     @include('HOCPLUS-FRONTEND::includes._footer')
 
-    @include('HOCPLUS-FRONTEND::includes._modal')
+    @include('HOCPLUS-TEACHERFRONTEND::includes._modal')
 
 </div> <!-- / App -->
 

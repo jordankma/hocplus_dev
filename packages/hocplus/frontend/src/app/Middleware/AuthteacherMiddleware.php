@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Auth;
 
-class AuthMiddleware
+class AuthteacherMiddleware
 {
     /**
      * Create a new filter instance.
@@ -20,7 +20,7 @@ class AuthMiddleware
 
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard('member')->check() == false) {
+        if (Auth::guard('teacher')->check() == false) {
             if ($request->ajax()) {
                 $response = [
                     'status' => 'NOT_LOGIN',

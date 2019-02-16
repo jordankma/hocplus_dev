@@ -38,10 +38,11 @@ class LoginController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         $remember = $request->input('remember', false);
+
         if ($this->_guard()->attempt(['email' => $email, 'password' => $password], $remember)) {
             $request->session()->regenerateToken();
             $this->clearLoginAttempts($request);
-            
+
             return ['success' => true];
         } else {
             return ['success' => false];

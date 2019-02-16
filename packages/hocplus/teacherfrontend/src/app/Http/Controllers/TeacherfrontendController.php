@@ -11,9 +11,10 @@ use Hocplus\Teacherfrontend\App\Models\Banner;
 use Hocplus\Teacherfrontend\App\Models\Course;
 use Hocplus\Teacherfrontend\App\Models\Teacher;
 use Hocplus\Teacherfrontend\App\Models\TeacherClassSubject;
+use Hocplus\Teacherfrontend\App\Models\Member;
 
 use Hocplus\Teacherfrontend\App\Repositories\CourseRepository;
-use Validator;
+use Validator,Auth;
 class TeacherfrontendController extends Controller
 {
     private $messages = array(
@@ -78,18 +79,15 @@ class TeacherfrontendController extends Controller
         }
     }
 
-    public function getMyCourse($teacher_id){
-        $teacher_id = intval($teacher_id); 
-        $teacher = Teacher::find($teacher_id);
-        $timeNow = date('Y-m-d');
-        $courses = Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->paginate(6);
-        $courses_will =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->where('date_start', '>', $timeNow)->paginate(6);
-        $courses_now =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->where('date_start', '<', $timeNow)->where('date_end', '>', $timeNow)->paginate(6);
-        $courses_end =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->where('date_end', '<', $timeNow)->limit(4)->paginate(6);
+    public function getMyCourse($teacher_alias = null){
+        $teacher_id = Auth::guard('teacher')->id();
+        $teacher = Teacher::where('teacher_id',$teacher_id)->with('getClasses','getSubject')->first();
+        $timeNow = time();
+        $courses = Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->paginate(2, ['*'], 'page-course');
+        $courses_end =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->where('date_end', '<', $timeNow)->limit(4)->paginate(2, ['*'], 'page-course-end');
         $data = [
+            'teacher' => $teacher,
             'courses' => $courses,
-            'courses_will' => $courses_will,
-            'courses_now' => $courses_now,
             'courses_end' => $courses_end
         ];
         return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.profileteacher.mycourse',$data);   

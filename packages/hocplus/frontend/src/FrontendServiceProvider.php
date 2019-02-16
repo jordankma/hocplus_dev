@@ -42,6 +42,7 @@ class FrontendServiceProvider extends ServiceProvider
         }
 
         $this->app['router']->middlewareGroup('member.auth', ['\Hocplus\Frontend\App\Middleware\AuthMiddleware']);
+        $this->app['router']->middlewareGroup('teacher.auth', ['\Hocplus\Frontend\App\Middleware\AuthteacherMiddleware']);
 
         /** load translations **/
         $this->loadTranslationsFrom(__DIR__ . '/translations', $this->package . '-' . $this->module);

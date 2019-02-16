@@ -54,7 +54,7 @@
 </section> <!-- / list item-course -->
 <nav class="c-navigation">
     <div class="container">
-        {{$listCourse->appends($params)->links()}}
+        {{ $listCourse->appends($params)->links() }}
     </div>
 </nav> <!-- / navigation -->
 @else 
