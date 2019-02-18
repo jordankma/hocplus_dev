@@ -35,7 +35,7 @@
             </a>
             </li>
             <li class="nav-item">
-            <a href="quan-ly-khoa-hoc-cua-toi.html" class="nav-link">
+            <a href="{{ route('hocplus.get.my.course.teacher') }}" class="nav-link">
                 <i class="fa fa-briefcase"></i>
                 <span>Khóa học của tôi</span>
             </a>

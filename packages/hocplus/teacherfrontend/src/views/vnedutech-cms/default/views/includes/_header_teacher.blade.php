@@ -3,7 +3,7 @@
     <div class="container topbar-container">
         <div class="banner">
         <a href="{{ route('hocplus.frontend.index') }}">
-            <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/logo-header.png' }}" alt="">
+            <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/images/logo-header.png' }}" alt="">
         </a>
         </div>
         <div class="btn-group">

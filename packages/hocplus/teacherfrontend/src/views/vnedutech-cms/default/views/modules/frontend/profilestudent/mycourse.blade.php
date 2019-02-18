@@ -33,7 +33,7 @@
                     <th scope="col">Tên khóa học</th>
                     <th scope="col">Giá</th>
                     <th scope="col">Sỹ số</th>
-                    <th scope="col">Action</th>
+                    {{-- <th scope="col">Action</th> --}}
                   </tr>
                 </thead>
                 <tbody>
@@ -42,27 +42,30 @@
                   <tr>
                     <th scope="row">{{ $loop->index + 1 }}</th>
                     <td>
-                      <div class="title"><a href="{{ route('hocplus.course.detail',$element->course_id) }}">{{ $element->name }}</a></div>
+                      <div class="title"><a href="{{ route('hocplus.course.detail',$element->getCourse->course_id) }}">{{ $element->getCourse->name }}</a></div>
                     </td>
                     <td>
-                      <div class="price">{{ $element->price }}<span>đ</span></div>
+                      <div class="price">{{ $element->getCourse->price }}<span>đ</span></div>
                     </td>
                     <td>
-                      <div class="number">Sỹ số tối đa: {{ $element->student_limit }}<br>Sỹ số thực tế: {{ $element->student_register }}</div>
+                      <div class="number">
+                        Sỹ số tối đa: {{ $element->getCourse->student_limit }}<br>
+                        Sỹ số thực tế: {{ $element->getCourse->student_register }}
+                      </div>
                     </td>
-                    <td>
+                    {{-- <td>
                       <div class="action">
                         <div class="edit">
                           <i class="fa fa-gear"></i>
                           <i class="fa fa-arrow-right"></i>
                           <ul class="list">
-                            <li><a href="" class="edit-course" data-course-id="{{ $element->course_id }}"><i class="fa fa-pencil"></i><span>Sửa</span></a></li>
-                            <li><a class="btn-delete js-btn-delete" href="" data-course-id="{{ $element->course_id }}"><i class="fa fa-trash"></i><span>Xóa</span></a></li>
+                            <li><a href="" class="edit-course" data-course-id="{{ $element->getCourse->course_id }}"><i class="fa fa-pencil"></i><span>Sửa</span></a></li>
+                            <li><a class="btn-delete js-btn-delete" href="" data-course-id="{{ $element->getCourse->course_id }}"><i class="fa fa-trash"></i><span>Xóa</span></a></li>
                           </ul>
                         </div>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                       </div>
-                    </td>
+                    </td> --}}
                   </tr>
                   @endforeach
                   @endif
@@ -98,18 +101,18 @@
                   <tr>
                     <th scope="row">{{ $loop->index + 1 }}</th>
                     <td>
-                      <div class="title">{{ $element->name }}</div>
+                      <div class="title">{{ $element->getCourse->name }}</div>
                     </td>
                     <td>
-                      <div class="price">{{ $element->price }}<span>đ</span></div>
+                      <div class="price">{{ $element->getCourse->price }}<span>đ</span></div>
                     </td>
                     <td>
-                      <div class="number number-student">{{ $element->student_register }}</div>
+                      <div class="number number-student">{{ $element->getCourse->student_register }}</div>
                     </td>
                     <td>
                       <div class="date">
                         @php 
-                          $epoch = $element->date_end;
+                          $epoch = $element->getCourse->date_end;
                           $dt = new DateTime("@$epoch");
                           echo $dt->format('d-m-Y');
                         @endphp

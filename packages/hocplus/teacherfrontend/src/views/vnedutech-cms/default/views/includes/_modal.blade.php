@@ -5,7 +5,7 @@
         <div class="inner">
           <div class="content">
             <div class="welcome">Chào mừng tới</div>
-            <div class="img"><img src="images/logo-user-1.png" alt=""></div>
+            <div class="img"><img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/images/logo-user-1.png' }}" alt=""></div>
             <div class="text">Hãy cùng Học Plus mang tri thức tới hàng triệu học sinh Việt Nam đồng thời xây dựng và
               củng cố thương hiệu cá nhân cũng như tạo ra một nguồn thu nhập không giới hạn.</div>
           </div>
@@ -35,7 +35,7 @@
         </div>
 
         <div class="content">
-          <img src="images/logo-user-2.png" alt="">
+          <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/images/logo-user-2.png' }}" alt="">
           <p>Dễ dàng mở lớp, có học sinh ở khắp mọi nơi,<br>không hạn chế về địa lý.</p>
         </div>
       </div>

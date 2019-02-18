@@ -3,27 +3,27 @@
         <div class="info">
         <a href="" class="btn-modify">Sửa</a>
         <div class="avatar">
-            <img src="{{ config('site.url_static') . $teacher->avatar_index }}" alt="avatar">
+            <img src="{{ config('site.url_static') . $member->avatar }}" alt="avatar">
         </div>
         <div class="content">
-            <div class="name">{{ $teacher->name }}</div>
-            <div class="work">{{ $teacher->address }}</div>
+            <div class="name">{{ $member->name }}</div>
+            <div class="work">{{ $member->address }}</div>
         </div>
         <div class="info-class">
-            <div class="degree">
+            {{-- <div class="degree">
             <div class="title">Học vị</div>
-            <div class="content">{{ $teacher->degree }}</div>
+            <div class="content">{{ $member->degree }}</div>
             </div>
             <div class="class">
             <div class="title">Bộ môn giảng dạy</div>
             <div class="content">
-                @if(!empty($teacher->getSubject))
-                @foreach($teacher->getSubject as $item)
+                @if(!empty($member->getSubject))
+                @foreach($member->getSubject as $item)
                     @if(isset($item->name)) {{ $item->name . ',' }} @endif
                 @endforeach
                 @endif
             </div>
-            </div>
+            </div> --}}
         </div>
         </div>
         <nav class="list">
@@ -35,7 +35,7 @@
             </a>
             </li>
             <li class="nav-item">
-            <a href="quan-ly-khoa-hoc-cua-toi.html" class="nav-link">
+            <a href="{{ route('hocplus.get.my.course.student') }}" class="nav-link">
                 <i class="fa fa-briefcase"></i>
                 <span>Khóa học của tôi</span>
             </a>

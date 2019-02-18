@@ -1,4 +1,4 @@
-@extends('HOCPLUS-TEACHERFRONTEND::layouts.frontendteacher')
+@extends('HOCPLUS-FRONTEND::layouts.frontend')
 
 {{-- Page title --}}
 @section('title'){{ 'Khóa học của tôi' }}@stop
@@ -60,7 +60,7 @@
                             <li><a class="btn-delete js-btn-delete" href="" data-course-id="{{ $element->course_id }}"><i class="fa fa-trash"></i><span>Xóa</span></a></li>
                           </ul>
                         </div>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        {{-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> --}}
                       </div>
                     </td>
                   </tr>
