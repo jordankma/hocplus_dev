@@ -104,18 +104,18 @@ class LoginController extends Controller
         if ($this->user) {
             $routeName = 'hocplus.frontend.index';
             return redirect()->intended(route($routeName));
+            
         }
 
         if ($request->ajax()) {
             if ($request->isMethod('post')) {
                 $authenticate = $this->_authenticateTeacher($request);
-
                 echo json_encode($authenticate);
             } else {
-                return view('HOCPLUS-FRONTEND::modules.frontend.homepage.index');
+                return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.teacherfrontend.index');
             }
         } else {
-            return view('HOCPLUS-FRONTEND::modules.frontend.homepage.index');
+            return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.teacherfrontend.index');
         }
     }
 

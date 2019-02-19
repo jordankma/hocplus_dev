@@ -41,10 +41,10 @@
 @yield('footer_scripts')
 
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/src/js/main.js?time=' . time() }}"></script>
-<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/script/auth.js?time=' . time() }}"></script>
+{{-- <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/script/auth.js?time=' . time() }}"></script> --}}
 
-</body>
-<script>
+
+{{-- <script>
     var isLogin = '{{ Session::get("isLogin") }}';
     var isLoginCheck = {{ $isLoginCheck }};
     if(isLoginCheck == 'false'){
@@ -60,5 +60,6 @@
             }
         });
     });
-</script>
+</script> --}}
+</body>
 </html>

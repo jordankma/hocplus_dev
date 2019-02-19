@@ -149,5 +149,5 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-  
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/src/js/mycourse.js?time=' . time() }}"></script>    
 @stop

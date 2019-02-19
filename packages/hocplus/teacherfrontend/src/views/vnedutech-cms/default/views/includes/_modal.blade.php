@@ -10,21 +10,28 @@
               củng cố thương hiệu cá nhân cũng như tạo ra một nguồn thu nhập không giới hạn.</div>
           </div>
           <div class="form form-log-in">
-            <form id="form-login">
+            <form class="teacher" id="form-login form-login-teacher" method="post" action="{{ route('hocplus.frontend.auth.login-teacher') }}">
+              <div class="form-group notification" id="login-notification-teacher" style="display: none;">
+                  <div class="text">Thông tin đăng nhập không chính xác.
+                      <br>Vui lòng kiểm tra lại.</div>
+                  <span class="hiddenLabel"></span>
+              </div>
               <div class="form-group email">
-                <input class="form-control form-control-user" type="email,phone" id="login-email" placeholder="Email hoặc số điện thoại">
+                  <input class="form-control form-control-user" type="email,phone" id="login-email login-email-teacher" placeholder="Email hoặc số điện thoại">
               </div>
               <div class="form-group password">
-                <input class="form-control form-control-password" type="password" id="login-password" placeholder="Mật khẩu">
+                  <input class="form-control form-control-password" type="password" id="login-password login-password-teacher" placeholder="Mật khẩu">
               </div>
               <div class="form-group form-check">
-                <span>
-                  <input class="form-check-input" type="checkbox" id="login-remember">
-                  <label class="form-check-label" for="login-remember">Ghi nhớ mật khẩu</label>
-                </span>
-                <span><span class="btn-forgot-password">Quên mật khẩu?</span></span>
+                  <span>
+                    <input class="form-check-input" type="checkbox" id="login-remember login-remember-teacher">
+                    <label class="form-check-label" for="login-remember login-remember-teacher">Ghi nhớ mật khẩu</label>
+                  </span>
+                  <span>
+                    <span class="btn-forgot-password">Quên mật khẩu?</span>
+                  </span>
               </div>
-              <button class="btn btn-log-in" type="submit" id="login-btn-submit">Đăng nhập</button>
+              <button class="btn btn-log-in" type="submit" id="login-btn-submit login-teacher-btn-submit">Đăng nhập</button>
             </form>
           </div>
         </div>
