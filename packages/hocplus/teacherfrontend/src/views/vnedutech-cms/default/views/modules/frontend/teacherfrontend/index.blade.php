@@ -37,6 +37,7 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
   <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/bootstrapvalidator/js/bootstrapValidator.min.js' }}" type="text/javascript"></script>
+  <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/src/js/mycourse.js?time=' . time() }}"></script>    
   <script>
     var notify = '{{ Session::get("success") }}' + '{{ Session::get("error") }}' ;
     console.log($('.c-register-lecturers').offset().top);

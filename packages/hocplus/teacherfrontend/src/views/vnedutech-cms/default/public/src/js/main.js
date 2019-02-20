@@ -31,10 +31,16 @@ if (multiselect) {
 const user = $('.js-user');
 if (user) {
   const btnLogIn = $('.js-btn-log-in');
-  const btnExit = $('.js-user .exit');
+  const btnExit = $('.c-user .exit');
+  const btnForgotPassword = $('.c-user .btn-forgot-password');
+  const btnNotificationClosed = $('.c-user .notification .closed');
+  const content = $('.c-user .user-inner .left .inner>.content');
+  const formLogIn = $('.c-user .form-log-in');
+  const formRestorePassword = $('.c-user .form-restore-password');
   const body = $('body');
   const overBody = $('.over-body');
   const CLASS_ACTIVE = 'user-popup-active';
+  const CLASS_SHOW = 'show';
   btnLogIn.on('click', function () {
     body.addClass(CLASS_ACTIVE);
   });
@@ -43,6 +49,14 @@ if (user) {
   });
   overBody.on('click', function () {
     body.removeClass(CLASS_ACTIVE);
+  });
+  btnForgotPassword.on('click', function () {
+    content.removeClass(CLASS_SHOW);
+    formLogIn.removeClass(CLASS_SHOW);
+    formRestorePassword.addClass(CLASS_SHOW);
+  });
+  btnNotificationClosed.on('click', function () {
+    $(this).parent().remove();
   });
 }
 
