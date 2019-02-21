@@ -20,6 +20,7 @@ class CreateMembersTable extends Migration
             $table->string('password');
             $table->string('phone')->unique()->nullable();
             $table->string('email')->unique()->nullable();
+            $table->string('school')->unique()->nullable();
             $table->string('type')->default('student')->comment('student, parent, teacher');
             $table->string('avatar')->nullable();
             $table->dateTime('birthday')->nullable();

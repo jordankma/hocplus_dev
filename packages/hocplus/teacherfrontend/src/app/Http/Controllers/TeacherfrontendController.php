@@ -83,14 +83,23 @@ class TeacherfrontendController extends Controller
         $teacher_id = Auth::guard('teacher')->id();
         $teacher = Teacher::where('teacher_id',$teacher_id)->with('getClasses','getSubject')->first();
         $timeNow = time();
-        $courses = Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->paginate(2, ['*'], 'page-course');
+        $courses = Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->paginate(5, ['*'], 'page-course');
         
-        $courses_end =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->where('date_end', '<', $timeNow)->limit(4)->paginate(2, ['*'], 'page-course-end');
+        $courses_end =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->where('date_end', '<', $timeNow)->limit(4)->paginate(5, ['*'], 'page-course-end');
         $data = [
             'teacher' => $teacher,
             'courses' => $courses,
             'courses_end' => $courses_end
         ];
         return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.profileteacher.mycourse',$data);   
+    }
+    public function getEditProfile($teacher_alias = null){
+        $teacher_id = Auth::guard('teacher')->id();
+        $teacher = Teacher::where('teacher_id',$teacher_id)->with('getClasses','getSubject')->first();
+        
+        $data = [
+            'teacher' => $teacher
+        ];
+        return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.editteacher.edit',$data);   
     }
 }

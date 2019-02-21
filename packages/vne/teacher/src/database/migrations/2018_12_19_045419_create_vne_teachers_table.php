@@ -34,7 +34,14 @@ class CreateVneTeachersTable extends Migration
             $table->text('achievements')->nullable();
             $table->string('rating')->nullable();
             $table->string('try_create_course')->nullable();
+            $table->string('image_cmt_before')->nullable();
+            $table->string('image_cmt_after')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->string('bank_branch')->nullable();
+            $table->string('bank_number')->nullable();
+            $table->string('bank_name_account')->nullable();
             $table->text('degree')->nullable();
+            $table->text('said_like')->nullable();
 
             $table->tinyInteger('status', false, true)->default(1);
             $table->tinyInteger('lock', false, true)->default(0);

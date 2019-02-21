@@ -22,7 +22,7 @@
         <section class="ml-list js-ml-list">
           <div class="headline">
             <h2 class="title">Khóa học của tôi</h2>
-            <a href="quan-ly-khoi-tao-khoa-hoc.html" class="btn">Khởi tạo khóa học</a>
+            <a href="{{ route('hocplus.frontend.create-course.step1') }}" class="btn">Khởi tạo khóa học</a>
           </div>
           <div class="list">
             <div class="table-responsive">
