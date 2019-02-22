@@ -47,7 +47,7 @@
             </a>
             </li>
             <li class="nav-item">
-            <a href="quan-ly-quan-ly-tai-lieu.html" class="nav-link">
+            <a href="{{ route('hocplus.frontend.teacher.document') }}" class="nav-link">
                 <i class="fa fa-folder-open"></i>
                 <span>Quản lý tài liệu</span>
             </a>

@@ -1,3 +1,4 @@
+@if(!$USER_LOGGED)
 <section class="section c-register-lecturers">
   <div class="container">
     <div class="headline">
@@ -56,3 +57,4 @@
     </div>
   </div> <!-- / container -->
 </section> <!-- / register lecturers -->
+@endif

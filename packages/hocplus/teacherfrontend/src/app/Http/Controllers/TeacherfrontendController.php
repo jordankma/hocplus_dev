@@ -84,7 +84,6 @@ class TeacherfrontendController extends Controller
         $teacher = Teacher::where('teacher_id',$teacher_id)->with('getClasses','getSubject')->first();
         $timeNow = time();
         $courses = Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->paginate(5, ['*'], 'page-course');
-        
         $courses_end =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->where('date_end', '<', $timeNow)->limit(4)->paginate(5, ['*'], 'page-course-end');
         $data = [
             'teacher' => $teacher,
@@ -101,5 +100,28 @@ class TeacherfrontendController extends Controller
             'teacher' => $teacher
         ];
         return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.editteacher.edit',$data);   
+    }
+
+    public function getStream(Request $request){
+        $course_id = $request->input('course_id');
+        $lesson_id = $request->input('lesson_id');
+        $time_now = time();
+        $data_reponse['status'] = false;
+        $member_id = Auth::guard('teacher')->id();
+        $type_member = 'teacher';
+        try {
+            $temp = 'get-token?member_id=' . $member_id . '&course_id=' . $course_id . '&lesson_id=' . $lesson_id . '&time=' . $time_now . '&type=' . $type_member;
+            $encrypted = self::my_simple_crypt( $temp , 'e' );
+            $data_reponse = file_get_contents('http://hocplus.vnedutech.vn/resource/' . $encrypted);
+            $data_reponse = json_decode($data_reponse,true);
+            if($data_reponse['status'] == true){
+                $token = $data_reponse['data']['token'];
+                $url = "https://stream.hocplus.vnedutech.vn/?token=" . $token;
+                return Redirect::to($url);
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        return redirect()->back();
     }
 }

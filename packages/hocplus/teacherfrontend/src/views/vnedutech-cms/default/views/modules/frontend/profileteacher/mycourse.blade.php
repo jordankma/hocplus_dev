@@ -1,4 +1,4 @@
-@extends('HOCPLUS-FRONTEND::layouts.frontend')
+@extends('HOCPLUS-TEACHERFRONTEND::layouts.frontend')
 
 {{-- Page title --}}
 @section('title'){{ 'Khóa học của tôi' }}@stop
@@ -24,7 +24,7 @@
             <h2 class="title">Khóa học của tôi</h2>
             <a href="{{ route('hocplus.frontend.create-course.step1') }}" class="btn">Khởi tạo khóa học</a>
           </div>
-          <div class="list">
+          {{-- <div class="list">
             <div class="table-responsive">
               <table class="table">
                 <thead>
@@ -60,7 +60,7 @@
                             <li><a class="btn-delete js-btn-delete" href="" data-course-id="{{ $element->course_id }}"><i class="fa fa-trash"></i><span>Xóa</span></a></li>
                           </ul>
                         </div>
-                        {{-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> --}}
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
                       </div>
                     </td>
                   </tr>
@@ -70,11 +70,95 @@
               </table>
             </div>
             <nav class="c-navigation">
-              <div class="container">
-                {{ $courses->links() }}  
+              <div class="container"> 
               </div>
             </nav> <!-- / navigation -->
-          </div>
+          </div> --}}
+          <div class="list-course js-list-course">
+            <div class="inner">
+              <div class="grid title">
+                <div class="grid-col col-07">STT</div>
+                <div class="grid-col col-30">Tên khóa học</div>
+                <div class="grid-col col-15">Giá</div>
+                <div class="grid-col col-20">Sỹ số</div>
+                <div class="grid-col col-13">Số buổi</div>
+                <div class="grid-col col-15">Action</div>
+              </div>
+              <div class="group-item">
+                @if(!empty($courses))
+                @foreach($courses as $element)
+                <div class="item">
+                  <div class="grid">
+                  <div class="grid-col col-07"> {{ $loop->index+1 }}</div>
+                    <div class="grid-col col-30">
+                      <div class="name"><a href="#">{{ $element->name }}</a></div>
+                    </div>
+                    <div class="grid-col col-15">
+                      <div class="price">{{ $element->price }}<span>đ</span></div>
+                    </div>
+                    <div class="grid-col col-20">Sỹ số tối đa: {{ $element->student_limit }}<br>Sỹ số thực tế: {{ $element->student_register }}</div>
+                    <div class="grid-col col-13"><span class="btn-detail">Chi tiết <span class="status"></span></span></div>
+                    <div class="grid-col col-15">
+                      <div class="action">
+                        <div class="edit">
+                          <i class="fa fa-gear"></i>
+                          <i class="fa fa-arrow-right"></i>
+                          <ul class="list">
+                            <li><a href=""><i class="fa fa-pencil"></i><span>Sửa</span></a></li>
+                            <li><a class="btn-delete js-btn-delete" href=""><i class="fa fa-trash"></i><span>Xóa</span></a></li>
+                          </ul>
+                        </div>
+                        {{-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> --}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item-detail">
+                    <h4 class="detail-title">{{ $element->name }}</h4>
+                    <div class="info">
+                      <div class="grid info-title">
+                        <div class="grid-col col-20">Buổi học</div>
+                        <div class="grid-col col-25">Ngày</div>
+                      </div>
+                      <div class="info-group">
+                        @if(!empty($element->getLesson))
+                        @foreach($element->getLesson as $element2)
+                        <div class="grid item-info">
+                          <div class="grid-col col-20">{{ $element2->name }}</div>
+                          @php 
+                            $epoch1 = $element2->date_start != 'null' ? $element2->date_start : 0;
+                            $date_start = new DateTime("@$epoch1");
+                            // $epoch2 = $element2->date_end != 'null' ? $element2->date_end : 0;
+                            // $date_end = new DateTime("@$epoch2");
+                            $time_now = time();
+                          @endphp
+                          <div class="grid-col col-25"><b>{{ $date_start->format('d-m-Y') }}</b><br>
+                            - Bắt đầu: {{ $date_start->format('H:i') }}<br>
+                            {{-- - Kết thúc: {{ $date_end->format('H:i') }} --}}
+                          </div>
+                            @if($element2->date_start < $time_now)
+                              <div class="grid-col col-30"><a href="" class="btn btn-red">Buổi học chưa diễn ra</a></div>
+                            @elseif($element2->date_end > $time_now)
+                              <div class="grid-col col-30"><a href="" class="btn btn-cyan">Buổi học kết thúc</a></div>
+                            @else
+                              <div class="grid-col col-30"><a href="{{ route('hocplus.get.stream.teacher',['lesson_id' => $element2->lesson_id ,'course_id' => $element->course_id ,]) }}" class="btn btn-blue">Vào dạy</a></div>
+                            @endif
+                        </div>
+                        @endforeach
+                        @endif
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                @endforeach
+                @endif
+              </div>
+
+              <nav class="c-navigation">
+                <div class="container">
+                  {{ $courses->links() }}
+                </div>
+              </nav> <!-- / navigation -->
+            </div>
         </section>
         <section class="section-01 ml-list js-ml-list">
           <div class="headline">

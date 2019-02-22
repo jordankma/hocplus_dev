@@ -5,6 +5,8 @@ Route::group(array('prefix' => $prefix), function() {
     Route::post('/dang-ky-gv', 'TeacherfrontendController@save')->name('hocplus.post.register.teacher');
     Route::group(['middleware' => ['teacher.auth']], function () {
         Route::get('/khoa-hoc-cua-toi/t/{alias?}', 'TeacherfrontendController@getMyCourse')->name('hocplus.get.my.course.teacher');
+        Route::get('/get-stream/t', 'TeacherfrontendController@getStream')->name('hocplus.get.stream.teacher');
+
         Route::get('/quan-ly-tai-khoan/t/{alias?}', 'TeacherfrontendController@getEditProfile')->name('hocplus.get.edit.profile.teacher');
         Route::post('/post/quan-ly-tai-khoan/t/{alias?}', 'TeacherfrontendController@postEditProfile')->name('hocplus.post.edit.profile.teacher');
     });   
