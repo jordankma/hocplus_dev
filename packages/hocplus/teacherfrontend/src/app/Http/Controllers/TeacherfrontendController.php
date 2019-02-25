@@ -122,12 +122,11 @@ class TeacherfrontendController extends Controller
         $lesson_id = $request->input('lesson_id');
         $time_now = time();
         $data_reponse['status'] = false;
-        $member_id = Auth::guard('teacher')->id();
+        $teacher_id = Auth::guard('teacher')->id();
         $type_member = 'teacher';
         try {
-            $temp = 'get-token?member_id=' . $member_id . '&course_id=' . $course_id . '&lesson_id=' . $lesson_id . '&time=' . $time_now . '&type=' . $type_member;
+            $temp = 'get-token?teacher_id=' . $teacher_id . '&course_id=' . $course_id . '&lesson_id=' . $lesson_id . '&time=' . $time_now . '&type=' . $type_member;
             $encrypted = self::my_simple_crypt( $temp , 'e' );
-            dd($encrypted);
             $data_reponse = file_get_contents('http://hocplus.vnedutech.vn/resource/' . $encrypted);
             $data_reponse = json_decode($data_reponse,true);
             if($data_reponse['status'] == true){
