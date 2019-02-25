@@ -125,19 +125,22 @@
                         <div class="grid item-info">
                           <div class="grid-col col-20">{{ $element2->name }}</div>
                           @php 
-                            $epoch1 = $element2->date_start != 'null' ? $element2->date_start : 0;
-                            $date_start = new DateTime("@$epoch1");
+                            // $epoch1 = $element2->date_start != 'null' ? $element2->date_start : 0;
+                            // $date_start = new DateTime("@$epoch1");
                             // $epoch2 = $element2->date_end != 'null' ? $element2->date_end : 0;
                             // $date_end = new DateTime("@$epoch2");
                             $time_now = time();
+                            $time_line = $element2->time_line != 'null' ? $element2->time_line : 0;
+                            $date_start = (int) $element2->date_start;
+                            $date_end = $date_start + $time_line * 60;
                           @endphp
-                          <div class="grid-col col-25"><b>{{ $date_start->format('d-m-Y') }}</b><br>
-                            - Bắt đầu: {{ $date_start->format('H:i') }}<br>
+                          <div class="grid-col col-25"><b>{{ date('d-m-Y', $date_start) }}</b><br>
+                            - Bắt đầu: {{ date('H:i', $date_start) }}<br>
                             {{-- - Kết thúc: {{ $date_end->format('H:i') }} --}}
                           </div>
-                            @if($element2->date_start < $time_now)
+                            @if($date_start > $time_now)
                               <div class="grid-col col-30"><a href="" class="btn btn-red">Buổi học chưa diễn ra</a></div>
-                            @elseif($element2->date_end > $time_now)
+                            @elseif($date_end < $time_now)
                               <div class="grid-col col-30"><a href="" class="btn btn-cyan">Buổi học kết thúc</a></div>
                             @else
                               <div class="grid-col col-30"><a href="{{ route('hocplus.get.stream.teacher',['lesson_id' => $element2->lesson_id ,'course_id' => $element->course_id ,]) }}" class="btn btn-blue">Vào dạy</a></div>

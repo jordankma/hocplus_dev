@@ -40,7 +40,7 @@
   <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/src/js/mycourse.js?time=' . time() }}"></script>    
   <script>
     var notify = '{{ Session::get("success") }}' + '{{ Session::get("error") }}' ;
-    console.log($('.c-register-lecturers').offset().top);
+    // console.log($('.c-register-lecturers').offset().top);
     if(notify != ''){
         $('body').scrollTop($('.c-register-lecturers').offset());
     }

@@ -94,10 +94,25 @@ class TeacherfrontendController extends Controller
     }
     public function getEditProfile($teacher_alias = null){
         $teacher_id = Auth::guard('teacher')->id();
+        $list_class_subject = TeacherClassSubject::where('teacher_id',$teacher_id)->get();
+        $list_class = array();
+        try {
+            $list_class = Classes::with('getSubject')->get();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        $list_class_subject_arr = array();
+        if(!empty($list_class_subject)){
+            foreach($list_class_subject as $key => $value){
+                $list_class_subject_arr[] = $value->classes_id . '-' . $value->subject_id;      
+            }
+        }
         $teacher = Teacher::where('teacher_id',$teacher_id)->with('getClasses','getSubject')->first();
-        
         $data = [
-            'teacher' => $teacher
+            'teacher' => $teacher,
+            'list_class' => $list_class,
+            'list_class_subject' => $list_class_subject,
+            'list_class_subject_arr' => $list_class_subject_arr
         ];
         return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.editteacher.edit',$data);   
     }
@@ -112,6 +127,7 @@ class TeacherfrontendController extends Controller
         try {
             $temp = 'get-token?member_id=' . $member_id . '&course_id=' . $course_id . '&lesson_id=' . $lesson_id . '&time=' . $time_now . '&type=' . $type_member;
             $encrypted = self::my_simple_crypt( $temp , 'e' );
+            dd($encrypted);
             $data_reponse = file_get_contents('http://hocplus.vnedutech.vn/resource/' . $encrypted);
             $data_reponse = json_decode($data_reponse,true);
             if($data_reponse['status'] == true){
@@ -123,5 +139,24 @@ class TeacherfrontendController extends Controller
             //throw $th;
         }
         return redirect()->back();
+    }
+
+    public function my_simple_crypt( $string, $action = 'e' ) {
+        // you may change these values to your own
+        $secret_key = env('SECRET_KEY');
+        $secret_iv = env('SECRET_IV');
+
+        $output = false;
+        $encrypt_method = "AES-256-CBC";
+        $key = substr( hash( 'sha256', $secret_key ), 0 ,32);
+        $iv = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+
+        if( $action == 'e' ) {
+            $output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
+        }
+        else if( $action == 'd' ){
+            $output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
+        }
+        return $output;
     }
 }

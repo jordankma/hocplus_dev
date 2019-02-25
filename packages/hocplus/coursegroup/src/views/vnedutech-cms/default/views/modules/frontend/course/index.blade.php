@@ -41,7 +41,7 @@
                         </div> <!-- / headline -->
                         <div class="user">
                             <div class="avatar">
-                                <img src="{{ config('site.url_static') . $course->isTeacher->avatar_detail }}" alt="">
+                                <img src="{{ ($course->isTeacher->avatar_detail != '') ? config('site.url_static') . $course->isTeacher->avatar_detail : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="">
                             </div>
                             <div class="name">{{ $course->isTeacher->name }}</div>
                         </div> <!-- / user -->

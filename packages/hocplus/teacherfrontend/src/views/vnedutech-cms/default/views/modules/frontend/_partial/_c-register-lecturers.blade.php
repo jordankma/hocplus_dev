@@ -1,4 +1,4 @@
-@if(!$USER_LOGGED)
+@if(!Auth::guard('teacher')->check())
 <section class="section c-register-lecturers">
   <div class="container">
     <div class="headline">

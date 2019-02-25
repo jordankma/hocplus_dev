@@ -1,9 +1,11 @@
+/* version 01 - date 2/23/2019 */
+
 // function
-// let today = function (e) {
-//   let today = new Date().toISOString().substr(0, 10);
-//   e.value = today;
-//   e.valueAsDate = new Date();
-// };
+let today = function (e) {
+  let today = new Date().toISOString().substr(0, 10);
+  e.value = today;
+  e.valueAsDate = new Date();
+};
 
 // $(".js-question .table tbody").sortable({
 //   connectWith: ".js-question .table tbody"
@@ -364,6 +366,28 @@ if (elements) {
       console.log('wrong id');
     }
   }
+}
+
+// upload avatar
+const avatar = $('.js-avatar');
+if (avatar) {
+  const img = $('.profile-pic');
+  const btnUpload = $(".file-upload");
+  const readURL = function (input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        img.attr('src', e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  };
+
+  btnUpload.on('change', function () {
+    readURL(this);
+  });
 }
 
 // multiselect

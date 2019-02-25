@@ -25,6 +25,7 @@ class CreateVneTeachersTable extends Migration
             $table->text('intro')->nullable();
             $table->string('year_graduation')->nullable();
             $table->string('address')->nullable();
+            $table->dateTime('birthday')->nullable();
             $table->string('facebook')->nullable();
             $table->string('experience')->nullable();
             $table->string('workplace')->nullable();

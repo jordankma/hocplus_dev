@@ -3,7 +3,7 @@
         <div class="info">
         <a href="" class="btn-modify">Sửa</a>
         <div class="avatar">
-            <img src="{{ config('site.url_static') . $teacher->avatar_index }}" alt="avatar">
+            <img src="{{ ($teacher->avatar_index != '') ? config('site.url_static') . $teacher->avatar_index : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="avatar">
         </div>
         <div class="content">
             <div class="name">{{ $teacher->name }}</div>
@@ -15,10 +15,10 @@
             <div class="content">{{ $teacher->degree }}</div>
             </div>
             <div class="class">
-            <div class="title">Bộ môn giảng dạy</div>
+            <div class="title">Lớp giảng dạy</div>
             <div class="content">
-                @if(!empty($teacher->getSubject))
-                @foreach($teacher->getSubject as $item)
+                @if(!empty($teacher->getClasses))
+                @foreach($teacher->getClasses as $item)
                     @if(isset($item->name)) {{ $item->name . ',' }} @endif
                 @endforeach
                 @endif
@@ -71,7 +71,7 @@
             </a>
             </li>
             <li class="nav-item">
-            <a href="quan-ly-tai-khoa.html" class="nav-link">
+            <a href="{{ route('hocplus.get.edit.profile.teacher') }}" class="nav-link">
                 <i class="fa fa-gear"></i>
                 <span>Quản lý tài khoản</span>
             </a>
