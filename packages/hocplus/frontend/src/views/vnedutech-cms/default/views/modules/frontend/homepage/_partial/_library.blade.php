@@ -6,8 +6,9 @@
                 @foreach($libHome as $item)
                     <div class="item">
                         <div class="img">
-                            <a data-fancybox="gallery-library" href="{{ config('site.url_static') . $item->image }}">
-                                <img src="{{ config('site.url_static') . $item->image }}" alt="">
+                            <a data-fancybox="gallery-library" href="{{ ($item->image != '' && file_exists(substr($item->image, 1))) ? config('site.url_static') . $item->image : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/course.jpg' }}">
+                                {{--<img src="{{ config('site.url_static') . $item->image }}" alt="">--}}
+                                <img src="{{ ($item->image != '' && file_exists(substr($item->image, 1))) ? config('site.url_static') . $item->image : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/course.jpg' }}" alt="">
                             </a>
                         </div>
                     </div>

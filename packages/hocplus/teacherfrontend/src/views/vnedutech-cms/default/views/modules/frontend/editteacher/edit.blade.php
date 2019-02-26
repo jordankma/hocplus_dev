@@ -5,7 +5,17 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-
+  <style>
+    .help-block{
+      color: red;
+    }
+    .has-error input {
+      border: 1px solid #a94442;
+    }
+    .has-success input {
+      border: 1px solid #00bc8c;
+    }
+  </style>
 @stop
 
 {{-- Page content --}}
@@ -19,16 +29,21 @@
         </div> <!-- / col-3 -->
 
         <div class="col-12 col-md-8 col-lg-9">
+          <form action="{{ route('hocplus.post.edit.profile.teacher') }}" method="POST" id="form-update-teacher-1">
           <div class="ml-user js-content-show-hide">
             <div class="headline js-btn-toggle">Hồ sơ cá nhân</div>
             <div class="user-block js-content">
-              <div class="status"><i>Trạng thái! Tài khoản chưa cập nhật thông tin</i></div>
+              @if($teacher->update_info == 0)
+                <div class="status"><i>Trạng thái! Tài khoản chưa cập nhật thông tin</i></div>
+              @else 
+                <div class="status" style="color: green"><i>Trạng thái! Tài khoản đã cập nhật thông tin</i></div>
+              @endif
               <div class="grid avatar js-avatar">
                 <div class="grid-25">
                   <div class="avatar-inner">
                     <input class="file-upload" type="file" value="{{ $teacher->avatar_detail }}" id="exampleInputManagerAvatar" name="exampleInputManagerAvatar" accept="image/png, image/jpeg">
                     <div class="img">
-                      <img class="profile-pic" src="{{ $teacher->avatar_detail }}" alt="">
+                      <img class="profile-pic" src="{{ ($teacher->avatar_detail != '') ? config('site.url_static') . $teacher->avatar_detail : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="">
                     </div>
                     <span>Thay Avatar</span>
                   </div>
@@ -49,7 +64,7 @@
                 <div class="grid-75">
                   <div class="grid form-group check">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gender" id="exampleInputManagerNam" value="male" @if($teacher->gender == 'male') checked @endif value="male">
+                      <input class="form-check-input" type="radio" name="gender" id="exampleInputManagerNam" value="male" @if($teacher->gender == '') checked @endif @if($teacher->gender == 'male') checked @endif value="male">
                       <label class="form-check-label" for="exampleInputManagerNam">Nam</label>
                       <span class="checkmark"></span>
                     </div>
@@ -98,7 +113,7 @@
                     <div class="grid-30">
                       <select class="form-control" name="year">
                         <option selected="true" disabled="disabled">Năm</option>
-                        @for( $i=1970 ; $i <= 2019 ; $i++)
+                        @for( $i=1950 ; $i <= 1996 ; $i++)
                           <option value="{{$i}}" @if($i == $year) selected @endif> {{$i}}</option>
                         @endfor
                       </select>
@@ -114,7 +129,7 @@
                   <input class="form-control" type="text" value="{{ $teacher->address }}" id="exampleInputManagerAddress" name="address" placeholder="Vui lòng nhập địa chỉ của bạn">
                 </div>
               </div>
-              <div class="grid form-group">
+              {{-- <div class="grid form-group">
                 <div class="grid-25">
                   <label for="exampleInputManagerPhone">Số điện thoại</label>
                 </div>
@@ -122,15 +137,13 @@
                   <input class="form-control" type="text" value="{{ $teacher->phone }}" id="exampleInputManagerPhone" name="phone"
                     placeholder="Vui lòng nhập số điện thoại của bạn">
                 </div>
-              </div>
+              </div> --}}
               <div class="grid form-group">
                 <div class="grid-25">
                   <label for="exampleInputManagerText">Câu nói yêu thích</label>
                 </div>
                 <div class="grid-75">
-                  <textarea class="form-control" rows="6" id="exampleInputManagerText" name="said_like" placeholder="Nhập vào câu nói yêu thích hoặc phương châm giảng dạy của bạn.">
-                  {{ $teacher->said_like }}  
-                  </textarea>
+                  <textarea class="form-control" rows="6" id="exampleInputManagerText" name="said_like" placeholder="Nhập vào câu nói yêu thích hoặc phương châm giảng dạy của bạn.">{{ $teacher->said_like }}</textarea>
                 </div>
               </div>
               <div class="grid form-group">
@@ -180,8 +193,7 @@
                   <label for="exampleInputManagerPosition">Học vị</label>
                 </div>
                 <div class="grid-75">
-                  <input class="form-control" type="text" value="{{ $teacher->degree }}"  id="exampleInputManagerPosition" name="exampleInputManagerPosition"
-                    placeholder="Vui lòng nhập học hàm, học vị của bạn">
+                  <input class="form-control" type="text" value="{{ $teacher->degree }}"  id="exampleInputManagerPosition" name="degree" placeholder="Vui lòng nhập học hàm, học vị của bạn">
                 </div>
               </div>
               <div class="grid form-group">
@@ -191,9 +203,11 @@
                 <div class="grid-75">
                   <div class="grid">
                     <div class="grid-70">
-                      <select class="form-control" name="exampleInputManagerTimeZone">
-                        <option value="">(UTC+07:00) Bangkok, Hanoi, Jakarta</option>
-                      </select>
+                        <select name="timezone" id="timezone" class="form-control">
+                          @foreach (timezone_identifiers_list() as $timezone)
+                              <option value="{{ $timezone }}" {{ $timezone == $teacher->timezone ? ' selected' : '' }}>{{ $timezone }}</option>
+                          @endforeach
+                        </select>
                     </div>
                     <div class="grid-30">
                       <button type="submit" class="btn btn-update">Cập nhật</button>
@@ -203,7 +217,7 @@
               </div>
             </div>
           </div> <!-- / user -->
-
+          </form>
           <div class="ml-user js-content-show-hide">
             <div class="headline js-btn-toggle">Thông tin tài khoản</div>
             <div class="user-block js-content">
@@ -347,5 +361,74 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-
+  <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/bootstrapvalidator/js/bootstrapValidator.min.js' }}" type="text/javascript"></script>
+  <script>
+    $('#form-update-teacher-1').bootstrapValidator({
+      feedbackIcons: {
+          // validating: 'glyphicon glyphicon-refresh',
+      },
+      fields: {
+        name: {
+            validators: {
+                notEmpty: {
+                    message: 'Trường này bắt buộc'
+                },
+                stringLength: {
+                    max: 150,
+                    message: 'Trường này không được quá dài'
+                }
+            }
+        },
+        address: {
+            validators: {
+                notEmpty: {
+                    message: 'Trường này bắt buộc'
+                }
+            }
+        },
+        workplace: {
+            validators: {
+                notEmpty: {
+                    message: 'Trường này bắt buộc'
+                }
+            }
+        },
+        degree: {
+            validators: {
+                notEmpty: {
+                    message: 'Trường này bắt buộc'
+                }
+            }
+        },
+        experience: {
+            validators: {
+                notEmpty: {
+                    message: 'Trường này bắt buộc'
+                }
+            }
+        },
+        day: {
+            validators: {
+                notEmpty: {
+                    message: 'Trường này bắt buộc'
+                }
+            }
+        },
+        month: {
+            validators: {
+                notEmpty: {
+                    message: 'Trường này bắt buộc'
+                }
+            }
+        },
+        year: {
+            validators: {
+                notEmpty: {
+                    message: 'Trường này bắt buộc'
+                }
+            }
+        }
+      }
+    });
+  </script>
 @stop

@@ -468,3 +468,35 @@ body {
     }
   }
 }
+
+.notification-delete {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  border-radius: $round1;
+  background: $c-white;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: $bs-01;
+  transition: $transition;
+  transform: scale(0);
+  opacity: 0;
+  z-index: 99999;
+
+  .btn-group {
+      margin-top: 20px;
+  }
+}
+
+.notification-delete-active {
+  .over-body {
+      background: $cl-15;
+      opacity: 1;
+      transform: translate3d(0,0,0);
+  }
+
+  .notification-delete {
+      opacity: 1;
+      transform: scale(1);
+  }
+}

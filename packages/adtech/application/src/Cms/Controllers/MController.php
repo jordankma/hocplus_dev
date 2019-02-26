@@ -19,6 +19,7 @@ class MController extends BaseController
 {
     use ValidatesRequests;
     protected $user;
+    protected $teacher;
     protected $theme;
     protected $currentDomain;
     protected $_menuList;
@@ -33,18 +34,22 @@ class MController extends BaseController
 
     private function _guard()
     {
-        if (Auth::guard('teacher')->check())
-            return Auth::guard('teacher');
-        else
-            return Auth::guard('member');
+        return Auth::guard('member');
+    }
+
+    private function _guardTeacher()
+    {
+        return Auth::guard('teacher');
     }
 
     public function __construct()
     {
         $id = $this->_guard()->id();
-        $this->theme = config('site.theme');
         $this->user = $this->_guard()->user();
         $email = $this->user ? $this->user->email : null;
+        $this->teacher = $this->_guardTeacher()->user();
+
+        $this->theme = config('site.theme');
         $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
         $domain_id = 0;
         if ($host) {
@@ -153,6 +158,7 @@ class MController extends BaseController
             $isLoginCheck = Auth::guard("teacher")->check() == true ? 1 : 0;
         }
         $share = [
+            'TEACHER_LOGGED' => $this->teacher,
             'USER_LOGGED' => $this->user,
             'USER_LOGGED_EMAIL' => $email,
             'USER_LOGGED_ID' => $id,

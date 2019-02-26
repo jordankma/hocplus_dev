@@ -34,7 +34,8 @@
                     <div class="avatar-certificate">
                         <div class="wrapper">
                             <a href="{{ route('home.teacher.detail',$teacher->teacher_id . '-' . $teacher->alias) }}">
-                                <img src="{{ config('site.url_static') . $teacher->avatar_index }}" alt="">
+                                {{--<img src="{{ config('site.url_static') . $teacher->avatar_index }}" alt="">--}}
+                                <img src="{{ ($teacher->avatar_index != '' && file_exists(substr($teacher->avatar_index, 1))) ? config('site.url_static') . $teacher->avatar_index : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user_128.png' }}" alt="">
                             </a>
                             <div class="certificate">{{ $teacher->degree }}</div>
                         </div>

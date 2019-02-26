@@ -20,6 +20,8 @@ Route::group(array('prefix' => $prefix), function() {
 
         Route::match(['post'], 'reset-password/{reset_token}', 'Auth\ResetPasswordController@reset')->name('reset');
 
+        Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
         Route::group(['middleware' => ['member.auth']], function () {
             /*
              * Activate
@@ -32,7 +34,6 @@ Route::group(array('prefix' => $prefix), function() {
             /*
              * Auth - Logout
              */
-            Route::get('logout', 'Auth\LoginController@logout')->name('logout');
         });
     });
 
@@ -43,7 +44,13 @@ Route::group(array('prefix' => $prefix), function() {
 
     Route::get('/', 'HomepageController@index')->name('hocplus.frontend.index');
 
+    Route::get('/filter-teacher-classes-subject', 'CreatecourseController@getClassesSubjectTeacher')->name('hocplus.frontend.create-course.filter');
     Route::group(['middleware' => ['teacher.auth']], function () {
-        Route::get('/create-course', 'CreatecourseController@index')->name('hocplus.frontend.create-course.index');
+        Route::any('/create-course', 'CreatecourseController@step1')->name('hocplus.frontend.create-course.step1');
+        Route::any('/create-course-detail', 'CreatecourseController@step2')->name('hocplus.frontend.create-course.step2');
+        Route::get('/create-course-review', 'CreatecourseController@step3')->name('hocplus.frontend.create-course.step3');
+        Route::get('/public-course', 'CreatecourseController@step4')->name('hocplus.frontend.create-course.step4');
+
+        Route::get('/document-manage', 'TeacherdocumentController@index')->name('hocplus.frontend.teacher.document');
     });
 });

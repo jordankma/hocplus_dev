@@ -1,7 +1,7 @@
 <div class="ml-info">
     <div class="inner-info">
         <div class="info">
-        <a href="" class="btn-modify">Sửa</a>
+        <a href="{{ route('hocplus.get.edit.profile.teacher') }}" class="btn-modify">Sửa</a>
         <div class="avatar">
             <img src="{{ ($teacher->avatar_index != '') ? config('site.url_static') . $teacher->avatar_index : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="avatar">
         </div>

@@ -1,0 +1,29 @@
+@import '../variables';
+
+.ml-manager-question {
+    .exam-inner .table {
+        .title {
+            width: auto;
+            text-decoration: none;
+            &:hover {
+                text-decoration: none;
+            }
+            >a,
+            >span {
+                text-decoration: none;
+                color: $cl-09;
+                display: block;
+                font-weight: 400;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+        .w-110 {
+            width: 110px;
+        }
+        .text-left {
+            text-align: left;
+        }
+    }
+}

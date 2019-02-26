@@ -22,7 +22,10 @@ class Course extends Model {
 
     protected $primaryKey = 'course_id';
 
-    protected $fillable = ['student_limit', 'student_register', 'date_start', 'date_end', 'time', 'status', 'price', 'discount', 'discount_exp', 'number_lesson', 'name', 'avartar', 'video', 'classes_id', 'subject_id', 'teacher_id', 'will_learn', 'target', 'request_content', 'summary', 'is_hot'];
+    protected $fillable = [
+        'student_limit', 'student_register', 'date_start', 'date_end', 'time', 'status', 'price', 'discount',
+        'discount_exp', 'number_lesson', 'name', 'avartar', 'video', 'classes_id', 'subject_id', 'teacher_id',
+        'will_learn', 'target', 'request_content', 'summary', 'is_hot', 'active'];
 
     protected $dates = ['deleted_at'];
     

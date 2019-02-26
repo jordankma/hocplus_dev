@@ -24,12 +24,12 @@
         <div class="right">
             <div class="right-inner">
 
-                <div class="form form-log-in show">
-                    <div class="tabs">
-                        <div class="tabs-item tabs-parents-student tabs-active">Phụ huynh/học sinh</div>
-                        <div class="tabs-item tabs-teacher">Giáo viên</div>
-                    </div>
-
+                <div class="form form-log-in show" style="padding-top: 0px">
+                    {{--<div class="tabs">--}}
+                        {{--<div class="tabs-item tabs-parents-student tabs-active">Phụ huynh/học sinh</div>--}}
+                        {{--<div class="tabs-item tabs-teacher">Giáo viên</div>--}}
+                    {{--</div>--}}
+                    <strong style="font-size: 20px; color: #152b75">Phụ huynh - Học sinh</strong>
                     <form class="parents-student show" id="form-login" method="post" action="{{ route('hocplus.frontend.auth.login') }}">
                         <div class="form-group notification" id="login-notification" style="display: none;">
                             <div class="text">Thông tin đăng nhập không chính xác.
@@ -51,29 +51,29 @@
                         </div>
                         <button class="btn" type="submit" id="login-btn-submit">Đăng nhập</button>
                     </form>
-                    <form class="teacher" id="form-login-teacher" method="post" action="{{ route('hocplus.frontend.auth.login-teacher') }}">
-                        <div class="form-group notification" id="login-notification-teacher" style="display: none;">
-                            <div class="text">Thông tin đăng nhập không chính xác.
-                                <br>Vui lòng kiểm tra lại.</div>
-                            <span class="hiddenLabel"></span>
-                        </div>
-                        <div class="form-group email">
-                            <input class="form-control " type="email,phone" id="login-email-teacher" placeholder="Email hoặc số điện thoại">
-                        </div>
-                        <div class="form-group password">
-                            <input class="form-control" type="password" id="login-password-teacher" placeholder="Mật khẩu">
-                        </div>
-                        <div class="form-group form-check">
-                            <span>
-                              <input class="form-check-input" type="checkbox" id="login-remember-teacher">
-                              <label class="form-check-label" for="login-remember-teacher">Ghi nhớ mật khẩu</label>
-                            </span>
-                            <span>
-                              <span class="btn-forgot-password">Quên mật khẩu?</span>
-                            </span>
-                        </div>
-                        <button class="btn" type="submit" id="login-teacher-btn-submit">Đăng nhập</button>
-                    </form>
+                    {{--<form class="teacher" id="form-login-teacher" method="post" action="{{ route('hocplus.frontend.auth.login-teacher') }}">--}}
+                        {{--<div class="form-group notification" id="login-notification-teacher" style="display: none;">--}}
+                            {{--<div class="text">Thông tin đăng nhập không chính xác.--}}
+                                {{--<br>Vui lòng kiểm tra lại.</div>--}}
+                            {{--<span class="hiddenLabel"></span>--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group email">--}}
+                            {{--<input class="form-control " type="email,phone" id="login-email-teacher" placeholder="Email hoặc số điện thoại">--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group password">--}}
+                            {{--<input class="form-control" type="password" id="login-password-teacher" placeholder="Mật khẩu">--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group form-check">--}}
+                            {{--<span>--}}
+                              {{--<input class="form-check-input" type="checkbox" id="login-remember-teacher">--}}
+                              {{--<label class="form-check-label" for="login-remember-teacher">Ghi nhớ mật khẩu</label>--}}
+                            {{--</span>--}}
+                            {{--<span>--}}
+                              {{--<span class="btn-forgot-password">Quên mật khẩu?</span>--}}
+                            {{--</span>--}}
+                        {{--</div>--}}
+                        {{--<button class="btn" type="submit" id="login-teacher-btn-submit">Đăng nhập</button>--}}
+                    {{--</form>--}}
                 </div>
 
                 <form class="form form-register" id="form-register" method="post" action="{{ route('hocplus.frontend.auth.register') }}">

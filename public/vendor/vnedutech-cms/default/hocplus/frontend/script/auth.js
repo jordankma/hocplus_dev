@@ -1,5 +1,6 @@
 /* attach a submit handler to the form */
 $("#form-register").submit(function(event) {
+    $('#register-btn-submit').attr('disabled','disabled');
 
     /* stop form from submitting normally */
     event.preventDefault();
@@ -19,8 +20,14 @@ $("#form-register").submit(function(event) {
         console.log(data);
         data = jQuery.parseJSON( data );
         if (data.success) {
-            window.location.reload();
+            $("#register-notification").css('display', 'none');
+            $("#register-notification-done").css('display', 'block');
+            setTimeout(function () {
+                window.location.href = "/";
+            }, 3000);
         } else {
+            $('#register-btn-submit').attr('disabled', false);
+            $("#register-notification-done").css('display', 'none');
             $("#register-notification").css('display', 'block');
             // register-notification-text
             $("#register-notification-text").empty();
@@ -33,6 +40,7 @@ $("#form-register").submit(function(event) {
 });
 
 $("#form-login").submit(function(event){
+    $('#login-btn-submit').attr('disabled','disabled');
 
     /* stop form from submitting normally */
     event.preventDefault();
@@ -44,17 +52,20 @@ $("#form-login").submit(function(event){
     /* Send the data using post with element id name and name2*/
     $.post( url, { email: $('#login-email').val(), password: $('#login-password').val(), remember: $('#login-remember').val() }, function ( data ) {
         data = jQuery.parseJSON( data );
-        console.log(data);
         if (data.success) {
             window.location.reload();
         } else {
+            $('#login-btn-submit').attr('disabled', false);
             $("#login-notification").css('display', 'block');
         }
         // return false;
     });
+
+    // document.getElementById("login-btn-submit").disabled = false;
 });
 
 $("#form-login-teacher").submit(function(event){
+    $('#login-teacher-btn-submit').attr('disabled', 'disabled');
 
     /* stop form from submitting normally */
     event.preventDefault();
@@ -70,6 +81,7 @@ $("#form-login-teacher").submit(function(event){
         if (data.success) {
             window.location.reload();
         } else {
+            $('#login-teacher-btn-submit').attr('disabled', false);
             $("#login-notification-teacher").css('display', 'block');
         }
         // return false;
@@ -77,6 +89,7 @@ $("#form-login-teacher").submit(function(event){
 });
 
 $("#form-forgot").submit(function(event){
+    $('#forgot-btn-submit').attr('disabled', 'disabled');
 
     /* stop form from submitting normally */
     event.preventDefault();
@@ -88,10 +101,14 @@ $("#form-forgot").submit(function(event){
     /* Send the data using post with element id name and name2*/
     $.post( url, { email: $('#forgot-email').val() }, function ( data ) {
         data = jQuery.parseJSON( data );
-        console.log(data);
+        // console.log(data);
         if (data.success) {
             $("#forgot-notification").css('display', 'block');
+            setTimeout(function () {
+                window.location.href = "/";
+            }, 3000);
         } else {
+            $('#forgot-btn-submit').attr('disabled', false);
             $("#forgot-notification-err").css('display', 'block');
         }
         // return false;
@@ -99,6 +116,7 @@ $("#form-forgot").submit(function(event){
 });
 
 $("#form-forgot-password").submit(function(event){
+    $('#reset-btn-submit').attr('disabled', 'disabled');
 
     /* stop form from submitting normally */
     event.preventDefault();
@@ -114,7 +132,11 @@ $("#form-forgot-password").submit(function(event){
         if (data.success) {
             $("#forgot-password-notification-err").css('display', 'none');
             $("#forgot-password-notification").css('display', 'block');
+            setTimeout(function () {
+                window.location.href = "/";
+            }, 3000);
         } else {
+            $('#reset-btn-submit').attr('disabled', false);
             $("#forgot-password-notification").css('display', 'none');
             $("#forgot-password-notification-err").css('display', 'block');
         }

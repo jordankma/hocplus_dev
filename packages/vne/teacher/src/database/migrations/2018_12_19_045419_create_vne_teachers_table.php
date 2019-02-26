@@ -43,11 +43,13 @@ class CreateVneTeachersTable extends Migration
             $table->string('bank_name_account')->nullable();
             $table->text('degree')->nullable();
             $table->text('said_like')->nullable();
+            $table->string('timezone')->nullable();
 
             $table->tinyInteger('status', false, true)->default(1);
             $table->tinyInteger('lock', false, true)->default(0);
             $table->dateTime('lock_time')->nullable();
             $table->tinyInteger('activated', false, true)->default(0);
+            $table->tinyInteger('update_info', false, true)->default(0);
             $table->rememberToken();
             
             $table->softDeletes();

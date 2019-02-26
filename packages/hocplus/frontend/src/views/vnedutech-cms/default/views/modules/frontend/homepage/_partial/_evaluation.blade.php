@@ -18,6 +18,7 @@
                             <div class="avatar">
                                 <div class="wrapper">
                                     <img src="{{ config('site.url_static') . $news->image }}" alt="">
+                                    <img src="{{ ($news->image != '' && file_exists(substr($news->image, 1))) ? config('site.url_static') . $news->image : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user_64.png' }}" alt="">
                                 </div>
                             </div>
                         </div>

@@ -1,28 +1,27 @@
+// function
+let today = function (e) {
+  let today = new Date().toISOString().substr(0, 10);
+  e.value = today;
+  e.valueAsDate = new Date();
+};
+
 // Video Youtube
-// Find all YouTube videos
-var $allVideos = $("iframe[src*='youtube']"),
-  // The element that is fluid width
+const $allVideos = $("iframe[src*='youtube']"),
   $fluidEl = $("iframe[src*='youtube']").parent().addClass("youtube-iframe-wrap");
-// Figure out and save aspect ratio for each video
 $allVideos.each(function () {
   $(this)
     .data('aspectRatio', this.height / this.width)
-    // and remove the hard coded width/height
     .removeAttr('height')
     .removeAttr('width');
-
 });
-// When the window is resized
 $(window).resize(function () {
   var newWidth = $fluidEl.width();
-  // Resize all videos according to their own aspect ratio
   $allVideos.each(function () {
     var $el = $(this);
     $el
       .width(newWidth)
       .height(newWidth * $el.data('aspectRatio'));
   });
-  // Kick off one resize to fix all videos on page load
 }).resize();
 
 // navbar tab
@@ -136,45 +135,6 @@ if (userManage) {
     body.removeClass(ACTIVE_CLASS);
   });
 }
-
-// carousel
-// const carouselCourseItems = $('.c-course-group .group');
-// if (carouselCourseItems) {
-//   for (let i = 0; i < carouselCourseItems.length; i++) {
-//     const carouselCourseItem = carouselCourseItems[i];
-//     $(carouselCourseItem).slick({
-//       speed: 300,
-//       slidesToShow: 4,
-//       slidesToScroll: 1,
-//       autoplay: true,
-//       autoplaySpeed: 2000,
-//       responsive: [{
-//           breakpoint: 1024,
-//           settings: {
-//             slidesToShow: 3,
-//             arrows: false
-//           }
-//         },
-//         {
-//           breakpoint: 600,
-//           settings: {
-//             slidesToShow: 2,
-//             arrows: false
-
-//           }
-//         },
-//         {
-//           breakpoint: 480,
-//           settings: {
-//             slidesToShow: 1,
-//             arrows: false
-//           }
-//         }
-//       ]
-//     });
-
-//   }
-// }
 
 const carouselAboutLecturers = $('.js-about-lecturers');
 if (carouselAboutLecturers) {
@@ -453,16 +413,6 @@ if (pay) {
 // setting
 const templateSetting = $('.js-setting');
 if (templateSetting) {
-  if ($('#exampleInputTemplateResult').length > 0) {
-    CKEDITOR.replace('exampleInputTemplateResult');
-  }
-  if ($('#exampleInputTemplateTarget').length > 0) {
-    CKEDITOR.replace('exampleInputTemplateTarget');
-  }
-  if ($('#exampleInputTemplateRequest').length > 0) {
-    CKEDITOR.replace('exampleInputTemplateRequest');
-  }
-
 
   const availableItem = $('.js-setting .template-available .item');
   if (availableItem) {
@@ -490,66 +440,119 @@ if (templateSetting) {
   const posts = $('.js-setting .template-new .posts');
   if (posts) {
     const container = $('.js-setting .template-new .posts .posts-list');
-    const button = $('.js-setting .template-new .posts .btn-new');
-    let postsID = 1;
-    button.on('click', function () {
-      let ID = postsID++;
-      container.append(`
-      <div class="posts-item">
-        <div class="grid inner">
-          <div class="grid-left">
-            <div class="title">Bài ${ID} *</div>
-          </div>
-          <div class="grid-right">
-            <textarea id="posts-${ID}" name="posts-${ID}"></textarea>
-          </div>
-        </div>
-      </div>
-      `);
-      CKEDITOR.replace("posts-" + ID);
+
+    const input = $('#exampleInputTemplateSession');
+    input.on('change', function () {
+      const item = $('.js-setting .template-new .posts .posts-item');
+      item.remove();
+      const value = $(this).val();
+      if (value < 101) {
+        for (let i = 0; i < value; i++) {
+          let ID = i + 1;
+          container.append(`
+            <div class="posts-item">
+              <div class="grid inner">
+                <div class="grid-left">
+                  <div class="title">Bài ${ID} *</div>
+                </div>
+                <div class="grid-right">
+                  <textarea class="form-control" rows="6" id="posts-${ID}" name="posts-${ID}"></textarea>
+                </div>
+              </div>
+            </div>
+          `);
+        }
+      } else {
+        alert('Số buổi tối đa là 100');
+      }
     });
   }
 
   const dateSetting = $('.js-setting .js-date');
   if (dateSetting) {
+
+    const dateStart = document.querySelector('#exampleInputTemplateDateStart');
+    if (dateStart) {
+      today(dateStart);
+    }
+    const dateEnd = document.querySelector('#exampleInputTemplateDateEnd');
+    if (dateEnd) {
+      today(dateEnd);
+    }
+
     const container = $('.js-setting .js-date .group');
-    const button = $('.js-setting .js-date .btn-new');
-    let dateID = 1;
-    button.on('click', function () {
-      let ID = dateID++;
-      container.append(`
-      <div class="grid form-group">
-        <div class="grid-left">
-          <label for="exampleInputTemplateDateStart">Buổi ${ID} *</label>
-        </div>
-        <div class="grid-right">
-          <div class="grid grid-mg15">
-            <div class="grid-50 grid-p15">
-              <div class="grid grid-mg7">
-                <div class="grid-60 grid-p7">
-                  <input class="form-control" type="date" id="exampleInputTemplateDateStart-${ID}" name="exampleInputTemplateDateStart-${ID}" value="2019-01-01">
-                </div>
-                <div class="grid-40 grid-p7">
-                  <input class="form-control" type="time" id="exampleInputTemplateTimeStart-${ID}" name="exampleInputTemplateTimeStart-${ID}" value="00:00">
-                </div>
-              </div>
+    if (typeof numberLesson != "undefined") {
+      for (let i = 0; i < numberLesson; i++) {
+        let ID = i + 1;
+        container.append(`
+          <div class="grid form-group">
+            <div class="grid-left">
+              <label for="exampleInputTemplateDateStart">Buổi ${ID} *</label>
             </div>
-            <div class="grid-50 grid-p15">
-              <div class="grid grid-mg7">
-                <div class="grid-60 grid-p7">
-                  <input class="form-control" type="date" id="exampleInputTemplateDateEnd-${ID}" name="exampleInputTemplateDateEnd-${ID}" value="2019-01-01">
+            <div class="grid-right">
+              <div class="grid grid-mg15">
+                <div class="grid-50 grid-p15">
+                  <div class="grid grid-mg7">
+                    <div class="grid-60 grid-p7">
+                      <input class="form-control" type="date" id="exampleInputTemplateDateStart-${ID}" name="exampleInputTemplateDateStart-${ID}">
+                    </div>
+                    <div class="grid-40 grid-p7">
+                      <input class="form-control" type="time" id="exampleInputTemplateTimeStart-${ID}" name="exampleInputTemplateTimeStart-${ID}" value="00:00">
+                    </div>
+                  </div>
                 </div>
-                <div class="grid-40 grid-p7">
-                  <input class="form-control" type="time" id="exampleInputTemplateTimeEnd-${ID}" name="exampleInputTemplateTimeEnd-${ID}" value="00:00">
+                <div class="grid-50 grid-p15">
+                  <div class="grid grid-mg7">
+                    <div class="grid-60 grid-p7">
+                      <input class="form-control" type="date" id="exampleInputTemplateDateEnd-${ID}" name="exampleInputTemplateDateEnd-${ID}">
+                    </div>
+                    <div class="grid-40 grid-p7">
+                      <input class="form-control" type="time" id="exampleInputTemplateTimeEnd-${ID}" name="exampleInputTemplateTimeEnd-${ID}" value="00:00">
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        `);
+        const dateStart = document.querySelector('#exampleInputTemplateDateStart-' + ID);
+        const dateEnd = document.querySelector('#exampleInputTemplateDateEnd-' + ID);
+        today(dateStart);
+        today(dateEnd);
+      }
+    }
+  }
+}
+
+const questionNew = $('.js-question-new');
+if (questionNew) {
+
+  const container = $('.js-question-new .questions');
+  const button = $('.js-question-new .btn-blue');
+  let dateID = 1;
+  button.on('click', function () {
+    let ID = dateID++;
+    container.append(`
+      <div class="grid form-group">
+        <div class="grid-66">
+          <textarea class="form-control" rows="4" id="exampleInputQuestionNewAnswerContent-${ID}" name="exampleInputQuestionNewAnswerContent-${ID}"></textarea>
+        </div>
+        <div class="grid-33">
+          <div class="function">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="exampleInputQuestionNewAnswerCheck-${ID}">
+              <label class="form-check-label" for="exampleInputQuestionNewAnswerCheck-${ID}">Đáp án đúng</label>
+            </div>
+            <span class="btn-trash" id="btn-trash-${ID}"><i class="fa fa-trash"></i> Xóa</span>
+          </div>
         </div>
       </div>
       `);
+    const trash = $('.btn-trash');
+    $(trash).on('click', function () {
+      $(this).parent().parent().parent().remove();
     });
-  }
+  });
 }
 
 // file navbar
@@ -564,7 +567,6 @@ if (fileNavbar) {
   subMenu.addClass(SUB_MENU_CLASS);
   subMenu.parent().addClass(DROPDOWN_CLASS);
 
-  const dropdown = $('.js-file-navbar .dropdown');
   const dropdownButton = $('.js-file-navbar .dropdown>a');
 
   dropdownButton.on('click', function () {
@@ -593,15 +595,39 @@ if (question) {
   });
 }
 
-const multiselect = $('.multiselect');
 
-if (multiselect) {
-  multiselect.multiselect({
-    columns: 4,
-    placeholder: 'Bộ môn giảng dạy, Giảng dạy các lớp',
-    search: true,
-    searchOptions: {
-        'default': 'Tìm kiếm'
-    }
+$(".js-question .table tbody").sortable({
+  connectWith: ".js-question .table tbody"
+}).disableSelection();
+
+
+// Btton delete
+const btnDelete = $('.js-btn-delete');
+if (btnDelete) {
+
+  const btnDelete = $('.js-btn-delete');
+  const btnNo = $('.notification-delete .btn-no');
+  const body = $('body');
+  const ACTIVE_CLASS = 'notification-delete-active';
+  btnDelete.on('click', function () {
+    body.addClass(ACTIVE_CLASS);
+    return false;
+  });
+  btnNo.on('click', function () {
+    body.removeClass(ACTIVE_CLASS);
+    return false;
   });
 }
+
+// multiselect
+// const multiselect = $('.multiselect');
+// if (multiselect) {
+//   multiselect.multiselect({
+//     columns: 4,
+//     placeholder: 'Bộ môn giảng dạy, Giảng dạy các lớp',
+//     search: true,
+//     searchOptions: {
+//       'default': 'Tìm kiếm'
+//     }
+//   });
+// }

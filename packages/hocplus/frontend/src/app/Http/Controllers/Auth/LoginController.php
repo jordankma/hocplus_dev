@@ -104,18 +104,18 @@ class LoginController extends Controller
         if ($this->user) {
             $routeName = 'hocplus.frontend.index';
             return redirect()->intended(route($routeName));
-            
         }
 
         if ($request->ajax()) {
             if ($request->isMethod('post')) {
                 $authenticate = $this->_authenticateTeacher($request);
+
                 echo json_encode($authenticate);
             } else {
-                return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.teacherfrontend.index');
+                return view('HOCPLUS-FRONTEND::modules.frontend.homepage.index');
             }
         } else {
-            return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.teacherfrontend.index');
+            return view('HOCPLUS-FRONTEND::modules.frontend.homepage.index');
         }
     }
 
@@ -127,7 +127,7 @@ class LoginController extends Controller
             $this->_guardTeacher()->logout();
         }
 
-        \Session::flush();
+//        \Session::flush();
         \Session::flash('flash_messenger', trans('adtech-core::messages.logout_success'));
 
         return redirect(route('hocplus.frontend.index'));

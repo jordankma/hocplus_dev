@@ -32,7 +32,8 @@
                         <div class="inner">
                             <div class="img">
                                 <a href="{{ route('hocplus.course.detail',$course->course_id) }}">
-                                    <img src="{{ config('site.url_static') . $course->avartar }}" alt="">
+                                    {{--<img src="{{ config('site.url_static') . $course->avartar }}" alt="">--}}
+                                    <img src="{{ ($course->avartar != '' && file_exists(substr($course->avartar, 1))) ? config('site.url_static') . $course->avartar : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/course.jpg' }}" alt="">
                                 </a>
                             </div>
                             <h3 class="name"><a href="{{ route('hocplus.course.detail',$course->course_id) }}">{{ $course->name }}</a></h3>
@@ -40,7 +41,8 @@
                                 <div class="info-lecturers">
                                     <div class="lecturers">
                                         <div class="avatar">
-                                            <img src="{{ config('site.url_static') . $course->isTeacher->avatar_index }}" alt="">
+                                            {{--<img src="{{ config('site.url_static') . $course->isTeacher->avatar_index }}" alt="">--}}
+                                            <img src="{{ ($course->isTeacher->avatar_index != '' && file_exists(substr($course->isTeacher->avatar_index, 1))) ? config('site.url_static') . $course->isTeacher->avatar_index : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="avatar">
                                         </div>
                                         <a class="name-lecturers" href="{{ route('home.teacher.detail',$course->isTeacher->teacher_id . '-' . $course->isTeacher->alias) }}">{{ $course->isTeacher->name }}</a>
                                     </div>

@@ -38,7 +38,7 @@ class CourseController extends Controller
 
         //check register
         $is_register = false;
-        $member_has_course = MemberHasCourse::where('member_id',$member_id)->first();
+        $member_has_course = MemberHasCourse::where('member_id',$member_id)->where('course_id', $course_id)->first();
         if($member_has_course){
             $is_register = true;   
         }

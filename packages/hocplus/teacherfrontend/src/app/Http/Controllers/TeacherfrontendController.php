@@ -14,7 +14,7 @@ use Hocplus\Teacherfrontend\App\Models\TeacherClassSubject;
 use Hocplus\Teacherfrontend\App\Models\Member;
 
 use Hocplus\Teacherfrontend\App\Repositories\CourseRepository;
-use Validator,Auth;
+use Validator,Auth,Datetime;
 class TeacherfrontendController extends Controller
 {
     private $messages = array(
@@ -117,6 +117,41 @@ class TeacherfrontendController extends Controller
         return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.editteacher.edit',$data);   
     }
 
+    public function postEditProfile(Request $request){
+        $teacher_id = Auth::guard('teacher')->id();
+        $class_subject = $request->input('class_subject');
+        $birthday = $request->input('day') . '/' . $request->input('moth') . '/' . $request->input('year');
+        $time = strtotime($birthday);
+        $birthday = date('Y-m-d H:i:s',$time);
+        $teacher = Teacher::find($teacher_id);    
+        $teacher->name = $request->input('name');
+        $teacher->gender = $request->input('gender');
+        $teacher->address = $request->input('address');
+        $teacher->said_like = $request->input('said_like');
+        $teacher->workplace = $request->input('workplace');
+        $teacher->experience = $request->input('experience');
+        $teacher->degree = $request->input('degree');
+        $teacher->timezone = $request->input('timezone');
+        $teacher->birthday = $birthday;
+        if($teacher->save()){
+            $teacher->update_info = 1;
+            $teacher->save();
+            TeacherClassSubject::where('teacher_id', $teacher->teacher_id)->delete();
+            if(!empty($class_subject)){
+                foreach($class_subject as $key => $value) {
+                    $arr_temp = explode("-",$value);
+                    $teacher_class_subject = new TeacherClassSubject();
+                    $teacher_class_subject->classes_id =  $arr_temp[0];
+                    $teacher_class_subject->subject_id =  $arr_temp[1];
+                    $teacher_class_subject->teacher_id = $teacher->teacher_id;
+                    $teacher_class_subject->save();
+                }
+            }
+            return redirect()->route('hocplus.get.edit.profile.teacher');
+        } else{
+            return redirect()->route('hocplus.get.edit.profile.teacher');   
+        }
+    }
     public function getStream(Request $request){
         $course_id = $request->input('course_id');
         $lesson_id = $request->input('lesson_id');

@@ -205,6 +205,7 @@
                 }
 
                 .item {
+                    position: relative;
                     padding-left: 7.5px;
                     padding-right: 7.5px;
 
@@ -253,6 +254,21 @@
                     &.active .inner {
                         border-color: $c-white;
                         box-shadow: $bs-01;
+                        &::after {
+                            font-family: $f-icon;
+                            content: '\e90a';
+                            position: absolute;
+                            width: 20px;
+                            height: 20px;
+                            top: -10px;
+                            right: -10px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-radius: 50%;
+                            background: $cl-04;
+                            color: $c-white;
+                        }
                     }
                 }
             }
@@ -302,6 +318,12 @@
 
                     .posts-item {
                         margin-top: 20px;
+                        .form-control {
+                            width: 100%;
+                            padding: 8.5px 14px;
+                            border-radius: 0;
+                            border: 1px solid #ddd;
+                        }
                     }
 
                 }

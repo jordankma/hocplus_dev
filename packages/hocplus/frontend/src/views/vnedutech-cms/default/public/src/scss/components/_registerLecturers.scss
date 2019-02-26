@@ -30,7 +30,9 @@
     }
     .form-wrapper {
         justify-content: center;
+        justify-content: center;
         .form {
+            
             .form-group {
                 margin-top: 20px;
                 .form-control {
@@ -63,6 +65,15 @@
                             background: $c-blue;
                         }
                     }
+                }
+                .form-select__wrapper {
+                    position: relative;
+                }
+                .ms-options-wrap>button {
+                    width: 100%;
+                    padding: 10px 10px;
+                    border-radius: 0;
+                    border: 1px solid $bc-01;
                 }
             }
         }

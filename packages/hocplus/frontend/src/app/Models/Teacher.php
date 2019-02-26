@@ -9,8 +9,8 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Vne\Classes\App\Models\Classes;
-use Vne\Teacher\App\Models\TeacherClassSubject;
+use Hocplus\Frontend\App\Models\Classes;
+use Hocplus\Frontend\App\Models\TeacherClassSubject;
 
 class Teacher extends Model implements AuthenticatableContract, CanResetPasswordContract{
     use Authenticatable, CanResetPassword, Notifiable, SoftDeletes;

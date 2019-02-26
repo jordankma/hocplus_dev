@@ -124,11 +124,7 @@
                         @foreach($element->getLesson as $element2)
                         <div class="grid item-info">
                           <div class="grid-col col-20">{{ $element2->name }}</div>
-                          @php 
-                            // $epoch1 = $element2->date_start != 'null' ? $element2->date_start : 0;
-                            // $date_start = new DateTime("@$epoch1");
-                            // $epoch2 = $element2->date_end != 'null' ? $element2->date_end : 0;
-                            // $date_end = new DateTime("@$epoch2");
+                          @php
                             $time_now = time();
                             $time_line = $element2->time_line != 'null' ? $element2->time_line : 0;
                             $date_start = (int) $element2->date_start;
@@ -138,12 +134,16 @@
                             - Bắt đầu: {{ date('H:i', $date_start) }}<br>
                             {{-- - Kết thúc: {{ $date_end->format('H:i') }} --}}
                           </div>
-                            @if($date_start > $time_now)
-                              <div class="grid-col col-30"><a href="" class="btn btn-red">Buổi học chưa diễn ra</a></div>
-                            @elseif($date_end < $time_now)
-                              <div class="grid-col col-30"><a href="" class="btn btn-cyan">Buổi học kết thúc</a></div>
-                            @else
-                              <div class="grid-col col-30"><a href="{{ route('hocplus.get.stream.teacher',['lesson_id' => $element2->lesson_id ,'course_id' => $element->course_id ,]) }}" class="btn btn-blue">Vào dạy</a></div>
+                            @if($element->date_start > $time_now)
+                              <div class="grid-col col-30"><a href="" class="btn btn-red">Buổi học chưa diễn ra</a></div>  
+                            @else 
+                              @if($date_start > $time_now)
+                                <div class="grid-col col-30"><a href="" class="btn btn-red">Buổi học chưa diễn ra</a></div>
+                              @elseif($date_end < $time_now)
+                                <div class="grid-col col-30"><a href="" class="btn btn-cyan">Buổi học kết thúc</a></div>
+                              @else
+                                <div class="grid-col col-30"><a href="{{ route('hocplus.get.stream.teacher',['lesson_id' => $element2->lesson_id ,'course_id' => $element->course_id ,]) }}" class="btn btn-blue">Vào dạy</a></div>
+                              @endif
                             @endif
                         </div>
                         @endforeach
@@ -236,5 +236,5 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/bootstrapvalidator/js/bootstrapValidator.min.js' }}" type="text/javascript"></script>
 @stop

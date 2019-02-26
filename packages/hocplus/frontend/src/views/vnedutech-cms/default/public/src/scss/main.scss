@@ -32,6 +32,8 @@
 @import 'fonts';
 @import 'reset';
 @import 'slick';
+@import 'ckeditor';
+@import 'multiselect';
 @import 'variables';
 @import 'mixins';
 @import 'layout';
@@ -100,6 +102,10 @@
 @import './managerLecturers/file';
 @import './managerLecturers/exam';
 @import './managerLecturers/question';
+@import './managerLecturers/managerQuestion';
+@import './managerLecturers/questionNew';
+@import './managerLecturers/user';
+@import './managerLecturers/comments';
 
 // pay
 @import './pay/course';
