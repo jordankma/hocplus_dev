@@ -201,6 +201,7 @@ class TeacherController extends Controller
         $teacher = $this->teacher->find($teacher_id);
 
         if (null != $teacher) {
+            TeacherClassSubject::where('teacher_id', $teacher_id)->delete();
             $this->teacher->delete($teacher_id);
 
             activity('teacher')

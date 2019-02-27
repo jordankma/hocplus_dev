@@ -123,6 +123,11 @@ class TeacherfrontendController extends Controller
         $birthday = $request->input('day') . '/' . $request->input('moth') . '/' . $request->input('year');
         $time = strtotime($birthday);
         $birthday = date('Y-m-d H:i:s',$time);
+        $current_password = $request->input('current_password');
+        $password = $request->input('password');
+        $conf_password = $request->input('conf_password');
+
+
         $teacher = Teacher::find($teacher_id);    
         $teacher->name = $request->input('name');
         $teacher->gender = $request->input('gender');
@@ -132,7 +137,29 @@ class TeacherfrontendController extends Controller
         $teacher->experience = $request->input('experience');
         $teacher->degree = $request->input('degree');
         $teacher->timezone = $request->input('timezone');
+        $teacher->bank_name = $request->input('bank_name');
+        $teacher->bank_branch = $request->input('bank_branch');
+        $teacher->bank_name_account = $request->input('bank_name_account');
+        $teacher->bank_number = $request->input('bank_number');
         $teacher->birthday = $birthday;
+
+        //update passowrd
+        if($current_password != '' && $password != '' && $conf_password != ''){
+            if($current_password != '' || $password != '' || $conf_password != ''){
+                return redirect()->route('hocplus.get.edit.profile.teacher')->with('error','Vui lòng nhập đủ thông tin 3 trường để cập nhật mật khẩu');    
+            } else{
+                if(!Hash::check($current_password, $teacher->password)){
+                    return redirect()->route('hocplus.get.edit.profile.teacher')->with('error','Mật khẩu hiện tại không đúng');
+                } else{
+                    if($password != $conf_password){
+                        return redirect()->route('hocplus.get.edit.profile.teacher')->with('error','Mật khẩu không khớp nhau');    
+                    } else{
+                        $teacher->password = bcrypt($password);       
+                    }
+                }
+            }
+        }
+        //end update password
         if($teacher->save()){
             $teacher->update_info = 1;
             $teacher->save();
@@ -147,7 +174,7 @@ class TeacherfrontendController extends Controller
                     $teacher_class_subject->save();
                 }
             }
-            return redirect()->route('hocplus.get.edit.profile.teacher');
+            return redirect()->route('hocplus.get.edit.profile.teacher')->with('success','Cập nhật thông tin thành công');
         } else{
             return redirect()->route('hocplus.get.edit.profile.teacher');   
         }

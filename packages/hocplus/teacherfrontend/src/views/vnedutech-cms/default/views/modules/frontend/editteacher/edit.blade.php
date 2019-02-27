@@ -35,8 +35,11 @@
             <div class="user-block js-content">
               @if($teacher->update_info == 0)
                 <div class="status"><i>Trạng thái! Tài khoản chưa cập nhật thông tin</i></div>
+              @endif
+              @if(Session::has('error'))
+                <div class="status"><i>{{ Session::get('error') }}</i></div>
               @else 
-                <div class="status" style="color: green"><i>Trạng thái! Tài khoản đã cập nhật thông tin</i></div>
+                <div class="status" style="color: green"><i>{{ Session::get('success') }}</i></div>
               @endif
               <div class="grid avatar js-avatar">
                 <div class="grid-25">
@@ -217,7 +220,6 @@
               </div>
             </div>
           </div> <!-- / user -->
-          </form>
           <div class="ml-user js-content-show-hide">
             <div class="headline js-btn-toggle">Thông tin tài khoản</div>
             <div class="user-block js-content">
@@ -265,13 +267,15 @@
           <div class="ml-user js-content-show-hide">
             <div class="headline js-btn-toggle">Xác thực hình ảnh</div>
             <div class="user-block js-content">
-              <div class="status"><i>Trạng thái! Tài khoản chưa cập nhật thông tin</i></div>
+              @if($teacher->update_info == 0)
+                <div class="status"><i>Trạng thái! Tài khoản chưa cập nhật thông tin</i></div>
+              @endif
               <div class="grid form-group">
                 <div class="grid-25">
                   <label for="exampleInputManagerBank">Tên ngân hàng</label>
                 </div>
                 <div class="grid-75">
-                  <input class="form-control" type="text" id="exampleInputManagerBank" name="exampleInputManagerBank"
+                  <input class="form-control" type="text" value="{{ $teacher->bank_name }}" id="exampleInputManagerBank" name="bank_name"
                     placeholder="VD: Ngân hàng Techcombank">
                 </div>
               </div>
@@ -280,7 +284,7 @@
                   <label for="exampleInputManagerBankAddress">Chi nhánh ngân hàng</label>
                 </div>
                 <div class="grid-75">
-                  <input class="form-control" type="text" id="exampleInputManagerBankAddress" name="exampleInputManagerBankAddress"
+                  <input class="form-control" type="text" value="{{ $teacher->bank_branch }}" id="exampleInputManagerBankAddress" name="bank_branch"
                     placeholder="VD: Chi nhánh Hà Nội">
                 </div>
               </div>
@@ -289,7 +293,7 @@
                   <label for="exampleInputManagerBankName">Tên tài khoản ngân hàng</label>
                 </div>
                 <div class="grid-75">
-                  <input class="form-control" type="text" id="exampleInputManagerBankName" name="exampleInputManagerBankName"
+                  <input class="form-control" type="text" value="{{ $teacher->bank_name_account }}" id="exampleInputManagerBankName" name="bank_name_account"
                     placeholder="VD: Nguyễn Văn A">
                 </div>
               </div>
@@ -300,7 +304,7 @@
                 <div class="grid-75">
                   <div class="grid">
                     <div class="grid-70">
-                      <input class="form-control" type="text" id="exampleInputManagerBankNumber" name="exampleInputManagerBankNumber"
+                      <input class="form-control" type="number" value="{{ $teacher->bank_number }}" id="exampleInputManagerBankNumber" name="bank_number"
                         placeholder="VD: 1900251251">
                     </div>
                     <div class="grid-30">
@@ -320,7 +324,7 @@
                   <label for="exampleInputManagerPassword">Mật khẩu hiện tại</label>
                 </div>
                 <div class="grid-75">
-                  <input class="form-control" type="text" id="exampleInputManagerPassword" name="exampleInputManagerPassword"
+                  <input class="form-control" type="password" id="exampleInputManagerPassword" name="current_pass"
                     placeholder="Vui lòng nhập tên trường học bạn đang giảng dạy">
                 </div>
               </div>
@@ -329,7 +333,7 @@
                   <label for="exampleInputManagerPasswordNew">Mật khẩu mới</label>
                 </div>
                 <div class="grid-75">
-                  <input class="form-control" type="text" id="exampleInputManagerPasswordNew" name="exampleInputManagerPasswordNew"
+                  <input class="form-control" type="password" id="exampleInputManagerPasswordNew" name="password"
                     placeholder="Nhập mật khẩu hiện tại của bạn">
                 </div>
               </div>
@@ -340,7 +344,7 @@
                 <div class="grid-75">
                   <div class="grid">
                     <div class="grid-70">
-                      <input class="form-control" type="text" id="exampleInputManagerPasswordConfirm" name="exampleInputManagerPasswordConfirm"
+                      <input class="form-control" type="password" id="exampleInputManagerPasswordConfirm" name="conf_password"
                         placeholder="Nhập mật khẩu mới">
                     </div>
                     <div class="grid-30">
@@ -351,7 +355,7 @@
               </div>
             </div> <!-- / block -->
           </div> <!-- / user -->
-
+          </form>
 
         </div> <!-- / col-9 -->
       </div>
@@ -425,6 +429,23 @@
             validators: {
                 notEmpty: {
                     message: 'Trường này bắt buộc'
+                }
+            }
+        },
+        password: {
+            validators: {
+              stringLength: {
+                min: 1,
+                max: 6,
+                message: 'Mật khẩu ít nhất 6 ký tự'
+              },
+            }
+        },
+        conf_password: {
+            validators: {
+                identical: {
+                    field: 'password',
+                    message: 'Mật khẩu không khớp nhau'
                 }
             }
         }

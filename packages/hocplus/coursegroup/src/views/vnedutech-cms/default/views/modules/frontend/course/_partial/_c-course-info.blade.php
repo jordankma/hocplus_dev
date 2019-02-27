@@ -1,5 +1,5 @@
 <div class="c-course-info">
-    <div class="price"><img src="/vendor/vnedutech-cms/default/hocplus/frontend/src/images/tag.png" alt=""> <span>1.000.000<small>đ</small></span></div>
+    <div class="price"><img src="/vendor/vnedutech-cms/default/hocplus/frontend/src/images/tag.png" alt=""> <span>{{ $course->price }}<small>đ</small></span></div>
     <div class="info">
         <ol>
             <li><img src="/vendor/vnedutech-cms/default/hocplus/frontend/src/images/book.png" alt="">
