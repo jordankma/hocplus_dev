@@ -18,7 +18,7 @@
             </h4>
                 <div class="price">
                     <img src="{{ config('site.url_static') . '/vendor/vnedutech-cms/default/hocplus/frontend/src/images/tag.png' }}" alt=""> 
-                    <span>{{ $element->price }}<small> đ</small></span>
+                    <span>{{ number_format($element->price,0,',','.') }}<small> đ</small></span>
                 </div>
             </div>
         </li>

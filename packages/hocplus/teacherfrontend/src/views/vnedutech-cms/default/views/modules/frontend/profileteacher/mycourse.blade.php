@@ -94,7 +94,7 @@
                       <div class="name"><a href="#">{{ $element->name }}</a></div>
                     </div>
                     <div class="grid-col col-15">
-                      <div class="price">{{ $element->price }}<span>đ</span></div>
+                      <div class="price">{{ number_format($element->price,0,',','.') }}<span>đ</span></div>
                     </div>
                     <div class="grid-col col-20">Sỹ số tối đa: {{ $element->student_limit }}<br>Sỹ số thực tế: {{ $element->student_register }}</div>
                     <div class="grid-col col-13"><span class="btn-detail">Chi tiết <span class="status"></span></span></div>

@@ -194,7 +194,7 @@ class TeacherfrontendController extends Controller
             if($data_reponse['status'] == true){
                 $token = $data_reponse['data']['token'];
                 $url = "https://stream.hocplus.vnedutech.vn/?token=" . $token;
-                return Redirect::to($url);
+                return redirect($url);
             }
         } catch (\Throwable $th) {
             //throw $th;

@@ -325,7 +325,7 @@
                 </div>
                 <div class="grid-75">
                   <input class="form-control" type="password" id="exampleInputManagerPassword" name="current_pass"
-                    placeholder="Vui lòng nhập tên trường học bạn đang giảng dạy">
+                    placeholder="Vui lòng nhập mật khẩu hiện tại">
                 </div>
               </div>
               <div class="grid form-group">
