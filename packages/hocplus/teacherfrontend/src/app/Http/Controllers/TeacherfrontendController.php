@@ -15,6 +15,8 @@ use Hocplus\Teacherfrontend\App\Models\Member;
 
 use Hocplus\Teacherfrontend\App\Repositories\CourseRepository;
 use Validator,Auth,Datetime;
+use Illuminate\Support\Facades\Storage;
+
 class TeacherfrontendController extends Controller
 {
     private $messages = array(
@@ -118,6 +120,10 @@ class TeacherfrontendController extends Controller
     }
 
     public function postEditProfile(Request $request){
+        //get avatar
+        $avatar = $request->file('avatar');
+        $name_avatar = $avatar->getClientOriginalName();
+
         $teacher_id = Auth::guard('teacher')->id();
         $class_subject = $request->input('class_subject');
         $birthday = $request->input('day') . '/' . $request->input('moth') . '/' . $request->input('year');
@@ -128,7 +134,21 @@ class TeacherfrontendController extends Controller
         $conf_password = $request->input('conf_password');
 
 
-        $teacher = Teacher::find($teacher_id);    
+        $teacher = Teacher::find($teacher_id);  
+        if(empty($teacher)){
+            return redirect()->route('index');
+        } 
+        //update avatar 
+        $array_tmp = explode("/",$teacher->avatar_index);
+        if($array_tmp[count($array_tmp) - 1] != $name_avatar){
+            $path_avatar = $request->file('avatar')->store(
+                'avatars/teacher/'. $teacher_id , 'static'
+            );    
+            $teacher->avatar_index = config('site.url_storage') . '/' . $path_avatar;
+            $teacher->avatar_detail = config('site.url_storage') . '/' . $path_avatar;
+        }
+        //end update avatar
+
         $teacher->name = $request->input('name');
         $teacher->gender = $request->input('gender');
         $teacher->address = $request->input('address');

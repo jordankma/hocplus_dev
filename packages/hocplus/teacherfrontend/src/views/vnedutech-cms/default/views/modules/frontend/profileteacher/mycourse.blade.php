@@ -24,56 +24,6 @@
             <h2 class="title">Khóa học của tôi</h2>
             <a href="{{ route('hocplus.frontend.create-course.step1') }}" class="btn">Khởi tạo khóa học</a>
           </div>
-          {{-- <div class="list">
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">STT</th>
-                    <th scope="col">Tên khóa học</th>
-                    <th scope="col">Giá</th>
-                    <th scope="col">Sỹ số</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @if(!empty($courses))
-                  @foreach($courses as $element)
-                  <tr>
-                    <th scope="row">{{ $loop->index + 1 }}</th>
-                    <td>
-                      <div class="title"><a href="{{ route('hocplus.course.detail',$element->course_id) }}">{{ $element->name }}</a></div>
-                    </td>
-                    <td>
-                      <div class="price">{{ $element->price }}<span>đ</span></div>
-                    </td>
-                    <td>
-                      <div class="number">Sỹ số tối đa: {{ $element->student_limit }}<br>Sỹ số thực tế: {{ $element->student_register }}</div>
-                    </td>
-                    <td>
-                      <div class="action">
-                        <div class="edit">
-                          <i class="fa fa-gear"></i>
-                          <i class="fa fa-arrow-right"></i>
-                          <ul class="list">
-                            <li><a href="" class="edit-course" data-course-id="{{ $element->course_id }}"><i class="fa fa-pencil"></i><span>Sửa</span></a></li>
-                            <li><a class="btn-delete js-btn-delete" href="" data-course-id="{{ $element->course_id }}"><i class="fa fa-trash"></i><span>Xóa</span></a></li>
-                          </ul>
-                        </div>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      </div>
-                    </td>
-                  </tr>
-                  @endforeach
-                  @endif
-                </tbody>
-              </table>
-            </div>
-            <nav class="c-navigation">
-              <div class="container"> 
-              </div>
-            </nav> <!-- / navigation -->
-          </div> --}}
           <div class="list-course js-list-course">
             <div class="inner">
               <div class="grid title">

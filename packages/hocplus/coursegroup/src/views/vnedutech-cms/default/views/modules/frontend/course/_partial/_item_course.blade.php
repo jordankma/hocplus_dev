@@ -10,7 +10,8 @@
             <div class="info-lecturers">
                 <div class="lecturers">
                     <div class="avatar">
-                        <img src="{{ ($course->isTeacher->avatar_index != '' && file_exists(substr($course->isTeacher->avatar_index, 1))) ? config('site.url_static') . $course->isTeacher->avatar_index : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="">
+                            {{-- file_exists(substr($course->isTeacher->avatar_index, 1))) --}}
+                        <img src="{{ ($course->isTeacher->avatar_index != '')  ? config('site.url_static') . $course->isTeacher->avatar_index : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="">
                     </div>
                     <a class="name-lecturers" href="{{ route('home.teacher.detail',$course->isTeacher->teacher_id . '-' . $course->isTeacher->alias) }}">{{ $course->isTeacher->name }}</a>
                 </div>
@@ -23,8 +24,12 @@
                 </div>
             </div>
             <div class="subjects-class">
-                <div class="subjects">Môn: <span>{{ $course->isSubject->name }}</span></div>
-                <div class="class">Lớp: <span>{{ $course->isClass->name }}</span></div>
+                <a href="{{ route('hocplus.course.list', ['subject_id' => $course->isSubject->subject_id])}}">
+                    <div class="subjects"><span>{{ $course->isSubject->name }}</span></div>
+                </a>
+                <a href="{{ route('hocplus.course.list', ['classes_id' => $course->isClass->classes_id])}}">
+                    <div class="class"><span>{{ $course->isClass->name }}</span></div>
+                </a>
             </div>
             <div class="registration-time">
                 <a href="{{ route("vne.pay.buyCourse",['course_id' => $course->course_id]) }}" class="btn btn-registration">Đăng ký</a>
@@ -37,7 +42,9 @@
             <h3 class="tooltip-name"><a href="{{ route('hocplus.course.detail',$course->course_id) }}">{{ $course->name }}</a></h3>
             <div class="tooltip-info">
                 <span class="info-time"><i class="fa fa-play"></i> {{ count($course->getLesson) }}</span>
-                <div class="info-class"><i class="fa fa-folder-open"></i> Lớp {{ $course->isClass->name }}</div>
+                <a href="{{ route('hocplus.course.list', ['classes_id' => $course->isClass->classes_id])}}">
+                    <div class="info-class"><i class="fa fa-folder-open"></i> {{ $course->isClass->name }}</div>
+                </a>
             </div>
             <div class="tooltip-describe">
                 <div class="describe-title">Mô tả:</div>

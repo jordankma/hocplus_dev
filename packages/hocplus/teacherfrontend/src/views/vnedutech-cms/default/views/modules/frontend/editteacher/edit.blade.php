@@ -29,7 +29,7 @@
         </div> <!-- / col-3 -->
 
         <div class="col-12 col-md-8 col-lg-9">
-          <form action="{{ route('hocplus.post.edit.profile.teacher') }}" method="POST" id="form-update-teacher-1">
+          <form action="{{ route('hocplus.post.edit.profile.teacher') }}" method="POST" id="form-update-teacher-1" enctype="multipart/form-data">
           <div class="ml-user js-content-show-hide">
             <div class="headline js-btn-toggle">Hồ sơ cá nhân</div>
             <div class="user-block js-content">
@@ -44,9 +44,9 @@
               <div class="grid avatar js-avatar">
                 <div class="grid-25">
                   <div class="avatar-inner">
-                    <input class="file-upload" type="file" value="{{ $teacher->avatar_detail }}" id="exampleInputManagerAvatar" name="exampleInputManagerAvatar" accept="image/png, image/jpeg">
+                    <input class="file-upload" type="file" value="{{ $teacher->avatar_detail }}" id="exampleInputManagerAvatar" name="avatar" accept="image/png, image/jpeg">
                     <div class="img">
-                      <img class="profile-pic" src="{{ ($teacher->avatar_detail != '') ? config('site.url_static') . $teacher->avatar_detail : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="">
+                      <img class="profile-pic" src="{{ ($teacher->avatar_detail != '') ? config('site.url_static') . '/' . $teacher->avatar_detail : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="">
                     </div>
                     <span>Thay Avatar</span>
                   </div>
@@ -237,7 +237,7 @@
                       </div>
                     </div>
                     <div class="grid-30">
-                      <button type="submit" class="btn btn-update">Cập nhật</button>
+                      {{-- <button type="submit" class="btn btn-update">Cập nhật</button> --}}
                     </div>
                   </div>
                 </div>
@@ -380,6 +380,14 @@
                 stringLength: {
                     max: 150,
                     message: 'Trường này không được quá dài'
+                }
+            }
+        },
+        avatar: {
+            validators: {
+                file: {
+                    extension: 'png,jpg',
+                    message: 'Chọn sai định dạng ảnh'
                 }
             }
         },
