@@ -121,8 +121,8 @@ class TeacherfrontendController extends Controller
 
     public function postEditProfile(Request $request){
         //get avatar
-        $avatar = $request->file('avatar');
-        $name_avatar = $avatar->getClientOriginalName();
+        
+        // $name_avatar = $avatar->getClientOriginalName();
 
         $teacher_id = Auth::guard('teacher')->id();
         $class_subject = $request->input('class_subject');
@@ -139,13 +139,18 @@ class TeacherfrontendController extends Controller
             return redirect()->route('index');
         } 
         //update avatar 
-        $array_tmp = explode("/",$teacher->avatar_index);
-        if($array_tmp[count($array_tmp) - 1] != $name_avatar){
-            $path_avatar = $request->file('avatar')->store(
-                'avatars/teacher/'. $teacher_id , 'static'
-            );    
-            $teacher->avatar_index = config('site.url_storage') . '/' . $path_avatar;
-            $teacher->avatar_detail = config('site.url_storage') . '/' . $path_avatar;
+        if($request->hasFile('avatars')){
+            $avatar = $request->file('avatar');
+            $name_avatar = $avatar->getClientOriginalName();
+            $array_tmp = explode("/",$teacher->avatar_index);
+            if($array_tmp[count($array_tmp) - 1] != $name_avatar){
+
+                $path_avatar = $request->file('avatar')->store(
+                    'hocplus/teacher/'. $teacher_id . '/avatars' , 'static'
+                );    
+                $teacher->avatar_index = '/' . $path_avatar;
+                $teacher->avatar_detail = '/' . $path_avatar;
+            }
         }
         //end update avatar
 
