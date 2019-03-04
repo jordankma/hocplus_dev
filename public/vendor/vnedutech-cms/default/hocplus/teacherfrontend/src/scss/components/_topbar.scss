@@ -1,0 +1,88 @@
+@import '../variables';
+
+.c-topbar {
+    padding: 10px 0;
+    @media (min-width: $breakpoints-lg) {
+        padding: 15px 0;
+    }
+    .topbar-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .banner {
+        max-height: 50px;
+        width: auto;
+    }
+    .btn-group {
+        text-align: right;
+        .btn {
+            font-weight: 500;
+            text-transform: uppercase;
+            border: 1px solid transparent;
+            background: transparent;
+            border-radius: 999px;
+            &.btn-registration {
+                position: relative;
+                color: $cl-05;
+                padding: 0;
+                @media (min-width: $breakpoints-lg) {
+                    margin-left: 25px;
+                }
+                &::after {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 1px;
+                    left: 0;
+                    bottom: 0;
+                    background: $cl-05;
+                    transition: $transition;
+                }
+                &:hover {
+                    opacity: .9;
+                    &::after {
+                        width: 100%;
+                    }
+                }
+                @media (min-width: $breakpoints-lg) {
+                    border: 1px solid $cl-04;
+                    padding: 10px 30px;
+                    color: $cl-04;
+                    &::after {
+                        display: none;
+                    }
+                    &:hover {
+                        background: $cl-04;
+                        color: $c-white;
+                    }
+                }
+            }
+            &.btn-log-in {
+                position: relative;
+                color: $cl-05;
+                padding: 0;
+                margin-left: 15px;
+                @media (min-width: $breakpoints-lg) {
+                    margin-left: 25px;
+                }
+                &::after {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 1px;
+                    left: 0;
+                    bottom: 0;
+                    background: $cl-05;
+                    transition: $transition;
+                }
+                &:hover {
+                    opacity: .9;
+                    &::after {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

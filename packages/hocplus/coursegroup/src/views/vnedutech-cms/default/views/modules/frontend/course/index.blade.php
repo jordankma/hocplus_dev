@@ -70,7 +70,12 @@
 
                         @include('HOCPLUS-COURSEGROUP::modules.frontend.course._partial._evaluate')
 
-                        @include('HOCPLUS-COURSEGROUP::modules.frontend.course._partial._commit')
+                        {{-- @include('HOCPLUS-COURSEGROUP::modules.frontend.course._partial._commit') --}}
+                        @include('HOCPLUS-COMMENTS::modules.comments.comment',[
+                            'type' => 'course', //course hoac news
+                            'id' => $course->course_id //id cua input field hielden
+                        ])
+
 
                     </div>
                 </div> <!-- / main left -->

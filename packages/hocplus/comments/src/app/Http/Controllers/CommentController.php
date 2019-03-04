@@ -9,37 +9,54 @@
 namespace Hocplus\Comments\App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Adtech\Application\Cms\Controllers\Controller as Controller;
+use Adtech\Application\Cms\Controllers\MController as Controller;
 use Hocplus\Comments\App\Repositories\DemoRepository;
 use Hocplus\Comments\App\Models\Demo;
 use Hocplus\Comments\App\Models\Comments;
 use Spatie\Activitylog\Models\Activity;
 use Yajra\Datatables\Datatables;
 use Validator;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class CommentController extends Controller
 {
-        /*
+    /*
      * comments
-     */
+    */
     public function comments(Request $request) {
-        if (Auth::check()) {
+        //$USER_LOGGED
+        $USER_LOGGED = $this->user;
+        if ($USER_LOGGED) {
             $validatedData = $request->validate([
                 'name' => 'required|max:255',
                 'email' => 'required',
                 'comment' => 'required',
             ], $this->messages());
             $comments = New Comments();
-            $comments->news_id = $request->news_id;
+            if ($request->news_id) {
+                $comments->news_id = $request->news_id;
+            }
+            if ($request->course_id) {
+                $comments->course_id = $request->course_id;
+            }
             $comments->name = $request->name;
             $comments->email = $request->email;
             $comments->comment = $request->comment;
-            $comments->user_id = Auth::id();
+            //$comments->user_id = Auth::id();
+            $comments->user_id = Auth::guard('member')->user()->member_id;
             $action = $comments->save();
             if ($action) {
                 echo "Thành công";
-                return redirect('/news/detail/'.$comments->news_id);
+                if ($comments->news_id) {
+                    return redirect('/news/detail/'.$comments->news_id);
+                }
+                else
+                if ($comments->course_id) {
+                    return redirect('/khoa-hoc/'.$comments->course_id);
+                }                
+                else {
+                    return redirect('/index.php');
+                }
             }
             else {
                 echo "Lỗi";
@@ -49,7 +66,10 @@ class CommentController extends Controller
             echo "Yêu cầu, bạn phải đăng nhập";
         }
     }
-    
+    /*
+     * 
+     * 
+     */
         
     public function messages()
     {

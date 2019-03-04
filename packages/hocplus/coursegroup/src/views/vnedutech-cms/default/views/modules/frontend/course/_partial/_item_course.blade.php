@@ -11,7 +11,7 @@
                 <div class="lecturers">
                     <div class="avatar">
                             {{-- file_exists(substr($course->isTeacher->avatar_index, 1))) --}}
-                        <img src="{{ ($course->isTeacher->avatar_index != '')  ? config('site.url_static') . $course->isTeacher->avatar_index : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="">
+                        <img src="{{ ($course->isTeacher->avatar_index != '' || file_exists(substr($course->isTeacher->avatar_index, 1)))  ? config('site.url_static') . $course->isTeacher->avatar_index : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="">
                     </div>
                     <a class="name-lecturers" href="{{ route('home.teacher.detail',$course->isTeacher->teacher_id . '-' . $course->isTeacher->alias) }}">{{ $course->isTeacher->name }}</a>
                 </div>

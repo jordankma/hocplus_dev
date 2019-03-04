@@ -232,7 +232,7 @@
                     <div class="grid-70">
                       <div class="form-control file">
                         <span>Nhấp vào đây để tải ảnh lên</span>
-                        <input type="file" id="exampleInputManagerCmndBefore" name="exampleInputManagerCmndBefore"
+                        <input type="file" value="{{ $teacher->image_cmt_before }}" id="exampleInputManagerCmndBefore" name="image_cmt_before"
                           accept="image/png, image/jpeg">
                       </div>
                     </div>
@@ -251,7 +251,7 @@
                     <div class="grid-70">
                       <div class="form-control file">
                         <span>Nhấp vào đây để tải ảnh lên</span>
-                        <input type="file" id="exampleInputManagercmndAfter" name="exampleInputManagercmndAfter"
+                        <input type="file" value="{{ $teacher->image_cmt_after }}" id="exampleInputManagercmndAfter" name="image_cmt_after"
                           accept="image/png, image/jpeg">
                       </div>
                     </div>
@@ -384,6 +384,22 @@
             }
         },
         avatar: {
+            validators: {
+                file: {
+                    extension: 'png,jpg',
+                    message: 'Chọn sai định dạng ảnh'
+                }
+            }
+        },
+        image_cmt_before: {
+            validators: {
+                file: {
+                    extension: 'png,jpg',
+                    message: 'Chọn sai định dạng ảnh'
+                }
+            }
+        },
+        image_cmt_after: {
             validators: {
                 file: {
                     extension: 'png,jpg',

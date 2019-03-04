@@ -59,7 +59,7 @@
             </a>
             </li>
             <li class="nav-item">
-            <a href="quan-ly-cau-hoi.html" class="nav-link">
+            <a href="{{ route('vne.question.manage') }}" class="nav-link">
                 <i class="fa fa-question"></i>
                 <span>Quản lý câu hỏi</span>
             </a>

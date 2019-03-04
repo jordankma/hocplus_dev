@@ -9,6 +9,7 @@ use Hocplus\Coursegroup\App\Models\Subject;
 use Hocplus\Coursegroup\App\Models\Classes;
 use Hocplus\Coursegroup\App\Models\Banner;
 use Hocplus\Coursegroup\App\Models\Course;
+use Hocplus\Coursegroup\App\Models\Comments;
 use Hocplus\Coursegroup\App\Models\MemberHasCourse;
 
 use Hocplus\Coursegroup\App\Repositories\CourseRepository;
@@ -42,10 +43,15 @@ class CourseController extends Controller
         if($member_has_course){
             $is_register = true;   
         }
+
+        //get comment 
+        $comments = Comments::where('course_id','=',$course_id)->where('status',1)->orderBy('updated_at')->get();
+        //end get comment
         $data = [
             'course' => $course,
             'list_course_relate' => $list_course_relate,
-            'is_register' => $is_register
+            'is_register' => $is_register,
+            'comments' => $comments
         ];
         return view('HOCPLUS-COURSEGROUP::modules.frontend.course.index',$data);
     }

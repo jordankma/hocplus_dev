@@ -13,4 +13,4 @@ Route::group(array('prefix' => $adminPrefix), function() {
     Route::get('hocplus/comments/demo/delete', 'DemoController@delete')->name('hocplus.comments.demo.delete');
     Route::get('hocplus/comments/demo/confirm-delete', 'DemoController@getModalDelete')->name('hocplus.comments.demo.confirm-delete');
 });
-Route::post('comments', 'CommentController@comments')->middleware('auth')->name('hocplus.comments.comments');
+Route::post('comments', 'CommentController@comments')->middleware('member.auth')->name('hocplus.comments.comments');

@@ -10,7 +10,7 @@
             @if($TEACHER_LOGGED)
                 <div class="user-inner">
                     <div class="avatar">
-                    <img src="{{ ($TEACHER_LOGGED->avatar_index != '') ? config('site.url_static') . $TEACHER_LOGGED->avatar_index : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="avatar">
+                    <img src="{{ ($TEACHER_LOGGED->avatar_index != '' || file_exists(substr($TEACHER_LOGGED->avatar_index, 1))) ? config('site.url_static') . $TEACHER_LOGGED->avatar_index : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="avatar">
                     </div>
                     <div class="name">{{ ($TEACHER_LOGGED->name != '') ? $TEACHER_LOGGED->name : (($TEACHER_LOGGED->email != '') ? $TEACHER_LOGGED->email : (($TEACHER_LOGGED->phone != '') ? $TEACHER_LOGGED->phone : (($TEACHER_LOGGED->user_name != '' ? $TEACHER_LOGGED->user_name : 'Teacher')))) }}</div>
                 </div>
@@ -36,7 +36,7 @@
     <div class="container navbar-container">
         <ul class="nav">
         <li class="nav-item active">
-            <a href="" class="nav-link"><i class="fa fa-home"></i></a>
+            <a href="{{ route('hocplus.frontend.index') }}" class="nav-link"><i class="fa fa-home"></i></a>
         </li>
         <li class="nav-item">
             <a href="" class="nav-link">Giới thiệu</a>

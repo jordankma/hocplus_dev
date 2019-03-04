@@ -139,7 +139,7 @@ class TeacherfrontendController extends Controller
             return redirect()->route('index');
         } 
         //update avatar 
-        if($request->hasFile('avatars')){
+        if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
             $name_avatar = $avatar->getClientOriginalName();
             $array_tmp = explode("/",$teacher->avatar_index);
@@ -153,6 +153,32 @@ class TeacherfrontendController extends Controller
             }
         }
         //end update avatar
+        //update cmt 
+        if($request->hasFile('image_cmt_before')){
+            $image_cmt_before = $request->file('image_cmt_before');
+            $name_image_cmt_before = $image_cmt_before->getClientOriginalName();
+            $array_tmp = explode("/",$teacher->image_cmt_before);
+            if($array_tmp[count($array_tmp) - 1] != $name_image_cmt_before){
+
+                $path_image_cmt_before = $request->file('image_cmt_before')->store(
+                    'hocplus/teacher/'. $teacher_id . '/cmt' , 'static'
+                );    
+                $teacher->image_cmt_before = '/' . $path_image_cmt_before;
+            }
+        }
+        if($request->hasFile('image_cmt_after')){
+            $image_cmt_after = $request->file('image_cmt_after');
+            $name_image_cmt_after = $image_cmt_after->getClientOriginalName();
+            $array_tmp = explode("/",$teacher->image_cmt_after);
+            if($array_tmp[count($array_tmp) - 1] != $name_image_cmt_after){
+
+                $path_image_cmt_after = $request->file('image_cmt_after')->store(
+                    'hocplus/teacher/'. $teacher_id . '/cmt' , 'static'
+                );    
+                $teacher->image_cmt_after = '/' . $path_image_cmt_after;
+            }
+        }
+        //end update cmt
 
         $teacher->name = $request->input('name');
         $teacher->gender = $request->input('gender');

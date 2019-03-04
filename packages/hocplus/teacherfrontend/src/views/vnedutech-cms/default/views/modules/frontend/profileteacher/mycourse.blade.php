@@ -12,7 +12,7 @@
 @section('content')
 <main class="main ml-main">
 
-  <div class="container">
+  <div class="container section">
     <div class="row">
 
       <div class="col-12 col-md-4 col-lg-3 ml-left">
