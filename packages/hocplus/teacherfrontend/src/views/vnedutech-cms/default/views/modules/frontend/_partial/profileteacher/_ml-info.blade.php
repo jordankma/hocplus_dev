@@ -53,7 +53,7 @@
             </a>
             </li>
             <li class="nav-item">
-            <a href="quan-ly-quan-ly-de-thi.html" class="nav-link">
+            <a href="{{ route('teacher.exam.manage') }}" class="nav-link">
                 <i class="fa fa-layers"></i>
                 <span>Quản lý bộ đề</span>
             </a>

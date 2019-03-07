@@ -69,17 +69,17 @@ return [
 //        ],
         'static' => [
             'driver'   => 'ftp',
-            'host'     => '123.30.174.144',
-            'username' => 'stc_gthd',
-            'password' => 'hiIVqHR4AZYpR9v102',
+            'host'     => '123.30.174.148',
+            'username' => 'filemanager_hocplus',
+            'password' => '2gqDR7hDeuX2GDgMAz',
             //Các thông số mở rộng
              'port'     => 21,
-             'root'     => '',
+             'root'     => (isset($_COOKIE['static_root_path'])) ? $_COOKIE['static_root_path'] : 'public/files',
+//             'root'     => 'public/files',
              'passive'  => true,
             // 'ssl'      => true,
             // 'timeout'  => 30,
         ],
-
 
         's3' => [
             'driver' => 's3',

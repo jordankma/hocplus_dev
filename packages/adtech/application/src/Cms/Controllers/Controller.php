@@ -214,6 +214,7 @@ class Controller extends BaseController
             'skin'  => config('site.desktop.skin'),
             'mtemplate'  => config('site.mobile.template'),
             'mskin'  => config('site.mobile.skin'),
+            'preview_url' => config('site.url_static')
         ];
 
         view()->share($share);
