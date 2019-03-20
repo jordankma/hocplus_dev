@@ -13,7 +13,7 @@ use Session;
 use Cache;
 use Auth,URL;
 use GuzzleHttp\Client;
-
+use Hocplus\Teacherfrontend\App\Models\MemberHasCourse;
 // Member controller
 class MController extends BaseController
 {
@@ -95,7 +95,18 @@ class MController extends BaseController
             //
 
         }
-
+        //get khoa hoc da mua
+        $list_course_buy = [];
+        if(Auth::guard('member')->check()){
+            $member_id = Auth::guard('member')->id();
+            $list_course = MemberHasCourse::where('member_id',$member_id)->select('course_id')->get();
+            // dd($list_course);      
+            if(!empty($list_course)){
+                foreach($list_course as $element){
+                    $list_course_buy[] = $element->course_id;       
+                }
+            }
+        }
         //get setting value
         $settings = Setting::where('domain_id', $this->domainDefault)->get();
         $settingView = array('logo' => '', 'logo_mini' => '', 'title' => '', 'favicon' => '', 'logo_link' => '');
@@ -174,7 +185,8 @@ class MController extends BaseController
             'mtemplate'  => config('site.mobile.template'),
             'mskin'  => config('site.mobile.skin'),
             'subjectClass' => $subjectArr,
-            'isLoginCheck' => $isLoginCheck
+            'isLoginCheck' => $isLoginCheck,
+            'list_course_buy' => $list_course_buy
         ];
 
         view()->share($share);

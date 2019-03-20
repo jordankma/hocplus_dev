@@ -13,9 +13,15 @@ use Hocplus\Coursegroup\App\Models\Comments;
 use Hocplus\Coursegroup\App\Models\MemberHasCourse;
 
 use Hocplus\Coursegroup\App\Repositories\CourseRepository;
-use Auth;
+use Auth,Validator;
 class CourseController extends Controller
 {
+    private $messages = array(
+        'name.regex' => "Sai định dạng",
+        'required' => "Bắt buộc",
+        'numeric'  => "Phải là số"
+    );
+
     public function __construct(CourseRepository $courseRepository)
     {
         parent::__construct();
@@ -60,6 +66,7 @@ class CourseController extends Controller
         $course_id = $request->input('course_id');
         $lesson_id = $request->input('lesson_id');
         $time_now = time();
+        $url = config('site.url');
         $data_reponse['status'] = false;
         $member_id = Auth::guard('member')->id();
         $type_member = 'student';
@@ -68,9 +75,10 @@ class CourseController extends Controller
             $encrypted = self::my_simple_crypt( $temp , 'e' );
             $data_reponse = file_get_contents('http://hocplus.vnedutech.vn/resource/' . $encrypted);
             $data_reponse = json_decode($data_reponse,true);
+            $url_stream = config('site.url_stream');
             if($data_reponse['status'] == true){
                 $token = $data_reponse['data']['token'];
-                $url = "https://stream.hocplus.vnedutech.vn/?token=" . $token;
+                $url = $url_stream . "?token=" . $token;
                 return redirect($url);
             }
         } catch (\Throwable $th) {
@@ -96,5 +104,24 @@ class CourseController extends Controller
             $output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
         }
         return $output;
+    }
+
+    public function getDelete(Request $request){
+        $validator = Validator::make($request->all(), [
+            'course_id' => 'required|numeric'
+        ], $this->messages);
+        if (!$validator->fails()) {
+            $course_id = $request->input('course_id');
+            $teacher_id = Auth::guard('teacher')->id();
+            $course = $this->course->find($course_id);
+            if (null != $course && $course->teacher_id = $teacher_id) {
+                $this->course->delete($course_id);
+                return redirect()->route('hocplus.get.my.course.teacher');
+            } else {
+                return redirect()->route('hocplus.get.my.course.teacher');
+            }
+        } else{
+            return $validator->messages();
+        }
     }
 }

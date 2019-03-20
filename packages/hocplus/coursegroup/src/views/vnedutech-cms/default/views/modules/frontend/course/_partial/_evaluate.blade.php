@@ -1,16 +1,18 @@
 <div class="evaluate">
-    <div class="title">Đánh giá</div>
+    <div class="btn-evaluate">
+        <span class="text">Đánh giá</span>
+        <span class="stars js-stars">
+          <i class="fa fa-star star" data-value="1"></i>
+          <i class="fa fa-star star" data-value="2"></i>
+          <i class="fa fa-star star" data-value="3"></i>
+          <i class="fa fa-star star" data-value="4"></i>
+          <i class="fa fa-star star" data-value="5"></i>
+        </span>
+    </div>
     <div class="row inner">
         <div class="col-12 col-md-3 left">
             <div class="inner">
                 <div class="number">4.3</div>
-                <div class="star">
-                    <i class="fa fa-star active"></i>
-                    <i class="fa fa-star active"></i>
-                    <i class="fa fa-star active"></i>
-                    <i class="fa fa-star active"></i>
-                    <i class="fa fa-star"></i>
-                </div>
             </div>
         </div>
         <div class="col-12 col-md-6 center">

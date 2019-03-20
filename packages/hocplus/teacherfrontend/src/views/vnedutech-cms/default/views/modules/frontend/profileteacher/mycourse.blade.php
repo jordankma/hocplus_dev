@@ -54,7 +54,7 @@
                           <i class="fa fa-gear"></i>
                           <i class="fa fa-arrow-right"></i>
                           <ul class="list">
-                            <li><a href=""><i class="fa fa-pencil"></i><span>Sửa</span></a></li>
+                            <li><a href="{{ route('hocplus.frontend.create-course.step3', [ 'id' => $element->course_id ])}}"><i class="fa fa-pencil"></i><span>Sửa</span></a></li>
                             <li><a class="btn-delete js-btn-delete" href=""><i class="fa fa-trash"></i><span>Xóa</span></a></li>
                           </ul>
                         </div>
@@ -178,7 +178,7 @@
 <div class="notification-delete">
   <div class="content">Bạn có Đồng ý xóa khóa học không?</div>
   <div class="btn-group">
-    <button class="btn btn-yes">Đồng ý</button>
+    <button class="btn btn-yes"><a href="" id="accept-delete" style="color: black; text-decoration: none;"> Đồng ý </a></button>
     <button class="btn btn-no">Hủy</button>
   </div>
 </div>
@@ -187,4 +187,28 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/bootstrapvalidator/js/bootstrapValidator.min.js' }}" type="text/javascript"></script>
+<script>
+  var route_delete = '{{ route('hocplus.course.get.delete') }}';
+  // // Btton delete
+  // const btnDelete = $('.js-btn-delete');
+  // if (btnDelete) {
+
+  //   const btnDelete = $('.js-btn-delete');
+  //   const btnNo = $('.notification-delete .btn-no');
+  //   const body = $('body');
+  //   const ACTIVE_CLASS = 'notification-delete-active';
+  //   btnDelete.on('click', function () {
+  //     $("#accept-delete").attr("href", '');
+  //     var course_id = $(this).data('course-id');
+  //     var route_delete_add = route_delete + '?course_id=' + course_id;
+  //     $("#accept-delete").attr("href", route_delete_add);
+  //     body.addClass(ACTIVE_CLASS);
+  //     return false;
+  //   });
+  //   btnNo.on('click', function () {
+  //     body.removeClass(ACTIVE_CLASS);
+  //     return false;
+  //   });
+  // }
+</script>
 @stop

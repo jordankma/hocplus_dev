@@ -230,6 +230,16 @@ class TeacherfrontendController extends Controller
             return redirect()->route('hocplus.get.edit.profile.teacher');   
         }
     }
+
+    public function getDashboard(Request $request){
+        $teacher_id = Auth::guard('teacher')->id();
+        $teacher = Teacher::where('teacher_id',$teacher_id)->with('getClasses','getSubject')->first();
+        $data = [   
+            'teacher' => $teacher
+        ];
+        return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.dashboardteacher.dashboard',$data); 
+    }
+
     public function getStream(Request $request){
         $course_id = $request->input('course_id');
         $lesson_id = $request->input('lesson_id');
@@ -244,7 +254,8 @@ class TeacherfrontendController extends Controller
             $data_reponse = json_decode($data_reponse,true);
             if($data_reponse['status'] == true){
                 $token = $data_reponse['data']['token'];
-                $url = "https://stream.hocplus.vnedutech.vn/?token=" . $token;
+                $url_stream = config('site.url_stream');
+                $url = $url_stream . "?token=" . $token;
                 return redirect($url);
             }
         } catch (\Throwable $th) {

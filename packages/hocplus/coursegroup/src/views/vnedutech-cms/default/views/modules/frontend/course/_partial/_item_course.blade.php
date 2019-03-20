@@ -32,8 +32,14 @@
                 </a>
             </div>
             <div class="registration-time">
+                @if( !in_array($course->course_id, $list_course_buy))
                 <a href="{{ route("vne.pay.buyCourse",['course_id' => $course->course_id]) }}" class="btn btn-registration">Đăng ký</a>
-                <span class="time"><i class="fa fa-pencil"></i> {{ count($course->getLesson) }}</span>
+                {{-- <span class="time"><i class="fa fa-pencil"></i> {{ count($course->getLesson) }}</span> --}}
+                <span class="price"></i> {{ number_format($course->price,0,',','.') }}<span>đ</span></span>
+                @else 
+                <a href="{{ route('hocplus.studentprofile.khoa-hoc-cua-toi') }}" class="btn btn-manage">Quản lý khóa học</a>
+                <span class="price">Đã mua</span>
+                @endif
             </div>
         </div>
     </div>
@@ -41,16 +47,22 @@
         <div class="tooltip-wrappwe">
             <h3 class="tooltip-name"><a href="{{ route('hocplus.course.detail',$course->course_id) }}">{{ $course->name }}</a></h3>
             <div class="tooltip-info">
-                <span class="info-time"><i class="fa fa-play"></i> {{ count($course->getLesson) }}</span>
+                <span class="info-time"><i class="fa fa-play"></i> {{ count($course->getLesson) }} buổi học  </span>
+                <div class="info-class"><i class="fa fa-folder-open"></i>
                 <a href="{{ route('hocplus.course.list', ['classes_id' => $course->isClass->classes_id])}}">
-                    <div class="info-class"><i class="fa fa-folder-open"></i> {{ $course->isClass->name }}</div>
+                     {{ $course->isClass->name . ','}}
                 </a>
+                </div>
             </div>
             <div class="tooltip-describe">
                 <div class="describe-title">Mô tả:</div>
                 <div class="describe-content">{!! (strlen($course->summary) > 200) ? substr($course->summary, 0, strrpos((substr($course->summary, 0, 250)), ' ')) . '...' : $course->summary !!}</div>
             </div>
+            @if( !in_array($course->course_id, $list_course_buy))
             <a href="{{ route("vne.pay.buyCourse",['course_id' => $course->course_id]) }}" class="btn btn-registration">Đăng ký</a>
+            @else 
+            <span class="price">Đã mua</span>
+            @endif
         </div>
     </div>
 </figure>

@@ -29,7 +29,7 @@
         <nav class="list">
         <ul class="nav">
             <li class="nav-item">
-            <a href="quan-ly-giao-vien-bang-thong-tin.html" class="nav-link">
+            <a href="{{ route('hocplus.get.my.dashboard.teacher') }}" class="nav-link">
                 <i class="fa fa-dashboard"></i>
                 <span>Bảng thông tin</span>
             </a>
