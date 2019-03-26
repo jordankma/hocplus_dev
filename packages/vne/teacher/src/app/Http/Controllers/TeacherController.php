@@ -129,17 +129,18 @@ class TeacherController extends Controller
 
     public function update(Request $request)
     {
+        
         $teacher_id = $request->input('teacher_id');
         $class_subject = $request->input('class_subject');
         $teacher = $this->teacher->find($teacher_id);
         $teacher->name = $request->input('name');
         $teacher->alias = str_slug( $request->input('name'), "-" );
-        if($request->has('password') && $request->input('password') != '' ){
+        if($request->has('password') && $request->input('password') != null ){
             $teacher->password = bcrypt($request->input('password'));
         }
         $teacher->gender = $request->input('gender');
-        $teacher->phone = $request->input('phone');
-        $teacher->email = $request->input('email');
+        // $teacher->phone = $request->input('phone');
+        // $teacher->email = $request->input('email');
         $teacher->intro = $request->input('intro');
         $teacher->year_graduation = $request->input('year_graduation');
         $teacher->address = $request->input('address');
@@ -151,7 +152,6 @@ class TeacherController extends Controller
         $teacher->achievements = $request->input('achievements');
         $teacher->rating = $request->input('rating');
         $teacher->degree = $request->input('degree');
-
         if ($teacher->save()) {
             TeacherClassSubject::where('teacher_id', $teacher->teacher_id)->delete();
             if(!empty($class_subject)){

@@ -62,7 +62,7 @@ class ApiNewsController extends Controller
                 $data[] = [
                     'id' => $value->news_id,
                     'title' => base64_encode($value->title),
-                    'image' => $value->image,
+                    'image' => ($value->image != '' || file_exists(substr($value->image, 1))) ? config('site.url_static') . $value->image : 'http://static.giaothonghocduong.com.vn/files/photos/phuon2.jpg',
                     'url' => '',
                     'desc' => base64_encode($value->desc),
                     'like' => 0,
@@ -122,7 +122,7 @@ class ApiNewsController extends Controller
                     $data[] = [
                         'id' => $value->news_id,
                         'title' => base64_encode($value->title),
-                        'image' => $value->image,
+                        'image' => ($value->image != '' || file_exists(substr($value->image, 1))) ? config('site.url_static') . $value->image : 'http://static.giaothonghocduong.com.vn/files/photos/phuon2.jpg',
                         'url' => '',
                         'desc' => base64_encode($value->desc),
                         'like' => 0,
@@ -136,6 +136,41 @@ class ApiNewsController extends Controller
                 'message' => 'ok!',
                 'page' => $list_news->currentPage(),
                 'totalpage' => $list_news->lastPage()
+            ];    
+            return response(json_encode($data_reponse))->setStatusCode(200)->header('Content-Type', 'application/json; charset=utf-8');        
+        } else{
+            return $validator->messages();
+        }   
+    }
+    public function getListNewsByCateApi(Request $request){
+        $validator = Validator::make($request->all(), [
+            'alias' => 'required',
+        ], $this->messages);
+        if (!$validator->fails()) { 
+            $list_news = $this->news->getNewsByCateApi($request->input('alias'));
+            $data = array();
+            $page = $totalpage = 0;
+            if(count($list_news)>0){
+                foreach ($list_news as $key => $value) {
+                    $data[] = [
+                        'id' => $value->news_id, 
+                        'title' => base64_encode($value->title),
+                        'image' => ($value->image != '' || file_exists(substr($value->image, 1))) ? config('site.url_static') . $value->image : 'http://static.giaothonghocduong.com.vn/files/photos/phuon2.jpg',
+                        'url' => '',
+                        'desc' => base64_encode($value->desc),
+                        'like' => 0,
+                        'view' => 0
+                    ];
+                }
+                $page = $list_news->currentPage();
+                $totalpage = $list_news->lastPage();
+            }  
+            $data_reponse = [
+                'data' => $data,
+                'success' => true,
+                'message' => 'ok!',
+                'page' => $page,
+                'totalpage' => $totalpage
             ];    
             return response(json_encode($data_reponse))->setStatusCode(200)->header('Content-Type', 'application/json; charset=utf-8');        
         } else{

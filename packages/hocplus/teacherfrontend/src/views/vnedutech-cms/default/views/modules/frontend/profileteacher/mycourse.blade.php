@@ -26,27 +26,28 @@
           </div>
           <div class="list-course js-list-course">
             <div class="inner">
+              
               <div class="grid title">
                 <div class="grid-col col-07">STT</div>
                 <div class="grid-col col-30">Tên khóa học</div>
                 <div class="grid-col col-15">Giá</div>
-                <div class="grid-col col-20">Sỹ số</div>
+                <div class="grid-col col-20">Sĩ số</div>
                 <div class="grid-col col-13">Số buổi</div>
                 <div class="grid-col col-15">Action</div>
               </div>
               <div class="group-item">
-                @if(!empty($courses))
+                @if(count($courses) > 1)
                 @foreach($courses as $element)
                 <div class="item">
                   <div class="grid">
-                  <div class="grid-col col-07"> {{ $loop->index+1 }}</div>
+                  <div class="grid-col col-07" style="font-weight: normal"> {{ $loop->index+1 }}</div>
                     <div class="grid-col col-30">
                       <div class="name"><a href="#">{{ $element->name }}</a></div>
                     </div>
                     <div class="grid-col col-15">
                       <div class="price">{{ number_format($element->price,0,',','.') }}<span>đ</span></div>
                     </div>
-                    <div class="grid-col col-20">Sỹ số tối đa: {{ $element->student_limit }}<br>Sỹ số thực tế: {{ $element->student_register }}</div>
+                    <div class="grid-col col-20">Sĩ số tối đa: {{ $element->student_limit }}<br>Sĩ số thực tế: {{ $element->student_register }}</div>
                     <div class="grid-col col-13"><span class="btn-detail">Chi tiết <span class="status"></span></span></div>
                     <div class="grid-col col-15">
                       <div class="action">
@@ -103,6 +104,8 @@
                   </div>
                 </div>
                 @endforeach
+                @else 
+                <p style="text-align: center; font-weight: bold; color: #d2232f;">Hiện chưa có khóa học</p>
                 @endif
               </div>
 
@@ -125,15 +128,15 @@
                     <th scope="col">STT</th>
                     <th scope="col">Tên khóa học</th>
                     <th scope="col">Giá</th>
-                    <th scope="col">Sỹ số</th>
+                    <th scope="col">Sĩ số</th>
                     <th scope="col">Thời gian kết thúc</th>
                   </tr>
                 </thead>
+                @if(count($courses_end) > 1)
                 <tbody>
-                  @if(!empty($courses_end))
                   @foreach($courses_end as $element)
                   <tr>
-                    <th scope="row">{{ $loop->index + 1 }}</th>
+                    <th scope="row" style="font-weight: normal">{{ $loop->index + 1 }}</th>
                     <td>
                       <div class="title">{{ $element->name }}</div>
                     </td>
@@ -154,10 +157,12 @@
                     </td>
                   </tr>
                   @endforeach
-                  @else
-                    <p>Hiện chưa có khóa học đang diễn ra</p>
-                  @endif
+                  </tbody>
+                @else
+                <tbody>
+                  <p style="text-align: center; font-weight: bold; color: #d2232f;">Hiện chưa có khóa học đang diễn ra</p>
                 </tbody>
+                @endif
               </table>
             </div>
             <nav class="c-navigation">
