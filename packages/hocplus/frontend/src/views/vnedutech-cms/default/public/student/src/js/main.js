@@ -1,5 +1,4 @@
-// version 01 - date 2/23/2019
-
+/* version 02 - date 2/25/2019 */
 
 // Video Youtube
 const $allVideos = $("iframe[src*='youtube']"),
@@ -419,7 +418,6 @@ if (question) {
   });
 }
 
-
 // Btton delete
 const btnDelete = $('.js-btn-delete');
 if (btnDelete) {
@@ -456,5 +454,27 @@ if (contentShowHide) {
   const HIDE_CLASS = 'hide';
   btnToogle.on('click', function () {
     $(this).parent().toggleClass(HIDE_CLASS);
+  });
+}
+
+// upload avatar
+const avatar = $('.js-avatar');
+if (avatar) {
+  const img = $('.profile-pic');
+  const btnUpload = $(".file-upload");
+  const readURL = function (input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        img.attr('src', e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  };
+
+  btnUpload.on('change', function () {
+    readURL(this);
   });
 }

@@ -48,7 +48,7 @@
                         </div>
                         <div class="setting js-setting">
                             <div class="block-group">
-                                <form method="post">
+                                <form method="post" enctype="multipart/form-data">
                                     <div class="block">
                                         <div class="block-headline">
                                             <h3 class="title">Mô tả chi tiết</h3>
@@ -156,7 +156,10 @@
                                             <div class="grid">
                                                 <div class="grid-left">Lựa chọn tài liệu <br>giảng dạy</div>
                                                 <div class="grid-right">
-                                                    <a class="btn-file">Chọn file từ thư viện</a>
+                                                    <div class="btn-input">
+                                                        {{--<span><i class="fa fa-camera-retro"></i>Chọn file từ thư viện</span>--}}
+                                                        <input id="exampleInputTemplateMediaImage" multiple="multiple" name="course_documents[]" type="file">
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="grid">

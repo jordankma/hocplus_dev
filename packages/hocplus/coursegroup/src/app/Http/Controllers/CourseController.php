@@ -44,12 +44,13 @@ class CourseController extends Controller
         }
 
         //check register
-        $is_register = false;
-        $member_has_course = MemberHasCourse::where('member_id',$member_id)->where('course_id', $course_id)->first();
-        if($member_has_course){
-            $is_register = true;   
-        }
-
+        // $is_register = false;
+        // $member_has_course = MemberHasCourse::where('member_id',$member_id)->where('course_id', $course_id)->first();
+        // if($member_has_course){
+        //     $is_register = true;   
+        // }
+        $is_register = self::checkRegister($member_id,$course_id);
+        // dd($is_register);
         //get comment 
         $comments = Comments::where('course_id','=',$course_id)->where('status',1)->orderBy('updated_at')->get();
         //end get comment

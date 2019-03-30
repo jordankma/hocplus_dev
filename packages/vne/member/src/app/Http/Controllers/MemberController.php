@@ -41,6 +41,11 @@ class MemberController extends Controller
         return view('VNE-MEMBER::modules.member.member.manage_parent');
     }
 
+    public function manageFullVip()
+    {
+        return view('VNE-MEMBER::modules.member.member.manage_fullip');
+    }
+
     public function create()
     {
         return view('VNE-MEMBER::modules.member.member.create');
@@ -85,6 +90,42 @@ class MemberController extends Controller
                 return redirect()->route('vne.member.member.manage')->with('success', trans('vne-member::language.messages.success.create'));
             } else {
                 return redirect()->route('vne.member.member.manage')->with('error', trans('vne-member::language.messages.error.create'));
+            }
+        } else{
+            return $validator->messages();
+        }
+    }
+    public function createMemberFullVip()
+    {
+        return view('VNE-MEMBER::modules.member.member.create_fullvip');
+    }
+
+    public function addMemberFullVip(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            // 'password' => 'required|min:8|regex:"^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,}$"',
+            // 'conf_password' => 'required|min:8|regex:"^(?=.*[a-z])(?=.*[A-Z])(?=.*)(?=.*[#$^+=!*()@%&]).{8,}$"',
+            'password' => 'required',
+            'conf_password' => 'required',
+            'email' => 'required'
+        ], $this->messages);
+        if (!$validator->fails()) {
+            $members = new Member();
+            $members->password = bcrypt($request->input('password'));
+            $members->email = $request->input('email');
+            $members->type = 'student';
+            $members->full_vip = 1;
+            $members->created_at = new DateTime();
+            $members->updated_at = new DateTime();
+            if ($members->save()) {
+                activity('member')
+                    ->performedOn($members)
+                    ->withProperties($request->all())
+                    ->log('User: :causer.email - Add member fullvip- name: :properties.name, member_id: ' . $members->member_id);
+
+                return redirect()->route('vne.member.member.manage.fullvip')->with('success', trans('vne-member::language.messages.success.create'));
+            } else {
+                return redirect()->route('vne.member.member.manage.fullvip')->with('error', trans('vne-member::language.messages.error.create'));
             }
         } else{
             return $validator->messages();
@@ -180,6 +221,83 @@ class MemberController extends Controller
             return redirect()->route('vne.member.member.manage')->with('error', trans('vne-member::language.messages.error.delete'));
         }
     }
+    public function getModalDeleteFullVip(Request $request)
+    {
+        $model = 'member';
+        $type = 'delete-fullvip';
+        $confirm_route = $error = null;
+        $validator = Validator::make($request->all(), [
+            'member_id' => 'required|numeric',
+        ], $this->messages);
+        if (!$validator->fails()) {
+            try {
+                $confirm_route = route('vne.member.member.delete-add-fullvip', ['member_id' => $request->input('member_id')]);
+                return view('VNE-MEMBER::modules.member.modal.modal_confirmation', compact('error', 'type', 'model', 'confirm_route'));
+            } catch (GroupNotFoundException $e) {
+                return view('VNE-MEMBER::modules.member.modal.modal_confirmation', compact('error', 'type', 'model', 'confirm_route'));
+            }
+        } else {
+            return $validator->messages();
+        }
+    }
+
+    public function deleteFullVip(Request $request)
+    {
+        $member_id = $request->input('member_id');
+        $member = $this->member->find($member_id);
+
+        if (null != $member) {
+            $member->full_vip = 0;
+            $member->save();
+            activity('member')
+                ->performedOn($member)
+                ->withProperties($request->all())
+                ->log('User: :causer.email - Delete member full vip - member_id: :properties.member_id, name: ' . $member->name);
+
+            return redirect()->route('vne.member.member.manage.fullvip')->with('success', trans('vne-member::language.messages.success.delete'));
+        } else {
+            return redirect()->route('vne.member.member.manage.fullvip')->with('error', trans('vne-member::language.messages.error.delete'));
+        }
+    }
+
+    public function getModalAddFullVip(Request $request)
+    {
+        $model = 'member';
+        $type = 'add-fullvip';
+        $confirm_route = $error = null;
+        $validator = Validator::make($request->all(), [
+            'member_id' => 'required|numeric',
+        ], $this->messages);
+        if (!$validator->fails()) {
+            try {
+                $confirm_route = route('vne.member.member.add-fullvip', ['member_id' => $request->input('member_id')]);
+                return view('VNE-MEMBER::modules.member.modal.modal_confirmation', compact('error', 'type', 'model', 'confirm_route'));
+            } catch (GroupNotFoundException $e) {
+                return view('VNE-MEMBER::modules.member.modal.modal_confirmation', compact('error', 'type', 'model', 'confirm_route'));
+            }
+        } else {
+            return $validator->messages();
+        }
+    }
+
+    public function addFullVip(Request $request)
+    {
+        $member_id = $request->input('member_id');
+        $member = $this->member->find($member_id);
+
+        if (null != $member) {
+            $member->full_vip = 1;
+            $member->save();
+            activity('member')
+                ->performedOn($member)
+                ->withProperties($request->all())
+                ->log('User: :causer.email - Add member full vip - member_id: :properties.member_id, name: ' . $member->name);
+
+            return redirect()->route('vne.member.member.manage.fullvip')->with('success', trans('vne-member::language.messages.success.delete'));
+        } else {
+            return redirect()->route('vne.member.member.manage.fullvip')->with('error', trans('vne-member::language.messages.error.delete'));
+        }
+    }
 
     public function log(Request $request)
     {
@@ -217,6 +335,9 @@ class MemberController extends Controller
                 if ($this->user->canAccess('vne.member.member.show')) {
                     $actions .= '<a href=' . route('vne.member.member.show', ['member_id' => $members->member_id]) . '><i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="update member"></i></a>';
                 }
+                // if ($this->user->canAccess('vne.member.member.confirm-add-fullvip') && $members->full_vip == 0) {
+                //     $actions .= '<a href=' . route('vne.member.member.confirm-add-fullvip', ['member_id' => $members->member_id]) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="Thêm tài khoản này fullvip"></i></a>';
+                // }
                 if ($this->user->canAccess('vne.member.member.confirm-delete')) {
                     $actions .= '<a href=' . route('vne.member.member.confirm-delete', ['member_id' => $members->member_id]) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="trash" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete demo"></i></a>';
                 }
@@ -290,6 +411,36 @@ class MemberController extends Controller
                 }
                 if ($this->user->canAccess('vne.member.member.confirm-delete')) {
                     $actions .= '<a href=' . route('vne.member.member.confirm-delete', ['member_id' => $members->member_id]) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="trash" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete demo"></i></a>';
+                }
+                return $actions;
+            })
+            ->addColumn('name', function ($members) {
+                $name = ''; 
+                if( isset($members->name) && $members->name != ''){
+                	$name .= "Tên: " . $members->name ;	
+                }
+                if( isset($members->phone) && $members->phone != ''){
+                	$name .= " -" . "Sdt: " . $members->phone ;	
+                }
+                if( isset($members->email) && $members->email != ''){
+                	$name .= " -" . "Email: " . $members->email ;	
+                }
+                return $name;   
+            })
+            ->addIndexColumn()
+            ->rawColumns(['actions', 'name'])
+            ->make();
+    }
+
+    public function dataFullVip()
+    {
+        $type = 'fullvip';
+        $members = $this->member->findAll($type);
+        return Datatables::of($members)
+            ->addColumn('actions', function ($members) {
+                $actions = '';
+                if ($this->user->canAccess('vne.member.member.confirm-delete-add-fullvip')) {
+                    $actions .= '<a href=' . route('vne.member.member.confirm-delete-add-fullvip', ['member_id' => $members->member_id]) . ' data-toggle="modal" data-target="#delete_confirm"><i class="livicon" data-name="trash" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="Xóa tài khoản fullvip"></i></a>';
                 }
                 return $actions;
             })

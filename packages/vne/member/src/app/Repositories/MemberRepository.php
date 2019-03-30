@@ -23,7 +23,11 @@ class MemberRepository extends Repository
     public function findAll($type=null) {
         if($type == null ){
             $result = $this->model::query();
-        } else {
+        } 
+        else if($type=='fullvip'){
+            $result = $this->model::where('full_vip', 1)->get();   
+        }
+        else {
             $result = $this->model::where('type', $type)->get(); 
         }
         

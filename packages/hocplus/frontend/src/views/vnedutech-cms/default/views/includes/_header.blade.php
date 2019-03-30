@@ -6,7 +6,7 @@
                 <div class="inner">
                     <div class="left">
                         <div class="logo">
-                            <a href="/"><img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/logo.png" alt=""></a>
+                            <a href="/"><img style="width: 108px; height: 50px;" src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/logo-header.svg' }}" alt=""></a>
                         </div> <!-- / logo -->
                         <nav class="navbar js-navbar-tab">
                             <span class="title"><i class="fa fa-th"></i> Danh mục</span>
@@ -46,7 +46,7 @@
                                 <button class="btn" type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div> <!-- / search -->
-                        <a class="btn btn-lecturers" href="{{ route('hocplus.get.register.teacher') }}">Trở thành giảng viên</a> <!-- / button lecturers -->
+                        <a class="btn btn-lecturers" href="{{ route('hocplus.get.register.teacher') }}">Dành cho giảng viên</a> <!-- / button lecturers -->
                         @if($USER_LOGGED)
                             <div class="my-user">
                                 <div class="user-inner">
@@ -57,9 +57,9 @@
                                 </div>
                                 <div class="dropdown">
                                     <ul class="list">
-                                        <li class="item"><a href="#"><i class="fa fa-dashboard"></i> <span>Bảng thông tin</span></a></li>
+                                        <li class="item"><a href="{{ route('hocplus.studentprofile.bang-thong-tin') }}"><i class="fa fa-dashboard"></i> <span>Bảng thông tin</span></a></li>
                                         <li class="item"><a href="{{ route('hocplus.studentprofile.khoa-hoc-cua-toi') }}"><i class="fa fa-briefcase"></i> <span>Khóa học của tôi</span></a></li>
-                                        <li class="item"><a href="#"><i class="fa fa-gear"></i> <span>Quản lý tài khoản</span></a></li>
+                                        <li class="item"><a href="{{ route('hocplus.studentprofile.index') }}"><i class="fa fa-gear"></i> <span>Quản lý tài khoản</span></a></li>
                                         <li class="item"><a href="{{ route('hocplus.frontend.auth.logout') }}"><i class="fa fa-log-out"></i> <span>Đăng xuất</span></a></li>
                                     </ul>
                                 </div>

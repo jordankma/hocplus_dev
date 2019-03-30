@@ -69,7 +69,7 @@ class LoginController extends Controller
             return ['success' => false];
         }
 
-        if ($this->_guardTeacher()->attempt(['email' => $user->email, 'password' => $password], $remember)) {
+        if ($this->_guardTeacher()->attempt(['teacher_id' => $user->teacher_id, 'password' => $password], $remember)) {
             $request->session()->regenerateToken();
             $this->clearLoginAttempts($request);
 
@@ -100,12 +100,12 @@ class LoginController extends Controller
     }
 
     public function loginTeacher(Request $request)
-    {
-        if ($this->user) {
+    {   
+        
+        if ($this->_guardTeacher()->check()) {
             $routeName = 'hocplus.frontend.index';
             return redirect()->intended(route($routeName));
         }
-
         if ($request->ajax()) {
             if ($request->isMethod('post')) {
                 $authenticate = $this->_authenticateTeacher($request);
@@ -123,13 +123,16 @@ class LoginController extends Controller
     {
         if (Auth::guard('member')->check()) {
             $this->_guard()->logout();
-        } else {
+            \Session::flash('flash_messenger', trans('adtech-core::messages.logout_success'));
+            return redirect(route('hocplus.frontend.index'));
+        } else if ($this->_guardTeacher()->check() ) {
             $this->_guardTeacher()->logout();
+            \Session::flash('flash_messenger', trans('adtech-core::messages.logout_success'));
+            return redirect(route('hocplus.get.register.teacher'));
         }
 
 //        \Session::flush();
-        \Session::flash('flash_messenger', trans('adtech-core::messages.logout_success'));
-
-        return redirect(route('hocplus.frontend.index'));
+        
+        
     }
 }

@@ -144,6 +144,10 @@ body {
   content: '\e91d';
 }
 
+.fa-tag::before {
+  content: '\e90d';
+}
+
 .fa-tags::before {
   content: '\e91e';
 }
@@ -218,6 +222,10 @@ body {
 
 .fa-heart::before {
   content: '\e932';
+}
+
+.fa-refresh::before {
+  content: '\e933';
 }
 
 .img-cover {

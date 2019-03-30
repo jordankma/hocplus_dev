@@ -10,11 +10,15 @@
 
 {{-- Page content --}}
 @section('content')
-    @include('HOCPLUS-FRONTEND::includes._hero')
+    
 
     <main class="main">
+        @include('HOCPLUS-FRONTEND::includes._hero')
 
-        @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._why')
+        @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._c-foundation')
+
+        {{-- @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._why') --}}
+        @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._c-utilities')
 
         @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._course-run-group')
 

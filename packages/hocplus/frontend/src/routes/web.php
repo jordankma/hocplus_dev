@@ -48,8 +48,8 @@ Route::group(array('prefix' => $prefix), function() {
     Route::group(['middleware' => ['teacher.auth']], function () {
         Route::any('/create-course', 'CreatecourseController@step1')->name('hocplus.frontend.create-course.step1');
         Route::any('/create-course-detail', 'CreatecourseController@step2')->name('hocplus.frontend.create-course.step2');
-        Route::get('/create-course-review', 'CreatecourseController@step3')->name('hocplus.frontend.create-course.step3');
-        Route::get('/public-course', 'CreatecourseController@step4')->name('hocplus.frontend.create-course.step4');
+        Route::any('/create-course-review', 'CreatecourseController@step3')->name('hocplus.frontend.create-course.step3');
+        Route::any('/public-course', 'CreatecourseController@step4')->name('hocplus.frontend.create-course.step4');
 
         Route::get('/document-manage', 'TeacherdocumentController@index')->name('hocplus.frontend.teacher.document');
     });

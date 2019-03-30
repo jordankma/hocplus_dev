@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-2 block">
-                <img src="{{ '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/logo-footer.png' }}" alt="">
+                <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/logo-footer.svg' }}" alt="">
             </div>
             <div class="col-12 col-lg-3 block">
                 <div class="content">
@@ -19,8 +19,8 @@
             </div>
             <div class="col-12 block">
                 <div class="block-images">
-                    <img src="{{ '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/bocongthuong.png' }}" alt="">
-                    <img src="{{ '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/DMCA.jpg' }}" alt="">
+                    <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/bocongthuong.png' }}" alt="">
+                    <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/DMCA.jpg' }}" alt="">
                 </div>
             </div>
         </div>

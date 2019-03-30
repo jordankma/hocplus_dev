@@ -1,6 +1,10 @@
 @if (count($listCourse) > 0)
     @foreach($listCourse as $course)
-        <figure class="col-12 col-md-6 col-lg-3 c-item-course">
+        @include('HOCPLUS-COURSEGROUP::modules.frontend.course._partial._item_course',[
+            'course' => $course,
+            'figure_class' => 'col-12 col-md-6 col-lg-3 c-item-course'
+        ])
+        {{-- <figure class="col-12 col-md-6 col-lg-3 c-item-course">
             <div class="inner">
                 <div class="img">
                     <a href="{{ route('hocplus.course.detail',$course->course_id) }}">
@@ -60,6 +64,6 @@
                     <a href="{{ route("vne.pay.buyCourse",['course_id' => $course->course_id]) }}" class="btn btn-registration">Đăng ký</a>
                 </div>
             </div>
-        </figure>
+        </figure> --}}
     @endforeach
 @endif

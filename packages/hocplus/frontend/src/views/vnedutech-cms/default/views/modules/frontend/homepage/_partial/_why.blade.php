@@ -36,3 +36,4 @@
     <img src="{{ config('site.url_static') . $ads1Home->image }}" width="100%" height="auto" alt="">
 </section> <!-- / adv -->
 @endif
+

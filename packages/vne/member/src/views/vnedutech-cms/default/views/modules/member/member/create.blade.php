@@ -47,7 +47,7 @@
                     <div class="tab-pane active" id="info-required">
                         <div class="row">
                             <div class="col-sm-6">
-                                <label>{{ trans('vne-member::language.label.member.name') }}</label>
+                                <label>{{ trans('vne-member::language.label.member.name') }} <span style="color:red">*</span></label>
                                 <div class="form-group {{ $errors->first('name', 'has-error') }}">
                                     <div class="form-group">
                                         <input type="text" name="name" class="form-control" placeholder="{{trans('vne-member::language.placeholder.member.name')}}">
@@ -59,21 +59,21 @@
                                     <label class="radio-inline"><input type="radio" name="gender" value="male" checked>Nam</label>
                                     <label class="radio-inline"><input type="radio" name="gender" value="female">Nữ</label>
                                 </div>
-                                <label>{{ trans('vne-member::language.label.member.user_name') }}</label>
+                                <label>{{ trans('vne-member::language.label.member.user_name') }} <span style="color:red">*</span></label>
                                 <div class="form-group {{ $errors->first('user_name', 'has-error') }}">
                                     <div class="form-group">
                                         <input type="text" name="user_name" class="form-control" placeholder="{{trans('vne-member::language.placeholder.member.user_name')}}">
                                     </div>  
                                     <span class="help-block">{{ $errors->first('user_name', ':message') }}</span>
                                 </div>
-                                <label>{{ trans('vne-member::language.label.member.password') }}</label>
+                                <label>{{ trans('vne-member::language.label.member.password') }} <span style="color:red">*</span></label>
                                 <div class="form-group {{ $errors->first('password', 'has-error') }}">
                                     <div class="form-group">
                                         <input type="password" name="password" class="form-control" placeholder="{{trans('vne-member::language.placeholder.member.password')}}">
                                     </div>  
                                     <span class="help-block">{{ $errors->first('password', ':message') }}</span>
                                 </div>
-                                <label>{{ trans('vne-member::language.label.member.conf_password') }}</label>
+                                <label>{{ trans('vne-member::language.label.member.conf_password') }} <span style="color:red">*</span></label>
                                 <div class="form-group {{ $errors->first('conf_password', 'has-error') }}">
                                     <div class="form-group">
                                         <input type="password" name="conf_password" class="form-control" placeholder="{{trans('vne-member::language.placeholder.member.conf_password')}}">
@@ -82,14 +82,14 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <label>{{ trans('vne-member::language.label.member.phone') }}</label>
+                                <label>{{ trans('vne-member::language.label.member.phone') }} <span style="color:red">*</span></label>
                                 <div class="form-group {{ $errors->first('phone', 'has-error') }}">
                                     <div class="form-group">
                                         <input type="text" name="phone" class="form-control" placeholder="{{trans('vne-member::language.placeholder.member.phone')}}">
                                     </div>  
                                     <span class="help-block">{{ $errors->first('phone', ':message') }}</span>
                                 </div>
-                                <label>{{ trans('vne-member::language.label.member.email') }}</label>
+                                <label>{{ trans('vne-member::language.label.member.email') }} <span style="color:red">*</span></label>
                                 <div class="form-group {{ $errors->first('email', 'has-error') }}">
                                     <div class="form-group">
                                         <input type="text" name="email" class="form-control" placeholder="{{trans('vne-member::language.placeholder.member.email')}}">

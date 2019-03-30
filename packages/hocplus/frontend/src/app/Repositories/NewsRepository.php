@@ -15,7 +15,7 @@ class NewsRepository extends Repository
     }
 
     public function findForNews($catId = 1) {
-        $result = $this->model->with('getCats')
+        $result = $this->model->with('getCats')->orderBy('news_id', 'desc')
             ->whereHas('getCats', function ($query) use ($catId) {
                 if ($catId != 0) $query->where('vne_news_has_cat.news_cat_id', $catId);
             })
@@ -25,7 +25,7 @@ class NewsRepository extends Repository
     }
 
     public function findForEval($catId = 2) {
-        $result = $this->model->with('getCats')
+        $result = $this->model->with('getCats')->orderBy('news_id', 'desc')
             ->whereHas('getCats', function ($query) use ($catId) {
                 if ($catId != 0) $query->where('vne_news_has_cat.news_cat_id', $catId);
             })

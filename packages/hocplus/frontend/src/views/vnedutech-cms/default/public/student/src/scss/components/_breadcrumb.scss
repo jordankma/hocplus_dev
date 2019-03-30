@@ -11,7 +11,7 @@
         .breadcrumb-item {
             list-style: none;
             color: $c-dark;
-            display: inline-block;
+            display: inline;
             >a {
                 color: $c-dark;
                 text-decoration: none;
@@ -32,7 +32,7 @@
         font-family: $f-icon;
         position: absolute;
         color: $c-dark;
-        top: 0px;
+        top: -2px;
     }
     &::after {
         left: 0;

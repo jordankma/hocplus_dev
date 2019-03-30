@@ -8,7 +8,7 @@
                     <div class="img">
                         <a href="{{ route('hocplus.news.detail', $news->news_id . '-' . $news->title_alias ) }}">
                             {{--<img src="{{ config('site.url_static') . $news->image }}" alt="">--}}
-                            <img src="{{ ($news->image != '' && file_exists(substr($news->image, 1))) ? config('site.url_static') . $news->image : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/course.jpg' }}" alt="">
+                            <img src="{{ ($news->image != '' || file_exists(substr($news->image, 1))) ? config('site.url_static') . $news->image : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/course.jpg' }}" alt="">
                         </a>
                     </div>
                     <div class="content">

@@ -32,7 +32,7 @@
                 </a>
             </div>
             <div class="registration-time">
-                @if( !in_array($course->course_id, $list_course_buy))
+                @if( !in_array($course->course_id, $list_course_buy) && $is_vip == 0)
                 <a href="{{ route("vne.pay.buyCourse",['course_id' => $course->course_id]) }}" class="btn btn-registration">Đăng ký</a>
                 {{-- <span class="time"><i class="fa fa-pencil"></i> {{ count($course->getLesson) }}</span> --}}
                 <span class="price"></i> {{ number_format($course->price,0,',','.') }}<span>đ</span></span>
@@ -45,7 +45,7 @@
     </div>
     <div class="tooltip">
         <div class="tooltip-wrappwe">
-            <h3 class="tooltip-name"><a href="{{ route('hocplus.course.detail',$course->course_id) }}">{{ $course->name }}</a></h3>
+            <h3 class="tooltip-name"><a href="{{ route('hocplus.course.detail',$course->course_id) }}">{{ $course->name }}</a><i class="fa fa-heart active"></i></h3>
             <div class="tooltip-info">
                 <span class="info-time"><i class="fa fa-play"></i> {{ count($course->getLesson) }} buổi học  </span>
                 <div class="info-class"><i class="fa fa-folder-open"></i>
@@ -58,7 +58,7 @@
                 <div class="describe-title">Mô tả:</div>
                 <div class="describe-content">{!! (strlen($course->summary) > 200) ? substr($course->summary, 0, strrpos((substr($course->summary, 0, 250)), ' ')) . '...' : $course->summary !!}</div>
             </div>
-            @if( !in_array($course->course_id, $list_course_buy))
+            @if( !in_array($course->course_id, $list_course_buy) && $is_vip == 0)
             <a href="{{ route("vne.pay.buyCourse",['course_id' => $course->course_id]) }}" class="btn btn-registration">Đăng ký</a>
             @else 
             <span class="price">Đã mua</span>

@@ -34,6 +34,7 @@ class CreateMembersTable extends Migration
             
             
             $table->tinyInteger('status', false, true)->default(1);
+            $table->tinyInteger('full_vip', false, true)->default(0)->comment('0 tk thuong 1 full vip');
             $table->tinyInteger('lock', false, true)->default(0);
             $table->dateTime('lock_time')->nullable();
             $table->string('activated_code')->nullable();

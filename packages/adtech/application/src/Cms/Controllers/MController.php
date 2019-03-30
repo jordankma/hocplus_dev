@@ -14,6 +14,7 @@ use Cache;
 use Auth,URL;
 use GuzzleHttp\Client;
 use Hocplus\Teacherfrontend\App\Models\MemberHasCourse;
+use Hocplus\Frontend\App\Models\Member;
 // Member controller
 class MController extends BaseController
 {
@@ -186,9 +187,9 @@ class MController extends BaseController
             'mskin'  => config('site.mobile.skin'),
             'subjectClass' => $subjectArr,
             'isLoginCheck' => $isLoginCheck,
-            'list_course_buy' => $list_course_buy
+            'list_course_buy' => $list_course_buy,
+            'is_vip' => !empty($this->user) ? $this->user->full_vip : 0
         ];
-
         view()->share($share);
     }
 
@@ -250,5 +251,20 @@ class MController extends BaseController
         );
         foreach($unicode as $nonUnicode=>$uni) $str = preg_replace("/($uni)/i",$nonUnicode,$str);
         return $str;
+    }
+    //kiem tra nguoi dung dang ky khoa hoc chua
+    function checkRegister($member_id, $course_id){
+        if(Auth::guard('member')->check()){
+            $member = Member::find($member_id);
+            if( $member->full_vip == 1 ){
+                return true;    
+            } else{
+                $member_has_course = MemberHasCourse::where('member_id',$member_id)->where('course_id', $course_id)->first();
+                if($member_has_course){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

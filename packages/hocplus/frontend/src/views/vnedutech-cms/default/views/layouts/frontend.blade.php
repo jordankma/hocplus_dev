@@ -37,7 +37,7 @@
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/jquery.fancybox.min.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/slick.min.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/jquery.multiselect.js' }}"></script>
-
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/src/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js' }}"></script>
 @yield('footer_scripts')
 
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/main.js?time=' . time() }}"></script>

@@ -66,7 +66,7 @@
                                                     <div class="inner">
                                                         <div class="img">
                                                             <div class="wrapper">
-                                                                <span><img src="{{ config('site.url_storage') . $template->template_avartar }}" alt=""></span>
+                                                                <span><img src="{{ config('site.url_storage') . (substr($template->template_avatar, 0, 6) != '/files' ? '/files/' . $template->template_avatar : $template->template_avatar) }}" alt=""></span>
                                                             </div>
                                                         </div>
                                                         <div class="info">
@@ -82,7 +82,7 @@
                                     Tiếp theo <i class="fa fa-angle-double-right"></i></a>
                             </div>
                             <div class="template-new {{ $tab == 1 ? 'template-active' : '' }}" id="template-new">
-                                <form method="post">
+                                <form method="post" enctype="multipart/form-data">
                                     <div class="all">
                                         @if($errors->any())
                                             <div class="alert alert-danger" role="alert">
@@ -161,12 +161,12 @@
                                                 <div class="form-control-input-media">
                                                     <div class="show-media">
                                                         <div class="img">
-                                                            <img src="src/images/logo-all.png" alt="">
+                                                            <img id="profile-img-tag" src="src/images/logo-all.png" alt="">
                                                         </div>
                                                     </div>
                                                     <div class="btn-input">
                                                         <span><i class="fa fa-camera-retro"></i>Thay ảnh đại diện</span>
-                                                        <input id="exampleInputTemplateMediaImage" name="exampleInputTemplateMediaImage" type="file" accept="image/*">
+                                                        <input id="exampleInputTemplateMediaImage" name="template_avatar" type="file" accept="image/*">
                                                     </div>
                                                 </div>
                                                 <span class="form-text"><i>Kích thước tối thiểu: 750 * 400</i></span>
@@ -249,4 +249,22 @@
         var route_name = '{{ route('hocplus.frontend.create-course.filter') }}';
     </script>
     <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/script/create-course.js' }}"></script>
+
+    <script type="text/javascript">
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            $('#profile-img-tag').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      $("#exampleInputTemplateMediaImage").change(function(){
+        readURL(this);
+      });
+
+    </script>
 @stop

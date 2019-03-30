@@ -6,6 +6,8 @@ use Auth;
 use Session;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 use Adtech\Application\Cms\Controllers\MController as Controller;
 use Hocplus\Frontend\App\Models\Teacher;
 use Hocplus\Frontend\App\Models\Lesson;
@@ -48,15 +50,22 @@ class CreatecourseController extends Controller
                 'template_class_id' => 'required|numeric',
                 'template_numlesson' => 'required|numeric',
                 'template_timelesson' => 'required|numeric',
+                'template_avatar' => 'image|mimes:jpeg,bmp,png|size:2000'
             ]);
 
             if ($validator->fails()) {
                 Session::flash('error', $validator->messages()->first());
             }
 
+            $template_avatar = '';
+            if ($request->hasFile('template_avatar')) {
+                $template_avatar = $request->file('template_avatar')->storeAs(
+                    'hocplus/teacher/' . $teacher_id . '/avatars', Input::file('template_avatar')->getClientOriginalName());
+            }
+
             $newTemplate = CourseTemplate::create([
                 'template_name' => $request->input('template_name', ''),
-                'template_avatar' => $request->input('template_avatar', ''),
+                'template_avatar' => $template_avatar,
                 'template_video_intro' => $request->input('template_video_intro', ''),
                 'will_learn' => $request->input('template_will_learn', ''),
                 'target' => $request->input('template_target', ''),
@@ -101,7 +110,7 @@ class CreatecourseController extends Controller
         $allCourse = CourseTemplate::where('teacher_id', $teacher_id)->get();
         $arrClasses = $teacher->getClasses;
         $arrSubject = $teacher->getSubject;
-
+        // dd($allCourse);
         $data = [
             'tab' => $tab,
             'teacher' => $teacher,
@@ -124,6 +133,7 @@ class CreatecourseController extends Controller
                 'course_price' => 'required|numeric',
                 'course_student_limit' => 'numeric',
                 'course_template_id' => 'required|numeric',
+
             ]);
 
             if ($validator->fails()) {
@@ -135,6 +145,17 @@ class CreatecourseController extends Controller
             $templateDetail = CourseTemplate::with('getTemplateLesson')->find($course_template_id);
             if ($templateDetail) {
                 if ($templateDetail->teacher_id == $teacher_id) {
+
+                    $arrDocuments = [];
+                    if(!empty($request->course_documents)){
+                        foreach ($request->course_documents as $document) {
+                            $template_avatar = $document->storeAs(
+                                'hocplus/teacher/' . $teacher_id . '/documents', $document->getClientOriginalName());
+
+                            $arrDocuments[] = $template_avatar;
+                        }
+                    }
+
                     $newCourse = Course::create([
                         'name' => $templateDetail->template_name,
                         'alias' => $templateDetail->template_name,
@@ -147,7 +168,7 @@ class CreatecourseController extends Controller
                         'subject_id' => $templateDetail->subject_id,
                         'teacher_id' => $templateDetail->teacher_id,
                         'keyword' => $templateDetail->keyword,
-                        'document' => $templateDetail->document,
+                        'document' => json_encode($arrDocuments),
                         'time' => $templateDetail->time,
                         'date_start' => strtotime($request->input('course_date_start')),
                         'date_end' => strtotime($request->input('course_date_end')),
@@ -216,6 +237,9 @@ class CreatecourseController extends Controller
 
     public function step3(Request $request)
     {
+        $course_id = $request->input('id');
+        $teacher_id = $this->_guard()->id();
+
         $validator = Validator::make($request->all(), [
             'id' => 'required|numeric'
         ]);
@@ -224,11 +248,74 @@ class CreatecourseController extends Controller
             return redirect(route('hocplus.frontend.create-course.step1'));
         }
 
-        $course_id = $request->input('id');
-        $teacher_id = $this->_guard()->id();
+        if ($request->isMethod('post')) {
+
+            $validator = Validator::make($request->all(), [
+                'courseName' => 'required',
+//                'courseSubject' => 'required',
+//                'courseClasses' => 'required',
+                'courseTime' => 'required|numeric',
+                'courseStudentLimit' => 'required|numeric'
+            ]);
+
+            if ($validator->fails()) {
+                Session::flash('error', $validator->messages()->first());
+            } else {
+                $courseName = $request->input('courseName', '');
+//                $courseSubject = $request->input('courseSubject', '');
+//                $courseClasses = $request->input('courseClasses', '');
+                $courseVideo = $request->input('courseVideo', '');
+                $courseWillLearn = $request->input('courseWillLearn', '');
+                $courseTarget = $request->input('courseTarget', '');
+                $courseRequestContent = $request->input('courseRequestContent', '');
+                $courseTime = (int) $request->input('courseTime', 0);
+                $courseStudentLimit = (int) $request->input('courseStudentLimit', 0);
+                $lessonName = $request->input('lessonName', []);
+                $lessonContent = $request->input('lessonContent', []);
+                $lessonStart = $request->input('lessonStart', []);
+                $lessonEnd = $request->input('lessonEnd', []);
+                $courseDetail = Course::where('course_id',$course_id)->first();
+                if ($courseDetail) {
+                    if ($courseDetail->teacher_id == $teacher_id) {
+                        Course::where('course_id', $course_id)
+                            ->update([
+                                'name' => $courseName,
+                                'video' => $courseVideo,
+                                'time' => $courseTime,
+                                'will_learn' => $courseWillLearn,
+                                'target' => $courseTarget,
+                                'request_content' => $courseRequestContent,
+                                'student_limit' => $courseStudentLimit
+                            ]);
+
+                        if (count($lessonName) > 0) {
+                            Lesson::where('course_id', $course_id)->delete();
+                            foreach ($lessonName as $k => $name) {
+
+                                $content = $lessonContent[$k];
+                                $timeStart = strtotime($lessonStart[$k]);
+                                // dd($timeStart);
+                                $timeEnd = strtotime($lessonEnd[$k]);
+
+                                $arrLesson[] = [
+                                    'name' => $name,
+                                    'content' => $content,
+                                    'course_id' => $course_id,
+                                    'date_start' => $timeStart,
+                                    'time_line' => ($timeEnd - $timeStart) / 60
+                                ];
+                            }
+                            Lesson::insert($arrLesson);
+                        }
+
+                    }
+                    return redirect(route('hocplus.frontend.create-course.step4') . '?id=' . $course_id);
+                }
+            }
+        }
+
         $teacher = Teacher::where('teacher_id',$teacher_id)->with('getClasses','getSubject')->first();
         $courseDetail = Course::where('course_id',$course_id)->with('getLesson', 'isClass', 'isSubject')->first();
-
         $data = [
             'teacher' => $teacher,
             'course' => $courseDetail,

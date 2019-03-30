@@ -7,11 +7,7 @@
     outline: none;
     position: relative;
 
-    &.col-12 {
-        margin-top: 20px;
-    }
-
-    .btn-registration {
+    .btn {
         @extend .small-text;
         padding: 4px 15px;
         color: $c-white;
@@ -22,14 +18,20 @@
         line-height: 19px;
 
         &:hover {
-            background: $c-blue;
+            background: $cl-06;
+        }
+        &.btn-manage {
+            background: $cl-06;
+            &:hover {
+                background: $cl-04;
+            }
         }
     }
 
     .inner {
         position: relative;
+        height: 100%;
         border: 1px solid $bc-03;
-        padding-bottom: 135px;
         background: $c-white;
 
         &::after,
@@ -74,7 +76,7 @@
         .name {
             @extend .big-text;
             margin: 0;
-            padding: 10px 15px 0 15px;
+            padding: 10px 15px 135px 15px;
             background: $c-white;
 
             a {
@@ -143,8 +145,10 @@
 
                 .subjects,
                 .class {
-                    >span {
+                    >span,
+                    >a {
                         color: $cl-05;
+                        text-decoration: none;
                     }
                 }
             }
@@ -157,6 +161,16 @@
 
                 .time {
                     color: $cl-03;
+                }
+
+                .price {
+                    @extend .big-text;
+                    color: $cl-04;
+                    font-weight: 700;
+                    >span {
+                        @extend .body-text;
+                        color: $c-dark;
+                    }
                 }
             }
         }
@@ -211,6 +225,9 @@
                     &:hover {
                         color: $c-blue;
                     }
+                }
+                >.fa {
+                    margin-left: 10px;
                 }
             }
 
