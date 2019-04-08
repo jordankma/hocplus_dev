@@ -46,7 +46,7 @@
                                 <button class="btn" type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div> <!-- / search -->
-                        <a class="btn btn-lecturers" href="{{ route('hocplus.get.register.teacher') }}">Dành cho giảng viên</a> <!-- / button lecturers -->
+                        <a class="btn btn-lecturers" href="{{ route('hocplus.get.register.teacher') }}">Dành cho giáo viên</a> <!-- / button lecturers -->
                         @if($USER_LOGGED)
                             <div class="my-user">
                                 <div class="user-inner">

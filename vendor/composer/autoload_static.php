@@ -190,6 +190,7 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
             'Hocplus\\News\\' => 13,
             'Hocplus\\Frontend\\' => 17,
             'Hocplus\\Coursegroup\\' => 20,
+            'Hocplus\\Contact\\' => 16,
             'Hocplus\\Comments\\' => 17,
         ),
         'G' => 
@@ -534,6 +535,10 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Hocplus\\Coursegroup\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/hocplus/coursegroup/src',
+        ),
+        'Hocplus\\Contact\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/hocplus/contact/src',
         ),
         'Hocplus\\Comments\\' => 
         array (
@@ -10846,6 +10851,12 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Hocplus\\Comments\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/hocplus/comments/src/app/Models/Demo.php',
         'Hocplus\\Comments\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/hocplus/comments/src/app/Repositories/DemoRepository.php',
         'Hocplus\\Comments\\CommentsServiceProvider' => __DIR__ . '/../..' . '/packages/hocplus/comments/src/CommentsServiceProvider.php',
+        'Hocplus\\Contact\\App\\Http\\Controllers\\ContactController' => __DIR__ . '/../..' . '/packages/hocplus/contact/src/app/Http/Controllers/ContactController.php',
+        'Hocplus\\Contact\\App\\Http\\Controllers\\DemoController' => __DIR__ . '/../..' . '/packages/hocplus/contact/src/app/Http/Controllers/DemoController.php',
+        'Hocplus\\Contact\\App\\Models\\Contact' => __DIR__ . '/../..' . '/packages/hocplus/contact/src/app/Models/Contact.php',
+        'Hocplus\\Contact\\App\\Models\\Demo' => __DIR__ . '/../..' . '/packages/hocplus/contact/src/app/Models/Demo.php',
+        'Hocplus\\Contact\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/hocplus/contact/src/app/Repositories/DemoRepository.php',
+        'Hocplus\\Contact\\ContactServiceProvider' => __DIR__ . '/../..' . '/packages/hocplus/contact/src/ContactServiceProvider.php',
         'Hocplus\\Coursegroup\\App\\Http\\Controllers\\CourseController' => __DIR__ . '/../..' . '/packages/hocplus/coursegroup/src/app/Http/Controllers/CourseController.php',
         'Hocplus\\Coursegroup\\App\\Http\\Controllers\\CourseGroupController' => __DIR__ . '/../..' . '/packages/hocplus/coursegroup/src/app/Http/Controllers/CourseGroupController.php',
         'Hocplus\\Coursegroup\\App\\Models\\Banner' => __DIR__ . '/../..' . '/packages/hocplus/coursegroup/src/app/Models/Banner.php',
@@ -10913,7 +10924,6 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'Hocplus\\Teacher\\App\\Repositories\\DemoRepository' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/app/Repositories/DemoRepository.php',
         'Hocplus\\Teacher\\App\\Repositories\\TeacherRepository' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/app/Repositories/TeacherRepository.php',
         'Hocplus\\Teacher\\TeacherServiceProvider' => __DIR__ . '/../..' . '/packages/hocplus/teacher/src/TeacherServiceProvider.php',
-        'Hocplus\\Teacherfrontend\\App\\Http\\Controllers\\StudentfrontendController' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Http/Controllers/StudentfrontendController.php',
         'Hocplus\\Teacherfrontend\\App\\Http\\Controllers\\TeacherfrontendController' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Http/Controllers/TeacherfrontendController.php',
         'Hocplus\\Teacherfrontend\\App\\Models\\Banner' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Models/Banner.php',
         'Hocplus\\Teacherfrontend\\App\\Models\\Classes' => __DIR__ . '/../..' . '/packages/hocplus/teacherfrontend/src/app/Models/Classes.php',
@@ -14238,6 +14248,7 @@ class ComposerStaticInit69229ba2e94a948d404495a55ce77197
         'VneBannerPositionTable' => __DIR__ . '/../..' . '/packages/vne/banner/src/database/migrations/2018_07_05_164347_vne_banner_position_table.php',
         'VneBannerTable' => __DIR__ . '/../..' . '/packages/vne/banner/src/database/migrations/2018_06_30_160658_vne_banner_table.php',
         'VneCatHasBoxCreate' => __DIR__ . '/../..' . '/packages/vne/news/src/database/migrations/2018_10_08_061629_vne_cat_has_box_create.php',
+        'VneContactCreate' => __DIR__ . '/../..' . '/packages/hocplus/contact/src/database/migrations/2018_09_13_090428_vne_contact_create.php',
         'VneNewsBoxCreate' => __DIR__ . '/../..' . '/packages/vne/news/src/database/migrations/2018_09_12_090602_vne_news_box_create.php',
         'VneNewsCatTable' => __DIR__ . '/../..' . '/packages/vne/news/src/database/migrations/2018_06_19_172547_vne_news_cat_table.php',
         'VneNewsHasBoxCreate' => __DIR__ . '/../..' . '/packages/vne/news/src/database/migrations/2018_09_12_090728_vne_news_has_box_create.php',

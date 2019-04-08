@@ -3,7 +3,7 @@
     <div class="container topbar-container">
         <div class="banner">
         <a href="{{ route('hocplus.frontend.index') }}">
-            <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/images/logo-header.png' }}" alt="">
+            <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/images/logo-header.svg' }}" alt="">
         </a>
         </div>
         <div class="my-user">
@@ -47,7 +47,7 @@
         </ul>
         <div class="info">
         <span class="time"><i class="fa fa-clock"></i> 08:00 - 17:00</span>
-        <span class="phone"><i class="fa fa-phone"></i> Hotline: 1900 636 444</span>
+        <span class="phone"><i class="fa fa-phone"></i> Hotline: {{ (!empty($SETTING['phone'])) ? $SETTING['phone'] : '' }} </span>
         </div>
     </div>
     </nav> <!-- / Navbar -->

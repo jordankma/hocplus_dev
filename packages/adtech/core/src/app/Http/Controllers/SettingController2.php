@@ -74,8 +74,7 @@ class SettingController extends Controller
 //        $languageArr = config('translatable.locales');
         $languageArr = Locale::where('status', 1)->get();
         $settings = Setting::where('domain_id', $this->domainDefault)->get();
-        $title = $logo = $logo_mini = $logo_link = $favicon = $company_name = $address = $email = $phone = $hotline = $ga_code = $chat_code = $slogan 
-        = $app_version = $info_page_contact = $info_footer_1 = $info_footer_2 = $info_footer_3 = $info_footer_4 = '';
+        $title = $logo = $logo_mini = $logo_link = $favicon = $company_name = $address = $email = $phone = $hotline = $ga_code = $chat_code = $slogan = $app_version = $info_page_contact = $info_footer_1 = $info_footer_2 = $info_footer_3 = '';
 
         if (count($settings) > 0) {
             foreach ($settings as $setting) {
@@ -134,9 +133,6 @@ class SettingController extends Controller
                     case 'info_footer_3':
                         $info_footer_3 = $setting->value;
                         break;
-                    case 'info_footer_4':
-                        $info_footer_4 = $setting->value;
-                        break;
                 }
             }
         }
@@ -164,8 +160,7 @@ class SettingController extends Controller
             'info_page_contact' => $info_page_contact,
             'info_footer_1' => $info_footer_1,
             'info_footer_2' => $info_footer_2,
-            'info_footer_3' => $info_footer_3,
-            'info_footer_4' => $info_footer_4
+            'info_footer_3' => $info_footer_3
         ];
         return view('ADTECH-CORE::modules.core.setting.manage', $data);
     }
@@ -212,8 +207,7 @@ class SettingController extends Controller
                     if ($request->hasFile($k)) {
                         //
                     } else {
-//                        $setting = $this->setting->findBy('name', $k);
-                        $setting = Setting::where([['name', $k], ['domain_id', $this->domainDefault]])->first();
+                        $setting = $this->setting->findBy('name', $k);
                         if (null == $setting) {
                             $setting = new Setting();
                             $setting->domain_id = $this->domainDefault;

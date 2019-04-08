@@ -47,6 +47,7 @@ class MController extends BaseController
     {
         $id = $this->_guard()->id();
         $this->user = $this->_guard()->user();
+        // dd($this->user->member_id);
         $email = $this->user ? $this->user->email : null;
         $this->teacher = $this->_guardTeacher()->user();
 
@@ -162,6 +163,9 @@ class MController extends BaseController
                     case 'info_footer_3':
                         $settingView['info_footer_3'] = $setting->value;
                         break;
+                    case 'info_footer_4':
+                        $settingView['info_footer_4'] = $setting->value;
+                        break;
                 }
             }
         }
@@ -252,6 +256,7 @@ class MController extends BaseController
         foreach($unicode as $nonUnicode=>$uni) $str = preg_replace("/($uni)/i",$nonUnicode,$str);
         return $str;
     }
+
     //kiem tra nguoi dung dang ky khoa hoc chua
     function checkRegister($member_id, $course_id){
         if(Auth::guard('member')->check()){

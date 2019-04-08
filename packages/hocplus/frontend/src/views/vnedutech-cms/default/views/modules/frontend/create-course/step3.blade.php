@@ -56,8 +56,14 @@
                                     </h2>
                                 </div>
                                 <div class="media">
+                                    @php
+                                        $url = $course->video;
+                                        preg_match('/[\\?\\&]v=([^\\?\\&]+)/', $url, $matches);
+                                        $id = isset($matches[1]) ? $matches[1] : '';  
+
+                                    @endphp
                                     <input type="text" class="fix-content content-editor" name="courseVideo" value="{{ $course->video }}" style="display: none; margin-bottom: 5px">
-                                    <iframe width="560" height="315" src="{{ $course->video }}" frameborder="0"
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{$id}}?rel=0&showinfo=0&color=white&iv_load_policy=3" frameborder="0"
                                             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                                 <div class="info">

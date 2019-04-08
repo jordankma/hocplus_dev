@@ -10,7 +10,8 @@ use Hocplus\Frontend\App\Repositories\CourseRepository;
 use Hocplus\Frontend\App\Repositories\TeacherRepository;
 use Hocplus\Frontend\App\Repositories\BannerRepository;
 use Adtech\Core\App\Repositories\PasswordResetRepository;
-
+use Hocplus\Teacher\App\Models\Subject;
+use Hocplus\Teacher\App\Models\TblClass;
 class HomepageController extends Controller
 {
     private $_passwordResetRepository;
@@ -93,7 +94,9 @@ class HomepageController extends Controller
                 $resetTokenEmail = $passwordReset->email;
             }
         }
-
+        //get class subject
+        $subjects = Subject::all();
+        $classes = TblClass::all();
         $data = [
             'libHome' => $libHome,
             'whyHome' => $whyHome,
@@ -109,7 +112,9 @@ class HomepageController extends Controller
             'arrSubjectComming' => $arrSubjectComming,
             'arrClassesComming' => $arrClassesComming,
             'arrSubjectRunning' => $arrSubjectRunning,
-            'arrClassesRunning' => $arrClassesRunning
+            'arrClassesRunning' => $arrClassesRunning,
+            'subjects' => $subjects,
+            'classes' => $classes,
         ];
         view()->share(['resetToken' => $resetToken]);
         return view('HOCPLUS-FRONTEND::modules.frontend.homepage.index', $data);

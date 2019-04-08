@@ -74,7 +74,7 @@ class CourseController extends Controller
         try {
             $temp = 'get-token?member_id=' . $member_id . '&course_id=' . $course_id . '&lesson_id=' . $lesson_id . '&time=' . $time_now . '&type=' . $type_member;
             $encrypted = self::my_simple_crypt( $temp , 'e' );
-            $data_reponse = file_get_contents('http://hocplus.vnedutech.vn/resource/' . $encrypted);
+            $data_reponse = file_get_contents($url . '/' . 'resource/' . $encrypted);
             $data_reponse = json_decode($data_reponse,true);
             $url_stream = config('site.url_stream');
             if($data_reponse['status'] == true){

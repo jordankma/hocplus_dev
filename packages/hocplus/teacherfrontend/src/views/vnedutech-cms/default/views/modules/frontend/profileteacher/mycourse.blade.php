@@ -56,7 +56,7 @@
                           <i class="fa fa-arrow-right"></i>
                           <ul class="list">
                             <li><a href="{{ route('hocplus.frontend.create-course.step3', [ 'id' => $element->course_id ])}}"><i class="fa fa-pencil"></i><span>Sửa</span></a></li>
-                            <li><a class="btn-delete js-btn-delete" href=""><i class="fa fa-trash"></i><span>Xóa</span></a></li>
+                            <li><a class="btn-delete js-btn-delete" href="" data-course-id="{{ $element->course_id }}"><i class="fa fa-trash"></i><span>Xóa</span></a></li>
                           </ul>
                         </div>
                         {{-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> --}}

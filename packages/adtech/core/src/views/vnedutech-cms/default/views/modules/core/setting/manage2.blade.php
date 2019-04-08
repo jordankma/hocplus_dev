@@ -20,8 +20,8 @@
         {{--<h1>{{ $title_page }}</h1>--}}
         <ol class="breadcrumb">
             <li>
-                <a href="{{ route('backend.homepage') }}"> 
-                    <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
+                <a href="{{ route('backend.homepage') }}"> <i class="livicon" data-name="home" data-size="16"
+                                                                         data-color="#000"></i>
                     {{ trans('adtech-core::labels.home') }}
                 </a>
             </li>
@@ -139,10 +139,6 @@
                                 <div class="form-group">
                                     <textarea name="info_footer_3" id="ckeditor3">{{ $info_footer_3 }}</textarea>
                                 </div>
-                                <label>Thông tin liên hệ footer 4</label>
-                                <div class="form-group">
-                                    <textarea name="info_footer_4" id="ckeditor4">{{ $info_footer_4 }}</textarea>
-                                </div>
                             </div>
                             <div class="tab-pane fade" id="translate">
                                 <label>App Version</label>
@@ -182,14 +178,14 @@
 @section('footer_scripts')
     <!-- begining of page js -->
     <script src="{{ config('site.url_static') . ('/vendor/' . $group_name . '/' . $skin . '/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" ></script>
-    <!-- <script src="{{ config('site.url_static') . ('/vendor/laravel-filemanager/js/lfm.js?t=' . time()) }}" ></script> -->
+    <script src="{{ config('site.url_static') . ('/vendor/laravel-filemanager/js/lfm.js?t=' . time()) }}" ></script>
     <script src="{{ asset('/vendor/' . $group_name . '/' . $skin .'/vendors/ckeditor_news/ckeditor.js') }}" type="text/javascript"></script>
     <script>
         $(function () {
             // var domain = "http://dhcd-release.vnedutech.vn/administrator/laravel-filemanager";
-            // $('#lfm').filemanager('image');
-            // $('#lfm1').filemanager('image');
-            // $('#lfm2').filemanager('image');
+            $('#lfm').filemanager('image');
+            $('#lfm1').filemanager('image');
+            $('#lfm2').filemanager('image');
             var options = {
                 filebrowserImageBrowseUrl: '/admin/laravel-filemanager?type=Images',
                 filebrowserImageUploadUrl: '/admin/laravel-filemanager/upload?type=Images&_token=',
@@ -200,56 +196,6 @@
             CKEDITOR.replace('ckeditor1',options);
             CKEDITOR.replace('ckeditor2',options);
             CKEDITOR.replace('ckeditor3',options);
-            CKEDITOR.replace('ckeditor4',options);
         })
-        $(document).ready(function () {
-            $.fn.filemanager = function (type, options) {
-                type = type || 'file';
-                var parent = this;
-                this.on('click', function (e) {
-                    if( $(parent).attr('data-choice') === 'files'){
-                        type = 'file';
-                        $("#isIcon").val(1);
-                    }
-                    if( $(parent).attr('data-choice') === 'icon'){
-                        $("#isIcon").val(2);
-                    }
-                    var route_prefix = (options && options.prefix) ? options.prefix : '/file-manager/manage';
-                    localStorage.setItem('target_input', $(this).data('input'));
-                    localStorage.setItem('target_preview', $(this).data('preview'));
-                    window.open(route_prefix + '?type=' + type , 'FileManager', 'width=900,height=600');
-                    if ($("#mutil").val() === 'remove' && $(parent).attr('data-choice') === 'files') {
-                        return true;
-                    } else {
-                        window.SetUrl = function (url, file_path) {
-                            console.log(url);
-                            //set the value of the desired input to image url
-                            var target_input = $('#' + localStorage.getItem('target_input'));
-                            target_input.val(file_path).trigger('change');
-
-                            //set or change the preview image src
-                            var target_preview = $('#' + localStorage.getItem('target_preview'));
-                            target_preview.attr('src', url).trigger('change');
-                        };
-                        return false;
-
-                    }
-                });
-            }
-
-        });
-        $(window).bind('storage', function (e) {
-        if(e.originalEvent.key == 'select_event'){
-            var preview_url = '{{ $preview_url }}';
-            var target_input =   localStorage.getItem('target_input');
-            var target_preview =   localStorage.getItem('target_preview');
-            var file_select = localStorage.getItem('file_select');
-            $('#' + target_input).val('/files/' + file_select);
-            $('#' + target_preview).attr("src",preview_url + '/files/' + file_select);
-        }
-        });
-        $('#lfm').filemanager();
-        $('#lfm1').filemanager();
-        $('#lfm2').filemanager();
     </script>
 @stop

@@ -59,7 +59,7 @@
                                                     <label for="exampleInputTemplateDateStart">Ngày bắt đầu *</label>
                                                 </div>
                                                 <div class="grid-right">
-                                                    <input class="form-control width-40" type="date" id="exampleInputTemplateDateStart" name="course_date_start"
+                                                    <input class="form-control width-40 datetime-start" id="exampleInputTemplateDateStart" name="course_date_start"
                                                            required="required" oninvalid="this.setCustomValidity('Vui lòng nhập thời gian bắt đầu!')" oninput="setCustomValidity('')"
                                                            value="{{old('course_date_start')}}">
                                                 </div>
@@ -69,7 +69,7 @@
                                                     <label for="exampleInputTemplateDateEnd">Ngày kết thúc *</label>
                                                 </div>
                                                 <div class="grid-right">
-                                                    <input class="form-control width-40" type="date" id="exampleInputTemplateDateEnd" name="course_date_end"
+                                                    <input class="form-control width-40 datetime-end" id="exampleInputTemplateDateEnd" name="course_date_end"
                                                            required="required" oninvalid="this.setCustomValidity('Vui lòng nhập thời gian kết thúc!')" oninput="setCustomValidity('')"
                                                            value="{{old('course_date_end')}}">
                                                 </div>
@@ -122,20 +122,20 @@
                                                                     <div class="grid-50 grid-p15">
                                                                         <div class="grid grid-mg7">
                                                                             <div class="grid-60 grid-p7">
-                                                                                <input class="form-control" type="date" id="exampleInputTemplateDateStart-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateDateStart-{{ $lesson->template_lesson_id }}">
+                                                                                <input class="form-control datetime-start-{{ $k }}" id="exampleInputTemplateDateStart-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateDateStart-{{ $lesson->template_lesson_id }}" value="">
                                                                             </div>
                                                                             <div class="grid-40 grid-p7">
-                                                                                <input class="form-control" type="time" id="exampleInputTemplateTimeStart-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateTimeStart-{{ $lesson->template_lesson_id }}" value="00:00">
+                                                                                <input class="form-control timepicker" id="exampleInputTemplateTimeStart-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateTimeStart-{{ $lesson->template_lesson_id }}" value="00:00">
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="grid-50 grid-p15">
                                                                         <div class="grid grid-mg7">
                                                                             <div class="grid-60 grid-p7">
-                                                                                <input class="form-control" type="date" id="exampleInputTemplateDateEnd-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateDateEnd-{{ $lesson->template_lesson_id }}">
+                                                                                <input class="form-control datetime-end-{{ $k }}" id="exampleInputTemplateDateEnd-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateDateEnd-{{ $lesson->template_lesson_id }}"  value="">
                                                                             </div>
                                                                             <div class="grid-40 grid-p7">
-                                                                                <input class="form-control" type="time" id="exampleInputTemplateTimeEnd-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateTimeEnd-{{ $lesson->template_lesson_id }}" value="00:00">
+                                                                                <input class="form-control timepicker" id="exampleInputTemplateTimeEnd-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateTimeEnd-{{ $lesson->template_lesson_id }}" value="00:00">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -201,5 +201,39 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-
+    <script>
+        var count_template = "{{count($templateDetail->getTemplateLesson)}}";
+        $('.datetime-start').datetimepicker({
+            format: "DD-MM-YYYY"
+        });
+        $('.datetime-end').datetimepicker({
+            useCurrent: false, //Important! See issue #1075,
+            format: "DD-MM-YYYY" 
+        });
+        $(".datetime-start").on("dp.change", function (e) {
+            console.log($('.datetime-end').data("DateTimePicker"));
+            $('.datetime-end').data("DateTimePicker").minDate(e.date);
+        });
+        $(".datetime-end").on("dp.change", function (e) {
+            $('.datetime-start').data("DateTimePicker").maxDate(e.date);
+        });
+        if(count_template > 0){
+            for(var i = 0; i < count_template; i++){
+                console.log('.datetime-start-' + i);
+                $('.datetime-start-' + i).datetimepicker({
+                    format: "DD-MM-YYYY"
+                });
+                $('.datetime-end-' + i).datetimepicker({
+                    useCurrent: false, //Important! See issue #1075,
+                    format: "DD-MM-YYYY" 
+                });
+                // $(".datetime-start-" + i).on("dp.change", function (e) {
+                //     $('.datetime-end-' + i).data("DateTimePicker").minDate(e.date);
+                // });
+                // $(".datetime-end-" + i).on("dp.change", function (e) {
+                //     $('.datetime-start-' + i).data("DateTimePicker").maxDate(e.date);
+                // });
+            }
+        }
+    </script>
 @stop

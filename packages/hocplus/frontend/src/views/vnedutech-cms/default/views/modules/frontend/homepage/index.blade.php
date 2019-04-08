@@ -5,7 +5,16 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-
+    <style>
+        footer ul{
+            list-style: none;
+            padding-left: 0px;
+        }
+        footer ul a{
+            text-decoration: none;
+            color:#fff;
+        }
+    </style>
 @stop
 
 {{-- Page content --}}
@@ -31,6 +40,9 @@
         @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._evaluation')
 
         @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._library')
+        @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._c-app')
+
+        @include('HOCPLUS-CONTACT::modules.contact.advice')
 
     </main>
 @stop
