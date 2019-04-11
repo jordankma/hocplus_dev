@@ -13,6 +13,16 @@
 
     <!--page css-->
     @yield('header_styles')
+    <style>
+        footer ul{
+            list-style: none;
+            padding-left: 0px;
+        }
+        footer ul a{
+            text-decoration: none;
+            color:#fff;
+        }
+    </style>
     <!--end of page css-->
 </head>
 
@@ -42,8 +52,8 @@
 
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/main.js?time=' . time() }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/script/auth.js?time=' . time() }}"></script>
-
 <script>
+    var routeAddWishList = '{{ route('hocplus.course.add.wishlist') }}';
     var isLogin = '{{ Session::get("isLogin") }}';
     var isLoginCheck = {{ $isLoginCheck }};
     console.log(isLoginCheck);
@@ -61,5 +71,6 @@
         });
     });
 </script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/coursegroup/src/js/wishlist.js' }}"></script>
 </body>
 </html>

@@ -51,14 +51,14 @@
                             <div class="my-user">
                                 <div class="user-inner">
                                     <div class="avatar">
-                                        <img src="{{ ($USER_LOGGED->avatar != '' && file_exists(substr($USER_LOGGED->avatar, 1))) ? config('site.url_static') . $USER_LOGGED->avatar : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="avatar">
+                                        <img src="{{ ($USER_LOGGED->avatar != '' || file_exists(substr($USER_LOGGED->avatar, 1))) ? config('site.url_static') . $USER_LOGGED->avatar : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="avatar">
                                     </div>
                                     <div class="name">{{ ($USER_LOGGED->name != '') ? $USER_LOGGED->name : (($USER_LOGGED->email != '') ? $USER_LOGGED->email : (($USER_LOGGED->phone != '') ? $USER_LOGGED->phone : (($USER_LOGGED->user_name != '' ? $USER_LOGGED->user_name : 'Student')))) }}</div>
                                 </div>
                                 <div class="dropdown">
                                     <ul class="list">
-                                        <li class="item"><a href="{{ route('hocplus.studentprofile.bang-thong-tin') }}"><i class="fa fa-dashboard"></i> <span>Bảng thông tin</span></a></li>
-                                        <li class="item"><a href="{{ route('hocplus.studentprofile.khoa-hoc-cua-toi') }}"><i class="fa fa-briefcase"></i> <span>Khóa học của tôi</span></a></li>
+                                        <li class="item"><a href="{{ route('hocplus.studentprofile.bang-thong-tin') }}"><i class="fa fa-dashboard"></i> <span>Khóa học của tôi</span></a></li>
+                                        <li class="item"><a href="{{ route('hocplus.studentprofile.khoa-hoc-cua-toi') }}"><i class="fa fa-briefcase"></i> <span>Khóa học yêu thích</span></a></li>
                                         <li class="item"><a href="{{ route('hocplus.studentprofile.index') }}"><i class="fa fa-gear"></i> <span>Quản lý tài khoản</span></a></li>
                                         <li class="item"><a href="{{ route('hocplus.frontend.auth.logout') }}"><i class="fa fa-log-out"></i> <span>Đăng xuất</span></a></li>
                                     </ul>

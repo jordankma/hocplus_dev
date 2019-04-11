@@ -15,6 +15,16 @@
 
     <!--page css-->
     @yield('header_styles')
+    <style>
+        footer ul{
+            list-style: none;
+            padding-left: 0px;
+        }
+        footer ul a{
+            text-decoration: none;
+            color:#fff;
+        }
+    </style>
     <!--end of page css-->
 </head>
 

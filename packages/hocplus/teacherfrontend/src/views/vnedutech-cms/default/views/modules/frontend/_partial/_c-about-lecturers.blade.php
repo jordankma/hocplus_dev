@@ -1,7 +1,7 @@
 <section class="section c-about-lecturers">
     <div class="container">
       <div class="headline">
-        <h2 class="title">Câu chuyện thành công của giảng viên</h2>
+        <h2 class="title">Câu chuyện thành công của giáo viên</h2>
       </div>
       <div class="group js-about-lecturers">
         <figure class="item">

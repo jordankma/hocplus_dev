@@ -38,10 +38,28 @@
     // Add callback to file manager
     fm.$store.commit('fm/setFileCallBack', function (fileUrl) {
       const funcNum = getUrlParam('CKEditorFuncNum');
-
-      window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
+      var static_url = getCookie('url_static');
+      if(static_url && static_url.substring(0,7) != 'http://'){
+          static_url = 'http://' + static_url;
+      }
+      window.opener.CKEDITOR.tools.callFunction(funcNum, static_url+'/files/'+fileUrl);
       window.close();
     });
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
 </script>
 </body>
 </html>

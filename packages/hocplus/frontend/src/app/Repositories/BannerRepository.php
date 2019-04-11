@@ -15,7 +15,7 @@ class BannerRepository extends Repository
     }
 
     public function findForBanner() {
-        $result = $this->model->where('position', 2)->first();
+        $result = $this->model->where('position', 2)->get();
         return $result;
     }
 

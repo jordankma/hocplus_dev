@@ -14,6 +14,7 @@ use Cache;
 use Auth,URL;
 use GuzzleHttp\Client;
 use Hocplus\Teacherfrontend\App\Models\MemberHasCourse;
+use Hocplus\Coursegroup\App\Models\MemberHasWishlist;
 use Hocplus\Frontend\App\Models\Member;
 // Member controller
 class MController extends BaseController
@@ -109,6 +110,18 @@ class MController extends BaseController
                 }
             }
         }
+        //get wishlist
+        $list_course_wishlist = [];
+        if(Auth::guard('member')->check()){
+            $member_id = Auth::guard('member')->id();
+            $list_course = MemberHasWishlist::where('member_id',$member_id)->select('course_id')->get();
+            // dd($list_course);      
+            if(!empty($list_course)){
+                foreach($list_course as $element){
+                    $list_course_wishlist[] = $element->course_id;       
+                }
+            }
+        }
         //get setting value
         $settings = Setting::where('domain_id', $this->domainDefault)->get();
         $settingView = array('logo' => '', 'logo_mini' => '', 'title' => '', 'favicon' => '', 'logo_link' => '');
@@ -192,6 +205,7 @@ class MController extends BaseController
             'subjectClass' => $subjectArr,
             'isLoginCheck' => $isLoginCheck,
             'list_course_buy' => $list_course_buy,
+            'list_course_wishlist' => $list_course_wishlist,
             'is_vip' => !empty($this->user) ? $this->user->full_vip : 0
         ];
         view()->share($share);

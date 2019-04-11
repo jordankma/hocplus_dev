@@ -35,7 +35,7 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+    <script src="{{ asset('vendor/file-manager/js/teacher-manager.js') }}"></script>
     <script>
         // Add callback to file manager
         fm.$store.commit('fm/setFileCallBack', function (fileUrl) {

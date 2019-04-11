@@ -1,6 +1,6 @@
 <section class="section c-foundation">
     <div class="container">
-      <h2 class="headline">HocPlus là ứng dụng đa nền tảng</h2>
+      <h2 class="headline" style="color: #2296f4;">HocPlus - ứng dụng đa nền tảng</h2>
       <div class="row group-item">
         <div class="col-6 col-md-3 foundation-item">
           <div class="item-inner">

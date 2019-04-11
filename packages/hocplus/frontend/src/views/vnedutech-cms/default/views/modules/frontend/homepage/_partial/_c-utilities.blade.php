@@ -4,7 +4,7 @@
             <div class="utilities-main">
             <div class="video">
                 <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/pc.png' }}" alt="">
-                <a class="btn-video" data-fancybox="gallery-why" href="https://youtu.be/m3i5LKUTAj4"></a>
+                <a class="btn-video" data-fancybox="gallery-why" href="https://youtu.be/P3emCM9brxg"></a>
             </div> <!-- / video -->
             <ul class="group-item">
                 @foreach($whyHome as $item)

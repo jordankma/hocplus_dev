@@ -2,7 +2,7 @@
 <section class="section c-register-lecturers">
   <div class="container">
     <div class="headline">
-      <h2 class="title">Đăng ký trở thành giảng viên</h2>
+      <h2 class="title">Đăng ký trở thành giáo viên</h2>
       @if(Session::has('success'))
         <h3 style="color:teal">{{ Session::get('success') }}</h3>
       @elseif(Session::has('error'))
@@ -47,9 +47,12 @@
               </select>
             </div>
           </div>
-          <div class="col-12 col-md-6 form-group form-check">
+          <div class="col-12 col-md-12 form-group form-check">
             <input type="checkbox" name="try_create_course" class="form-check-input" id="exampleCheck">
             <label class="form-check-label" for="exampleCheck">Tick nếu bạn muốn tạo khóa học thử nghiệm</label>
+          </div>
+          <div class="col-12 col-md-12 form-group form-check">
+            <p style="font-size: 13px; color: #000000a8;margin: 0 auto;">Bằng cách nhấp vào đăng ký, bạn đồng ý với Điều khoản sử dụng và chính sách bảo mật của chúng tôi</p>
           </div>
           <div class="col-12 form-group form-btn"><button type="submit" class="btn">Đăng ký giảng dạy</button></div>
         </form>

@@ -21,7 +21,7 @@
       <div class="col-12 col-md-8 col-lg-9 ml-right">
         <section class="ml-list js-ml-list">
           <div class="headline">
-            <h2 class="title">Khóa học của tôi</h2>
+            <h2 class="title">Khóa dạy của tôi</h2>
             <a href="{{ route('hocplus.frontend.create-course.step1') }}" class="btn">Khởi tạo khóa học</a>
           </div>
           <div class="list-course js-list-course">
@@ -36,7 +36,7 @@
                 <div class="grid-col col-15">Action</div>
               </div>
               <div class="group-item">
-                @if(count($courses) > 1)
+                @if(count($courses) > 0)
                 @foreach($courses as $element)
                 <div class="item">
                   <div class="grid">
@@ -118,7 +118,7 @@
         </section>
         <section class="section-01 ml-list js-ml-list">
           <div class="headline">
-            <h2 class="title">Khóa học đã diễn ra</h2>
+            <h2 class="title">Khóa dạy đã diễn ra</h2>
           </div>
           <div class="list">
             <div class="table-responsive">
@@ -132,7 +132,7 @@
                     <th scope="col">Thời gian kết thúc</th>
                   </tr>
                 </thead>
-                @if(count($courses_end) > 1)
+                @if(count($courses_end) > 0)
                 <tbody>
                   @foreach($courses_end as $element)
                   <tr>

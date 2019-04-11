@@ -111,6 +111,7 @@
                             <span class="checkmark"></span>
                         </div>
                     </div>
+                    <p style="font-size: 13px; color: #000000a8;">Bằng cách nhấp vào đăng ký, bạn đồng ý với Điều khoản sử dụng và chính sách bảo mật của chúng tôi</p>
                     <button class="btn" type="submit" id="register-btn-submit">Đăng ký</button>
                 </form>
 

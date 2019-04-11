@@ -11,6 +11,7 @@ use Hocplus\Coursegroup\App\Models\Banner;
 use Hocplus\Coursegroup\App\Models\Course;
 use Hocplus\Coursegroup\App\Models\Comments;
 use Hocplus\Coursegroup\App\Models\MemberHasCourse;
+use Hocplus\Coursegroup\App\Models\MemberHasWishlist;
 
 use Hocplus\Coursegroup\App\Repositories\CourseRepository;
 use Auth,Validator;
@@ -67,7 +68,7 @@ class CourseController extends Controller
         $course_id = $request->input('course_id');
         $lesson_id = $request->input('lesson_id');
         $time_now = time();
-        $url = config('site.url');
+        $url = config('app.url');
         $data_reponse['status'] = false;
         $member_id = Auth::guard('member')->id();
         $type_member = 'student';
@@ -124,5 +125,28 @@ class CourseController extends Controller
         } else{
             return $validator->messages();
         }
+    }
+
+    public function AddWishlist(Request $request){
+        $data['status'] = false;
+        $data['message'] = 'Thêm khóa học vào khóa học yêu thích thất bại! ';
+        $course_id = $request->input('course_id');
+        $member_id = Auth::guard('member')->id();
+        $member_has_wishlist = MemberHasWishlist::where('course_id',$course_id)->where('member_id',$member_id)->first();
+        if(!empty($member_has_wishlist)){
+            if($member_has_wishlist->delete()){
+                $data['status'] = true;
+                $data['message'] = 'Xóa khóa học khỏi khóa học yêu thích thành công!';
+            }  
+        } else{
+            $member_has_wishlist_insert = new MemberHasWishlist();
+            $member_has_wishlist_insert->course_id = $course_id;
+            $member_has_wishlist_insert->member_id = $member_id;
+            if($member_has_wishlist_insert->save()){
+                $data['status'] = true;
+                $data['message'] = 'Thêm khóa học vào khóa học yêu thích thành công!';
+            };
+        }
+        return response()->json($data);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 $prefix = '';
 Route::group(array('prefix' => $prefix), function() {
-    Route::get('/dang-ky-giang-vien', 'TeacherfrontendController@index')->name('hocplus.get.register.teacher');
+    Route::get('/dang-ky-giao-vien', 'TeacherfrontendController@index')->name('hocplus.get.register.teacher');
     Route::post('/dang-ky-gv', 'TeacherfrontendController@save')->name('hocplus.post.register.teacher');
     Route::group(['middleware' => ['teacher.auth']], function () {
         Route::get('/bang-thong-tin/t', 'TeacherfrontendController@getDashboard')->name('hocplus.get.my.dashboard.teacher');

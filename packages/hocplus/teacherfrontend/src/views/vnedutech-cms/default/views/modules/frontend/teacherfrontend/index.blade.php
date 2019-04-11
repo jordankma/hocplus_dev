@@ -1,7 +1,7 @@
 @extends('HOCPLUS-TEACHERFRONTEND::layouts.frontend')
 
 {{-- Page title --}}
-@section('title'){{ 'Đăng ký giảng viên' }}@stop
+@section('title'){{ 'Đăng ký trở thành giáo viên' }}@stop
 
 {{-- page level styles --}}
 @section('header_styles')

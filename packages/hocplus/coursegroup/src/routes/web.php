@@ -5,4 +5,6 @@ Route::group(array('prefix' => $prefix), function() {
     Route::get('/khoa-hoc/{course_id?}', 'CourseController@index')->name('hocplus.course.detail');
     Route::get('/get-stream', 'CourseController@getStream')->name('hocplus.course.get.stream');
     Route::get('course/delete', 'CourseController@getDelete')->name('hocplus.course.get.delete');
+
+    Route::post('add-wishlist', 'CourseController@addWishlist')->name('hocplus.course.add.wishlist');
 });

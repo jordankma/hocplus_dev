@@ -19,9 +19,11 @@ class FileManagerController extends Controller
      *
      * @param FileManager $fm
      */
+
     public function __construct(FileManager $fm)
     {
         $this->fm = $fm;
+        config(['filesystems.disks.static.root' => 'public/files']);
     }
 
     /**

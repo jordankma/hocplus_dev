@@ -39,7 +39,7 @@
 
         @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._evaluation')
 
-        @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._library')
+        {{-- @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._library') --}}
         @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._c-app')
 
         @include('HOCPLUS-CONTACT::modules.contact.advice')

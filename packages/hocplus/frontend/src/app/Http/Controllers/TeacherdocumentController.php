@@ -24,14 +24,15 @@ class TeacherdocumentController extends Controller
 
     public function index(Request $request)
     {
-        $teacher_id = $this->_guard()->id();
-        $directory = 'public/files/hocplus/teacher/';
-
-        $directories = Storage::disk('static')->directories($directory);
-        if (!in_array($teacher_id, $directories)) {
-            Storage::disk('static')->makeDirectory('hocplus/teacher/' . $teacher_id . '/documents');
-        }
-        setcookie('static_root_path', $directory . $teacher_id . '/documents');
+//        dd(config());
+//        $teacher_id = $this->_guard()->id();
+//        $directory = 'public/files/hocplus/teacher/';
+//
+//        $directories = Storage::disk('static')->directories($directory);
+//        if (!in_array($teacher_id, $directories)) {
+//            Storage::disk('static')->makeDirectory('hocplus/teacher/' . $teacher_id . '/documents');
+//        }
+//        setcookie('static_root_path', $directory . $teacher_id . '/documents');
 
         //
         $teacher_id = $this->_guard()->id();

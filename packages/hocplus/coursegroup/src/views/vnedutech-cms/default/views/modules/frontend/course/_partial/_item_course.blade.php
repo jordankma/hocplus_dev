@@ -37,7 +37,7 @@
                 {{-- <span class="time"><i class="fa fa-pencil"></i> {{ count($course->getLesson) }}</span> --}}
                 <span class="price"></i> {{ number_format($course->price,0,',','.') }}<span>đ</span></span>
                 @else 
-                <a href="{{ route('hocplus.studentprofile.khoa-hoc-cua-toi') }}" class="btn btn-manage">Quản lý khóa học</a>
+                <a href="{{ route('hocplus.studentprofile.bang-thong-tin') }}" class="btn btn-manage">Quản lý khóa học</a>
                 <span class="price">Đã mua</span>
                 @endif
             </div>
@@ -45,7 +45,10 @@
     </div>
     <div class="tooltip">
         <div class="tooltip-wrappwe">
-            <h3 class="tooltip-name"><a href="{{ route('hocplus.course.detail',$course->course_id) }}">{{ $course->name }}</a><i class="fa fa-heart active"></i></h3>
+            <h3 class="tooltip-name">
+                <a href="{{ route('hocplus.course.detail',$course->course_id) }}">{{ $course->name }}</a>
+                <i class="add-wishlist fa fa-heart @if(in_array($course->course_id, $list_course_wishlist)) active @endif" data-course-id="{{ $course->course_id }}"></i>
+            </h3>
             <div class="tooltip-info">
                 <span class="info-time"><i class="fa fa-play"></i> {{ count($course->getLesson) }} buổi học  </span>
                 <div class="info-class"><i class="fa fa-folder-open"></i>

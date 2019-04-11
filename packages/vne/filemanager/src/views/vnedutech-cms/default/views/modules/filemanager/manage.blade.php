@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     {{--<link href="{{ asset('/vendor/' . $group_name . '/' . $skin . '/vne/filemanager/css/file-manager.css') }}" rel="stylesheet">--}}
-    <link href="{{ asset('/vendor/' . $group_name . '/' . $skin . '/vendor/file-manager/css/file-manager.css') }}" rel="stylesheet">
+    <link href="{{ asset('/vendor/file-manager/css/file-manager.css') }}" rel="stylesheet">
 </head>
 <body>
 <div class="container-fluid">
@@ -42,6 +42,7 @@
     fm.$store.commit('fm/setFileCallBack', function (fileUrl) {
       // var funcNum = getUrlParam('CKEditorFuncNum');
         localStorage.setItem('file_select', fileUrl);
+        localStorage.setItem('select_event',Date.now());
       // window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
       window.close();
     });
