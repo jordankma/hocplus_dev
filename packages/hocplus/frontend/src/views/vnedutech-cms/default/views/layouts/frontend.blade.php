@@ -46,8 +46,8 @@
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/jquery-3.3.1.min.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/jquery.fancybox.min.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/slick.min.js' }}"></script>
-<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/jquery.multiselect.js' }}"></script>
-<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/src/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js' }}"></script>
+{{-- <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/jquery.multiselect.js' }}"></script> --}}
+{{-- <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/src/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js' }}"></script> --}}
 @yield('footer_scripts')
 
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/main.js?time=' . time() }}"></script>
@@ -71,6 +71,19 @@
         });
     });
 </script>
+<!--Start of Tawk.to Script-->
+<script type=“text/javascript”>
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement(“script”),s0=document.getElementsByTagName(“script”)[0];
+    s1.async=true;
+    s1.src=’https://embed.tawk.to/5cb55899d6e05b735b42c37d/default';
+    s1.charset=‘UTF-8’;
+    s1.setAttribute(‘crossorigin’,‘*’);
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+</script>
+<!--End of Tawk.to Script-->
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/coursegroup/src/js/wishlist.js' }}"></script>
 </body>
 </html>

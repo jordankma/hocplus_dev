@@ -36,7 +36,7 @@
                 <div class="grid-col col-15">Action</div>
               </div>
               <div class="group-item">
-                @if(count($courses) > 0)
+                @if(count($courses) > 1)
                 @foreach($courses as $element)
                 <div class="item">
                   <div class="grid">
@@ -132,7 +132,7 @@
                     <th scope="col">Thời gian kết thúc</th>
                   </tr>
                 </thead>
-                @if(count($courses_end) > 0)
+                @if(count($courses_end) > 1)
                 <tbody>
                   @foreach($courses_end as $element)
                   <tr>

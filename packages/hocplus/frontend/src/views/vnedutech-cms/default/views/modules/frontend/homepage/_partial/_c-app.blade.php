@@ -6,7 +6,7 @@
             <div class="app-main">
             <div class="qr">
                 <div class="title">Quét mã QR</div>
-                <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/qr.png' }}" alt="">
+                <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/qr.png' }}" alt="" style="width: 100px;">
             </div>
             <div class="or"><span>or</span></div>
             <div class="link">

@@ -15,7 +15,7 @@ class Cod extends Model {
 
     protected $primaryKey = 'cod_id';
 
-    protected $fillable = ['name', 'phone', 'address', 'city', 'district', 'wards', 'status', 'order_code', 'manage_id'];
+    protected $fillable = ['name', 'phone', 'address', 'city', 'district', 'wards', 'status', 'order_code', 'manage_id', 'type'];
 
     protected $dates = ['deleted_at'];
     

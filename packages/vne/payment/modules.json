@@ -1,0 +1,39 @@
+{
+  "package": "vne",
+  "module": "payment",
+  "description": "Permission route by group",
+  "details": [
+    {
+      "name": "Quản lý phương thức thanh toán",
+      "groups": [
+        {
+          "name": "View list",
+          "routes": [
+             "vne.payment.manage",
+             "vne.payment.log"            
+          ]
+        },
+        {
+          "name": "Create",
+          "routes": [
+            "vne.payment.add",
+            "vne.payment.create"
+          ]
+        },
+        {
+          "name": "Update",
+          "routes": [
+            "vne.payment.edit",
+            "vne.payment.update"
+          ]
+        },
+        {
+          "name": "Delete",
+          "routes": [
+            "vne.payment.delete"
+          ]
+        }
+      ]
+    }    
+  ]
+}

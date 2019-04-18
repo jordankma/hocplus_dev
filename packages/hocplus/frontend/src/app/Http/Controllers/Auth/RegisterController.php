@@ -69,6 +69,7 @@ class RegisterController extends Controller
         if ($request->ajax()) {
             if ($request->isMethod('post')) {
                 $data = $request->all();
+                $data['type'] = 'student';
                 $validator = $this->validator($request->all());
                 if ($validator->fails()) {
 //                    return redirect()->back()->withErrors($validator);

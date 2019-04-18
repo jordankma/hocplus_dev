@@ -29,7 +29,7 @@
                         {{--<div class="tabs-item tabs-parents-student tabs-active">Phụ huynh/học sinh</div>--}}
                         {{--<div class="tabs-item tabs-teacher">Giáo viên</div>--}}
                     {{--</div>--}}
-                    <strong style="font-size: 20px; color: #152b75">Phụ huynh - Học sinh</strong>
+                    {{-- <strong style="font-size: 20px; color: #152b75">Học sinh</strong> --}}
                     <form class="parents-student show" id="form-login" method="post" action="{{ route('hocplus.frontend.auth.login') }}">
                         <div class="form-group notification" id="login-notification" style="display: none;">
                             <div class="text">Thông tin đăng nhập không chính xác.
@@ -98,7 +98,7 @@
                     <div class="form-group phone">
                         <input class="form-control" type="email,phone" id="register-email-confirm" placeholder="Xác thực bằng Email hoặc SĐT">
                     </div>
-                    <div class="form-group check">
+                    {{-- <div class="form-group check">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="student"
                                    checked>
@@ -110,8 +110,10 @@
                             <label class="form-check-label" for="exampleRadios2">Phụ huynh</label>
                             <span class="checkmark"></span>
                         </div>
-                    </div>
-                    <p style="font-size: 13px; color: #000000a8;">Bằng cách nhấp vào đăng ký, bạn đồng ý với Điều khoản sử dụng và chính sách bảo mật của chúng tôi</p>
+                    </div> --}}
+                    <p style="font-size: 13px; color: #000000a8;">Bằng cách nhấp vào đăng ký, bạn đồng ý với 
+                        <a href="http://hocplus.vn/news/detail/45-dieu-khoan-su-dung-hocplus" style="text-decoration: none;color: #000000ed;">Điều khoản sử dụng và chính sách bảo mật </a> của chúng tôi
+                    </p>
                     <button class="btn" type="submit" id="register-btn-submit">Đăng ký</button>
                 </form>
 
@@ -190,7 +192,7 @@
 <div class="c-slideout js-slideout">
     <div class="inner">
         <div class="group-btn">
-            <a href="" class="btn btn-lecturers">Trở thành giảng viên</a>
+            <a href="" class="btn btn-lecturers">Trở thành giáo viên</a>
             <button class="btn btn-user">Đăng nhập</button>
         </div>
         <nav class="slideout-navbar">

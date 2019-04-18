@@ -33,14 +33,17 @@ class TeacherfrontendController extends Controller
 
     public function index(Request $request)
     {
-        $list_class = array();
+        $list_class = $list_teacher = array();
         try {
             $list_class = Classes::with('getSubject')->get();
+            $list_teacher = Teacher::take(3)->get();
+
         } catch (\Throwable $th) {
             //throw $th;
         }
         $data = [
-            'list_class' => $list_class
+            'list_class' => $list_class,
+            'list_teacher' => $list_teacher
         ];
         return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.teacherfrontend.index',$data);
     }
@@ -247,10 +250,12 @@ class TeacherfrontendController extends Controller
         $data_reponse['status'] = false;
         $url = config('app.url');
         $teacher_id = Auth::guard('teacher')->id();
+        // $teacher_id = Auth::guard('teacher')->id() != null ? Auth::guard('teacher')->id() : $request->input('teacher_id');
         $type_member = 'teacher';
         try {
             $temp = 'get-token?teacher_id=' . $teacher_id . '&course_id=' . $course_id . '&lesson_id=' . $lesson_id . '&time=' . $time_now . '&type=' . $type_member;
             $encrypted = self::my_simple_crypt( $temp , 'e' );
+            // dd($encrypted);
             $data_reponse = file_get_contents($url . '/'. 'resource/' . $encrypted);
             $data_reponse = json_decode($data_reponse,true);
             if($data_reponse['status'] == true){
