@@ -3,6 +3,8 @@
 namespace Hocplus\Frontend\App\Http\Controllers\Auth;
 
 use Adtech\Application\Cms\Controllers\MController as Controller;
+use Adtech\Core\App\Mail\Password as ActiveMailer;
+
 use Adtech\Application\Cms\Traits\CaptchaTrait;
 use Adtech\Application\Cms\Traits\ActivationTrait;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -10,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Hocplus\Frontend\App\Models\Member;
-
+use Mail;
 class RegisterController extends Controller
 {
     /*
@@ -71,20 +73,49 @@ class RegisterController extends Controller
                 $data = $request->all();
                 $data['type'] = 'student';
                 $validator = $this->validator($request->all());
+
                 if ($validator->fails()) {
 //                    return redirect()->back()->withErrors($validator);
                     echo json_encode($validator->errors());
                 } else {
 
                     if (preg_match('/^[0-9]{10}+$/', $data['email']) || filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                        try {
+                            $check_mail = file_get_contents('http://checkmail.vnedutech.vn/?mail=' . $data['email']);
+                            $check_mail_arr = json_decode($check_mail,true);
+                            // dd($check_mail_arr);
+                            if($check_mail_arr['status'] == false){
+                                $errors = [];
+                                $errors['email'] = ['Email không hợp lệ'];
+                                return json_encode($errors);    
+                                
+                            } 
+                        } catch (\Throwable $th) {
+                            //throw $th;
+                        }
                         $member = Member::create([
                             'email' => $data['email'],
                             'password' => Hash::make($data['password']),
                             'type' => $data['type'],
-                            'activated' => 1,
+                            'activated' => 0,
                             'status' => 1,
+                            'token' => md5($data['email'] .$data['type'] .time())
                         ]);
                         if ($member->member_id) {
+                            //send mail active
+                            $from = config('mail.from.address');
+                            $fromName = config('mail.from.name');
+                            $activeMailer = new ActiveMailer();
+                            $title = 'Kích hoạt tài khoản';
+                            $activeMailer->setViewFile('modules.core.auth.mail.active_account')
+                            ->with([
+                                'toName' => $member->email,
+                                'email' => $member->email,
+                                'activeLink' => route('hocplus.frontend.auth.activate',$member->token)
+                            ])
+                            ->from($from, $fromName)
+                            ->subject($title);
+                            Mail::to($member->email, $member->email)->send($activeMailer);
                             echo json_encode(['success' => true]);
                         } else {
                             echo json_encode(['error' => 'Some things error!']);

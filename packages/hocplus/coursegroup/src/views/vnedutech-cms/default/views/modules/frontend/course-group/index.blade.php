@@ -46,7 +46,7 @@
     <script>
         $(document).ready(function () {
             $('body').on('change','#sort',function(){
-                var type = $( "select#sort option:checked" ).val()
+                var type = $( "select#sort option:checked" ).val();
                 var url_full = document.URL;
                 var flag = url_full.indexOf("?");
                 if(flag == -1){
@@ -57,6 +57,14 @@
                 console.log(url_full);
                 window.location = url_full;
             });
+            // $("body").on('change', '#classes', function () {
+            //     var classes_id = $(this).val();
+            //     $.get("/ajax/get-subject?classes_id="+ classes_id , function(data, status){
+            //         $('#classes').html('');
+            //         $('#classes').append(data.str);
+            //     });
+            // });
+
         });
     </script>
 @stop

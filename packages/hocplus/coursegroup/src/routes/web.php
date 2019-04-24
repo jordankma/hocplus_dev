@@ -7,4 +7,6 @@ Route::group(array('prefix' => $prefix), function() {
     Route::get('course/delete', 'CourseController@getDelete')->name('hocplus.course.get.delete');
 
     Route::post('add-wishlist', 'CourseController@addWishlist')->name('hocplus.course.add.wishlist');
+
+    Route::get('ajax/get-subject', 'CourseController@getSubject')->name('hocplus.course.ajax.get-subject');
 });

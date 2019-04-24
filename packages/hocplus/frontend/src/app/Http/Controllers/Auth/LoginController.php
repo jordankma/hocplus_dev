@@ -39,11 +39,11 @@ class LoginController extends Controller
         $password = $request->input('password');
         $remember = $request->input('remember', false);
 
-        if ($this->_guard()->attempt(['email' => $email, 'password' => $password], $remember)) {
+        if ($this->_guard()->attempt(['email' => $email, 'password' => $password, 'activated' => 1], $remember)) {
             $request->session()->regenerateToken();
             $this->clearLoginAttempts($request);
-
-            return ['success' => true];
+            $status = Auth::guard('member')->user()->status;
+            return ['success' => true ,'status' => $status];
         } else {
             return ['success' => false];
         }
@@ -89,7 +89,6 @@ class LoginController extends Controller
         if ($request->ajax()) {
             if ($request->isMethod('post')) {
                 $authenticate = $this->_authenticate($request);
-
                 echo json_encode($authenticate);
             } else {
                 return view('HOCPLUS-FRONTEND::modules.frontend.homepage.index');

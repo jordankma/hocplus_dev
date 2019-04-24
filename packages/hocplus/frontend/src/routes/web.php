@@ -22,19 +22,19 @@ Route::group(array('prefix' => $prefix), function() {
 
         Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-        Route::group(['middleware' => ['member.auth']], function () {
+        // Route::group(['middleware' => ['member.auth']], function () {
             /*
              * Activate
              */
-            Route::get('activate/{token}', 'ActivateController@activate')->name('activate');
+            Route::get('activate/{token}', 'Auth\ActivateController@activate')->name('activate');
             /*
              * Activate - Resend
              */
-            Route::get('activate/resend', 'ActivateController@resend')->name('activate-resend');
+            Route::get('activate/resend', 'Auth\ActivateController@resend')->name('activate-resend');
             /*
              * Auth - Logout
              */
-        });
+        // });
     });
 
     Route::group(array('prefix' => 'api'), function() {

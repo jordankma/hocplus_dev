@@ -1,6 +1,6 @@
 @extends('HOCPLUS-FRONTEND::layouts.frontend')
 
-@section('title', 'Khóa học của tôi')
+@section('title', 'Khóa học yêu thích')
 
 @section('content')
 
@@ -18,8 +18,8 @@
 									<div class="inner">
 										<div class="img">
 											<a href="/khoa-hoc/{{$item->course_id}}">
-                                                                                            @if ($item->avartar)
-												<img src="{{$item->avartar}}" alt="">
+                                                                                            @if ($item->avartar!='' && file_exists(substr($item->avartar, 1)))
+												<img src="{{config('site.url_static') . $item->avartar}}" alt="">
                                                                                             @else
                                                                                             <img src='/vendor/vnedutech-cms/default/hocplus/frontend/images/course.jpg'>
                                                                                             @endif

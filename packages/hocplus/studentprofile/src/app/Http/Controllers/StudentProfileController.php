@@ -29,6 +29,13 @@ class StudentProfileController extends Controller
         if ($member_id != 0) {
             $member = Member::find($member_id);
             if ($member) {
+                $validatedData = $request->validate([
+                    'name' => 'required',
+                    'address' => 'required',
+                    'phone' => 'required',
+                    'gender' => 'required',
+                    'school' => 'required',
+                ]);                
                 $name = $request->input('name');
                 $address = $request->input('address');
                 $phone = $request->input('phone');
@@ -45,6 +52,7 @@ class StudentProfileController extends Controller
                 $member->address = $address;
                 $member->phone = $phone;
                 $member->school = $school;
+				$member->status = 2;
                 $file = $request->file('image');
              
                 if ($file) {
@@ -77,7 +85,7 @@ class StudentProfileController extends Controller
     /**upload avatar*/
     public function showUploadFile(Request $request,$member_id) {
        $file = $request->file('image')->store('hocplus/student/'.$member_id. '/avatars','static');
-       return '/' .$file;
+       return '/files/' .$file;
     }    
     
     /* change password*/
@@ -106,10 +114,10 @@ class StudentProfileController extends Controller
         if ($member) {
             $member->password = bcrypt($request->get('new-password'));
             $member->save();
-            return redirect()->back()->with("success","Đổi mật khẩu thành công !");
+            return redirect()->back()->with("success","Đổi mật khẩu thành công!");
         }
    }
-   /* khoa hoc cua toi */
+   /* khoa hoc yeu thich */
    public function wishlist() {
        $user = $this->user;
        $member_id = $user->member_id;
@@ -124,7 +132,7 @@ class StudentProfileController extends Controller
        //print_r($subjectList); die();
        return view('HOCPLUS-STUDENTPROFILE::modules.studentprofile.wishlist', compact('course','subjectList'));
    }
-   /* vi cua toi */
+   /* khoa hoc cua toi */
    public function myCourse(Request $request) {
        $subject = Subject::all();
        $user = $this->user;
@@ -138,11 +146,11 @@ class StudentProfileController extends Controller
        $params['date_to'] = $request->input('date_to');
        $params['status'] = $request->input('status');
        if ($params) {
-            $course = $model->filter($member_id, $params);
+            $course = $model->filter($member_id, $params); 
        }
        else {
             $course = $model->getWishList($member_id);
-       }       
+       }     
        $deposit = MemberDeposit::where('member_id',$member_id)->get()->first();
        $course_arr = array();
        //$model = new Course();

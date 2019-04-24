@@ -16,7 +16,7 @@ class CourseRepository extends Repository
 
     public function findAll() {
         $timeNow = time();
-        $result = $this->model->with('isTeacher', 'isSubject', 'isClass', 'getLesson')
+        $result = $this->model->with('isTeacher', 'isSubject', 'isClass', 'getLesson')->orderBy('course_id','desc')
 //            ->select('course_id', 'name', 'avartar', 'summary')
             ->whereHas('isTeacher', function ($query) { })
             ->whereHas('isSubject', function ($query) { })
@@ -30,7 +30,7 @@ class CourseRepository extends Repository
 
     public function search($params){
         $timeNow = time();
-        $query = $this->model->with('isTeacher', 'isSubject', 'isClass', 'getLesson');
+        $query = $this->model->with('isTeacher', 'isSubject', 'isClass', 'getLesson')->orderBy('course_id','desc');
         if (!empty($params['classes_id']) && $params['classes_id'] != null && $params['classes_id'] != '0') {
             $query->where('classes_id',$params['classes_id']);    
         }

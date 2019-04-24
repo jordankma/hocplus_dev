@@ -32,9 +32,13 @@
                     {{-- <strong style="font-size: 20px; color: #152b75">Học sinh</strong> --}}
                     <form class="parents-student show" id="form-login" method="post" action="{{ route('hocplus.frontend.auth.login') }}">
                         <div class="form-group notification" id="login-notification" style="display: none;">
-                            <div class="text">Thông tin đăng nhập không chính xác.
+                            <div class="text">Thông tin đăng nhập không chính xác hoặc tài khoản chưa kích hoạt.
                                 <br>Vui lòng kiểm tra lại.</div>
                             <span class="hiddenLabel"></span>
+                        </div>
+                        <div class="form-group notification" id="register-notification-done" style="display: none;">
+                            <div class="text" id="forgot-notification-text">Chúc mừng bạn đã đăng ký tài khoản thành công. Mời bạn kiểm tra mail để kích hoạt trước khi đăng nhập!</div>
+                            {{-- <button class="hiddenLabel"></button> --}}
                         </div>
                         <div class="form-group email">
                             <input class="form-control " type="email,phone" id="login-email" placeholder="Email hoặc số điện thoại">
@@ -81,10 +85,6 @@
                     <div class="form-group notification" id="register-notification" style="display: none;">
                         <div class="text" id="register-notification-text"></div>
                         <span class="hiddenLabel"></span>
-                    </div>
-                    <div class="form-group notification" id="register-notification-done" style="display: none;">
-                        <div class="text" id="forgot-notification-text">Chúc mừng bạn đã đăng ký tài khoản thành công. Xin mời đăng nhập!</div>
-                        <button class="hiddenLabel"></button>
                     </div>
                     <div class="form-group email">
                         <input class="form-control " type="email,phone" id="register-email" placeholder="Email hoặc số điện thoại">
@@ -178,10 +178,10 @@
                     </div>
                 </form>
 
-                <div class="other show">
+                {{-- <div class="other show">
                     <p>- Hoặc -</p>
                     <a href="" class="btn btn-facebook"><i class="fa fa-facebook"></i> <span>Đăng ký bằng facebook</span></a>
-                </div>
+                </div> --}}
 
             </div>
         </div>

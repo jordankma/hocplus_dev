@@ -1,7 +1,7 @@
 @extends('HOCPLUS-FRONTEND::layouts.frontend')
 
 {{-- Page title --}}
-@section('title'){{ "Homepage" }}@stop
+@section('title'){{ "Hocplus - Trang học trực tuyến uy tín nhất hiện nay" }}@stop
 
 {{-- page level styles --}}
 @section('header_styles')

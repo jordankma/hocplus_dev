@@ -20,9 +20,9 @@
                         <nav class="list">
                                 <ul class="nav">
                                         <li class="nav-item">
-                                                <a href="/bang-thong-tin" class="nav-link">
+                                                <a href="/khoa-hoc-cua-toi" class="nav-link">
                                                         <i class="fa fa-dashboard"></i>
-                                                        <span>Bảng thông tin</span>
+                                                        <span>Khóa học của tôi</span>
                                                 </a>
                                         </li>
                                         <li class="nav-item">
@@ -32,7 +32,7 @@
                                                 </a>
                                         </li>
                                         <li class="nav-item">
-                                                <a href="/khoa-hoc-cua-toi" class="nav-link">
+                                                <a href="/khoa-hoc-da-thich" class="nav-link">
                                                         <i class="fa fa-heart"></i>
                                                         <span>Wishlist</span>
                                                 </a>

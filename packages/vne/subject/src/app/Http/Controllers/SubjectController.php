@@ -70,7 +70,7 @@ class SubjectController extends Controller
             if ($subject->save()) {
                 if(!empty($request->input('classes'))){
                     foreach ($request->input('classes') as $classes ){
-                        DB::table('class_has_subject')->insert([
+                        DB::table('vne_class_has_subject')->insert([
                             'classes_id' => $classes,
                             'subject_id' => $subject->subject_id,
                         ]);
@@ -144,10 +144,10 @@ class SubjectController extends Controller
             $subject->updated_at = new DateTime();
 
             if ($subject->save()) {
-                DB::table('class_has_subject')->where('subject_id',$subject_id)->delete();
+                DB::table('vne_class_has_subject')->where('subject_id',$subject_id)->delete();
                 if(!empty($request->input('classes'))){
                     foreach ($request->input('classes') as $classes ){
-                        DB::table('class_has_subject')->insert([
+                        DB::table('vne_class_has_subject')->insert([
                             'classes_id' => $classes,
                             'subject_id' => $subject->subject_id,
                         ]);

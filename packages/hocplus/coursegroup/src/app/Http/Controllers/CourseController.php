@@ -12,6 +12,7 @@ use Hocplus\Coursegroup\App\Models\Course;
 use Hocplus\Coursegroup\App\Models\Comments;
 use Hocplus\Coursegroup\App\Models\MemberHasCourse;
 use Hocplus\Coursegroup\App\Models\MemberHasWishlist;
+use Hocplus\Coursegroup\App\Models\ClassHasSubject;
 
 use Hocplus\Coursegroup\App\Repositories\CourseRepository;
 use Auth,Validator;
@@ -71,16 +72,19 @@ class CourseController extends Controller
         $url = config('app.url');
         $data_reponse['status'] = false;
         $member_id = Auth::guard('member')->id();
+        // $member_id = Auth::guard('member')->id() != null ? Auth::guard('member')->id() : $request->input('member_id');
         $type_member = 'student';
         try {
             $temp = 'get-token?member_id=' . $member_id . '&course_id=' . $course_id . '&lesson_id=' . $lesson_id . '&time=' . $time_now . '&type=' . $type_member;
             $encrypted = self::my_simple_crypt( $temp , 'e' );
+            // dd($encrypted);
             $data_reponse = file_get_contents($url . '/' . 'resource/' . $encrypted);
             $data_reponse = json_decode($data_reponse,true);
             $url_stream = config('site.url_stream');
             if($data_reponse['status'] == true){
                 $token = $data_reponse['data']['token'];
                 $url = $url_stream . "?token=" . $token;
+                // dd($url);
                 return redirect($url);
             }
         } catch (\Throwable $th) {
@@ -148,5 +152,18 @@ class CourseController extends Controller
             };
         }
         return response()->json($data);
+    }
+
+    public function getSubject(Request $request){
+        $classes_id = $request->input('classes_id');
+        $subjects = ClassHasSubject::where('classes_id',$classes_id)->select('subject_id')->get();
+        $str = '<option>Chọn môn</option>';
+        if(count($subjects) > 0){
+            foreach($subjects as $element){
+                $subject = Subject::where('subject_id', $element->subject_id)->first();
+                $str .= '<option>' . $subject->subject_id .'</option>';
+            }
+        }
+        return response()->json(['str'=> $str]);
     }
 }

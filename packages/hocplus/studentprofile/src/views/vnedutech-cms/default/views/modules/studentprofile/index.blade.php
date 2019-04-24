@@ -3,7 +3,11 @@
 @section('title', 'Hồ sơ cá nhân')
 
 @section('content')
-
+   <style>
+	.help-block {
+		color: red;	
+	}
+   </style>
    <main class="main ms-main">
 
       <div class="container">
@@ -12,7 +16,7 @@
             @include('HOCPLUS-STUDENTPROFILE::modules.studentprofile.include.menu_left')
 
           <div class="col-12 col-md-8 col-lg-9 ms-right">  
-            <form action="/ho-so-ca-nhan-hoc-sinh" enctype="multipart/form-data" method="post">  
+            <form action="/ho-so-ca-nhan-hoc-sinh" enctype="multipart/form-data" id="form-student-profile" method="post">  
             <div class="ms-user">              
               <div class="headline">Hồ sơ cá nhân</div>
               <div class="user-block">
@@ -21,7 +25,9 @@
                    <i>Trạng thái! {{ session()->get('updateSuccess') }}</i>
                 </div>
                 @else
+					@if ($USER_LOGGED->status==1)
                     <div class="status"><i>Trạng thái! Tài khoản chưa cập nhật thông tin</i></div> 
+					@endif
                 @endif                             
                 <div class="grid avatar">
                   <div class="grid-25">
@@ -39,7 +45,7 @@
                 </div>
                 <div class="grid form-group">
                   <div class="grid-25">
-                    <label for="exampleInputManagerName">Họ và tên của bạn</label>
+                    <label for="exampleInputManagerName">Họ và tên của bạn *</label>
                   </div>
                   @if($USER_LOGGED)
                   <div class="grid-75">
@@ -55,7 +61,7 @@
                 </div>
                 <div class="grid form-group">
                   <div class="grid-25">
-                    <label for="exampleInputManagerSex">Giới tính</label>
+                    <label for="exampleInputManagerSex">Giới tính *</label>
                   </div>
                   <div class="grid-75">
                     <div class="grid form-group check">
@@ -87,7 +93,7 @@
                         @endif
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadiosSex" id="exampleInputManagerOther"
+                        <input class="form-check-input" type="radio" name="gender" id="exampleInputManagerOther"
                           value="option3">
                         <label class="form-check-label" for="exampleInputManagerOther">Khác</label>
                         <span class="checkmark"></span>
@@ -98,7 +104,7 @@
                 </div>
                 <div class="grid form-group">
                   <div class="grid-25">
-                    <label for="exampleInputManagerBirthday">Ngày sinh</label>
+                    <label for="exampleInputManagerBirthday">Ngày sinh *</label>
                   </div>
                   <div class="grid-75">
                     <div class="grid">
@@ -144,7 +150,7 @@
                 <div class="grid form-group">
                   @if($USER_LOGGED)
                   <div class="grid-25">
-                    <label for="exampleInputManagerAddress">Địa chỉ</label>
+                    <label for="exampleInputManagerAddress">Địa chỉ *</label>
                   </div>
                   <div class="grid-75">
                     <input class="form-control" type="text" id="exampleInputManagerAddress" name="address"
@@ -152,7 +158,7 @@
                   </div>
                   @else
                   <div class="grid-25">
-                    <label for="exampleInputManagerAddress">Địa chỉ</label>
+                    <label for="exampleInputManagerAddress">Địa chỉ *</label>
                   </div>
                   <div class="grid-75">
                     <input class="form-control" type="text" id="exampleInputManagerAddress" name="address"
@@ -163,7 +169,7 @@
                 <div class="grid form-group">
                   @if($USER_LOGGED)
                   <div class="grid-25">
-                    <label for="exampleInputManagerPhone">Số điện thoại</label>
+                    <label for="exampleInputManagerPhone">Số điện thoại *</label>
                   </div>
                   <div class="grid-75">
                     <input class="form-control" type="text" id="exampleInputManagerPhone" name="phone"
@@ -171,7 +177,7 @@
                   </div>
                   @else
                   <div class="grid-25">
-                    <label for="exampleInputManagerPhone">Số điện thoại</label>
+                    <label for="exampleInputManagerPhone">Số điện thoại *</label>
                   </div>
                   <div class="grid-75">
                     <input class="form-control" type="text" id="exampleInputManagerPhone" name="phone"
@@ -182,19 +188,19 @@
                 <div class="grid form-group">
                   @if($USER_LOGGED)
                   <div class="grid-25">
-                    <label for="exampleInputManagerSchool">Trường học</label>
+                    <label for="exampleInputManagerSchool">Trường học *</label>
                   </div>
                   <div class="grid-75">
                     <input class="form-control" type="text" id="exampleInputManagerSchool" name="school"
-                    value="{{$USER_LOGGED->school}}"  placeholder="Vui lòng nhập tên trường học bạn đang giảng dạy">
+                    value="{{$USER_LOGGED->school}}"  placeholder="Vui lòng nhập tên trường học bạn đang học">
                   </div>
                   @else
                   <div class="grid-25">
-                    <label for="exampleInputManagerSchool">Trường học</label>
+                    <label for="exampleInputManagerSchool">Trường học *</label>
                   </div>
                   <div class="grid-75">
                     <input class="form-control" type="text" id="exampleInputManagerSchool" name="school"
-                    placeholder="Vui lòng nhập tên trường học bạn đang giảng dạy">
+                    placeholder="Vui lòng nhập tên trường học bạn đang học">
                   </div>                  
                   @endif
                 </div>
@@ -223,6 +229,7 @@
             <input type="hidden" name="member_id" value="0">
             @endif
             </form>
+            <br>
             <div class="ms-user">
               <div class="headline">Thay đổi mật khẩu</div>
               <div class="user-block">
@@ -301,3 +308,60 @@
 
 @endsection
 
+{{-- page level scripts --}}
+
+@section('footer_scripts')
+<script src="{{ config('site.url_static') .'/vendor/vnedutech-cms/default/hocplus/teacherfrontend/src/js/jquery-3.3.1.min.js' }}"></script>
+
+
+  <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/bootstrapvalidator/js/bootstrapValidator.min.js' }}" type="text/javascript"></script>
+   <script type="text/javascript">
+   $(document).ready(function() {
+	   //console.log( "ready!" );
+	   $('#form-student-profile').bootstrapValidator({
+		  feedbackIcons: {
+			  // validating: 'glyphicon glyphicon-refresh',
+		  },
+		  fields: {
+			  name: {
+				  validators: {
+					  notEmpty: {
+						  message: 'Trường này không được bỏ trống'
+					  },
+					  stringLength: {
+						  max: 150,
+						  message: 'Trường này không được quá dài'
+					  }
+				  }
+			  },
+			  address: {
+				  validators: {
+					  notEmpty: {
+						  message: 'Trường này không được bỏ trống'
+					  }
+				  }
+			  },
+			  school: {
+				  validators: {
+					  notEmpty: {
+						  message: 'Trường này không được bỏ trống'
+					  }
+				  }
+			  },			  
+			  phone: {
+				  validators: {
+					  notEmpty: {
+						  message: 'Trường này không được bỏ trống'
+					  },
+					  stringLength: {
+						  min: 1,
+						  max: 10,
+						  message: 'Số điện thoại không đúng định dạng'
+					  }
+				  }
+			  }
+		  }
+		});   
+   });
+   </script>
+ @endsection

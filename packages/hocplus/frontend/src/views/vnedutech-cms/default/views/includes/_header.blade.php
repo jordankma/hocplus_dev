@@ -123,7 +123,8 @@
                                 </div>
                             </div> <!-- / notification --> --}}
                         @else
-                            <button class="btn btn-user">Đăng nhập</button> <!-- / user -->
+                        <button class="btn btn-user btn-log-in">Đăng nhập</button> <!-- / user -->
+                        <button class="btn btn-user btn-registration">Đăng ký</button> <!-- / user -->
                         @endif
                     </div> <!-- / right -->
                 </div> <!-- / inner -->

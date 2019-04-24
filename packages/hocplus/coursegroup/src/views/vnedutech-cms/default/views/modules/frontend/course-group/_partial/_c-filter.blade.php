@@ -15,7 +15,7 @@
                         <label class="form-check-label" for="checkbox2">Đang diễn ra</label>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" name="classes_id">
+                        <select class="form-control" name="classes_id" id="classes">
                             <option selected="true" value="0">Theo lớp</option>
                             @if(!empty($list_classes))
                             @foreach($list_classes as $element)

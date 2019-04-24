@@ -1,7 +1,7 @@
 <?php
 
 return [
-    "email_unique" => "Your email is already use.",
-    "confirm_password_same" => "Confirm password not same.",
-    "confirm_password_required" => "Confirm password is required.",
+    "email_unique" => "Email đã được sử dụng!",
+    "confirm_password_same" => "Mật khẩu xác nhận không đúng",
+    "confirm_password_required" => "Mật khẩu xác nhận bắt buộc",
 ];

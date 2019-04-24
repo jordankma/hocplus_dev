@@ -88,8 +88,8 @@ class TeacherfrontendController extends Controller
         $teacher_id = Auth::guard('teacher')->id();
         $teacher = Teacher::where('teacher_id',$teacher_id)->with('getClasses','getSubject')->first();
         $timeNow = time();
-        $courses = Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->paginate(5, ['*'], 'page-course');
-        $courses_end =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('teacher_id',$teacher_id)->where('date_end', '<', $timeNow)->limit(4)->paginate(5, ['*'], 'page-course-end');
+        $courses = Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->orderBy('course_id','desc')->where('teacher_id',$teacher_id)->paginate(5, ['*'], 'page-course');
+        $courses_end =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->orderBy('course_id','desc')->where('teacher_id',$teacher_id)->where('date_end', '<', $timeNow)->limit(4)->paginate(5, ['*'], 'page-course-end');
         $data = [
             'teacher' => $teacher,
             'courses' => $courses,
@@ -151,8 +151,8 @@ class TeacherfrontendController extends Controller
                 $path_avatar = $request->file('avatar')->store(
                     'hocplus/teacher/'. $teacher_id . '/avatars' , 'static'
                 );    
-                $teacher->avatar_index = '/' . $path_avatar;
-                $teacher->avatar_detail = '/' . $path_avatar;
+                $teacher->avatar_index = '/files' . '/' . $path_avatar;
+                $teacher->avatar_detail = '/files' . '/' . $path_avatar;
             }
         }
         //end update avatar
@@ -166,7 +166,7 @@ class TeacherfrontendController extends Controller
                 $path_image_cmt_before = $request->file('image_cmt_before')->store(
                     'hocplus/teacher/'. $teacher_id . '/cmt' , 'static'
                 );    
-                $teacher->image_cmt_before = '/' . $path_image_cmt_before;
+                $teacher->image_cmt_before = '/files' . '/' . $path_image_cmt_before;
             }
         }
         if($request->hasFile('image_cmt_after')){
@@ -178,7 +178,7 @@ class TeacherfrontendController extends Controller
                 $path_image_cmt_after = $request->file('image_cmt_after')->store(
                     'hocplus/teacher/'. $teacher_id . '/cmt' , 'static'
                 );    
-                $teacher->image_cmt_after = '/' . $path_image_cmt_after;
+                $teacher->image_cmt_after = '/files' . '/' . $path_image_cmt_after;
             }
         }
         //end update cmt
