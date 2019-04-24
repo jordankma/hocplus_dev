@@ -37,7 +37,7 @@
               </p>
             </div>
           </div>
-          <a class="btn" href="{{URL::to('khoa-hoc-cua-toi')}}">Xem khóa học</a>
+          <a class="btn" href="#">Xem khóa học</a>
         </div>
       </section> <!-- / notification -->
 </main>

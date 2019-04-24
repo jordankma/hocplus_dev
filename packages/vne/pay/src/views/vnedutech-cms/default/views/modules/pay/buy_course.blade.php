@@ -38,10 +38,10 @@
                         <div class="col-12 col-md-9">
                           <div class="content">
                             <div class="img">
-                              <a href="{{ route('hocplus.course.detail',$data['course_id']) }}"><img src="{{ config('site.url_static') . $data['avartar'] }}" alt=""></a>
+                              <a href="chi-tiet-khoa-hoc.html"><img src="{{$data['avartar']}}" alt=""></a>
                             </div>
                             <div class="info">
-                              <h3 class="name"><a href="{{ route('hocplus.course.detail',$data['course_id']) }}">{{$data['name']}}</a></h3>
+                              <h3 class="name"><a href="chi-tiet-khoa-hoc.html">{{$data['name']}}</a></h3>
                               <div class="lecturers">
                                 <div class="avatar">
                                   <img src="{{$data['teacher_avatar']}}" alt="">
@@ -85,7 +85,6 @@
                     <div class="number total_price">{{number_format($data['price'], 0, ',', '.')}}<span>đ</span></div>
                   </div>
                 </div>
-                @if(!$checkExits)
                 <div class="discount-code">
                   <form>
                     <div class="form-group">
@@ -99,9 +98,8 @@
                     </div>
                     <button type="button" class="btn btn-use-voucher">Áp dụng</button>
                   </form>
-                </div>                
-                  <a href="#" class="btn btn-buying">Mua khóa học</a>
-                @endif
+                </div>
+                <a href="#" class="btn btn-buying">Mua khóa học</a>
               </div>
 
             </div><!-- / right -->

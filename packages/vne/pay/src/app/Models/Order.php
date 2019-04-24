@@ -16,7 +16,7 @@ class Order extends Model {
 
     protected $primaryKey = 'order_id';
 
-    protected $fillable = ['course_id', 'order_code', 'user_id', 'voucher_id', 'total_money', 'total_discount', 'money_payment', 'status', 'type'];
+    protected $fillable = ['course_id', 'order_code', 'user_id', 'voucher_id', 'total_money', 'total_discount', 'money_payment', 'status', 'type', 'method'];
 
     protected $dates = ['deleted_at'];
     

@@ -7,17 +7,8 @@
 @section('header_styles')
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <style>
-.has-error .form-control {
-    border-color: #EF6F6C;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-}
-.info-wallet{
-    font-size: 16px;
-}
-.deposit{
-    font-size: 18px;
-    color: red;
+.form-control-img .btn-success{
+    margin-top: -28px;
 }
 </style>
 @stop
@@ -58,7 +49,6 @@
         </div>
         @if(!empty($payMethods))
             @foreach($payMethods as $i => $method)
-                
                 @php
                     $detail  = !empty($method['detail']) ?  json_decode($method['detail'], true) : [];
                 @endphp
@@ -118,7 +108,7 @@
                                 <div class="tabs-item {{$i == 0 ? 'tabs-active' : ''}}" data-tab="#hocplus-card">
                                     <div class="wrapper">
                                         <div class="inner">
-                                            <img style="width: 80px; height:37px;" src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/logo-pay.png' }}" alt="">
+                                            <img src="{{asset($info['img'])}}" alt="">
                                         </div>
                                     </div>
                                 </div>                        
@@ -127,14 +117,14 @@
                         @endif
                         
                     </div>
-                    <form class="form-horizontal form bank-card-active" id="hocplus-card">
+                    <form class="form bank-card-active" id="hocplus-card">
                         <div class="form-group">
                             <label for="exampleInputCodHocPlusCardNumber">Mã thẻ cào Học Plus</label>
-                            <input type="text" class="form-control" name="card_code" id="card_code" placeholder="Nhập mã số thẻ cào">
+                            <input type="text" class="form-control" id="card_code" placeholder="Nhập mã số thẻ cào">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputCodHocPlusCardSeri">Số Seri</label>
-                            <input type="text" class="form-control" name="card_seri" id="card_seri" placeholder="Nhập Serial">
+                            <input type="text" class="form-control" id="card_seri" placeholder="Nhập Serial">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputCodHocPlusCardSeriConfirm">Mã xác nhận</label>
@@ -225,14 +215,6 @@
                     </div>
                     <a href="javascript:void(0,0)" class="btn btn-buying buy-tranfer">Mua khóa học</a>
                 </div>
-                @elseif($method['type'] == 'wallet')
-                <div class="bank {{ $i == 0 ? 'pay-active' : ''}}" id="method_{{$method['payment_id']}}">
-                    <div class="inner">
-                        <div class="info-wallet">Ví của bạn đang có <span class="deposit">{{number_format($deposit->deposit, 0, ',', '.')}}</span>đ</div>
-                        <div class="nap-tien"><a href="{{route('vne.wallet.recharge')}}">Nạp tiền</a></div>
-                    </div>
-                    <a href="javascript:void(0,0)" class="btn btn-buying pay-wallet">Mua khóa học</a>
-                </div>
                 @endif
             @endforeach
         @endif        
@@ -251,7 +233,6 @@
         var routeApigetCourseRun = '{{ route('hocplus.frontend.api.getCourseRun') }}';
     </script>
     <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/script/homepage.js' }}"></script>
-    <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/bootstrapvalidator/js/bootstrapValidator.min.js' }}" type="text/javascript"></script>
     <script>
         $('body').on('change', '.city', function(){
             let matp = $(this).val();
@@ -329,7 +310,6 @@
 
 
         $('body').on('click', '.pay-card', function(){
-            
             let card_code = $("#card_code").val();
             let card_seri = $("#card_seri").val();
             let captcha = $("#captcha").val();            
@@ -346,7 +326,7 @@
                     card_code, card_seri, order_code, secret_key, captcha                
                 },
                 success: function (response) {
-                    alert(response.msg);
+                    
                     if (response.status == true) {
                         window.location.href = response.redirect;                    
                     } else{
@@ -354,8 +334,7 @@
                         if(response.errors.captcha){
                             $("#error_captcah").text(response.errors.captcha[0]);
                         }
-                        
-                        $('#hocplus-card').bootstrapValidator('validate');                        
+                        alert(response.msg);
                     }
                     
                 }
@@ -396,35 +375,6 @@
             }, 'json');
         });
 
-        $('body').on('click', '.pay-wallet', function(){
-            var result = confirm("Bạn có chắc chắn muốn mua khóa học này?");
-            if (result) {
-                let order_code = '{{request()->get('order_code')}}';
-                let secret_key = '{{request()->get('secret_key')}}';
-                $.ajax({
-                    url: '/pay-course/pay-wallet',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name=csrf-token]').prop('content')
-                    },
-                    type: 'POST',
-                    cache: false,
-                    data: {
-                        order_code, secret_key
-                    },
-                    success: function (response) {
-                        if(response.status == true){
-                            window.location.href = response.redirect; 
-                        } else{
-                            alert(response.msg);
-                        }                                        
-                    }
-                }, 'json');
-            } else {
-                return false;
-            }
-            
-        });
-
         $('body').on('click', '.buy-tranfer', function(){
             
             let order_code = '{{request()->get('order_code')}}';
@@ -448,27 +398,5 @@
                 }
             }, 'json');
         });
-
-        $('#hocplus-card').bootstrapValidator({
-            excluded: ':disabled',
-            trigger: 'blur',
-            fields: {
-                card_code: {
-                    validators: {
-                        notEmpty: {
-                            message: ' '
-                        }
-                    }
-                },
-                card_seri: {
-                    validators: {
-                        notEmpty: {
-                            message: ' '
-                        }
-                    }
-                }                
-            }
-        });
-
     </script>
 @stop
