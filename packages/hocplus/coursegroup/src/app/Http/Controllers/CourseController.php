@@ -13,7 +13,7 @@ use Hocplus\Coursegroup\App\Models\Comments;
 use Hocplus\Coursegroup\App\Models\MemberHasCourse;
 use Hocplus\Coursegroup\App\Models\MemberHasWishlist;
 use Hocplus\Coursegroup\App\Models\ClassHasSubject;
-
+use Hocplus\Rating\App\Models\Rating;
 use Hocplus\Coursegroup\App\Repositories\CourseRepository;
 use Auth,Validator;
 class CourseController extends Controller
@@ -56,11 +56,59 @@ class CourseController extends Controller
         //get comment 
         $comments = Comments::where('course_id','=',$course_id)->where('status',1)->orderBy('updated_at')->get();
         //end get comment
+        //get rating
+        $rate = 0;
+        /*if ($course) {
+            //$rate = $course->rate;
+        }*/
+        $rating = new Rating;
+        $rate_result = $rating->where('course_id', '=',$course_id)->get();
+        $stars = array();
+        $total = count($rate_result);
+        $dem = 0;
+        for ($i= 1; $i<=5; $i++) {
+            $stars[$i] = 0;
+            foreach ($rate_result as $item) {
+                if ($item->rate == $i) {
+                    $stars[$i]++;
+                    $dem++;
+                    $rate = $rate + $i;
+                }
+            }
+            
+            if ($total >0) {
+                $stars[$i] = round(100*$stars[$i]/$total);
+            }
+            
+        }
+        if ($dem>0) {
+            //echo $rate; die;
+            $rate = round($rate/$dem,1); //die;
+        }
+        else {
+            $rate = 0;
+        }
+        /*
+        if ($rate_result) {
+            print_r($rate_result); die;
+        }*/
+        $member = $this->user;
+        if ($member) {
+            $member_id = $member->member_id;
+        }
+        else {
+            $member_id = 0;
+        }
+        //end get rating
         $data = [
             'course' => $course,
             'list_course_relate' => $list_course_relate,
             'is_register' => $is_register,
-            'comments' => $comments
+            'member_id' => $member_id,
+            'comments' => $comments,
+            'rate' => $rate,
+            'stars' => $stars,
+            'course_id' => $course_id
         ];
         return view('HOCPLUS-COURSEGROUP::modules.frontend.course.index',$data);
     }

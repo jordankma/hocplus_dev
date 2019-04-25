@@ -3,7 +3,7 @@
     <div class="inner">
         <div class="left">
             <div class="bg">
-                <span><img src="images/bg-user.png" alt=""></span>
+                <span><img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/bg-user.png' }}" alt=""></span>
             </div>
             <div class="wrapper">
 

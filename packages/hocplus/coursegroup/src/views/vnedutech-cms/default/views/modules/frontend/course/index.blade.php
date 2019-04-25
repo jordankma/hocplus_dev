@@ -107,8 +107,34 @@
     <script>
         $(document).ready(function () {
             $('body').on('click','.statu',function(){
-                
+                 
             });
+            var rate; 
+            $('.rating').click(function(){
+                rate= $(this).data('value'); //alert(rate);
+                $.ajax('/rate/submit', {
+                        type: 'POST',  // http method
+                        data: { 
+                            rate: rate, 
+                            course_id: {{$course_id}},
+                            member_id: {{$member_id}},
+                        },  // data to submit
+                        success: function (data, status, xhr) {
+                            if (data==2) {
+                                alert('bạn phải đăng nhập mới được đánh giá')
+                            }
+                            if (data==0) {
+                                alert('bạn đã đánh giá rồi')
+                            }
+                            if (data==1) {
+                                alert('Cảm ơn bạn đã đánh giá');
+                            }
+                        },
+                        error: function (jqXhr, textStatus, errorMessage) {
+                                //$('p').append('Error: ' + errorMessage);
+                        }
+                });           
+            });   
         });
     </script>
 @stop
