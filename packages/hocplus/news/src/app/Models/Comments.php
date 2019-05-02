@@ -10,7 +10,7 @@ namespace Hocplus\News\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Adtech\Core\App\Models\User;
+use Vne\Member\App\Models\Member;
 class Comments extends Model
 {
     use SoftDeletes;
@@ -19,14 +19,19 @@ class Comments extends Model
      *
      * @var string
      */
-    protected $table = 'comments';
+    protected $table = 'hocplus_comments';
 
     protected $primaryKey = 'id';
-    //protected static $cat;
-    //protected $guarded = ['news_id'];
+
     protected $dates = ['deleted_at'];
+    
     public function getUser(){
-        $user = User::find($this->user_id);
-        return $user->contact_name;
+        $user = Member::find($this->user_id);
+        if ($user) {
+            return $user;
+        }
+        else {
+            return null;
+        }
     }
 }

@@ -73,6 +73,7 @@ return array(
     'Illuminate\\' => array($vendorDir . '/laravel/framework/src/Illuminate'),
     'Hocplus\\Teacherfrontend\\' => array($baseDir . '/packages/hocplus/teacherfrontend/src'),
     'Hocplus\\Teacher\\' => array($baseDir . '/packages/hocplus/teacher/src'),
+    'Hocplus\\Studentprofile\\' => array($baseDir . '/packages/hocplus/studentprofile/src'),
     'Hocplus\\News\\' => array($baseDir . '/packages/hocplus/news/src'),
     'Hocplus\\Frontend\\' => array($baseDir . '/packages/hocplus/frontend/src'),
     'Hocplus\\Coursegroup\\' => array($baseDir . '/packages/hocplus/coursegroup/src'),

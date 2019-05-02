@@ -9,4 +9,7 @@ Route::group(array('prefix' => $prefix), function() {
     Route::post('add-wishlist', 'CourseController@addWishlist')->name('hocplus.course.add.wishlist');
 
     Route::get('ajax/get-subject', 'CourseController@getSubject')->name('hocplus.course.ajax.get-subject');
+
+    Route::get('sync-course', 'CourseController@syncCourse')->name('sync_course');
+    Route::get('search-course', 'CourseController@searchCourse')->name('search_course');
 });

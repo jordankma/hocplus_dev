@@ -15,9 +15,6 @@ class RatingController extends Controller
     public function index($course_id) {
         $course = Course::findOrfail($course_id);
         $rate = 0;
-        /*if ($course) {
-            //$rate = $course->rate;
-        }*/
         $rating = new Rating;
         $rate_result = $rating->where('course_id', '=',$course_id)->get();
         $stars = array();
@@ -39,16 +36,11 @@ class RatingController extends Controller
             
         }
         if ($dem>0) {
-            //echo $rate; die;
-            $rate = round($rate/$dem,1); //die;
+            $rate = round($rate/$dem,1); 
         }
         else {
             $rate = 0;
         }
-        /*
-        if ($rate_result) {
-            print_r($rate_result); die;
-        }*/
         $member = $this->user;
         if ($member) {
             $member_id = $member->member_id;
@@ -63,20 +55,23 @@ class RatingController extends Controller
         $rating = new Rating;
         
         if ($request->member_id>0) {
-            $rating_exist = Rating::where('member_id','=',$request->member_id)->get();
+            $rating_exist = Rating::where('member_id','=',$request->member_id)->where('course_id',$request->course_id)->get();
             if (count($rating_exist)>0) {
-                return 0;
+                $result = array('result' => 0, 'rate' => $request->rate);
+                return json_encode($result);
             }
             else {
                 $rating->course_id = $request->course_id;
                 $rating->member_id = $request->member_id;
                 $rating->rate = $request->rate;
                 $rating->save();
-                return 1;
+                $result = array('result' => 1, 'rate' => $request->rate);
+                return json_encode($result);
             }
         }
         else {
-            return 2;
+            $result = array('result' => 2, 'rate' => $request->rate);
+            return json_encode($result);
         }
     }
 }

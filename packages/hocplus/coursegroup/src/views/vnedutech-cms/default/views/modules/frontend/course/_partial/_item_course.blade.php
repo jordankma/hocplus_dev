@@ -24,8 +24,8 @@
                 </div>
             </div>
             <div class="subjects-class">
-                <a href="{{ route('hocplus.course.list', ['subject_id' => $course->isSubject->subject_id])}}">
-                    <div class="subjects"><span>{{ $course->isSubject->name }}</span></div>
+                <a href="{{ route('hocplus.course.list', ['subject_id' => isset($course->isSubject->subject_id) ? $course->isSubject->subject_id : '']) }}">
+                    <div class="subjects"><span>{{ isset($course->isSubject->name) ? $course->isSubject->name : '' }}</span></div>
                 </a>
                 <a href="{{ route('hocplus.course.list', ['classes_id' => $course->isClass->classes_id])}}">
                     <div class="class"><span>{{ $course->isClass->name }}</span></div>

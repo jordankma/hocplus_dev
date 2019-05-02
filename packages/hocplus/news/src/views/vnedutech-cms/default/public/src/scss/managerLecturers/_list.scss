@@ -1,0 +1,200 @@
+@import '../variables';
+
+.ml-list {
+    padding-top: 5px;
+
+    .headline {
+        text-align: center;
+        @media (min-width: $breakpoints-md) {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+        }
+
+        .title {
+            @extend .big-text-01;
+            margin: 0;
+            color: $cl-04;
+            text-transform: uppercase;
+
+            @media (min-width: $breakpoints-md) {
+                padding-right: 165px;
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            justify-content: center;
+            align-items: center;
+            background: $cl-04;
+            color: $c-white;
+            padding: 8px 25px;
+            border: 0;
+            margin-top: 10px;
+            @media (min-width: $breakpoints-md) {
+              display: flex;
+              width: 150px;
+              padding: 0;
+              height: 40px;
+              margin-top: 0;
+            }
+        }
+    }
+
+    >.list {
+        @extend .big-text;
+        margin-top: 20px;
+        background: $c-white;
+        box-shadow: $bs-01;
+        padding-bottom: 25px;
+
+        >.c-navigation {
+            padding-top: 25px;
+        }
+
+        .table-responsive {
+            max-height: 457px;
+            border: 1px solid $bc-01;
+
+            .table {
+                thead {
+                    background: $cl-06;
+                    color: $c-white;
+
+                    tr {
+                        th {
+                            text-align: left;
+                            padding: 14.5px 15px;
+
+                            &:nth-child(1) {
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+
+                tbody {
+                    tr {
+                        border-top: 1px solid $bc-01;
+
+                        th,
+                        td {
+                            padding: 16px 15px;
+                            vertical-align: initial;
+                        }
+                    }
+                }
+            }
+        }
+
+        .number {
+            width: 140px;
+            &.number-student {
+                width: auto;
+            }
+        }
+
+        .title {
+            width: 295px;
+            font-weight: 500;
+
+            a {
+                color: $cl-06;
+                text-decoration: none;
+            }
+        }
+
+        .price {
+            color: $cl-10;
+            font-weight: 700;
+
+            >span {
+                @extend .body-text;
+                font-weight: 400;
+                color: $c-dark;
+            }
+        }
+
+        .action {
+            display: flex;
+            align-items: center;
+
+            .edit {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                align-items: center;
+                width: 54px;
+                height: 32px;
+                border-radius: $round;
+                border: 1px solid $bc-01;
+                cursor: pointer;
+
+                .fa-arrow-right {
+                    transform: rotate(90deg);
+                }
+
+                .list {
+                    @extend .body-text;
+                    display: none;
+                    position: absolute;
+                    z-index: 2;
+                    padding: 0;
+                    margin: 0;
+                    top: 100%;
+                    right: 0;
+                    width: 195px;
+                    padding-top: 10px;
+
+                    >li {
+                        list-style: none;
+                        background: $c-white;
+                        border: 1px solid $bc-01;
+                        border-top: 0;
+                        overflow: hidden;
+
+                        &:nth-child(1) {
+                            border-top: 1px solid $bc-01;
+                            border-radius: $round $round 0 0;
+                        }
+
+                        &:last-of-type {
+                            border-radius: 0 0 $round $round;
+                        }
+
+                        >a {
+                            display: block;
+                            padding: 9px 14px;
+                            text-decoration: none;
+                            color: $c-dark;
+                            transition: $transition;
+                            .fa {
+                                margin-right: 8px;
+                                color: $cl-07;
+                            }
+                            &:hover {
+                                color: $c-white;
+                                background: $cl-05;
+                                .fa {
+                                    color: $c-white;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &:hover {
+                    .list {
+                        display: block;
+                    }
+                }
+            }
+
+            .form-check-input {
+                margin-left: 15px;
+            }
+        }
+    }
+}

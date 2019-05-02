@@ -46,11 +46,13 @@
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/jquery-3.3.1.min.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/jquery.fancybox.min.js' }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/slick.min.js' }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/typeahead.bundle.min.js' }}"></script>
 {{-- <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/jquery.multiselect.js' }}"></script> --}}
 {{-- <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/teacherfrontend/src/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js' }}"></script> --}}
 @yield('footer_scripts')
 
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/main.js?time=' . time() }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/search.js?time=' . time() }}"></script>
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/script/auth.js?time=' . time() }}"></script>
 <script>
     var routeAddWishList = '{{ route('hocplus.course.add.wishlist') }}';

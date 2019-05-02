@@ -24,13 +24,13 @@ class CourseRepository extends Repository
             ->whereHas('getLesson', function ($query) { })
 //            ->where('active', 1)
 //            ->where('date_start', '>', $timeNow)
-            ->paginate(3);
+            ->paginate(15);
         return $result;
     }
 
     public function search($params){
         $timeNow = time();
-        $query = $this->model->with('isTeacher', 'isSubject', 'isClass', 'getLesson')->orderBy('course_id','desc');
+        $query = $this->model->with('isTeacher', 'isSubject', 'isClass', 'getLesson');
         if (!empty($params['classes_id']) && $params['classes_id'] != null && $params['classes_id'] != '0') {
             $query->where('classes_id',$params['classes_id']);    
         }
@@ -46,10 +46,10 @@ class CourseRepository extends Repository
         if (!empty($params['sort']) && $params['sort'] != null) {
             switch ($params['sort']) {
                 case 'new':
-                    $query->orderBy('created_at', 'desc');
+                    $query->orderBy('course_id', 'desc');
                     break;
                 case 'old':
-                    $query->orderBy('created_at', 'asc');
+                    $query->orderBy('course_id', 'asc');
                     break;
                 case 'price_up':
                     $query->orderBy('price', 'asc');
@@ -58,8 +58,10 @@ class CourseRepository extends Repository
                     $query->orderBy('price', 'desc');
                     break;
             }   
+        } else{
+            $query->orderBy('course_id','desc');
         }
-        $result = $query->paginate(3);
+        $result = $query->paginate(9);
         return $result;
     }
 

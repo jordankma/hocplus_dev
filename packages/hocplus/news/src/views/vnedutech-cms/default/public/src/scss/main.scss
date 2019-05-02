@@ -32,6 +32,7 @@
 @import 'fonts';
 @import 'reset';
 @import 'slick';
+@import 'multiselect';
 @import 'variables';
 @import 'mixins';
 @import 'layout';
@@ -43,6 +44,7 @@
 @import './components/hero';
 
 // main
+@import './components/heroMini';
 @import './components/why';
 @import './components/courseGroup';
 @import './components/lecturersGroup';
@@ -54,6 +56,10 @@
 @import './components/lecturersDetail';
 @import './components/slideout';
 @import './components/featuredNews';
+@import './components/reason';
+@import './components/target';
+@import './components/aboutLecturers';
+@import './components/registerLecturers';
 
 // left main
 @import './components/navList';
@@ -86,3 +92,19 @@
 
 // other
 @import './components/user';
+
+// manager lecturers
+@import './managerLecturers/info';
+@import './managerLecturers/list';
+@import './managerLecturers/template';
+@import './managerLecturers/detail';
+@import './managerLecturers/file';
+@import './managerLecturers/exam';
+@import './managerLecturers/question';
+@import './managerLecturers/managerQuestion';
+@import './managerLecturers/questionNew';
+
+// pay
+@import './pay/course';
+@import './pay/pay';
+@import './pay/notification';

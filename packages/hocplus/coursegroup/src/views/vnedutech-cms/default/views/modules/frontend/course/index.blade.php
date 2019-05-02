@@ -97,7 +97,13 @@
             </div> <!-- / row -->
         </div> <!-- / container -->
 
-
+    <!-- Modal -->
+    <div class="modal" id="modal-stars">
+    <div class="modal-exit"></div>
+    <div class="modal-inner" id="show_modal_result">
+        Cảm ơn bạn đã đánh giá.
+    </div>
+    </div>    
 
     </main>
 @stop
@@ -109,6 +115,7 @@
             $('body').on('click','.statu',function(){
                  
             });
+            //rating
             var rate; 
             $('.rating').click(function(){
                 rate= $(this).data('value'); //alert(rate);
@@ -121,20 +128,53 @@
                         },  // data to submit
                         success: function (data, status, xhr) {
                             if (data==2) {
-                                alert('bạn phải đăng nhập mới được đánh giá')
+                                $('#show_modal_result').html='bạn phải đăng nhập mới được đánh giá';
                             }
                             if (data==0) {
-                                alert('bạn đã đánh giá rồi')
+                                $('#show_modal_result').html='bạn đã đánh giá rồi';
                             }
                             if (data==1) {
-                                alert('Cảm ơn bạn đã đánh giá');
+                                $('#show_modal_result').html='Cảm ơn bạn đã đánh giá';
                             }
                         },
                         error: function (jqXhr, textStatus, errorMessage) {
                                 //$('p').append('Error: ' + errorMessage);
                         }
                 });           
-            });   
+            });  
+            //comment
+            var comment;
+            var course_id;
+            $('.submit').click(function(){
+                //alert('test');
+                comment = $('#comment').val();
+                course_id = $('#course_id').val();
+                if (comment == '') {
+                    alert('Bạn hãy nhập vào bình luận');
+                }
+                else {
+                    $.ajax('/comments', {
+                            type: 'POST',  // http method
+                            data: {
+                                comment: comment,
+                                news_id: <?php if (isset($news_id)) echo $news_id;?>,
+                                user_id: <?php if (isset($member_id)) echo $member_id;?>,
+                                course_id: course_id,
+                            },  // data to submit
+                            success: function (data, status, xhr) {
+                                if (data == 0) {
+                                    alert('Yêu cầu bạn phải đăng nhập');
+                                }
+                                if (data == 1) {
+                                    alert('Bình luận đã được gửi thành công và đang chờ duyệt');
+                                }
+                            },
+                            error: function (jqXhr, textStatus, errorMessage) {
+                                    //$('p').append('Error: ' + errorMessage);
+                            }
+                    });
+                }
+            });
         });
     </script>
 @stop

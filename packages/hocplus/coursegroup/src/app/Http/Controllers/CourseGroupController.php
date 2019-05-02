@@ -31,6 +31,7 @@ class CourseGroupController extends Controller
         } else{
             $listCourse = $this->course->search($params);    
         }
+        // dd($listCourse);
         $data = [
             'list_subjects' => $list_subjects,   
             'list_classes' => $list_classes,   

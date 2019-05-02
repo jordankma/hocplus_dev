@@ -60,24 +60,24 @@
         }
     }
 
-    .group {
-        margin-top: 10px;
-        margin-left: -15px;
-        margin-right: -15px;
+    // .group {
+    //     margin-top: 10px;
+    //     margin-left: -15px;
+    //     margin-right: -15px;
 
-        @media (min-width: $breakpoints-lg) {
-            transform: scale(-1);
+    //     @media (min-width: $breakpoints-lg) {
+    //         transform: scale(-1);
 
-            .c-item-course,
-            .c-item-lecturers {
-                transform: scale(-1);
-            }
-        }
+    //         .c-item-course,
+    //         .c-item-lecturers {
+    //             transform: scale(-1);
+    //         }
+    //     }
 
-        .slick-list {
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
+    //     .slick-list {
+    //         padding-top: 10px;
+    //         padding-bottom: 10px;
+    //     }
 
-    }
+    // }
 }

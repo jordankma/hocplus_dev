@@ -19,7 +19,7 @@ class Comments extends Model
      *
      * @var string
      */
-    protected $table = 'comments';
+    protected $table = 'hocplus_comments';
 
     protected $primaryKey = 'id';
 
@@ -28,7 +28,7 @@ class Comments extends Model
     public function getUser(){
         $user = Member::find($this->user_id);
         if ($user) {
-            return $user->name;
+            return $user;
         }
         else {
             return null;

@@ -1,17 +1,20 @@
 @import '../variables';
 
 .c-navigation {
-    .nav {
+    .nav,
+    .pagination {
         margin: 0;
         padding: 0;
         display: flex;
         justify-content: center;
         margin: -10px -4px 0 -4px;
-        .nav-item {
+        .nav-item,
+        .page-item {
             list-style: none;
             padding: 0 4px;
             margin-top: 10px;
-            .nav-link {
+            .nav-link,
+            .page-link {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -25,6 +28,14 @@
                 transition: $transition;
                 &:hover,
                 &.active {
+                    background: $cl-06;
+                    color: $c-white;
+                    border-color: $cl-06;
+                }
+            }
+            &.active {
+                .nav-link,
+                .page-link {
                     background: $cl-06;
                     color: $c-white;
                     border-color: $cl-06;

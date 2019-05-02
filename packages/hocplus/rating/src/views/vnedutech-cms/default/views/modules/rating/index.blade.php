@@ -214,12 +214,12 @@
               <div class="evaluate">
                 <div class="btn-evaluate">
                   <span class="text">Đánh giá</span>
-                  <span class="stars js-stars" >
-                    <i class="fa fa-star star rating" id="rating" data-value="1"></i>
-                    <i class="fa fa-star star rating" data-value="2"></i>
-                    <i class="fa fa-star star rating" data-value="3"></i>
-                    <i class="fa fa-star star rating" data-value="4"></i>
-                    <i class="fa fa-star star rating" data-value="5"></i>
+                  <span class="stars js-stars" data-modal="#modal-stars">
+                    <i class="fa fa-star star rating" id="rating1" data-value="1"></i>
+                    <i class="fa fa-star star rating" id="rating2" data-value="2"></i>
+                    <i class="fa fa-star star rating" id="rating3" data-value="3"></i>
+                    <i class="fa fa-star star rating" id="rating4" data-value="4"></i>
+                    <i class="fa fa-star star rating" id="rating5" data-value="5"></i>
                   </span>
                 </div>
                 <div class="row inner">
@@ -505,18 +505,21 @@
         </div> <!-- / row -->
       </div> <!-- / container -->
 
-
+    <!-- Modal -->
+    <div class="modal" id="modal-stars">
+      <div class="modal-exit"></div>
+      <div class="modal-inner" id="show_modal_result">          
+      </div>
+    </div>
 
     </main> <!-- / main -->
    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function(){
-       //alert('1'); 
-         //      console.log( "document loaded" );
         var rate; 
         $('.rating').click(function(){
-            rate= $(this).data('value'); //alert(rate);
+            rate= $(this).data('value'); 
             $.ajax('/rate/submit', {
                     type: 'POST',  // http method
                     data: { 
@@ -525,14 +528,24 @@
                         member_id: {{$member_id}},
                     },  // data to submit
                     success: function (data, status, xhr) {
-                        if (data==2) {
-                            alert('bạn phải đăng nhập mới được đánh giá')
+                        var data= jQuery.parseJSON(data);
+                        var rated = data.rate;
+                        var i;
+                        if (rated > 0) {
+                            for (i=1; i<=rated; i++) {
+                                $('#rating'+i).addClass('active');
+                            }
                         }
-                        if (data==0) {
-                            alert('bạn đã đánh giá rồi')
+                        if (data.result==2) {
+                            $('#show_modal_result').html('Bạn phải đăng nhập mới được đánh giá');
                         }
-                        if (data==1) {
-                            alert('Cảm ơn bạn đã đánh giá');
+                        else
+                        if (data.result==0) {
+                            $('#show_modal_result').html('Bạn đã đánh giá rồi');
+                        }
+                        else
+                        if (data.result==1) {
+                            $('#show_modal_result').html('Cảm ơn bạn đã đánh giá');
                         }
                     },
                     error: function (jqXhr, textStatus, errorMessage) {
@@ -543,5 +556,7 @@
          
     });
 </script>
+
+
 @endsection
  

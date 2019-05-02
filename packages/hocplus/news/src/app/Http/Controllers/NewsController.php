@@ -9,7 +9,7 @@
 namespace Hocplus\News\App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Adtech\Application\Cms\Controllers\Controller as Controller;
+use Adtech\Application\Cms\Controllers\MController as Controller;
 use Hocplus\News\App\Repositories\DemoRepository;
 use Hocplus\News\App\Models\Demo;
 use Hocplus\News\App\Models\News;
@@ -19,6 +19,7 @@ use Yajra\Datatables\Datatables;
 use Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Hocplus\Teacher\App\Models\Subject;
 
 class NewsController extends Controller
 {
@@ -31,7 +32,7 @@ class NewsController extends Controller
      * danh sách tin
      */
     public function index() {
-        $news = DB::table('vne_news')->orderBy('priority')->where('deleted_at','=',NULL)->where('is_hot',2)->paginate(10);
+        $news = News::orderBy('created_at','DESC')->where('is_hot',2)->paginate(10);
         $topnews = News::orderBy('views','DESC')->limit(10)->get();
         $hotnews = News::where('is_hot',1)->get()->first();
         if ($hotnews) {
@@ -48,12 +49,25 @@ class NewsController extends Controller
     public function detail($news_id) {
         $news_id = intval($news_id);
         $news = News::find($news_id);
-        $news->views = $news->views + 1;
-        $news->save();
-        $topnews = News::orderBy('views','DESC')->limit(10)->get();    
-        $comments = Comments::where('news_id','=',$news_id)->where('status',1)->orderBy('updated_at')->get();
-        //print_r($comments[0]->getUser()); die();
-        return view('HOCPLUS-NEWS::modules.news.detail', compact('news', 'topnews', 'comments'));
+        //$user_id = $this->user->member_id;
+        $member = $this->user;
+        if ($member) {
+            $user_id = $member->member_id;
+        }
+        else {
+            $user_id = 0;
+        }        
+        if ($news) {
+            $news->views = $news->views + 1;
+            $news->save();
+            $topnews = News::orderBy('views','DESC')->limit(10)->get();    
+            $comments = Comments::where('news_id','=',$news_id)->where('status',1)->orderBy('updated_at')->get();
+            //print_r($comments[0]->getUser()); die();
+            return view('HOCPLUS-NEWS::modules.news.detail', compact('news', 'topnews', 'comments', 'news_id', 'user_id'));
+        }
+        else {
+            return redirect()->route('hocplus.frontend.index');
+        }
     }
     
     public function tags($name)

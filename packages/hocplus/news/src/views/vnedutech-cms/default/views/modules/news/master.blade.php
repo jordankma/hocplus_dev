@@ -28,182 +28,26 @@
                 <div class="inner">
                   <div class="tab">
                     <div class="tab-button">
-                      <div class="item active">Môn Toán</div>
-                      <div class="item">Môn Văn</div>
-                      <div class="item">Môn Anh</div>
-                      <div class="item">Môn Lý</div>
-                      <div class="item">Môn Hóa</div>
-                      <div class="item">Môn Sinh</div>
+                      @foreach ($subjects as $subject)
+                        <div class="item active">{{$subject->name}}</div>
+                      @endforeach
                     </div>
                     <div class="tab-body">
-                      <div class="item active">
+                      @foreach ($subjects as $k => $subject)
+                      <div class="item <?php if ($k == 0) { echo 'active'; } ?>">
                         <ul class="list">
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 1</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 2</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 3</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 4</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 5</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              6</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              7</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              8</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">
-                              Lớp 9</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 10</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 11</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 12</a></li>
+                          @if ($subject->getClass()) 
+                          @foreach ($subject->getClass() as $class)
+                          <li class="list-item">
+                              <a href="/danh-sach-khoa-hoc?subject_id={{$subject->subject_id}}&classes_id={{$class->classes_id}}"><img src="/vendor/vnedutech-cms/default/hocplus/teacher/images/icon/icon-11.png" alt="">
+                                  {{$class->name}}
+                              </a>
+                          </li>
+                          @endforeach
+                          @endif
                         </ul>
                       </div>
-                      <div class="item">
-                        <ul class="list">
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 1</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 2</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 3</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 4</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 5</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              6</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              7</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              8</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">
-                              Lớp 9</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 10</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 11</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 12</a></li>
-                        </ul>
-                      </div>
-                      <div class="item">
-                        <ul class="list">
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 1</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 2</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 3</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 4</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 5</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              6</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              7</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              8</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">
-                              Lớp 9</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 10</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 11</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 12</a></li>
-                        </ul>
-                      </div>
-                      <div class="item">
-                        <ul class="list">
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 1</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 2</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 3</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 4</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 5</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              6</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              7</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              8</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">
-                              Lớp 9</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 10</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 11</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 12</a></li>
-                        </ul>
-                      </div>
-                      <div class="item">
-                        <ul class="list">
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 1</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 2</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 3</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 4</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 5</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              6</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              7</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              8</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">
-                              Lớp 9</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 10</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 11</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 12</a></li>
-                        </ul>
-                      </div>
-                      <div class="item">
-                        <ul class="list">
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 1</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 2</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 3</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 4</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-11.png" alt="">
-                              Lớp 5</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              6</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              7</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">Lớp
-                              8</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-12.png" alt="">
-                              Lớp 9</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 10</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 11</a></li>
-                          <li class="list-item"><a href="list-khoa-hoc.html"><img src="images/icon/icon-13.png" alt="">
-                              Lớp 12</a></li>
-                        </ul>
-                      </div>
+                      @endforeach
                     </div>
                   </div>
                 </div>

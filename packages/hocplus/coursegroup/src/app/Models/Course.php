@@ -27,7 +27,8 @@ class Course extends Model {
     protected $dates = ['deleted_at'];
     
     public $timestamps = true;
-
+    
+    //rela mysql
     public function isClass(){
         return $this->belongsTo(Classes::class, 'classes_id');
     }
@@ -43,4 +44,6 @@ class Course extends Model {
     public function getLesson(){
         return $this->hasMany(Lesson::class, 'course_id');
     }
+
+    //end rela mysql
 }

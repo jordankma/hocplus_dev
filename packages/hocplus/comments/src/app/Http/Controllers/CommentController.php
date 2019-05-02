@@ -27,11 +27,9 @@ class CommentController extends Controller
         //$USER_LOGGED
         $USER_LOGGED = $this->user;
         if ($USER_LOGGED) {
-            $validatedData = $request->validate([
-                'name' => 'required|max:255',
-                'email' => 'required',
+            /*$validatedData = $request->validate([
                 'comment' => 'required',
-            ], $this->messages());
+            ], $this->messages());*/
             $comments = New Comments();
             if ($request->news_id) {
                 $comments->news_id = $request->news_id;
@@ -39,14 +37,11 @@ class CommentController extends Controller
             if ($request->course_id) {
                 $comments->course_id = $request->course_id;
             }
-            $comments->name = $request->name;
-            $comments->email = $request->email;
             $comments->comment = $request->comment;
-            //$comments->user_id = Auth::id();
             $comments->user_id = Auth::guard('member')->user()->member_id;
             $action = $comments->save();
             if ($action) {
-                echo "Thành công";
+                /*echo "Thành công";
                 if ($comments->news_id) {
                     return redirect('/news/detail/'.$comments->news_id);
                 }
@@ -56,14 +51,16 @@ class CommentController extends Controller
                 }                
                 else {
                     return redirect('/index.php');
-                }
+                }*/
+                return 1;
             }
             else {
-                echo "Lỗi";
+                return 0;
             }
         }
         else {
-            echo "Yêu cầu, bạn phải đăng nhập";
+            //echo "Yêu cầu, bạn phải đăng nhập";
+            return 0;
         }
     }
     /*
@@ -74,8 +71,6 @@ class CommentController extends Controller
     public function messages()
     {
         return [
-            'name.required' => 'Bạn nhập vào tên',
-            'email.required'  => 'Bạn nhập vào email',
             'comment.required'  => 'Bạn nhập vào bình luận',
         ];
     }

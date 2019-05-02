@@ -1,4 +1,4 @@
-@extends('HOCPLUS-NEWS::modules.news.master')
+@extends('HOCPLUS-FRONTEND::layouts.frontend')
 
 @section('title', 'Tin tức')
 
@@ -21,7 +21,7 @@
             <figure class="col-12 col-lg-6 item c-item-news">
               <div class="inner">
                 <div class="img">
-                  <a href="news/detail/{{$hotnews->news_id}}-{{$hotnews->title_alias}}"><img src="{{$hotnews->image}}" alt=""></a>
+                  <a href="news/detail/{{$hotnews->news_id}}-{{$hotnews->title_alias}}"><img src="{{config('site.url_static').$hotnews->image}}" alt=""></a>
                 </div>
                 <div class="info">
                   <h2 class="title"><a href="news/detail/{{$hotnews->news_id}}-{{$hotnews->title_alias}}">{{$hotnews->title}}</a></h2>
@@ -37,7 +37,7 @@
                     <figure class="col-6 item c-item-news">
                       <div class="inner">
                         <div class="img">
-                          <a href="news/detail/{{$item->news_id}}-{{$item->title_alias}}"><img src="{{$item->image}}" alt=""></a>
+                          <a href="news/detail/{{$item->news_id}}-{{$item->title_alias}}"><img src="{{config('site.url_static').$item->image}}" alt=""></a>
                         </div>
                         <div class="info">
                             <h3 class="title"><a href="news/detail/{{$item->news_id}}-{{$item->title_alias}}../">{{$item->title}}</a></h3>
@@ -63,7 +63,7 @@
               <figure class="item c-item-news-01">
                 <div class="inner">
                   <div class="img">
-                    <a href="/news/detail/{{$item->news_id}}-{{$item->title_alias}}"><img src="{{$item->image}}" alt=""></a>
+                    <a href="/news/detail/{{$item->news_id}}-{{$item->title_alias}}"><img src="{{config('site.url_static').$item->image}}" alt=""></a>
                   </div>
                   <div class="info">
                     <h3 class="title"><a href="/news/detail/{{$item->news_id}}-{{$item->title_alias}}">{{$item->title}}</a></h3>
@@ -74,9 +74,11 @@
               </figure> <!-- / item -->
               @endforeach
             </div>
-
-            {{$news->links('vendor.pagination.default')}}
-
+            <nav class="c-navigation">
+                <div class="container">
+                {{$news->links()}}
+                </div>
+            </nav>
           </div> <!-- / main left -->
 
           <div class="col-12 col-lg-3 main-right">
@@ -131,7 +133,7 @@
                 <figure class="item">
                   <div class="inner">
                     <div class="img">
-                      <a href="/news/detail/{{$item->news_id}}-{{$item->title_alias}}"><img src="{{$item->image}}" alt=""></a>
+                      <a href="/news/detail/{{$item->news_id}}-{{$item->title_alias}}"><img src="{{config('site.url_static').$item->image}}" alt=""></a>
                     </div>
                     <div class="info">
                       <h4 class="title"><a href="/news/detail/{{$item->news_id}}-{{$item->title_alias}}">{{$item->title}}</a></h4>

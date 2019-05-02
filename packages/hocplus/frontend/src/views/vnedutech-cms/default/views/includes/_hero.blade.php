@@ -33,11 +33,11 @@
       <div class="container">
         <div class="row">
           <div class="col-md-4">
-            <a href="#" class="btn btn-red"><span>Lựa chọn giáo viên<i class="fa fa-arrow-right"></i></span><img
+            <a href="{{ route('home.teacher.index') }}" class="btn btn-red"><span>Lựa chọn giáo viên<i class="fa fa-arrow-right"></i></span><img
                 src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/images/icon-01.png' }}" alt=""></a>
           </div>
           <div class="col-md-4">
-            <a href="#" class="btn btn-blue"><span>Đăng ký khóa học<i class="fa fa-arrow-right"></i></span><img
+            <a href="{{ route('hocplus.course.list') }}" class="btn btn-blue"><span>Đăng ký khóa học<i class="fa fa-arrow-right"></i></span><img
                 src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/images/icon-02.png' }}" alt=""></a>
           </div>
           <div class="col-md-4">

@@ -13,7 +13,7 @@ Route::group(array('prefix' => $adminPrefix), function() {
     Route::get('hocplus/rating/demo/delete', 'DemoController@delete')->name('hocplus.rating.demo.delete');
     Route::get('hocplus/rating/demo/confirm-delete', 'DemoController@getModalDelete')->name('hocplus.rating.demo.confirm-delete');
     Route::get('rating/{course_id?}', 'RatingController@index')->name('hocplus.rating.index');
-    Route::any('rate/submit', 'RatingController@submit')->middleware('member.auth')->name('hocplus.rating.submit');    
+    Route::any('rate/submit', 'RatingController@submit')->name('hocplus.rating.submit');    
 });
 
 

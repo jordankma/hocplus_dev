@@ -9,6 +9,7 @@ use Hocplus\Coursegroup\App\Models\Subject;
 use Hocplus\Coursegroup\App\Models\Classes;
 use Hocplus\Coursegroup\App\Models\Banner;
 use Hocplus\Coursegroup\App\Models\Course;
+use Hocplus\Coursegroup\App\Models\ES_Course;
 use Hocplus\Coursegroup\App\Models\Comments;
 use Hocplus\Coursegroup\App\Models\MemberHasCourse;
 use Hocplus\Coursegroup\App\Models\MemberHasWishlist;
@@ -54,13 +55,11 @@ class CourseController extends Controller
         $is_register = self::checkRegister($member_id,$course_id);
         // dd($is_register);
         //get comment 
-        $comments = Comments::where('course_id','=',$course_id)->where('status',1)->orderBy('updated_at')->get();
+        $comments = Comments::where('course_id','=',$course_id)->where('status',1)->with('getMember')->orderBy('updated_at')->get();
         //end get comment
+
         //get rating
         $rate = 0;
-        /*if ($course) {
-            //$rate = $course->rate;
-        }*/
         $rating = new Rating;
         $rate_result = $rating->where('course_id', '=',$course_id)->get();
         $stars = array();
@@ -88,10 +87,6 @@ class CourseController extends Controller
         else {
             $rate = 0;
         }
-        /*
-        if ($rate_result) {
-            print_r($rate_result); die;
-        }*/
         $member = $this->user;
         if ($member) {
             $member_id = $member->member_id;
@@ -100,6 +95,7 @@ class CourseController extends Controller
             $member_id = 0;
         }
         //end get rating
+        
         $data = [
             'course' => $course,
             'list_course_relate' => $list_course_relate,
@@ -213,5 +209,42 @@ class CourseController extends Controller
             }
         }
         return response()->json(['str'=> $str]);
+    }
+
+    public function syncCourse(Request $request){
+        $limit = !empty($request->limit) ? (int)$request->limit : 2000;
+        $list = ES_Course::where('sync_es', 1)->take($limit)->get();
+        if (!empty($list)) {
+            try {
+                $list->addToIndex();
+                $arr = [];
+                foreach ($list as $item){
+                    $arr[] = $item->course_id;
+                }
+                if(ES_Course::whereIn('course_id',$arr)->update(['sync_es' => 2])){
+                    echo "<pre>";
+                    print_r( ' - done');
+                    echo "</pre>";
+                };
+            } catch (\Exception $e) {
+                echo "<pre>";
+                print_r($e->getMessage());
+                echo "</pre>";
+                die;
+            }
+        } else {
+            echo "<pre>";
+            print_r('all done');
+            echo "</pre>";
+            die;
+        }
+    }
+    
+    public function searchCourse(Request $request){
+        $params['name'] = $request->input('name');
+        $offset = $request->has('offset') ? $request->input('offset') : 1 ;
+        $limit = $request->has('limit') ? $request->input('limit') : 4 ;
+        $result = ES_Course::customSearch($params, $limit);
+        dd($result);
     }
 }

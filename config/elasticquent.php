@@ -14,7 +14,7 @@ return array(
     */
 
     'config' => [
-        'hosts'     => ['123.30.174.148:9200'],
+        'hosts'     => ['123.30.187.164:9200','123.30.187.165:9200'],
         'retries'   => 1,
     ],
 
@@ -27,6 +27,6 @@ return array(
     | Elasticquent models.
     */
 
-    'default_index' => 'dhcd_vnedutech',
+    'default_index' => 'hocplus_course',
 
 );
