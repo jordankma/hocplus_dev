@@ -69,8 +69,8 @@
                                 <div class="info">
                                     <ul class="row list">
                                         {{--<li class="col-6 item"><i class="fa fa-book-open"></i> Môn học: <input class="fix-content" name="courseSubject" type="text" value="{{ $course->isSubject->name }}"></li>--}}
-                                        <li class="col-6 item"><i class="fa fa-book-open"></i> Môn học: {{ $course->isSubject->name }}</li>
-                                        <li class="col-6 item"><i class="fa fa-clock"></i> Thời lượng: <input class="fix-content" name="courseTime" type="text" value="{{ $course->time }}" style="text-align: right; width: 20px"> giờ</li>
+                                        <li class="col-6 item"><i class="fa fa-book-open"></i> Môn học: {{ isset($course->isSubject->name) ? $course->isSubject->name : '' }}</li>
+                                        <li class="col-6 item"><i class="fa fa-clock"></i> Thời lượng: <input class="fix-content" name="courseTime" type="text" value="{{ $course->time }}" style="text-align: right; width: 20px" required> giờ</li>
                                         {{--<li class="col-6 item"><i class="fa fa-bookmark"></i> Khối lớp: <input class="fix-content" name="courseClasses" type="text" value="{{ $course->isClass->name }}"></li>--}}
                                         <li class="col-6 item"><i class="fa fa-bookmark"></i> Khối lớp: {{ $course->isClass->name }}</li>
                                         <li class="col-6 item"><i class="fa fa-group"></i> Số lượng HS tối đa: <input class="fix-content" name="courseStudentLimit" type="text" value="{{ $course->student_limit }}" style="text-align: right; width: 20px"> người</li>

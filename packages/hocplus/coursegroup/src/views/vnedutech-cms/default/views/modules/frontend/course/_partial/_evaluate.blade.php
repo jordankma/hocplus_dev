@@ -3,11 +3,13 @@
     <div class="btn-evaluate">
       <span class="text">Đánh giá</span>
       <span class="stars js-stars" data-modal="#modal-stars">
-        <i class="fa fa-star star rating" id="rating" data-value="1"></i>
-        <i class="fa fa-star star rating" data-value="2"></i>
-        <i class="fa fa-star star rating" data-value="3"></i>
-        <i class="fa fa-star star rating" data-value="4"></i>
-        <i class="fa fa-star star rating" data-value="5"></i>
+        @for ($i=1; $i<= $your_rate; $i++ )
+            <i class="fa fa-star star rating active" id="rating{{$i}}" data-value="{{$i}}"></i>
+        @endfor
+        @for ($i= $your_rate+1; $i<=5; $i++)
+            <i class="fa fa-star star rating" id="rating{{$i}}" data-value="{{$i}}"></i>
+        @endfor
+
       </span>
     </div>
     @endif

@@ -32,14 +32,14 @@ class NewsController extends Controller
      * danh sách tin
      */
     public function index() {
-        $news = News::orderBy('created_at','DESC')->where('is_hot',2)->paginate(10);
-        $topnews = News::orderBy('views','DESC')->limit(10)->get();
+        $news = News::orderBy('created_at','DESC')->where('is_hot',2)->where('type_page','news')->paginate(10);
+        $topnews = News::orderBy('views','DESC')->where('type_page','news')->limit(10)->get();
         $hotnews = News::where('is_hot',1)->get()->first();
         if ($hotnews) {
-            $features = News::where('is_hot',1)->where('news_id','!=',$hotnews->news_id)->limit(4)->get();
+            $features = News::where('is_hot',1)->where('type_page','news')->where('news_id','!=',$hotnews->news_id)->limit(4)->get();
         }
         else {
-            $features = News::where('is_hot',1)->limit(4)->get();
+            $features = News::where('is_hot',1)->where('type_page','news')->limit(4)->get();
         }
         return view('HOCPLUS-NEWS::modules.news.index', compact('news','hotnews', 'topnews', 'features'));
     }

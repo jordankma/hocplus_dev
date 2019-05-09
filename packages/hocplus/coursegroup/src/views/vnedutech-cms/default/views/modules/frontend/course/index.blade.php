@@ -118,7 +118,7 @@
             //rating
             var rate; 
             $('.rating').click(function(){
-                rate= $(this).data('value'); //alert(rate);
+                rate= $(this).data('value'); 
                 $.ajax('/rate/submit', {
                         type: 'POST',  // http method
                         data: { 
@@ -127,21 +127,31 @@
                             member_id: {{$member_id}},
                         },  // data to submit
                         success: function (data, status, xhr) {
-                            if (data==2) {
-                                $('#show_modal_result').html='bạn phải đăng nhập mới được đánh giá';
+                            var data= jQuery.parseJSON(data);
+                            var rated = data.rate;
+                            var i;
+                            if (rated > 0) {
+                                for (i=1; i<=rated; i++) {
+                                    $('#rating'+i).addClass('active');
+                                }
                             }
-                            if (data==0) {
-                                $('#show_modal_result').html='bạn đã đánh giá rồi';
+                            if (data.result==2) {
+                                $('#show_modal_result').html('Bạn phải đăng nhập mới được đánh giá');
                             }
-                            if (data==1) {
-                                $('#show_modal_result').html='Cảm ơn bạn đã đánh giá';
+                            else
+                            if (data.result==0) {
+                                $('#show_modal_result').html('Bạn đã đánh giá rồi');
+                            }
+                            else
+                            if (data.result==1) {
+                                $('#show_modal_result').html('Cảm ơn bạn đã đánh giá');
                             }
                         },
                         error: function (jqXhr, textStatus, errorMessage) {
                                 //$('p').append('Error: ' + errorMessage);
                         }
                 });           
-            });  
+            });
             //comment
             var comment;
             var course_id;
@@ -157,8 +167,8 @@
                             type: 'POST',  // http method
                             data: {
                                 comment: comment,
-                                news_id: <?php if (isset($news_id)) echo $news_id;?>,
-                                user_id: <?php if (isset($member_id)) echo $member_id;?>,
+                                news_id: <?php if (isset($news_id)) { echo $news_id; } else { echo '0';}?>,
+                                user_id: <?php if (isset($member_id)) { echo $member_id; } else { echo '0';}?>,
                                 course_id: course_id,
                             },  // data to submit
                             success: function (data, status, xhr) {
@@ -175,6 +185,7 @@
                     });
                 }
             });
+            //end comment
         });
     </script>
 @stop

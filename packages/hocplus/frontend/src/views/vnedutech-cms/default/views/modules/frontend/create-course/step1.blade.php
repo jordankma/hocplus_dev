@@ -111,7 +111,7 @@
                                                         <select class="form-control" id="exampleInputTemplateCategoriesSpecies" name="template_subject_id"
                                                                 required="required" value="{{old('template_subject_id')}}" oninvalid="this.setCustomValidity('Vui lòng chọn môn học!')"
                                                                 oninput="setCustomValidity('')" onchange="filterClasses()">
-                                                            <option selected="true" disabled="disabled">Môn học</option>
+                                                            {{-- <option selected="true" disabled="disabled">Môn học</option> --}}
                                                             @if (count($arrSubject) > 0)
                                                                 @foreach($arrSubject as $subject)
                                                                 <option value="{{ $subject->getSubject->subject_id }}">{{ $subject->getSubject->name }}</option>
@@ -123,7 +123,7 @@
                                                         <select class="form-control" id="exampleInputTemplateCategoriesClass" name="template_classes_id"
                                                                 required="required" value="{{old('template_classes_id')}}" oninvalid="this.setCustomValidity('Vui lòng chọn khối lớp!')"
                                                                 oninput="setCustomValidity('')">
-                                                            <option selected="true" disabled="disabled">Lớp học</option>
+                                                            {{-- <option selected="true" disabled="disabled">Lớp học</option> --}}
                                                             @if (count($arrClasses) > 0)
                                                                 @foreach($arrClasses as $classes)
                                                                     <option value="{{ $classes->classes_id }}">{{ $classes->name }}</option>

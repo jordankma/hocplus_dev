@@ -94,6 +94,14 @@ class CourseController extends Controller
         else {
             $member_id = 0;
         }
+
+        $your_rate_result = Rating::where('course_id', '=',$course_id)->where('member_id', '=',$member_id)->get()->first();
+        if ($your_rate_result) {
+            $your_rate = $your_rate_result->rate;
+        }
+        else {
+            $your_rate = 0;
+        }
         //end get rating
         
         $data = [
@@ -104,7 +112,8 @@ class CourseController extends Controller
             'comments' => $comments,
             'rate' => $rate,
             'stars' => $stars,
-            'course_id' => $course_id
+            'course_id' => $course_id,
+            'your_rate' => $your_rate
         ];
         return view('HOCPLUS-COURSEGROUP::modules.frontend.course.index',$data);
     }
@@ -205,7 +214,9 @@ class CourseController extends Controller
         if(count($subjects) > 0){
             foreach($subjects as $element){
                 $subject = Subject::where('subject_id', $element->subject_id)->first();
-                $str .= '<option>' . $subject->subject_id .'</option>';
+                if(!empty($subject)){
+                    $str .= '<option value="' . $subject->subject_id . '">' . $subject->name .'</option>';
+                }
             }
         }
         return response()->json(['str'=> $str]);
@@ -213,7 +224,7 @@ class CourseController extends Controller
 
     public function syncCourse(Request $request){
         $limit = !empty($request->limit) ? (int)$request->limit : 2000;
-        $list = ES_Course::where('sync_es', 1)->take($limit)->get();
+        $list = ES_Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->where('sync_es', 1)->take($limit)->get();
         if (!empty($list)) {
             try {
                 $list->addToIndex();
@@ -241,10 +252,24 @@ class CourseController extends Controller
     }
     
     public function searchCourse(Request $request){
-        $params['name'] = $request->input('name');
-        $offset = $request->has('offset') ? $request->input('offset') : 1 ;
-        $limit = $request->has('limit') ? $request->input('limit') : 4 ;
-        $result = ES_Course::customSearch($params, $limit);
-        dd($result);
+        $courses = [];
+        // if ($request->ajax()) {
+            if($request->has('q')){
+                $params['name'] = $request->input('q');
+                $offset = $request->has('offset') ? $request->input('offset') : 1 ;
+                $limit = $request->has('limit') ? $request->input('limit') : 4 ;
+                $list_courses = ES_Course::customSearch($params, $offset, $limit);
+                foreach($list_courses as $item){
+                    $courses[] = [
+                        'name' => $item['name'], 10,
+                        'image' => ($item['avartar'] != '' || file_exists(substr($item['avartar'], 1))) ? config('site.url_static') . '/' . $item['avartar'] : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/course.jpg',
+                        'price' => number_format($item['price'], 0,'.','.'),
+                        'price_promo' => number_format($item['price_promo'], 0,'.','.'),
+                        'url' => route('hocplus.course.detail',$item['course_id'])
+                    ];
+                }
+            }
+        // }
+        echo json_encode($courses);
     }
 }

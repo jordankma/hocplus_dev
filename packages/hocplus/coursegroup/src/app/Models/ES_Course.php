@@ -245,7 +245,7 @@ class ES_Course extends Model {
             }
 
 
-    //        echo '<pre>';print_r($query);echo '</pre>';die;
+        //    echo '<pre>';print_r($query);echo '</pre>';die;
             return self::complexSearch($query);
         }
 

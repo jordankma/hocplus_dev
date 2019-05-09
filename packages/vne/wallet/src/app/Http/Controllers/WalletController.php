@@ -357,7 +357,8 @@ class WalletController extends Controller
      */
     public function _createOrderIn($memberId, $money_payment, $method = ''){
         $order = Order::create([
-            'order_code' => 'hp_'.$this->_generateRandomString(6).'_'.time(),
+            
+            'order_code' => $this->_generateRandomString(6).time(),
             'user_id' => $memberId,            
             'total_money' => $money_payment,
             'total_discount' => 0,
@@ -391,7 +392,7 @@ class WalletController extends Controller
     }
 
     public function _generateRandomString($length = 10) {
-        $characters = '0123456789';
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {

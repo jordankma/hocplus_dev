@@ -215,6 +215,14 @@
                     </div>
                     <a href="javascript:void(0,0)" class="btn btn-buying buy-tranfer">Mua khóa học</a>
                 </div>
+                @elseif($method['type'] == 'wallet')
+                <div class="bank {{ $i == 0 ? 'pay-active' : ''}}" id="method_{{$method['payment_id']}}">
+                    <div class="inner">
+                        <div class="info-wallet">Ví của bạn đang có <span class="deposit">{{number_format($deposit->deposit, 0, ',', '.')}}</span>đ</div>
+                        <div class="nap-tien"><a href="{{route('vne.wallet.recharge')}}">Nạp tiền</a></div>
+                    </div>
+                    <a href="javascript:void(0,0)" class="btn btn-buying pay-wallet">Mua khóa học</a>
+                </div>
                 @endif
             @endforeach
         @endif        
@@ -373,6 +381,35 @@
                     
                 }
             }, 'json');
+        });
+
+        $('body').on('click', '.pay-wallet', function(){
+            var result = confirm("Bạn có chắc chắn muốn mua khóa học này?");
+            if (result) {
+                let order_code = '{{request()->get('order_code')}}';
+                let secret_key = '{{request()->get('secret_key')}}';
+                $.ajax({
+                    url: '/pay-course/pay-wallet',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name=csrf-token]').prop('content')
+                    },
+                    type: 'POST',
+                    cache: false,
+                    data: {
+                        order_code, secret_key
+                    },
+                    success: function (response) {
+                        if(response.status == true){
+                            window.location.href = response.redirect; 
+                        } else{
+                            alert(response.msg);
+                        }                                        
+                    }
+                }, 'json');
+            } else {
+                return false;
+            }
+            
         });
 
         $('body').on('click', '.buy-tranfer', function(){

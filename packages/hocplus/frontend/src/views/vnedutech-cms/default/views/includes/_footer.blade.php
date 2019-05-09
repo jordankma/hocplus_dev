@@ -41,3 +41,6 @@
         </div>
     </div>
 </footer> <!-- / footer -->
+<div class="hotline-fix">
+    <a href="tel: 1900.6675">Hotline: 1900.6675</a>
+</div>

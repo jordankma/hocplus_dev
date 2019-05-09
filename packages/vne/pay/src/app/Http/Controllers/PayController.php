@@ -616,7 +616,7 @@ class PayController extends Controller
              }
              if($checkOrder['error'] == true){
                  return response()->json([
-                     'RspCode' => '02',
+                     'RspCode' => $checkOrder['code'],
                      'Message' => $checkOrder['msg']
                  ]);
              }
@@ -936,20 +936,20 @@ class PayController extends Controller
     {
         $order = Order::where(['order_code' => $orderCode])->first();               
         if(!$order){
-            return ['error' => true, 'msg' => 'Không tìm thấy đơn hàng'];
+            return ['error' => true, 'msg' => 'Không tìm thấy đơn hàng', 'code' => '01'];
         }
         if ($order->status & self::LOI_TT)
         {
-            return  ['error' => true, 'msg' => 'Đơn hàng thanh toán lỗi'];            
+            return  ['error' => true, 'msg' => 'Đơn hàng thanh toán lỗi', 'code' => '02'];            
         }   
         if ($order->status & self::TT_THANH_CONG || $order->status & self::CLIENT_DA_NHAN)
         {
-            return ['error' => true, 'msg' => 'Đơn hàng đã thanh toán thành công từ trước đó'];            
+            return ['error' => true, 'msg' => 'Đơn hàng đã thanh toán thành công từ trước đó', 'code' => '02'];            
         }
         if($method != 'ebanking'){
             if ($order->status & self::CHUYEN_CONG_TT)
             {            
-                return ['error' => true, 'msg' => 'Đơn hàng đã chuyển sang cổng thanh toán'];            
+                return ['error' => true, 'msg' => 'Đơn hàng đã chuyển sang cổng thanh toán', 'code' => '02'];            
             }
         }
         

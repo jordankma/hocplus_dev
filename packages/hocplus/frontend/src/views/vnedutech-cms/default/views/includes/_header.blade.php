@@ -41,11 +41,11 @@
                     </div> <!-- / left -->
                     <div class="right">
                         <div class="search">
-                            <form class="form">
-                              <input type="text" placeholder="Tìm kiếm...">
-                              <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                            <form class="form" action="{{ route('hocplus.search' )}}" method="GET">
+                                <input type="text" placeholder="Tìm kiếm..." name="keyword">
+                                <button class="btn" type="submit"><i class="fa fa-search"></i></button>
                             </form>
-                          </div> <!-- / search -->
+                        </div> <!-- / search -->
                         <a class="btn btn-lecturers" href="{{ route('hocplus.get.register.teacher') }}">Dành cho giáo viên</a> <!-- / button lecturers -->
                         @if($USER_LOGGED)
                             <div class="my-user">

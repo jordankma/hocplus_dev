@@ -57,13 +57,14 @@
                 console.log(url_full);
                 window.location = url_full;
             });
-            // $("body").on('change', '#classes', function () {
-            //     var classes_id = $(this).val();
-            //     $.get("/ajax/get-subject?classes_id="+ classes_id , function(data, status){
-            //         $('#classes').html('');
-            //         $('#classes').append(data.str);
-            //     });
-            // });
+            $("body").on('change', '#classes', function () {
+                var classes_id = $(this).val();
+                $.get("/ajax/get-subject?classes_id="+ classes_id , function(data, status){
+                    $('#subject').html('');
+                    console.log(data.str);
+                    $('#subject').append(data.str);
+                });
+            });
 
         });
     </script>

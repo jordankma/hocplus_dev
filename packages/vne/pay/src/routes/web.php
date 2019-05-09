@@ -16,6 +16,7 @@ Route::group(array('prefix' => $adminPrefix), function() {
         Route::get('pay-course/vnpay-callback', 'PayController@payVnPayCallback')->name('vne.pay.payVnPayCallback');
 
         Route::post('pay-course/pay-tranfer', 'PayController@payTranfer')->name('vne.pay.payTranfer');
+        Route::post('pay-course/pay-wallet', 'PayController@payWallet')->name('vne.pay.payWallet');
         //captcha        
         Route::get('refresh_captcha', 'PayController@refreshCaptcha')->name('refresh_captcha');
     });

@@ -45,11 +45,11 @@
           </div>
         </figure> <!-- / item -->
       </div>
-      <div class="bottom">
+      {{-- <div class="bottom">
         <div class="inner">
           <b>“Có trên 3 năm kinh nghiệm trong môn học muốn giảng dạy Kỹ năng trình bày lưu loát, dễ hiểu, ngôn ngữ
             cơ thể tốt.”</b>
         </div>
-      </div>
+      </div> --}}
     </div>
   </section> <!-- / target -->

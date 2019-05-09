@@ -28,7 +28,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" name="subject_id">
+                        <select class="form-control" name="subject_id" id="subject">
                             <option value="0">Theo Môn</option>
                             @if(!empty($list_subjects))
                             @foreach($list_subjects as $element)

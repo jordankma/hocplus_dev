@@ -45,10 +45,10 @@
             <a href="" class="nav-link">Liên hệ</a>
         </li>
         </ul>
-        <div class="info">
+        {{-- <div class="info">
         <span class="time"><i class="fa fa-clock"></i> 08:00 - 17:00</span>
         <span class="phone"><i class="fa fa-phone"></i> Hotline: {{ (!empty($SETTING['phone'])) ? $SETTING['phone'] : '' }} </span>
-        </div>
+        </div> --}}
     </div>
     </nav> <!-- / Navbar -->
 

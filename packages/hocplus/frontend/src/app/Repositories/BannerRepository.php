@@ -20,7 +20,7 @@ class BannerRepository extends Repository
     }
 
     public function findForWhy() {
-        $result = $this->model->where('position', 3)->skip(0)->take(5)->get();
+        $result = $this->model->where('position', 3)->orderBy('priority','asc')->skip(0)->take(5)->get();
         return $result;
     }
 
