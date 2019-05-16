@@ -142,6 +142,7 @@ class CreatecourseController extends Controller
 
             $course_template_id = (int) $request->input('course_template_id', 0);
             $course_student_limit = (int) $request->input('course_student_limit', 0);
+            $exam_id = (int) $request->input('exam_id', 0);
             $templateDetail = CourseTemplate::with('getTemplateLesson')->find($course_template_id);
             if ($templateDetail) {
                 if ($templateDetail->teacher_id == $teacher_id) {
@@ -174,6 +175,7 @@ class CreatecourseController extends Controller
                         'date_end' => strtotime($request->input('course_date_end')),
                         'price' => (int) $request->input('course_price', 0),
                         'student_limit' => $course_student_limit,
+                        'exam_id' => $exam_id,
                         'status' => 0,
                         'active' => 0
                     ]);
@@ -224,14 +226,13 @@ class CreatecourseController extends Controller
             return redirect(route('hocplus.frontend.create-course.step1'));
         }
 
-        $teacher = Teacher::where('teacher_id',$teacher_id)->with('getClasses','getSubject')->first();
+        $teacher = Teacher::where('teacher_id',$teacher_id)->with('getClasses','getSubject','getExam')->first();
 
         $data = [
             'teacher' => $teacher,
             'templateDetail' => $templateDetail,
             'course_template_id' => $course_template_id,
         ];
-
         return view('HOCPLUS-FRONTEND::modules.frontend.create-course.step2', $data);
     }
 

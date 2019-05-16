@@ -11,6 +11,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Hocplus\Frontend\App\Models\Classes;
 use Hocplus\Frontend\App\Models\TeacherClassSubject;
+use Hocplus\Frontend\App\Models\Exam;
 
 class Teacher extends Model implements AuthenticatableContract, CanResetPasswordContract{
     use Authenticatable, CanResetPassword, Notifiable, SoftDeletes;
@@ -35,5 +36,9 @@ class Teacher extends Model implements AuthenticatableContract, CanResetPassword
 
     public function getSubject(){
         return $this->hasMany(TeacherClassSubject::class, 'teacher_id');
+    }
+
+    public function getExam(){
+        return $this->hasMany(Exam::class, 'user_id', 'teacher_id');
     }
 }

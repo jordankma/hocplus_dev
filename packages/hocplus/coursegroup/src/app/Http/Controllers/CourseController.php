@@ -262,7 +262,7 @@ class CourseController extends Controller
                 foreach($list_courses as $item){
                     $courses[] = [
                         'name' => $item['name'], 10,
-                        'image' => ($item['avartar'] != '' || file_exists(substr($item['avartar'], 1))) ? config('site.url_static') . '/' . $item['avartar'] : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/course.jpg',
+                        'image' => ($item['avartar'] != '' || file_exists(substr($item['avartar'], 1))) ? config('site.url_static') . '/' . $item['avartar'] : config('site.url_static') . '/vendor/vnedutech-cms/default/hocplus/frontend/images/course.jpg',
                         'price' => number_format($item['price'], 0,'.','.'),
                         'price_promo' => number_format($item['price_promo'], 0,'.','.'),
                         'url' => route('hocplus.course.detail',$item['course_id'])
