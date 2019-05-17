@@ -238,7 +238,7 @@ class ES_News extends Model {
                 $query['body']['size'] = $limit;
 
             }
-            return self::complexSearch($query)->paginate($limit);
+            return self::complexSearch($query)->paginate($limit, ['*'], 'page-course');
     //        return self::complexSearch($query);
         }
     //end es

@@ -171,13 +171,23 @@
                                             <div class="grid">
                                                 <div class="grid-left">Lựa chọn bộ đề <br>trắc nghiệm</div>
                                                 <div class="grid-right">
-                                                    <a class="btn-file">Chọn bộ đề</a>
+                                                  <a href="" class="btn-file" data-modal="#modal-exam">Chọn bộ đề</a>
+                                                </div>
+                                            </div>
+                                            <div class="grid">
+                                                <div class="grid-left">
+                                                    Bộ đề trắc nghiệm : 
+                                                </div>
+                                                <div class="grid-right">
+                                                <p id="name-exam"></p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <br>
                                     <input type="hidden" name="course_template_id" value="{{ $course_template_id }}">
+                                    
+                                    <input type="hidden" name="exam_id" id="exam_id" value="">
                                     <button class="btn btn-next" type="submit" id="login-btn-submit">Tiếp theo <i class="fa fa-angle-double-right"></i></button>
                                 </form>
                             </div>
@@ -197,6 +207,38 @@
         </div> <!-- / container -->
 
     </main> <!-- / main -->
+    <!-- Modal -->
+    <div class="modal" id="modal-exam">
+        <div class="modal-exit"></div>
+        <div class="modal-inner">
+          <div class="list-file">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    @if(count($teacher->getExam)>0)
+                    @foreach($teacher->getExam as $exam)
+                    <tr>
+                        <th scope="row">{{ $loop->index + 1 }}</th>
+                        <td>{{ $exam->name }}</td>
+                        <td><a class="status select-exam" data-exam-id="{{ $exam->exam_id }}" data-name="{{ $exam->name }}">Chọn</a></td>
+                    </tr>
+                    @endforeach
+                    @else 
+                    {{'Chưa có bộ đề thi trắc nghiệm'}}
+                    @endif
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
 @stop
 
 {{-- page level scripts --}}
@@ -235,5 +277,12 @@
                 // });
             }
         }
+        $('body').on('click','.select-exam',function(){
+            var exam_id = $(this).data('exam-id');
+            var exam_name = $(this).data('name');
+            console.log(exam_id);
+            $("#exam_id").val(exam_id);
+            $("#name-exam").text(exam_name);
+        });
     </script>
 @stop
