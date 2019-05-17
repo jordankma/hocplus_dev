@@ -19,7 +19,7 @@ class GlobalController extends Controller
 
     public function get(Request $request, $route_hash)
     {
-        dd('1');
+        // dd('1');
         $encrypted = $this->my_simple_crypt( 'get-token?member_id=1&course_id=11&lesson_id=18&time=' . time(), 'e' );
         $decrypted = $this->my_simple_crypt( $route_hash, 'd' );
         $parts = parse_url($decrypted);
@@ -58,6 +58,7 @@ class GlobalController extends Controller
         }
         return response($data)->setStatusCode(200)->header('Content-Type', 'application/json; charset=utf-8');
     }
+
 
     public function verify(Request $request)
     {
