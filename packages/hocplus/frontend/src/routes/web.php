@@ -22,6 +22,8 @@ Route::group(array('prefix' => $prefix), function() {
 
         Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+        Route::get('send-otp-sms', 'Auth\SmsController@sendOtpSms')->name('send-otp-sms');
+
         // Route::group(['middleware' => ['member.auth']], function () {
             /*
              * Activate

@@ -262,6 +262,7 @@ class TeacherfrontendController extends Controller
                 $token = $data_reponse['data']['token'];
                 $url_stream = config('site.url_stream');
                 $url = $url_stream . "?token=" . $token;
+                // dd($url);
                 return redirect($url);
             }
         } catch (\Throwable $th) {

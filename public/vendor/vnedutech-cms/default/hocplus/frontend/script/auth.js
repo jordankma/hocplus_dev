@@ -14,7 +14,7 @@ $("#form-register").submit(function(event) {
         email: $('#register-email').val(),
         password: $('#register-password').val(),
         confirmPassword: $('#register-confirm-password').val(),
-        email_confirm: $('#register-email-confirm').val(),
+        // email_confirm: $('#register-email-confirm').val(),
         type: document.querySelector('input[name="exampleRadios"]:checked').value
     }, function ( data ) {
         console.log(data);

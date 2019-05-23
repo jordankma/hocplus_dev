@@ -38,14 +38,24 @@ class LoginController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         $remember = $request->input('remember', false);
-
-        if ($this->_guard()->attempt(['email' => $email, 'password' => $password, 'activated' => 1], $remember)) {
-            $request->session()->regenerateToken();
-            $this->clearLoginAttempts($request);
-            $status = Auth::guard('member')->user()->status;
-            return ['success' => true ,'status' => $status];
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            if ($this->_guard()->attempt(['email' => $email, 'password' => $password, 'activated' => 1], $remember)) {
+                $request->session()->regenerateToken();
+                $this->clearLoginAttempts($request);
+                $status = Auth::guard('member')->user()->status;
+                return ['success' => true ,'status' => $status];
+            } else {
+                return ['success' => false];
+            }
         } else {
-            return ['success' => false];
+            if ($this->_guard()->attempt(['phone' => $email, 'password' => $password, 'activated' => 1], $remember)) {
+                $request->session()->regenerateToken();
+                $this->clearLoginAttempts($request);
+                $status = Auth::guard('member')->user()->status;
+                return ['success' => true ,'status' => $status];
+            } else {
+                return ['success' => false];
+            }
         }
     }
 

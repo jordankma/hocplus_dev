@@ -13,7 +13,7 @@
       <div class="col-12 col-lg-10">
         <form class="row form" action="{{ route('hocplus.post.register.teacher')}}" method="post" id="form-register-teacher">
           <div class="col-12 col-md-6 form-group">
-            <input type="mane" name="name" class="form-control" id="exampleInputNameRL" placeholder="Họ và tên">
+            <input type="mane" name="name" class="form-control" id="exampleInputNameRL" placeholder="Họ và tên"> 
           </div>
           <div class="col-12 col-md-6 form-group">
             <input type="email" name="email" class="form-control" id="exampleInputEmailRL" placeholder="Email">

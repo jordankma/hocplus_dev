@@ -15,7 +15,7 @@
 
                 <div class="content content-register show">
                     <strong>Bạn chưa có<br>tài khoản Học Plus?</strong>
-                    <p>Học Plus - Website hàng đầu về giáo dục<br>trực tuyến tại Việt Nam</p>
+                    <p>Học Plus - Ứng dụng hàng đầu về học tương tác <p> trực tuyến tại Việt Nam</p>
                     <span class="btn">Đăng ký</span>
                 </div>
 
@@ -87,7 +87,7 @@
                         <span class="hiddenLabel"></span>
                     </div>
                     <div class="form-group email">
-                        <input class="form-control " type="email,phone" id="register-email" placeholder="Email hoặc số điện thoại">
+                        <input class="form-control " type="email,phone" id="register-email" placeholder="Email hoặc số điện thoại" required>
                     </div>
                     <div class="form-group password">
                         <input class="form-control" type="password" id="register-password" placeholder="Mật khẩu">
@@ -95,9 +95,9 @@
                     <div class="form-group password">
                         <input class="form-control" type="password" id="register-confirm-password" placeholder="Xác nhận mật khẩu">
                     </div>
-                    <div class="form-group phone">
+                    {{-- <div class="form-group phone">
                         <input class="form-control" type="email,phone" id="register-email-confirm" placeholder="Xác thực bằng Email hoặc SĐT">
-                    </div>
+                    </div> --}}
                     {{-- <div class="form-group check">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="student"
@@ -112,7 +112,7 @@
                         </div>
                     </div> --}}
                     <p style="font-size: 13px; color: #000000a8;">Bằng cách nhấp vào đăng ký, bạn đồng ý với 
-                        <a href="http://hocplus.vn/news/detail/45-dieu-khoan-su-dung-hocplus" style="text-decoration: none;color: #000000ed;">Điều khoản sử dụng và chính sách bảo mật </a> của chúng tôi
+                        <a href="http://hocplus.vn/news/detail/45-dieu-khoan-su-dung-hocplus" class="title-accept" style="text-decoration: none;">Điều khoản sử dụng và chính sách bảo mật </a> của Học Plus
                     </p>
                     <button class="btn" type="submit" id="register-btn-submit">Đăng ký</button>
                 </form>

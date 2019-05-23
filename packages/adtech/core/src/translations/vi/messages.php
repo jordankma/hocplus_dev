@@ -9,6 +9,8 @@ return [
     "email_activated_success" => "Kích hoạt email thành công!",
     "email_required" => "Email là bắt buộc",
     "email_invalid" => "Email không hợp lệ. Mời bạn nhập email khác!",
+    "phone_required" => "Số điện thoại là bắt buộc",
+    "phone_invalid" => "Số điện thoại không hợp lệ. Mời bạn nhập Số điện thoại khác!",
     "password_required" => "Mật khẩu là bắt buộc",
     "password_min" => "Mật khẩu phải ít nhất 6 ký tự",
     "password_max" => "Mật khẩu dài nhất là 30 ký tự",

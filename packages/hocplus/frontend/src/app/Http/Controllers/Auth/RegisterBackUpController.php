@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Hocplus\Frontend\App\Models\Member;
 use Mail;
-
-use Hocplus\Frontend\App\Http\Controllers\Auth\SmsController;
-
 class RegisterController extends Controller
 {
     /*
@@ -96,19 +93,13 @@ class RegisterController extends Controller
             if ($request->isMethod('post')) {
                 $data = $request->all();
                 $data['type'] = 'student';
-                //validator 
-                if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) { //check neu la email
-                    $validator = $this->validatorEmail($data);
-                } 
-                else if(preg_match('/^[0-9]{10}+$/', $data['email'])){ //check neu la phone
-                    $data['phone'] = $data['email'];
-                    $validator = $this->validatorPhone($data);    
-                }
-                //end validator 
+                $validator = $this->validator($request->all());
+
                 if ($validator->fails()) {
 //                    return redirect()->back()->withErrors($validator);
                     echo json_encode($validator->errors());
                 } else {
+
                     if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
                         try {
                             $check_mail = file_get_contents('http://checkmail.vnedutech.vn/?mail=' . $data['email']);
@@ -148,36 +139,12 @@ class RegisterController extends Controller
                             Mail::to($member->email, $member->email)->send($activeMailer);
                             echo json_encode(['success' => true]);
                         } 
-                        else {
-                            echo json_encode(['error' => 'Some things error!']);
-                        }
-                    } 
-                    else if(preg_match('/^[0-9]{10}+$/', $data['email'])){
-                        $member = Member::create([
-                            'phone' => $data['email'],
-                            'password' => Hash::make($data['password']),
-                            'type' => $data['type'],
-                            'activated' => 0,
-                            'status' => 1,
-                            'token' => md5($data['email'] .$data['type'] .time())
-                        ]);
-                        if ($member->member_id) {
-                            $activeLink = route('hocplus.frontend.auth.activate',$member->token);
-                            $phone = $data['email'];
-                            $content = 'Để kích hoạt tài khoản Hocplus vui lòng nhấn vào link ' . $activeLink;
-                            $sms = new SmsController();
-                            $sms->sendOtpSms($phone, $content);
-                            // if($obj['CodeResult'] == 100){
-                            //     echo json_encode(['success' => true]);   
-                            // } else {
+                        else if(preg_match('/^[0-9]{10}+$/', $data['email'])){
 
-                            // }
-                            echo json_encode(['success' => true]);
-                        } 
+                        }
                         else {
                             echo json_encode(['error' => 'Some things error!']);
                         }
-                            
                     } else {
                         echo json_encode(['error' => 'Email/SĐT không chính xác!']);
                     }

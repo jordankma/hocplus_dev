@@ -48,11 +48,11 @@
                         </div>
                         <div class="setting js-setting">
                             <div class="headline">
-                                <h3 class="title">Lựa chọn template khóa học</h3>
+                                <h3 class="title">Lựa chọn khung khóa học</h3>
                             </div>
                             <ul class="menu">
-                                <li class="{{ $tab == 0 ? 'menu-active' : '' }}" data-choose="#template-available">Chọn template khóa học</li>
-                                <li class="{{ $tab == 1 ? 'menu-active' : '' }}" data-choose="#template-new">Tạo template mới</li>
+                                <li class="{{ $tab == 0 ? 'menu-active' : '' }}" data-choose="#template-available">Chọn khung khóa học</li>
+                                <li class="{{ $tab == 1 ? 'menu-active' : '' }}" data-choose="#template-new">Tạo khung khóa học</li>
                             </ul>
                             <div class="template-available {{ $tab == 0 ? 'template-active' : '' }}" id="template-available">
                                 <div class="group">

@@ -118,7 +118,7 @@
         </section>
         <section class="section-01 ml-list js-ml-list">
           <div class="headline">
-            <h2 class="title">Khóa dạy đã diễn ra</h2>
+            <h2 class="title">Khóa học đã dạy</h2>
           </div>
           <div class="list">
             <div class="table-responsive">
@@ -160,7 +160,7 @@
                   </tbody>
                 @else
                 <tbody>
-                  <p style="text-align: center; font-weight: bold; color: #d2232f;">Hiện chưa có khóa học đang diễn ra</p>
+                  <p style="text-align: center; font-weight: bold; color: #d2232f;">Hiện chưa có Khóa học đã dạy</p>
                 </tbody>
                 @endif
               </table>

@@ -16,7 +16,7 @@
                 </div>
                 <div class="dropdown">
                     <ul class="list">
-                    <li class="item"><a href="{{ route('hocplus.get.my.course.teacher') }}"><i class="fa fa-dashboard"></i> <span>Bảng thông tin</span></a></li>
+                    <li class="item"><a href="{{ route('hocplus.get.my.dashboard.teacher') }}"><i class="fa fa-dashboard"></i> <span>Thông tin</span></a></li>
                     <li class="item"><a href="{{ route('hocplus.get.my.course.teacher') }}"><i class="fa fa-briefcase"></i> <span>Khóa dạy của tôi</span></a></li>
                     <li class="item"><a href="{{ route('hocplus.get.edit.profile.teacher') }}"><i class="fa fa-gear"></i> <span>Quản lý tài khoản</span></a></li>
                     <li class="item"><a href="{{ route('hocplus.frontend.auth.logout') }}"><i class="fa fa-log-out"></i> <span>Đăng xuất</span></a></li>
