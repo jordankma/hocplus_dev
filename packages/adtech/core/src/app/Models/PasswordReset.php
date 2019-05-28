@@ -17,7 +17,7 @@ class PasswordReset extends Model
 
     protected $table = 'adtech_password_resets';
 
-    protected $fillable = ['email', 'token', 'created_at'];
+    protected $fillable = ['email', 'token', 'created_at','phone'];
 
     protected $dates = ['deleted_at'];
 }

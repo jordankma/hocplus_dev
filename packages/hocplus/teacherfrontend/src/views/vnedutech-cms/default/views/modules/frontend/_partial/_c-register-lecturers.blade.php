@@ -14,21 +14,27 @@
         <form class="row form" action="{{ route('hocplus.post.register.teacher')}}" method="post" id="form-register-teacher">
           <div class="col-12 col-md-6 form-group">
             <input type="mane" name="name" class="form-control" id="exampleInputNameRL" placeholder="Họ và tên"> 
+            <span class="star">*</span>
           </div>
           <div class="col-12 col-md-6 form-group">
             <input type="email" name="email" class="form-control" id="exampleInputEmailRL" placeholder="Email">
+            <span class="star">*</span>
           </div>
           <div class="col-12 col-md-6 form-group">
             <input type="password" name="password" class="form-control" id="exampleInputPasswordRL" placeholder="Mật khẩu">
+            <span class="star">*</span>
           </div>
           <div class="col-12 col-md-6 form-group">
             <input type="phone" name="phone" class="form-control" id="exampleInputphoneRL" placeholder="Số điện thoại">
+            <span class="star">*</span>
           </div>
           <div class="col-12 col-md-6 form-group">
             <input type="password" name="conf_password" class="form-control" id="exampleInputPasswordConfirmRL" placeholder="Xác nhận mật khẩu">
+            <span class="star">*</span>
           </div>
           <div class="col-12 col-md-6 form-group">
             <input type="address" name="address" class="form-control" id="exampleInputAddressRL" placeholder="Trường học bạn đang giảng dạy">
+            <span class="star">*</span>
           </div>
           <div class="col-12 form-group form-select">
             <div class="form-select__wrapper">
@@ -45,6 +51,7 @@
                 @endforeach
                 @endif
               </select>
+              {{-- <span class="star">*</span> --}}
             </div>
           </div>
           <div class="col-12 col-md-12 form-group form-check">

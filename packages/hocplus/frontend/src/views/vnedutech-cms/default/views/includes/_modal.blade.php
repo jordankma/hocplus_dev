@@ -88,12 +88,15 @@
                     </div>
                     <div class="form-group email">
                         <input class="form-control " type="email,phone" id="register-email" placeholder="Email hoặc số điện thoại" required>
+                        <span class="star">*</span>
                     </div>
                     <div class="form-group password">
                         <input class="form-control" type="password" id="register-password" placeholder="Mật khẩu">
+                        <span class="star">*</span>
                     </div>
                     <div class="form-group password">
                         <input class="form-control" type="password" id="register-confirm-password" placeholder="Xác nhận mật khẩu">
+                        <span class="star">*</span>
                     </div>
                     {{-- <div class="form-group phone">
                         <input class="form-control" type="email,phone" id="register-email-confirm" placeholder="Xác thực bằng Email hoặc SĐT">

@@ -61,34 +61,40 @@ class ResetPasswordController extends Controller
                 'password' => Hash::make($password)
             ];
 //            $this->_userRepository->update($data, $passwordReset->email, 'email');
-            Member::where('email', $passwordReset->email)->update($data);
-            Teacher::where('email', $passwordReset->email)->update($data);
+            if($passwordReset->email != ''){
+                Member::where('email', $passwordReset->email)->update($data);
+                Teacher::where('email', $passwordReset->email)->update($data);
+            }
+            else if($passwordReset->phone != ''){
+                Member::where('phone', $passwordReset->phone)->update($data);
+                Teacher::where('phone', $passwordReset->phone)->update($data);
+            }
             $this->_passwordResetRepository->delete($passwordReset->id);
 
+            echo json_encode(['success' => true]);
+//             $from = config('mail.from.address');
+//             $fromName = config('mail.from.name');
 
-            $from = config('mail.from.address');
-            $fromName = config('mail.from.name');
+//             $title = trans('adtech-core::mail.reset_password.title');
 
-            $title = trans('adtech-core::mail.reset_password.title');
+//             $resetPasswordMailer = new PasswordMailer();
+//             $resetPasswordMailer->setViewFile('modules.core.auth.mail.reset_password')
+//                 ->with([
+//                     'toName' => $passwordReset->email,
+//                     'email' => $passwordReset->email,
+//                     'loginLink' => route('adtech.core.auth.login')
+//                 ])
+//                 ->from($from, $fromName)
+//                 ->subject($title);
 
-            $resetPasswordMailer = new PasswordMailer();
-            $resetPasswordMailer->setViewFile('modules.core.auth.mail.reset_password')
-                ->with([
-                    'toName' => $passwordReset->email,
-                    'email' => $passwordReset->email,
-                    'loginLink' => route('adtech.core.auth.login')
-                ])
-                ->from($from, $fromName)
-                ->subject($title);
-
-            try {
-                Mail::to($passwordReset->email, $passwordReset->email)->send($resetPasswordMailer);
-                \Session::flash('flash_messenger', trans('adtech-core::messages.reset_password_success'));
-//                return redirect(route('adtech.core.auth.login'));
-                echo json_encode(['success' => true]);
-            } catch (Exception $e) {
-                echo json_encode(['success' => false]);
-            }
+//             try {
+//                 Mail::to($passwordReset->email, $passwordReset->email)->send($resetPasswordMailer);
+//                 \Session::flash('flash_messenger', trans('adtech-core::messages.reset_password_success'));
+// //                return redirect(route('adtech.core.auth.login'));
+//                 echo json_encode(['success' => true]);
+//             } catch (Exception $e) {
+//                 echo json_encode(['success' => false]);
+//             }
         }
 
 //        return view('modules.core.auth.forgot-password-confirm');
