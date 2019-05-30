@@ -49,6 +49,7 @@
                                 <th>{{ trans('vne-teacher::language.table.teacher.name') }}</th>
                                 <th style="width: 120px">{{ trans('vne-teacher::language.table.created_at') }}</th>
                                 <th style="width: 120px">{{ trans('vne-teacher::language.table.updated_at') }}</th>
+                                <th style="width: 120px">{{ trans('vne-teacher::language.table.status') }}</th>
                                 <th>{{ trans('vne-teacher::language.table.action') }}</th>
                             </tr>
                             </thead>
@@ -76,6 +77,7 @@
                     { data: 'name', name: 'name' },
                     { data: 'created_at', name: 'created_at'},
                     { data: 'updated_at', name: 'updated_at'},
+                    { data: 'status', name: 'status'},
                     { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'fit-content'}
                 ]
             });
@@ -89,6 +91,12 @@
     </script>
 
     <div class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="status_confirm" tabindex="-1" role="dialog" aria-labelledby="news_status_confirm_title"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content"></div>

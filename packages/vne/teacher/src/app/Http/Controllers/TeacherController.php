@@ -214,6 +214,44 @@ class TeacherController extends Controller
             return redirect()->route('vne.teacher.teacher.manage')->with('error', trans('vne-teacher::language.messages.error.delete'));
         }
     }  
+    public function getModalStatus(Request $request)
+    {
+        $model = 'teacher';
+        $type = 'status';
+        $confirm_route = $error = null;
+        $validator = Validator::make($request->all(), [
+            'teacher_id' => 'required|numeric',
+        ], $this->messages);
+        if (!$validator->fails()) {
+            try {
+                $confirm_route = route('vne.teacher.teacher.status', ['teacher_id' => $request->input('teacher_id')]);
+                return view('VNE-TEACHER::modules.teacher.modal.modal_confirmation', compact('error', 'type', 'model', 'confirm_route'));
+            } catch (GroupNotFoundException $e) {
+                return view('VNE-TEACHER::modules.teacher.modal.modal_confirmation', compact('error', 'type', 'model', 'confirm_route'));
+            }
+        } else {
+            return $validator->messages();
+        }
+    }
+
+    public function status(Request $request)
+    {
+        $teacher_id = $request->input('teacher_id');
+        $teacher = $this->teacher->find($teacher_id);
+
+        if (null != $teacher) {
+            $teacher->status = ($teacher->status == 1) ? 2 : 1;
+            $teacher->save();
+            activity('teacher')
+                ->performedOn($teacher)
+                ->withProperties($request->all())
+                ->log('User: :causer.email - status teacher - teacher_id: :properties.teacher_id, name: ' . $teacher->name);
+
+            return redirect()->route('vne.teacher.teacher.manage')->with('success', trans('vne-teacher::language.messages.success.status'));
+        } else {
+            return redirect()->route('vne.teacher.teacher.manage')->with('error', trans('vne-teacher::language.messages.error.status'));
+        }
+    }  
 
     public function log(Request $request)
     {
@@ -256,8 +294,23 @@ class TeacherController extends Controller
                 }
                 return $actions;
             })
+            ->addColumn('status', function ($teachers) {
+                $status = '';
+                if($teachers->status == 1){
+                    if ($this->user->canAccess('vne.teacher.teacher.confirm-status')) {
+                        $status .= '<a href=' . route('vne.teacher.teacher.confirm-status', ['teacher_id' => $teachers->teacher_id]) . '
+                    data-toggle="modal" data-target="#status_confirm"> <span class="label label-default"> Chờ duyệt</span></a>';   
+                    }
+                } else{
+                    if ($this->user->canAccess('vne.teacher.teacher.confirm-status')) {
+                        $status .= '<a href=' . route('vne.teacher.teacher.confirm-status', ['teacher_id' => $teachers->teacher_id]) . ' 
+                        data-toggle="modal" data-target="#status_confirm"> <span class="label label-success"> Đã duyệt</span></a>';
+                    }
+                }
+                return $status;
+            })
             ->addIndexColumn()
-            ->rawColumns(['actions'])
+            ->rawColumns(['actions','status'])
             ->make();
     }
 
