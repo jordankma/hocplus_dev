@@ -12,6 +12,7 @@ return [
         "id" => "#",
         "created_at" => "Created at",
         "updated_at" => "Updated at",
+        "status" => "Xét duyệt",
         "action" => "Actions",
         "teacher" => [
             "name" => "Name"
@@ -67,13 +68,15 @@ return [
         "success" => [
             "create" => "Thêm thành công",
             "update" => "Cập nhật thành công",
-            "delete" => "Xóa thành công"
+            "delete" => "Xóa thành công",
+            "status" => "Xét duyệt thành công"
         ],
         "error" => [
             "permission" => "Permission lock",
             "create" => "Thêm thất bại",
             "update" => "Cập nhật thất bại",
-            "delete" => "Xóa thất bại"
+            "delete" => "Xóa thất bại",
+            "status" => "Xét duyệt thất bại",
         ]
     ]
 ];

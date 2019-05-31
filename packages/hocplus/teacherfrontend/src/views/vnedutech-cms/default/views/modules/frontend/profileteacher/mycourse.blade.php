@@ -22,7 +22,9 @@
         <section class="ml-list js-ml-list">
           <div class="headline">
             <h2 class="title">Khóa dạy của tôi</h2>
-            <a href="{{ route('hocplus.frontend.create-course.step1') }}" class="btn">Khởi tạo khóa học</a>
+            @if($TEACHER_LOGGED->status == 2)
+              <a href="{{ route('hocplus.frontend.create-course.step1') }}" class="btn">Khởi tạo khóa học</a>
+            @endif
           </div>
           <div class="list-course js-list-course">
             <div class="inner">

@@ -38,12 +38,12 @@
         <li class="nav-item active">
             <a href="{{ route('hocplus.frontend.index') }}" class="nav-link"><i class="fa fa-home"></i></a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a href="" class="nav-link">Giới thiệu</a>
         </li>
         <li class="nav-item">
             <a href="" class="nav-link">Liên hệ</a>
-        </li>
+        </li> --}}
         </ul>
         {{-- <div class="info">
         <span class="time"><i class="fa fa-clock"></i> 08:00 - 17:00</span>

@@ -15,6 +15,9 @@ Route::group(array('prefix' => $adminPrefix), function() {
             Route::post('update', 'TeacherController@update')->name('vne.teacher.teacher.update');
             Route::get('delete', 'TeacherController@delete')->name('vne.teacher.teacher.delete');
             Route::get('confirm-delete', 'TeacherController@getModalDelete')->name('vne.teacher.teacher.confirm-delete');
+
+            Route::get('status', 'TeacherController@status')->name('vne.teacher.teacher.status');
+            Route::get('confirm-status', 'TeacherController@getModalStatus')->name('vne.teacher.teacher.confirm-status');
         });
     });
 });
