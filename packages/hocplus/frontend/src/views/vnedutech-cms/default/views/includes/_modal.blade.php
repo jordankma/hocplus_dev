@@ -87,7 +87,8 @@
                         <span class="hiddenLabel"></span>
                     </div>
                     <div class="form-group email">
-                        <input class="form-control " type="email,phone" id="register-email" placeholder="Email hoặc số điện thoại" required>
+                        <input class="form-control " type="email,phone" id="register-email" placeholder="Email hoặc số điện thoại" required> 
+                        {{-- <span style="color:red">*</span> --}}
                     </div>
                     <div class="form-group password">
                         <input class="form-control" type="password" id="register-password" placeholder="Mật khẩu">
