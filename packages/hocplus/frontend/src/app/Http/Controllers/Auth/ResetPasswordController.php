@@ -43,7 +43,6 @@ class ResetPasswordController extends Controller
         if ((time() - $createAtTimestamp) > 10 * 60000) {
             $this->_passwordResetRepository->delete($passwordReset->id);
             \Session::flash('flash_messenger', trans('adtech-core::messages.reset_password_failed'));
-//            return redirect(route('adtech.core.auth.forgot'));
             echo json_encode(['success' => false]);
             die();
         }
@@ -60,13 +59,75 @@ class ResetPasswordController extends Controller
             $data = [
                 'password' => Hash::make($password)
             ];
-//            $this->_userRepository->update($data, $passwordReset->email, 'email');
             if($passwordReset->email != ''){
-                Member::where('email', $passwordReset->email)->update($data);
                 Teacher::where('email', $passwordReset->email)->update($data);
             }
             else if($passwordReset->phone != ''){
-                Member::where('phone', $passwordReset->phone)->update($data);
+                Teacher::where('phone', $passwordReset->phone)->update($data);
+            }
+            $this->_passwordResetRepository->delete($passwordReset->id);
+
+            echo json_encode(['success' => true]);
+//             $from = config('mail.from.address');
+//             $fromName = config('mail.from.name');
+
+//             $title = trans('adtech-core::mail.reset_password.title');
+
+//             $resetPasswordMailer = new PasswordMailer();
+//             $resetPasswordMailer->setViewFile('modules.core.auth.mail.reset_password')
+//                 ->with([
+//                     'toName' => $passwordReset->email,
+//                     'email' => $passwordReset->email,
+//                     'loginLink' => route('adtech.core.auth.login')
+//                 ])
+//                 ->from($from, $fromName)
+//                 ->subject($title);
+
+//             try {
+//                 Mail::to($passwordReset->email, $passwordReset->email)->send($resetPasswordMailer);
+//                 \Session::flash('flash_messenger', trans('adtech-core::messages.reset_password_success'));
+// //                return redirect(route('adtech.core.auth.login'));
+//                 echo json_encode(['success' => true]);
+//             } catch (Exception $e) {
+//                 echo json_encode(['success' => false]);
+//             }
+        }
+
+//        return view('modules.core.auth.forgot-password-confirm');
+    }
+    public function resetTeacher(Request $request, $resetToken)
+    {
+        $passwordReset = $this->_passwordResetRepository->findWhere(['token' => $resetToken])->sortBy('created_at', 0, true)->first();
+        if (null == $passwordReset) {
+//            return redirect(route('adtech.core.auth.login'));
+            echo json_encode(['success' => false]);
+            die();
+        }
+
+        $createAtTimestamp = strtotime($passwordReset->created_at);
+        if ((time() - $createAtTimestamp) > 10 * 60000) {
+            $this->_passwordResetRepository->delete($passwordReset->id);
+            \Session::flash('flash_messenger', trans('adtech-core::messages.reset_password_failed'));
+            echo json_encode(['success' => false]);
+            die();
+        }
+
+        if ($request->isMethod('post')) {
+            $password = $request->input('inputPassword');
+            $confirmPassword = $request->input('inputConfirmPassword');
+
+            if ($password != $confirmPassword) {
+                echo json_encode(['success' => false]);
+                die();
+            }
+
+            $data = [
+                'password' => Hash::make($password)
+            ];
+            if($passwordReset->email != ''){
+                Teacher::where('email', $passwordReset->email)->update($data);
+            }
+            else if($passwordReset->phone != ''){
                 Teacher::where('phone', $passwordReset->phone)->update($data);
             }
             $this->_passwordResetRepository->delete($passwordReset->id);

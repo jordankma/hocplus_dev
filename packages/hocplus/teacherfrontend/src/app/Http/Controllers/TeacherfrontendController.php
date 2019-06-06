@@ -17,6 +17,8 @@ use Hocplus\Teacherfrontend\App\Repositories\CourseRepository;
 use Validator,Auth,Datetime;
 use Illuminate\Support\Facades\Storage;
 
+use Adtech\Core\App\Repositories\PasswordResetRepository;
+
 class TeacherfrontendController extends Controller
 {
     private $messages = array(
@@ -24,14 +26,16 @@ class TeacherfrontendController extends Controller
         'required' => "Bắt buộc",
         'numeric'  => "Phải là số"
     );
+    private $_passwordResetRepository;
 
-    public function __construct(CourseRepository $courseRepository)
+    public function __construct(CourseRepository $courseRepository, PasswordResetRepository $passwordResetRepository)
     {
         parent::__construct();
         $this->course = $courseRepository;
+        $this->_passwordResetRepository = $passwordResetRepository;
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $resetToken = '')
     {
         $list_class = $list_teacher = array();
         try {
@@ -41,9 +45,25 @@ class TeacherfrontendController extends Controller
         } catch (\Throwable $th) {
             //throw $th;
         }
+        $resetTokenEmail = '';
+        if ($resetToken != '') {
+            $passwordReset = $this->_passwordResetRepository->findWhere(['token' => $resetToken])->sortBy('created_at', 0, true)->first();
+            if (null == $passwordReset) {
+                $resetToken = '1';
+            } else {
+                $createAtTimestamp = strtotime($passwordReset->created_at);
+                if ((time() - $createAtTimestamp) > 10 * 60000) {
+                $this->_passwordResetRepository->delete($passwordReset->id);
+                    $resetToken = '2';
+                }
+                $resetTokenEmail = $passwordReset->email;
+            }
+        }
         $data = [
             'list_class' => $list_class,
-            'list_teacher' => $list_teacher
+            'list_teacher' => $list_teacher,
+            'resetToken' => $resetToken,
+            'resetTokenEmail' => $resetTokenEmail
         ];
         return view('HOCPLUS-TEACHERFRONTEND::modules.frontend.teacherfrontend.index',$data);
     }
@@ -65,6 +85,7 @@ class TeacherfrontendController extends Controller
             $teachers->email = $request->input('email');
             $teachers->address = $request->input('address');
             if ($teachers->save()) {
+                
                 if(!empty($class_subject)){
                     foreach($class_subject as $key => $value) {
                         $arr_temp = explode("-",$value);
@@ -260,8 +281,9 @@ class TeacherfrontendController extends Controller
             $data_reponse = json_decode($data_reponse,true);
             if($data_reponse['status'] == true){
                 $token = $data_reponse['data']['token'];
+                // dd($token);
                 $url_stream = config('site.url_stream');
-                $url = $url_stream . "?token=" . $token;
+                $url = $url_stream . "" . $token;
                 // dd($url);
                 return redirect($url);
             }

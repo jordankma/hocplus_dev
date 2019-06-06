@@ -67,7 +67,7 @@ class LoginController extends Controller
         $password = $request->input('password');
         $remember = $request->input('remember', false);
 
-        $user = Teacher::where('status', 1)
+        $user = Teacher::where('activated', 1)
             ->where(function ($query) use ($email) {
                 $query->orWhere('user_name', $email)
                     ->orWhere('phone', $email)
@@ -112,7 +112,7 @@ class LoginController extends Controller
     {   
         
         if ($this->_guardTeacher()->check()) {
-            $routeName = 'hocplus.frontend.index';
+            $routeName = 'hocplus.get.register.teacher';
             return redirect()->intended(route($routeName));
         }
         if ($request->ajax()) {

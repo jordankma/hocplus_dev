@@ -35,14 +35,14 @@
             </form>
           </div>
           <div class="form form-restore-password">
-            <form id="form-forgot" method="post" action="{{ route('hocplus.frontend.auth.forgot') }}">
+            <form id="form-forgot" method="post" action="{{ route('hocplus.frontend.auth.forgot-teacher') }}">
               <div class="title">Lấy lại mật khẩu</div>
               <div class="content">
                 Để lấy lại mật khẩu, bạn nhập email hoặc số điện thoại đăng nhập vào ô dưới đây. Sau đó Học Plus sẽ
                 gửi
                 email hướng dẫn bạn khôi phục mật khẩu
               </div>
-              <div class="form-group notification" style="display: none;">
+              <div class="form-group notification" id="forgot-notification" style="display: none;">
                 <div class="text">Một email/tin nhắn chứa nội dung hướng dẫn khởi tạo lại mật khẩu đã được gửi đi.
                   Bạn
                   vui lòng kiểm tra và làm theo hướng dẫn.</div>
@@ -54,38 +54,51 @@
                 <span class="hiddenLabel"></span>
               </div>
               <div class="form-group email">
-                <input class="form-control form-control-user" type="email,phone" placeholder="Email hoặc số điện thoại">
+                <input class="form-control form-control-user" id="forgot-email" type="email,phone" required placeholder="Email hoặc số điện thoại">
               </div>
               <button class="btn btn-next" type="submit">Tiếp tục</button>
             </form>
           </div>
           <div class="form form-new-password">
-            <form id="form-forgot-password" method="post" action="{{ route('hocplus.frontend.auth.reset', ['resetToken' => $resetToken]) }}">
-              <div class="title">Phục hồi mật khẩu</div>
-              <div class="content">
-                Bạn vừa yêu cầu đặt mật khẩu mới đăng nhập trên Học Plus. Vui lòng nhập mật khẩu mới vào ô bên dưới
-                (Nên có chữ in hoa, số hoặc dấu).
-              </div>
-              <div class="form-group password">
-                <input class="form-control form-control-password" type="email,phone" placeholder="Mật khẩu">
-              </div>
-              <button class="btn btn-finish" type="submit">Hoàn thành</button>
+            <form  id="form-forgot-password" method="post" action="{{ route('hocplus.frontend.auth.reset-teacher', ['resetToken' => $resetToken]) }}">
+                <div class="title">Tạo mới mật khẩu</div>
+                <div class="content">
+                    Bạn vừa yêu cầu đặt mật khẩu mới đăng nhập trên Học Plus. Vui lòng nhập mật khẩu mới vào ô bên dưới
+                    (Nên có chữ in hoa, số hoặc dấu).
+                </div>
+                <div class="form-group notification" id="forgot-password-notification" style="display: none;">
+                    <div class="text" id="forgot-notification-text">Tạo mới mật khẩu thành công. Mời bạn đăng nhập.</div>
+                    <button class="hiddenLabel"></button>
+                </div>
+                <div class="form-group notification" id="forgot-password-notification-err" style="display: none;">
+                    <div class="text">Tạo mới mật khẩu không thành thành công.
+                        <br>Vui lòng kiểm tra lại.</div>
+                    <span class="hiddenLabel"></span>
+                </div>
+                <div class="form-group password">
+                    <input class="form-control " type="password" id="forgot-password-new" placeholder="Mật khẩu">
+                </div>
+                <div class="form-group password">
+                    <input class="form-control " type="password" id="forgot-password-renew" placeholder="Xác nhận mật khẩu">
+                </div>
+                <button class="btn" type="submit" id="reset-btn-submit">Hoàn thành</button>
             </form>
-            <form class="form form-new-password-1">
+          </div>
+
+          {{-- <form class="form form-new-password-1">
               <div class="title">Tạo mới mật khẩu</div>
               <div class="content">
                   Yêu cầu của bạn không được tìm thấy! Vui lòng kiểm tra lại thông tin.
                   <br><br><br><br><br><br><br><br><br><br>
               </div>
-            </form>
-            <form class="form form-new-password-2">
-                <div class="title">Tạo mới mật khẩu</div>
-                <div class="content">
-                    Yêu cầu của bạn đã hết hạn! Vui lòng gửi lại yêu cầu.
-                    <br><br><br><br><br><br><br><br><br>
-                </div>
-            </form>
-          </div>
+          </form>
+          <form class="form form-new-password-2">
+              <div class="title">Tạo mới mật khẩu</div>
+              <div class="content">
+                  Yêu cầu của bạn đã hết hạn! Vui lòng gửi lại yêu cầu.
+                  <br><br><br><br><br><br><br><br><br>
+              </div>
+          </form> --}}
         </div>
       </div> <!-- / left -->
       <div class="col-6 right">

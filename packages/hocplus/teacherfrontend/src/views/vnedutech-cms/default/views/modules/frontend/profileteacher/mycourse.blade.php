@@ -38,7 +38,7 @@
                 <div class="grid-col col-15">Action</div>
               </div>
               <div class="group-item">
-                @if(count($courses) > 1)
+                @if(count($courses) > 0)
                 @foreach($courses as $element)
                 <div class="item">
                   <div class="grid">
@@ -134,7 +134,7 @@
                     <th scope="col">Thời gian kết thúc</th>
                   </tr>
                 </thead>
-                @if(count($courses_end) > 1)
+                @if(count($courses_end) > 0)
                 <tbody>
                   @foreach($courses_end as $element)
                   <tr>
@@ -195,27 +195,29 @@
 @section('footer_scripts')
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/bootstrapvalidator/js/bootstrapValidator.min.js' }}" type="text/javascript"></script>
 <script>
+  var resetToken = '{{ $resetToken }}';
+  var resetTokenEmail = '{{ $resetTokenEmail }}';
   var route_delete = '{{ route('hocplus.course.get.delete') }}';
   // // Btton delete
-  // const btnDelete = $('.js-btn-delete');
-  // if (btnDelete) {
+  const btnDelete = $('.js-btn-delete');
+  if (btnDelete) {
 
-  //   const btnDelete = $('.js-btn-delete');
-  //   const btnNo = $('.notification-delete .btn-no');
-  //   const body = $('body');
-  //   const ACTIVE_CLASS = 'notification-delete-active';
-  //   btnDelete.on('click', function () {
-  //     $("#accept-delete").attr("href", '');
-  //     var course_id = $(this).data('course-id');
-  //     var route_delete_add = route_delete + '?course_id=' + course_id;
-  //     $("#accept-delete").attr("href", route_delete_add);
-  //     body.addClass(ACTIVE_CLASS);
-  //     return false;
-  //   });
-  //   btnNo.on('click', function () {
-  //     body.removeClass(ACTIVE_CLASS);
-  //     return false;
-  //   });
-  // }
+    const btnDelete = $('.js-btn-delete');
+    const btnNo = $('.notification-delete .btn-no');
+    const body = $('body');
+    const ACTIVE_CLASS = 'notification-delete-active';
+    btnDelete.on('click', function () {
+      $("#accept-delete").attr("href", '');
+      var course_id = $(this).data('course-id');
+      var route_delete_add = route_delete + '?course_id=' + course_id;
+      $("#accept-delete").attr("href", route_delete_add);
+      body.addClass(ACTIVE_CLASS);
+      return false;
+    });
+    btnNo.on('click', function () {
+      body.removeClass(ACTIVE_CLASS);
+      return false;
+    });
+  }
 </script>
 @stop

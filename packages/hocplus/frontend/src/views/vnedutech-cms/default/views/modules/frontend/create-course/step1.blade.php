@@ -150,7 +150,7 @@
                                             </div>
                                             <div class="grid-right">
                                                 <input class="form-control" type="text" id="exampleInputTemplateSessionNumber" name="template_timelesson" value="{{old('template_timelesson')}}"
-                                                       required="required" oninvalid="this.setCustomValidity('Vui lòng nhập tổng thời lượng khóa học!')" oninput="setCustomValidity('')" placeholder="Tổng số giờ của khóa học">
+                                                       required="required" oninvalid="this.setCustomValidity('Vui lòng nhập tổng thời lượng khóa học!')" oninput="setCustomValidity('')" placeholder="Tổng số phút trong mỗi buổi học">
                                             </div>
                                         </div>
                                         <div class="grid form-group">

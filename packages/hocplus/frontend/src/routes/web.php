@@ -16,9 +16,13 @@ Route::group(array('prefix' => $prefix), function() {
 
         Route::match(['get', 'post'], 'forgot-password', 'Auth\ForgotPasswordController@forgot')->name('forgot');
 
+        Route::match(['get', 'post'], 'forgot-password-teacher', 'Auth\ForgotPasswordController@forgotTeacher')->name('forgot-teacher');
+
         Route::get('reset-password/{reset_token}', 'HomepageController@index')->name('hocplus.frontend.index');
 
         Route::match(['post'], 'reset-password/{reset_token}', 'Auth\ResetPasswordController@reset')->name('reset');
+
+        Route::match(['post'], 'reset-password-teacher/{reset_token}', 'Auth\ResetPasswordController@resetTeacher')->name('reset-teacher');
 
         Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
