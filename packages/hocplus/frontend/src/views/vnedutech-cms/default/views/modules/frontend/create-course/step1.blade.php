@@ -114,7 +114,9 @@
                                                             {{-- <option selected="true" disabled="disabled">Môn học</option> --}}
                                                             @if (count($arrSubject) > 0)
                                                                 @foreach($arrSubject as $subject)
-                                                                <option value="{{ $subject->getSubject->subject_id }}">{{ $subject->getSubject->name }}</option>
+                                                                <option value="{{ isset($subject->getSubject->subject_id) ? $subject->getSubject->subject_id : '' }}">
+                                                                    {{ isset($subject->getSubject->name) ? $subject->getSubject->name : '' }}
+                                                                </option>
                                                                 @endforeach
                                                             @endif
                                                         </select>

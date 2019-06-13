@@ -187,14 +187,14 @@ class CreatecourseController extends Controller
                                 foreach ($templateDetail->getTemplateLesson as $k => $lesson_template) {
 
                                     $time_start = strtotime($request->input('exampleInputTemplateDateStart-' . $lesson_template->template_lesson_id) . ' ' . $request->input('exampleInputTemplateTimeStart-' . $lesson_template->template_lesson_id));
-                                    $time_end = strtotime($request->input('exampleInputTemplateDateEnd-' . $lesson_template->template_lesson_id) . ' ' . $request->input('exampleInputTemplateTimeEnd-' . $lesson_template->template_lesson_id));
+                                    // $time_end = strtotime($request->input('exampleInputTemplateDateEnd-' . $lesson_template->template_lesson_id) . ' ' . $request->input('exampleInputTemplateTimeEnd-' . $lesson_template->template_lesson_id));
 
                                     $arrLesson[] = [
                                         'name' => $lesson_template->name,
                                         'content' => $lesson_template->content,
                                         'course_id' => $newCourse->course_id,
                                         'date_start' => $time_start,
-                                        'time_line' => ($time_end - $time_start) / 60
+                                        'time_line' => $templateDetail->time
                                     ];
                                 }
                                 Lesson::insert($arrLesson);
@@ -274,7 +274,7 @@ class CreatecourseController extends Controller
                 $lessonName = $request->input('lessonName', []);
                 $lessonContent = $request->input('lessonContent', []);
                 $lessonStart = $request->input('lessonStart', []);
-                $lessonEnd = $request->input('lessonEnd', []);
+                // $lessonEnd = $request->input('lessonEnd', []);
                 $courseDetail = Course::where('course_id',$course_id)->first();
                 if ($courseDetail) {
                     if ($courseDetail->teacher_id == $teacher_id) {
@@ -296,14 +296,15 @@ class CreatecourseController extends Controller
                                 $content = $lessonContent[$k];
                                 $timeStart = strtotime($lessonStart[$k]);
                                 // dd($timeStart);
-                                $timeEnd = strtotime($lessonEnd[$k]);
+                                // $timeEnd = strtotime($lessonEnd[$k]);
 
                                 $arrLesson[] = [
                                     'name' => $name,
                                     'content' => $content,
                                     'course_id' => $course_id,
                                     'date_start' => $timeStart,
-                                    'time_line' => ($timeEnd - $timeStart) / 60
+                                    // 'time_line' => ($timeEnd - $timeStart) / 60
+                                    'time_line' => $courseTime
                                 ];
                             }
                             Lesson::insert($arrLesson);

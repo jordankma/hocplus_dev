@@ -38,7 +38,6 @@
 @section('footer_scripts')
   <script>
     var resetToken = '{{ $resetToken }}';
-    console.log(resetToken);
     var resetTokenEmail = '{{ $resetTokenEmail }}';
   </script>
   <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/bootstrapvalidator/js/bootstrapValidator.min.js' }}" type="text/javascript"></script>

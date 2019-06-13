@@ -105,7 +105,7 @@
                                                 <div class="grid-right">
                                                     <div class="grid grid-mg15">
                                                         <div class="grid-50 grid-p15">Bắt đầu</div>
-                                                        <div class="grid-50 grid-p15">Kết thúc</div>
+                                                        {{-- <div class="grid-50 grid-p15">Kết thúc</div> --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,7 +129,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="grid-50 grid-p15">
+                                                                    {{-- <div class="grid-50 grid-p15">
                                                                         <div class="grid grid-mg7">
                                                                             <div class="grid-60 grid-p7">
                                                                                 <input class="form-control datetime-end-{{ $k }}" id="exampleInputTemplateDateEnd-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateDateEnd-{{ $lesson->template_lesson_id }}"  value="">
@@ -138,7 +138,7 @@
                                                                                 <input class="form-control timepicker" id="exampleInputTemplateTimeEnd-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateTimeEnd-{{ $lesson->template_lesson_id }}" value="00:00">
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> --}}
                                                                 </div>
                                                             </div>
                                                         </div>

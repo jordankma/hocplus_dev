@@ -195,8 +195,6 @@
 @section('footer_scripts')
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vendors/bootstrapvalidator/js/bootstrapValidator.min.js' }}" type="text/javascript"></script>
 <script>
-  var resetToken = '{{ $resetToken }}';
-  var resetTokenEmail = '{{ $resetTokenEmail }}';
   var route_delete = '{{ route('hocplus.course.get.delete') }}';
   // // Btton delete
   const btnDelete = $('.js-btn-delete');
