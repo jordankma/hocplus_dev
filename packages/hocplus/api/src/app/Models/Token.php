@@ -1,5 +1,5 @@
 <?php
-
+//token stream
 namespace Hocplus\Api\App\Models;
 
 use Illuminate\Database\Eloquent\Model;

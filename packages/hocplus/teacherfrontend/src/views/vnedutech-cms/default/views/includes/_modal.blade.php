@@ -12,7 +12,8 @@
           <div class="form form-log-in show">
             <form class="teacher" id="form-login-teacher" method="post" action="{{ route('hocplus.frontend.auth.login-teacher') }}">
               <div class="form-group notification" id="login-notification-teacher" style="display: none;">
-                  <div class="text" style="color:red">Thông tin đăng nhập không chính xác.
+                  <div class="text" style="color:red">Thông tin đăng nhập không chính xác. <br>
+                      Hoặc tài khoản chưa kích hoạt
                       <br>Vui lòng kiểm tra lại.</div>
                   <span class="hiddenLabel"></span>
               </div>

@@ -20,3 +20,5 @@ Route::get('newsletter', 'NewsletterController@create')->name('hocplus.news.crea
 Route::post('newsletter', 'NewsletterController@store')->name('hocplus.news.store');
 //Route::get('comments', 'NewsController@comments')->middleware('auth')->name('hocplus.news.comments');
 Route::get('news/tags/{name}', 'NewsController@tags')->name('hocplus.news.tags');
+Route::get('api/news', 'NewsApiController@index')->name('hocplus.news.api.index');
+Route::get('api/news/detail/{id}', 'NewsApiController@detail')->name('hocplus.news.api.detail');

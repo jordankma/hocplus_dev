@@ -17,4 +17,9 @@ Route::group(array('prefix' => $prefix), function() {
     Route::group(['middleware' => ['member.auth']], function () {
         Route::get('/khoa-hoc-cua-toi/s/{alias?}', 'StudentfrontendController@getMyCourse')->name('hocplus.get.my.course.student');
     });
+    Route::get('activate/teacher/{token}', 'TeacherfrontendController@activate')->name('hocplus.auth.activate-teacher');
+
+    Route::get('/scan-mail-active/{limit?}', 'TeacherfrontendController@sendMailActive');
+
+
 });

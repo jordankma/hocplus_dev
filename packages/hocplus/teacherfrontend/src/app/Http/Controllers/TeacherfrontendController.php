@@ -18,7 +18,8 @@ use Validator,Auth,Datetime;
 use Illuminate\Support\Facades\Storage;
 
 use Adtech\Core\App\Repositories\PasswordResetRepository;
-
+use Adtech\Core\App\Mail\Password as ActiveMailer;
+use Mail;
 class TeacherfrontendController extends Controller
 {
     private $messages = array(
@@ -76,6 +77,20 @@ class TeacherfrontendController extends Controller
             'email' => 'required'
         ], $this->messages);
         if (!$validator->fails()) {
+            try {
+                $check_mail = file_get_contents('http://checkmail.vnedutech.vn/?mail=' . $request->input('email'));
+                $check_mail_arr = json_decode($check_mail,true);
+                // dd($check_mail_arr);
+                if($check_mail_arr['status'] == false){
+                    $errors = [];
+                    $errors['email'] = ['Email không hợp lệ'];
+                    return json_encode($errors);    
+                    
+                } 
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+
             $class_subject = $request->input('class_subject');
             $teachers = new Teacher();
             $teachers->name = $request->input('name');
@@ -84,6 +99,8 @@ class TeacherfrontendController extends Controller
             $teachers->phone = $request->input('phone');
             $teachers->email = $request->input('email');
             $teachers->address = $request->input('address');
+            
+            $teachers->token = md5( $request->input('name') . $request->input('phone') . time());
             if ($teachers->save()) {
                 
                 if(!empty($class_subject)){
@@ -96,6 +113,21 @@ class TeacherfrontendController extends Controller
                         $teacher_class_subject->save();
                     }
                 } 
+                //send mail active
+                $from = config('mail.from.address');
+                $fromName = config('mail.from.name');
+                $activeMailer = new ActiveMailer();
+                $title = 'Kích hoạt tài khoản';
+                $activeMailer->setViewFile('modules.core.auth.mail.active_account')
+                ->with([
+                    'toName' => $teachers->email,
+                    'email' => $teachers->email,
+                    'activeLink' => route('hocplus.auth.activate-teacher', $teachers->token)
+                ])
+                ->from($from, $fromName)
+                ->subject($title);
+                Mail::to($teachers->email, $teachers->email)->send($activeMailer);
+
                 return redirect()->route('hocplus.get.register.teacher')->with('success','Đăng ký làm giảng viên thành công');
             } else{
                 return redirect()->route('hocplus.get.register.teacher')->with('error','Đăng ký làm giảng viên thất bại');
@@ -310,5 +342,58 @@ class TeacherfrontendController extends Controller
             $output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
         }
         return $output;
+    }
+
+    public function activate(Request $request, $token)
+    {
+        $teacher = Teacher::where('token',$token)->first();
+        if(empty($teacher)){
+            return redirect()->back();
+        };
+        $teacher->activated = 1;
+        if($teacher->save()){
+            $teacher->token = '';     
+            $teacher->save();
+            return redirect()->route('hocplus.frontend.index');   
+        }   
+    }
+
+    public function sendMailActive($limit = 5){
+        $list_teacher = Teacher::where('activated', 0)->take($limit)->get();
+        // dd($list_teacher);
+        if(!empty($list_teacher)){
+            foreach ($list_teacher as $key => $teacher) {
+                $status = false;
+                if($teacher->email != null && $teacher->token != null){
+                    //check mail hop le
+                    try {
+                        $check_mail = file_get_contents('http://checkmail.vnedutech.vn/?mail=' . $teacher->email);
+                        $check_mail_arr = json_decode($check_mail,true);
+                        // dd($check_mail_arr);
+                        if($check_mail_arr['status'] == true){
+                            $status = true; 
+                        } 
+                    } catch (\Throwable $th) {
+                        //throw $th;
+                    }
+                    //check mail hop le
+                    if($status == true){
+                        $from = config('mail.from.address');
+                        $fromName = config('mail.from.name');
+                        $activeMailer = new ActiveMailer();
+                        $title = 'Kích hoạt tài khoản';
+                        $activeMailer->setViewFile('modules.core.auth.mail.active_account')
+                        ->with([
+                            'toName' => $teacher->email,
+                            'email' => $teacher->email,
+                            'activeLink' => route('hocplus.auth.activate-teacher', $teacher->token)
+                        ])
+                        ->from($from, $fromName)
+                        ->subject($title);
+                        Mail::to($teacher->email, $teacher->email)->send($activeMailer);    
+                    }
+                }
+            }    
+        }   
     }
 }

@@ -120,7 +120,7 @@ class ResetPasswordController extends Controller
                 echo json_encode(['success' => false]);
                 die();
             }
-
+            // dd($password);
             $data = [
                 'password' => Hash::make($password)
             ];

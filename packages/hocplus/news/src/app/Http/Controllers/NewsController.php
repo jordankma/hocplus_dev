@@ -34,7 +34,7 @@ class NewsController extends Controller
     public function index() {
         $news = News::orderBy('created_at','DESC')->where('is_hot',2)->where('type_page','news')->paginate(10);
         $topnews = News::orderBy('views','DESC')->where('type_page','news')->limit(10)->get();
-        $hotnews = News::where('is_hot',1)->get()->first();
+        $hotnews = News::where('is_hot',1)->where('type_page','news')->get()->first();
         if ($hotnews) {
             $features = News::where('is_hot',1)->where('type_page','news')->where('news_id','!=',$hotnews->news_id)->limit(4)->get();
         }
@@ -60,7 +60,7 @@ class NewsController extends Controller
         if ($news) {
             $news->views = $news->views + 1;
             $news->save();
-            $topnews = News::orderBy('views','DESC')->limit(10)->get();    
+            $topnews = News::where('type_page','news')->orderBy('views','DESC')->limit(10)->get();    
             $comments = Comments::where('news_id','=',$news_id)->where('status',1)->orderBy('updated_at')->get();
             //print_r($comments[0]->getUser()); die();
             return view('HOCPLUS-NEWS::modules.news.detail', compact('news', 'topnews', 'comments', 'news_id', 'user_id'));

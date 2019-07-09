@@ -40,9 +40,11 @@
                   <span class="commit"><i class="fa fa-comment"></i> {{count($comments)}}</span>
                 </div>
               </div> <!-- / info -->
+              @if ($news->image!='')
               <div class="media">
                 <img src="{{config('site.url_static').$news->image}}" width="100%" alt="">
               </div> <!-- / media -->
+              @endif
               <div class="content">
                 <?php echo $news->content; ?>
               </div> <!-- / content -->

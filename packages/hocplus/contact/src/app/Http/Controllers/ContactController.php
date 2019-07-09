@@ -44,7 +44,10 @@ class ContactController extends Controller
         $contact->class = isset($request->class)?$request->class:"";
         $contact->subject = isset($request->subject)?$request->subject:"";
         $contact->link_facebook = isset($request->link_facebook)?$request->link_facebook:"";
-        $contact->save();   
-        return redirect('/');
+        $result = $contact->save();   
+        if ($result) {
+            return redirect()->back()->with('message', 'Cảm ơn bạn đã gửi thông tin, chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất!');
+            //return redirect('/');
+        }       
     }
 }

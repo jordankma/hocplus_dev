@@ -79,6 +79,7 @@ return array(
     'Hocplus\\Coursegroup\\' => array($baseDir . '/packages/hocplus/coursegroup/src'),
     'Hocplus\\Contact\\' => array($baseDir . '/packages/hocplus/contact/src'),
     'Hocplus\\Comments\\' => array($baseDir . '/packages/hocplus/comments/src'),
+    'Hocplus\\Api\\' => array($baseDir . '/packages/hocplus/api/src'),
     'GuzzleHttp\\Stream\\' => array($vendorDir . '/guzzlehttp/streams/src'),
     'GuzzleHttp\\Ring\\' => array($vendorDir . '/guzzlehttp/ringphp/src'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),

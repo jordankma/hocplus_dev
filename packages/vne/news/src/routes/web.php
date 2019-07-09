@@ -78,8 +78,8 @@ Route::group(array('prefix' => $adminPrefix), function() {
 
     });
 });
-$apiPrefix = config('site.api_prefix');
-
+// $apiPrefix = config('site.api_prefix');
+$apiPrefix = '/resource/api';
 Route::group(array('prefix' => $apiPrefix), function() {
     Route::group(array('prefix' => 'news'), function() {
         Route::get('list', 'ApiNewsController@getListNewsApi');
