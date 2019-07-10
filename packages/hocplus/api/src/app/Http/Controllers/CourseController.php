@@ -28,8 +28,7 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
-    public function __construct(CourseRepository $courseRepository)
-    {
+    public function __construct(CourseRepository $courseRepository){
         $this->course = $courseRepository;
         \Debugbar::disable();
     }
@@ -262,7 +261,7 @@ class CourseController extends Controller
             $token_controller = new TokenController();
             $status = $token_controller->checkToken($member_id, $token); 
             if($status){ //check token
-                $data = $data_course_relate = $data_lesson = $data_comment = array();
+                $data = $data_course_relate = $data_lesson = $data_comment = $data_rating = array();
                 $course = Course::where('course_id',$course_id)->with('isTeacher', 'isSubject', 'isClass', 'getLesson')->first();
                 $list_lesson = $course->getLesson;
                 
@@ -315,12 +314,45 @@ class CourseController extends Controller
                     }    
                 }
                 //end datacourse relate
+                //data rating
+                $list_rating = Rating::where('course_id',$course_id)->get();
+                $star1 = $star2 = $star3 = $star4 = $star5 = 0;
+                if(!empty($list_rating)){
+                    foreach ($list_rating as $key => $value) {
+                        switch ($value->rate) {
+                            case 1:
+                                $star1++;
+                                break;
+                            case 2:
+                                $star2++;
+                                break;
+                            case 3:
+                                $star3++;
+                                break;
+                            case 4:
+                                $star4++;
+                                break;
+                            case 5:
+                                $star5++;
+                                break;
+                        }
+                    }
+                    $data_rating = [
+                        'star1' => $star1,
+                        'star2' => $star2,
+                        'star3' => $star3,
+                        'star4' => $star4,
+                        'star5' => $star5
+                    ];
+                }
+                //end data rating
                 $data = [
                     'title' => base64_encode($course->name),
                     'class' => isset($course->isClass->name) ? base64_encode($course->isClass->name) : '',
                     'subject' => isset($course->isSubject->name) ? base64_encode($course->isSubject->name) : '',
                     'course_id' => $course->course_id,
-                    'avartar' => config('site.url_static') . $course->avartar,
+                    'avartar' => $course->avartar != '' ? config('site.url_static') . $course->avartar : 'http://static.hocplus.vn/files/vendor/vnedutech-cms/default/hocplus/teacherfrontend/images/course.jpg',
+                    'video' => $course->video,
                     'student_limit' => $course->student_limit,
                     'student_register' => $course->student_register,
                     'time' => $course->time,
@@ -332,6 +364,7 @@ class CourseController extends Controller
                     'summary' => base64_encode($course->summary),
                     'list_lesson' => $data_lesson,
                     'list_course_relate' => $data_course_relate,
+                    'list_rate' => $data_rating,
                     'star' => 5,
                     'check_buy' => self::checkBuyCourse($member_id,$course->course_id)
 
@@ -444,6 +477,10 @@ class CourseController extends Controller
             $token_controller = new TokenController();
             $status = $token_controller->checkToken($member_id, $token); 
             if($status){ //check token
+                $rate = Rating::where('course_id',$course_id)->where('member_id',$member_id)->first();
+                if($rate){
+                    return self::message(false, 'Bạn đã đánh giá khóa học!');  
+                }
                 $rating = new Rating;
                 $rating->course_id = $course_id;
                 $rating->rate = $rate;
@@ -452,8 +489,7 @@ class CourseController extends Controller
                     return self::message(true, 'Đánh giá thành công');        
                 }else{
                     return self::message(false, 'Đánh giá thất bại');    
-                }
-                return json_encode($data_reponse); 
+                } 
             }else{
                 return self::message(false, 'Token không hợp lệ');    
             }

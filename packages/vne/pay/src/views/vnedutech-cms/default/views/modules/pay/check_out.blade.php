@@ -29,14 +29,15 @@
             <div class="inner">
               <h2 class="title">Mua khóa học thành công</h2>
               <img src="{{asset('image/thanh-cong.png')}}" alt="">
-              <p>Sau khi nhận được thông tin về việc thanh toán, chúng tôi sẽ kích hoạt khóa học. Chúc bạn có những bài học thật hay và bổ ích</p>
-              {{--  <div style="font-size: 30px;font-weight: 700;color: #d2232f;">{{$order_code}}</div>  --}}
+              <p>Cảm ơn quý khách đã mua khóa học tại Học Plus. Bạn đã chọn hình thức thanh toán {{$method->type}}, mã đơn hàng của
+                quý khách là:</p>
+              <div style="font-size: 30px;font-weight: 700;color: #d2232f;">{{$order_code}}</div>
               <p>
-               {{--  {{$method->notifi}}  --}}
+               {{$method->notifi}}
               </p>
             </div>
           </div>
-          <a class="btn" href="{{route('hocplus.studentprofile.bang-thong-tin')}}">Xem khóa học</a>
+          <a class="btn" href="{{URL::to('khoa-hoc-cua-toi')}}">Xem khóa học</a>
         </div>
       </section> <!-- / notification -->
 </main>

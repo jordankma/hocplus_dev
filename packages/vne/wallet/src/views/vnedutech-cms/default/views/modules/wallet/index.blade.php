@@ -105,9 +105,9 @@
                                     
                                     @if(!empty($val->course_id))
                                         <div class="title">
-                                        <a href="{{URL::to('khoa-hoc', $val->course_id)}}">{{$val->isCourse->name}}</a>
+                                        <a href="{{URL::to('khoa-hoc', $val->course_id)}}">{{ @$val->isCourse->name }}</a>
                                         </div>
-                                    @endif                                    
+                                    @endif
                                 </td>
                                 <td>
                                     @if($val->method == 'cod')

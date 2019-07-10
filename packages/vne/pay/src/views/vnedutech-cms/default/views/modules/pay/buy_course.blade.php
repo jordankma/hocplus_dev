@@ -85,6 +85,7 @@
                     <div class="number total_price">{{number_format($data['price'], 0, ',', '.')}}<span>đ</span></div>
                   </div>
                 </div>
+                @if(!$checkExits)
                 <div class="discount-code">
                   <form>
                     <div class="form-group">
@@ -98,8 +99,9 @@
                     </div>
                     <button type="button" class="btn btn-use-voucher">Áp dụng</button>
                   </form>
-                </div>
-                <a href="#" class="btn btn-buying">Mua khóa học</a>
+                </div>                
+                  <a href="#" class="btn btn-buying">Mua khóa học</a>
+                @endif
               </div>
 
             </div><!-- / right -->

@@ -18,6 +18,7 @@ use Vne\Pay\App\Models\Transaction;
 use Vne\Pay\App\Models\Cod;
 use Vne\Pay\App\Models\MemberHasCourse;
 use App\Libary\VNPay\VNPayPayment;
+use Vne\Pay\App\Models\LogApi;
 use GuzzleHttp\Client;
 use Curl\Curl;
 use Validator;
@@ -67,19 +68,34 @@ class PayController extends Controller
         ];
 
         $data['secret_key'] = $this->_buildSecretKeyByCourse($data['course_id'], $data['price']);
+
+        $memberId = $memberId = isset(Auth::guard('member')->user()->member_id) ? Auth::guard('member')->user()->member_id : 1;
+
+        $checkExits = false;
+        $checkExitsCourse = MemberHasCourse::where(['member_id' => $memberId, 'course_id' => $request->course_id])->first();
+        if($checkExitsCourse){
+            $checkExits = true;
+        }
         
-        return view('VNE-PAY::modules.pay.buy_course', compact('data'));
+        return view('VNE-PAY::modules.pay.buy_course', compact('data', 'checkExits'));
     }
 
     //sử dụng voucher
     public function useVoucher(Request $request){
         try{
+            $memberId = isset(Auth::guard('member')->user()->member_id) ? Auth::guard('member')->user()->member_id : 1;
+            
             if(empty($request->voucherCode) ){
                 throw new \Exception('Bạn chưa nhập mã giảm giá');
             }
 
             if(empty($request->secretKey) || empty($request->courseId) || empty($request->price)){
                 throw new \Exception('Tham số không hợp lệ');
+            }
+
+            $checkExitsCourse = MemberHasCourse::where(['member_id' => $memberId, 'course_id' => $request->courseId])->first();
+            if($checkExitsCourse){
+                throw new \Exception('Bạn đã mua khóa học này!');
             }
 
             //check seretKey
@@ -103,8 +119,8 @@ class PayController extends Controller
             } 
             if($voucher->type == 1){ // kieu giam gia %
                 $discount = $voucher->discount; 
-            }            
-                    
+            }
+
             $price = ($course->price - $this->_buildCourseDiscount($course->price, $course->discount, $course->discount_exp)) - $discount;
             $newSecretKey = $this->_buildSecretKeyByCourse($request->courseId, $price);
 
@@ -138,6 +154,14 @@ class PayController extends Controller
             if(empty($request->secretKey) || empty($request->courseId) || empty($request->price)){
                 throw new \Exception('Tham số không hợp lệ');
             }
+            
+            $memberId = isset(Auth::guard('member')->user()->member_id) ? Auth::guard('member')->user()->member_id : 1;
+            $checkExitsCourse = MemberHasCourse::where(['member_id' => $memberId, 'course_id' => $request->courseId])->first();
+           
+            if($checkExitsCourse){
+                throw new \Exception('Bạn đã mua khóa học này!');
+            }
+
             //check key
             $currentKey = $this->_buildSecretKeyByCourse($request->courseId, $request->price);
             if($currentKey != $request->secretKey){
@@ -162,7 +186,8 @@ class PayController extends Controller
                 'total_money' => $course->price,
                 'total_discount' => $request->discountCourse + $request->discountVoucher,
                 'money_payment' => $request->price,
-                'status' => 0
+                'status' => 0,
+                'type' => 'out'
             ]);
 
             if($order->order_id){
@@ -228,9 +253,12 @@ class PayController extends Controller
 
         $order = $checkOrder['order'];       
         
-        $city = Thanhpho::getAllData();       
-
-        return view('VNE-PAY::modules.pay.pay_course', compact('payMethods', 'order', 'city'));
+        $city = Thanhpho::getAllData();
+        
+        //lay thong tin vi
+        $memberId = isset( Auth::guard('member')->user()->member_id) ? Auth::guard('member')->user()->member_id : 1;
+        $deposit = $this->_createMemberDeposit($memberId);
+        return view('VNE-PAY::modules.pay.pay_course', compact('payMethods', 'order', 'city', 'deposit'));
     }
 
 
@@ -281,6 +309,7 @@ class PayController extends Controller
         ]);
         if($cod->cod_id){
             $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT;
+            $order->method = 'cod';
             $order->save();
             return response()->json([
                 'status' => true,
@@ -312,129 +341,186 @@ class PayController extends Controller
                     'msg' => 'Dữ liệu không hợp lệ',
                     'captcha'=> captcha_img()
                 ]);
-            }            
-                      
+            }
             // check secretKey order
             $currentKey = $this->_buildSecretKeyOrder($request->order_code);
             if($request->secret_key != $currentKey){
                 throw new \Exception('Secret key không chính xác');
             }
 
-            //check trạng thái đơn hàng           
+            //check trạng thái đơn hàng
             $checkOrder = $this->_checkStatusOrder($request->order_code);
             if(empty($checkOrder)){
-                throw new \Exception('Lỗi: không tìm thấy thông tin đơn hàng');              
+                throw new \Exception('Lỗi: không tìm thấy thông tin đơn hàng');
             }
             if($checkOrder['error'] == true){
-                throw new \Exception('Lỗi: '.$checkOrder['msg']);               
+                throw new \Exception('Lỗi: '.$checkOrder['msg']);
             }
 
             $order = $checkOrder['order'];
-           
+
             $memberId = isset( Auth::guard('member')->user()->member_id) ? Auth::guard('member')->user()->member_id : 1;
 
-            $data = "code=" . $request->card_code . "&serial=" . $request->card_seri . "&user_id=" . $memberId . '&product_id='.$this->_productId.'&environment='.$this->_environment;
-           
+            //lay thong tin khoa hoc
+            $course = Course::findOrFail($order->course_id);
+
+            $data = "code=" . $this->_replaceString($request->card_code) . "&serial=" . $this->_replaceString($request->card_seri) . "&user_id=" . $memberId . '&product_id='.$this->_productId.'&environment='.$this->_environment;
+
             $data_encrypt = $this->_encrypt($data);
-           
+
             $curl = new Curl();
-           
+
             $response = $curl->post('http://card.hocplus.vn/admin/api/card/wallet_charge?data='.$data_encrypt);
-            //dd($response);
+
             $curl->close();
+
+            $order->method = 'card';
+            $order->card_code = $this->_replaceString($request->card_code);
+            $order->card_seri = $this->_replaceString($request->card_seri);
+            $order->save();
+
             if($response->status){
                 $res = $response->data;
-                // nạp thẻ thành công
-                $deposit = $this->_createMemberDeposit(); // lay thong tin vi
-                //1.lưu transaction giao dich thành công
-                $logTransaction = [
-                    'member_id' => $memberId,
-                    'type' => 'in',
-                    'money_payment' => $res->card_value,
-                    'method' => 'card',
-                    'money_before' => $deposit->deposit,
-                    'money_after' => (int)$deposit->deposit + (int)$res->card_value,
-                    'seri' => $request->card_seri,
-                    'code' => $request->card_code,
-                    'card_type' => 'hocplus',
-                    'message' => 'Nạp tiền vào ví từ thẻ hocplus thành công'
-                ];
 
-                $transactionIn = $this->_createTransaction($logTransaction);
-                if($transactionIn->transaction_id){
-                    //2.lưu transction thành công, cộng tiền vào ví
-                    $moneyChange = $res->card_value + $deposit->deposit;
-                    $deposit->deposit =  $moneyChange;
-                    $deposit->deposit_hash = $this->_hashDeposit($deposit->member_id, $moneyChange);
-                    $deposit->save();
-                }
+                $deposit = $this->_createMemberDeposit($memberId); // lay thong tin vi
 
-                // kiểm tra ví có đủ tiền để đăng ký khóa học.
-                if( $order->money_payment <= $deposit->deposit ){
-                    
-                    // trừ tiền                        
-                    $deposit->deposit = $money_change;
-                    $deposit->deposit_hash = $this->_hashDeposit($deposit->member_id, $money_change);
-                    $deposit->save();
+                //cap nhat don hang
+                $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::TT_THANH_CONG;
+                $order->save();
 
-                    //cap nhat don hang
-                    $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::TT_THANH_CONG;
-                    $order->save();
+                //kiem tra menh gia the co >= hoa don
+                if($order->money_payment <= $res->card_value ){
+                    $rechange = (int)$res->card_value - (int)$order->money_payment;
 
-                    $money_change = $deposit->deposit - $order->money_payment;
-                    // tao log mua khoa hoc
                     $logTransaction = [
-                        'member_id' => $memberId,
                         'order_code' => $order->order_code,
-                        'course_id' => $order->course_id,
+                        'member_id' => $memberId,
+                        'course_id' => $course->course_id,
+                        'class_id' => $course->class_id,
+                        'subject_id' => $course->subject_id,
+                        'teacher_id' => $course->teacher_id,
                         'type' => 'out',
                         'money_payment' => $order->money_payment,
-                        'method' => 'wallet',
-                        'money_before' => $deposit->deposit,
-                        'money_after' => $money_change,                        
-                        'message' => 'Đăng ký mua khóa học thành công'
+                        'method' => 'card',
+                        'seri' => $this->_replaceString($request->card_seri),
+                        'code' => $this->_replaceString($request->card_code),
+                        'card_type' => 'hocplus',
+                        'message' => 'Đăng ký mua khóa từ thẻ hocplus thành công'
                     ];
-
+                    //Luu thong giao dich transaction
                     $transactionOut = $this->_createTransaction($logTransaction);
-                    if($transactionOut->transaction_id){                        
+                    if($transactionOut->transaction_id){
                         //dang ky khoa hoc
                         $memberHasCourse = MemberHasCourse::create([
                             'member_id' => $memberId,
-                            'course_id' => $order->course_id,
+                            'course_id' => $course->course_id,
                             'exp' => strtotime(date('Y-m-d', strtotime('+1 year')))
                         ]);
-
+                        //dang ky khoa hoc thanh cong
                         if($memberHasCourse->member_has_course_id){
-                            $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::TT_THANH_CONG | self::CLIENT_DA_NHAN;
-                            $order->save();
+                            // neu con du tien thi cong vao vi
+                            if($rechange > 0){
+                                $logTransaction = [
+                                    'order_code' => $order->order_code,
+                                    'member_id' => $memberId,
+                                    'course_id' => $course->course_id,
+                                    'class_id' => $course->class_id,
+                                    'subject_id' => $course->subject_id,
+                                    'teacher_id' => $course->teacher_id,
+                                    'type' => 'in',
+                                    'money_payment' => $rechange,
+                                    'method' => 'card',
+                                    'money_before' => $deposit->deposit,
+                                    'money_after' => (int)$deposit->deposit + (int)$rechange,
+                                    'seri' => $this->_replaceString($request->card_seri),
+                                    'code' => $this->_replaceString($request->card_code),
+                                    'card_type' => 'hocplus',
+                                    'message' => 'Nạp tiền còn dư từ đăng ký khóa học bằng thẻ hocplus'
+                                ];
+                                //Luu thong tin nạp tiền thừa
+                                $transactionIn = $this->_createTransaction($logTransaction);
+                                if($transactionIn->transaction_id){
+                                    //Cộng tiền
+                                    $money_change = (int)$deposit->deposit + (int)$rechange;
+                                    $deposit->deposit = $money_change;
+                                    $deposit->deposit_hash = $this->_hashDeposit($deposit->member_id, $money_change);
+                                    $deposit->deposit_rechange = $deposit->deposit_rechange + $rechange;
+                                    $deposit->save();
+
+                                    return response()->json([
+                                        'status' => true,
+                                        'msg' => 'Đăng ký mua khóa học thành công! Số tiền còn dư đã được cộng vào ví',
+                                        'redirect' => route('vne.pay.checkOut', ['order_code' => $order->order_code, 'method' => 'card'])
+                                    ]);
+                                } else {
+                                    return response()->json([
+                                        'status' => true,
+                                        'msg' => 'Đăng ký mua khóa học thành công! Số tiền còn dư chưa được cộng vào ví, vui lòng liên hệ với BQT',
+                                        'redirect' => route('vne.pay.checkOut', ['order_code' => $order->order_code, 'method' => 'card'])
+                                    ]);
+                                }
+                            }
                             return response()->json([
                                 'status' => true,
                                 'msg' => 'Đăng ký mua khóa học thành công!',
                                 'redirect' => route('vne.pay.checkOut', ['order_code' => $order->order_code, 'method' => 'card'])
                             ]);
                         } else {
-                            $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::TT_THANH_CONG | self::LOI_TT;
-                            $order->save();
-
-                            return response()->json([
-                                'status' => false,
-                                'msg' => 'Đơn hàng đã được thanh toán thành công! Nhưng chưa đăng ký được khóa học. Vui lòng liên hệ ban quản trị để xử lý',
-                                'redirect' => route('vne.pay.checkOut', ['order_code' => $order->order_code, 'method' => 'card'])
-                            ]);
+                            throw new \Exception('Đơn hàng đã được thanh toán thành công, nhưng chưa đăng ký được khóa học, vui lòng liên hệ BQT!');
                         }
-
                     } else {
-                        $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::LOI_TT;
-                        $order->save();
-                        throw new \Exception('Lỗi: khởi tạo giao dịch không thành công');
-                    }                   
-                } else {
-                    $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::LOI_TT;
-                    $order->save();
-                    throw new \Exception('số dư trong tài khoản không đủ để đăng ký khóa học này! Vui lòng nạp thêm tiền để đăng ký khóa học!');
+                        throw new \Exception('Lỗi không lưu được thông tin giao dịch');
+                    }
+                }
+
+                else // menh gia the nho hon so tien hoa don -> cong tien vao vi
+                {
+                    //1.lưu transaction giao dich thành công
+                    $logTransaction = [
+                        'order_code' => $order->order_code,
+                        'member_id' => $memberId,
+                        'course_id' => $course->course_id,
+                        'class_id' => $course->class_id,
+                        'subject_id' => $course->subject_id,
+                        'teacher_id' => $course->teacher_id,
+                        'type' => 'in',
+                        'money_payment' => $res->card_value,
+                        'method' => 'card',
+                        'money_before' => $deposit->deposit,
+                        'money_after' => (int)$deposit->deposit + (int)$res->card_value,
+                        'seri' => $this->_replaceString($request->card_seri),
+                        'code' => $this->_replaceString($request->card_code),
+                        'card_type' => 'hocplus',
+                        'message' => 'Nạp tiền vào ví từ thẻ hocplus thành công'
+                    ];
+                    $transactionIn = $this->_createTransaction($logTransaction);
+                    if($transactionIn->transaction_id){
+                        //2.lưu transction thành công, cộng tiền vào ví
+                        $moneyChange = $res->card_value + $deposit->deposit;
+                        $deposit->deposit =  $moneyChange;
+                        $deposit->deposit_hash = $this->_hashDeposit($deposit->member_id, $moneyChange);
+                        $deposit->deposit_rechange = $deposit->deposit_rechange + $res->card_value;
+                        $deposit->save();
+                        return response()->json([
+                            'status' => true,
+                            'msg' => 'Mệnh giá thẻ không đủ để đăng ký khóa học, số tiền đã được cộng vào ví',
+                            'redirect' => route('vne.wallet.manage', ['order_code' => $order->order_code, 'method' => 'card'])
+                        ]);
+                    } else {
+                        throw new \Exception('Không lưu được thông tin giao dịch, vui lòng liên hệ BQT!');
+                    }
                 }
             } else {
-                throw new \Exception($response->messages);
+                //cap nhat don hang
+                // $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::LOI_TT;
+                // $order->save();
+                // throw new \Exception($response->messages);
+                return response()->json([
+                    'status' => false,
+                    'msg' => $response->messages,
+                    'errors' => [],
+                    'captcha'=> captcha_img()
+                ]);
             }
        
             } catch(\Exception $e){
@@ -499,6 +585,9 @@ class PayController extends Controller
                 $VNPay = new VNPayPayment();
                 $response = $VNPay->buildUrlVnPay($arrayData);
 
+                $order->method = 'ebanking';
+                $order->save();
+
                 if(isset($response['message']) && isset($response['redirect_url'])){
                     if($response['message'] == 'success' && !empty($response['redirect_url'])){
                         //cap nhat don hang
@@ -537,7 +626,7 @@ class PayController extends Controller
         try{
             $vnpay = new VNPayPayment();
             $response = $vnpay->verifyData();
-
+           
             if($response){
                 return redirect()->route('vne.pay.checkOut', ['order_code' => $request->order_id, 'method' => 'ebanking']);               
             } else{
@@ -553,7 +642,123 @@ class PayController extends Controller
     }
 
     public function vnpayIpn(Request $request){
-        echo 'Dang tich hop tinh nang thanh toan qua cong vnpay';
+        try{
+            $vnpay = new VNPayPayment();
+            $response = $vnpay->verifyData();
+
+            //luu log api
+            $this->log_api($request->all(), 'current', 'out', $request->vnp_TxnRef, 'Thanh toan tu vnpay');                                     
+
+            //thanh toan thanh cong
+            if($response && $request->vnp_ResponseCode == '00'){
+                
+                //check trạng thái đơn hàng           
+                $checkOrder = $this->_checkStatusOrder($request->vnp_TxnRef, 'ebanking');
+                if(empty($checkOrder)){
+                    return response()->json([
+                        'RspCode' => '01',
+                        'Message' => 'Không tìm thấy đơn hàng (order)'
+                    ]);              
+                }
+                if($checkOrder['error'] == true){                    
+                    return response()->json([
+                        'RspCode' => '02',
+                        'Message' => $checkOrder['msg']
+                    ]);               
+                }
+
+                $order = $checkOrder['order'];
+                $memberId = $order->user_id;                
+                //update trang thai don hang
+                $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::TT_THANH_CONG;
+                $order->save();
+                
+                //neu type order = in(nap tien)
+                if($order->type == 'in'){                    
+                    $deposit = $this->_createMemberDeposit($memberId); // lay thong tin vi
+                    //tao transaction nap tien
+                    $logTransaction = [
+                        'order_code' => $order->order_code,
+                        'member_id' => $memberId,
+                        'type' => 'in',
+                        'money_payment' => $order->money_payment,
+                        'method' => 'ebanking',
+                        'money_before' => $deposit->deposit,
+                        'money_after' => (int)$deposit->deposit + (int)$order->money_payment,                       
+                        'message' => 'Nạp tiền vào ví từ vnpay thành công'
+                    ];
+                    $transaction = $this->_createTransaction($logTransaction);
+                    if($transaction->transaction_id){
+                        $moneyChange = $order->money_payment + $deposit->deposit;
+                        $deposit->deposit =  $moneyChange;
+                        $deposit->deposit_hash = $this->_hashDeposit($deposit->member_id, $moneyChange);
+                        $deposit->deposit_rechange = $deposit->deposit_rechange + $order->money_payment;
+                        $deposit->save();
+
+                        return response()->json([
+                            'RspCode' => '00',
+                            'Message' => 'Confirm Success'
+                        ]);
+                    } else {
+                        return response()->json([
+                            'RspCode' => '99',
+                            'Message' => 'Lỗi không lưu được thông tin thanh toán từ vnpay'
+                        ]);
+                    }
+                }
+                else {
+                    //lay thong tin khoa hoc
+                    $course = Course::findOrFail($order->course_id);
+
+                    //tao transaction thanh toan
+                    $logTransaction = [
+                        'order_code' => $order->order_code,
+                        'member_id' => $memberId,
+                        'course_id' => $order->course_id,
+                        'class_id' => $course->class_id,
+                        'subject_id' => $course->subject_id,
+                        'teacher_id' => $course->teacher_id,
+                        'type' => 'out',
+                        'money_payment' => $order->money_payment,
+                        'method' => 'ebanking',                                               
+                        'message' => 'Mua khóa học từ vnpay thành công'
+                    ];
+    
+                    $transaction = $this->_createTransaction($logTransaction);
+                    if($transaction->transaction_id){
+                        //dang ky khoa hoc
+                        $memberHasCourse = MemberHasCourse::create([
+                            'member_id' => $memberId,
+                            'course_id' => $order->course_id,
+                            'exp' => strtotime(date('Y-m-d', strtotime('+1 year')))
+                        ]);
+                        if($memberHasCourse->member_has_course_id){
+                            $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::TT_THANH_CONG | self::CLIENT_DA_NHAN;
+                            $order->save();                            
+                        }
+                        return response()->json([
+                            'RspCode' => '00',
+                            'Message' => 'Confirm Success'
+                        ]);
+                    } else {
+                        return response()->json([
+                            'RspCode' => '99',
+                            'Message' => 'Lỗi không lưu được thông tin thanh toán từ vnpay'
+                        ]);
+                    }
+                }
+            } else {
+                return response()->json([
+                    'RspCode' => '99',
+                    'Message' => 'Thanh toán từ vnpay không thành công'
+                ]);
+            }
+        } catch(\Exception $e){
+            return response()->json([
+                'RspCode' => '99',
+                'Message' => 'Lỗi: '.$e->getMessage()
+            ]);
+        }
     }
 
     public function payTranfer(Request $request){
@@ -593,6 +798,10 @@ class PayController extends Controller
                 'address' => Auth::guard('member')->user()->address,               
                 'type' => 'transfer'
             ]);
+            
+            $order->method = 'transfer';
+            $order->save();
+
             if($tranfer->cod_id){
                 $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT;
                 $order->save();
@@ -606,6 +815,115 @@ class PayController extends Controller
                     'status' => false,
                     'msg' => 'Lỗi: không xác nhận được đơn hàng thanh toán'
                 ]);
+            }
+
+        } catch(\Exception $e){
+            return response()->json([
+                'status' => false,
+                'msg' => 'Lỗi: '. $e->getMessage()
+            ]);
+        }
+    }
+
+    public function payWallet(Request $request){
+        try{
+            $validator = Validator::make($request->all(), [                
+                'order_code' => 'required',
+                'secret_key' => 'required'                
+            ]);
+            if($validator->fails()){
+                return response()->json([
+                    'status' => false,                    
+                    'msg' => 'Dữ liệu không hợp lệ',                    
+                ]);
+            }
+
+            // check secretKey order
+            $currentKey = $this->_buildSecretKeyOrder($request->order_code);
+            if($request->secret_key != $currentKey){
+                throw new \Exception('Secret key không chính xác');
+            }
+
+            //check trạng thái đơn hàng           
+            $checkOrder = $this->_checkStatusOrder($request->order_code);
+            if(empty($checkOrder)){
+                throw new \Exception('Lỗi: không tìm thấy thông tin đơn hàng');              
+            }
+            if($checkOrder['error'] == true){
+                throw new \Exception('Lỗi: '.$checkOrder['msg']);               
+            }
+
+            $order = $checkOrder['order'];
+
+            $memberId = isset( Auth::guard('member')->user()->member_id) ? Auth::guard('member')->user()->member_id : 1;
+
+            $deposit = $this->_createMemberDeposit($memberId);
+
+            $secretKeyDeposit = $this->_hashDeposit($memberId, $deposit->deposit);
+            if($secretKeyDeposit == $deposit->deposit_hash){
+                if($deposit->deposit < $order->money_payment){
+                    throw new \Exception('Số tiền trong ví không đủ để đăng ký khóa học này');
+                } 
+
+                $course = Course::findOrFail($order->course_id);
+                //cap nhat don hang
+                $order->method = 'wallet';
+                $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::TT_THANH_CONG;
+                $order->save();
+
+                
+                //tao transaction thanh toan
+                $logTransaction = [
+                    'order_code' => $order->order_code,
+                    'member_id' => $memberId,
+                    'course_id' => $order->course_id,
+                    'class_id' => $course->class_id,
+                    'subject_id' => $course->subject_id,
+                    'teacher_id' => $course->teacher_id,
+                    'type' => 'out',
+                    'money_payment' => $order->money_payment,
+                    'method' => 'wallet',                                               
+                    'message' => 'Mua khóa học từ ví thành công'
+                ];
+
+                $transaction = $this->_createTransaction($logTransaction);
+                if($transaction->transaction_id){
+                    //tru tien
+                    $moneyChange = $deposit->deposit - $order->money_payment;
+                    $deposit->deposit = $moneyChange;
+                    $deposit->deposit_hash = $this->_hashDeposit($deposit->member_id, $moneyChange);
+                    $deposit->save();
+
+                    //dang ky khoa hoc
+                    $memberHasCourse = MemberHasCourse::create([
+                        'member_id' => $memberId,
+                        'course_id' => $order->course_id,
+                        'exp' => strtotime(date('Y-m-d', strtotime('+1 year')))
+                    ]);
+
+                    if($memberHasCourse->member_has_course_id){
+                        $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::TT_THANH_CONG | self::CLIENT_DA_NHAN;
+                        $order->save();                        
+                    }
+
+                    return response()->json([
+                        'status' => true,
+                        'msg' => 'Mua khóa học thành công',
+                        'redirect' => route('vne.pay.checkOut', ['order_code' => $order->order_code, 'method' => 'wallet'])
+                    ]);
+                    
+                }
+                throw new \Exception('Giao dịch thất bại!');
+
+            } else {                
+                $deposit->deposit_status = 2;
+                $deposit->save();
+
+                $order->method = 'wallet';
+                $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::LOI_TT;
+                $order->save();
+
+                throw new \Exception('Tài khoản của bạn bị khóa tạm thời, do số dư trong ví thay đổi không phù hợp');
             }
 
         } catch(\Exception $e){
@@ -642,6 +960,8 @@ class PayController extends Controller
             } else {
                 $priceDiscount = !empty($discount) ? ($price * $discount) / 100 : 0; 
             } 
+        } else {
+            $priceDiscount = !empty($discount) ? ($price * $discount) / 100 : 0; 
         }
         return $priceDiscount;
     }
@@ -668,7 +988,7 @@ class PayController extends Controller
         return hash_hmac('SHA256', $memberId.$orderCode, md5($key));
     }
 
-    public function _checkStatusOrder($orderCode){
+    public function _checkStatusOrder($orderCode, $method = ''){
 
         $order = Order::where(['order_code' => $orderCode])->first();               
         if(!$order){
@@ -683,11 +1003,13 @@ class PayController extends Controller
         {
             return ['error' => true, 'msg' => 'Đơn hàng đã thanh toán thành công từ trước đó'];            
         }
-        
-        if ($order->status & self::CHUYEN_CONG_TT)
-        {            
-            return ['error' => true, 'msg' => 'Đơn hàng đã chuyển sang cổng thanh toán'];            
+        if($method != 'ebanking'){
+            if ($order->status & self::CHUYEN_CONG_TT)
+            {            
+                return ['error' => true, 'msg' => 'Đơn hàng đã chuyển sang cổng thanh toán'];            
+            }
         }
+        
 
              
 
@@ -708,6 +1030,9 @@ class PayController extends Controller
             'order_code' => isset($data['order_code']) ? $data['order_code']: '',
             'member_id' => $data['member_id'],
             'course_id' => isset($data['course_id']) ? $data['course_id']: 0,
+            'subject_id' => isset($data['subject_id']) ? $data['subject_id']: 0,
+            'class_id' => isset($data['class_id']) ? $data['class_id']: 0,
+            'teacher_id' => isset($data['teacher_id']) ? $data['teacher_id']: 0,
             'money_payment' => $data['money_payment'],
             'method' => $data['method'],
             'type' => $data['type'],
@@ -721,8 +1046,8 @@ class PayController extends Controller
         return $transaction;
     }
 
-    public function _createMemberDeposit(){
-        $memberId = isset( Auth::guard('member')->user()->member_id) ? Auth::guard('member')->user()->member_id : 1;
+    public function _createMemberDeposit($idMember){
+        $memberId = $idMember;
         $memberDeposit = MemberDeposit::where(['member_id' => $memberId])->first();
         if(!$memberDeposit){
             $memberDeposit = MemberDeposit::create([
@@ -790,5 +1115,33 @@ class PayController extends Controller
     {
         return response()->json(['captcha'=> captcha_img()]);
     }
+
+    public function log_api($responseText, $url = 'current', $type = 'in', $orderId = null, $message = '')
+    {
+        try {
+            if ($url == 'current')
+            {
+                $url = \Illuminate\Support\Facades\Route::getCurrentRoute()->uri();
+            }
+            return LogApi::insertGetId([
+                'url' => $url,
+                'type' => $type,
+                'message' => $message,
+                'method' => strtoupper(request()->method()),
+                'params' => json_encode(request()->all()),
+                'order_id' => $orderId,
+                'response_text' => is_string($responseText) ? $responseText : json_encode($responseText),                
+                'action' => \Illuminate\Support\Facades\Route::getCurrentRoute()->getActionName(),
+                'created_log_date' => date('Y-m-d H:s:i')
+            ]);
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    public function _replaceString($str){
+        return preg_replace('/\s+/', '', $str);
+    }
+
 }
 
