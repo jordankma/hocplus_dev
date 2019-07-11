@@ -9,7 +9,11 @@ Route::group(array('prefix' => $apiPrefix), function () {
     Route::group(array('prefix' => 'api'), function () {
         Route::post('login', 'LoginController@login');
         Route::post('logout', 'LoginController@logout');
+        Route::get('verify-token', 'LoginController@verify');
         Route::post('register', 'RegisterController@register');
+        Route::post('forgot-password', 'ForgotPasswordController@forgotPassword');
+        Route::post('change-password', 'ResetPasswordController@changePassword');
+        
 
         Route::get('list-mycourse', 'CourseController@listMyCourse');
         Route::get('list-course', 'CourseController@listCourse');

@@ -50,15 +50,19 @@ class CourseController extends Controller
                 if(!empty($list_my_course)){
                     foreach ($list_my_course as $key => $value) {
                         $value = json_decode($value,true);
+                        // return $value;
                         $course = $value['get_course'];
-                        $teacher = $value['get_course']['get_teacher'][0];
+                        // $teacher = $value['get_course']['get_teacher'][0];
                         $data[] = [
                             'id' => $course['course_id'],
                             'name' => base64_encode($course['name']),
                             'icon' => ($course['avartar'] != '' || file_exists(substr($course['avartar'], 1))) ? config('site.url_static') . $course['avartar'] : 'http://static.hocplus.vn/files/vendor/vnedutech-cms/default/hocplus/teacherfrontend/images/course.jpg',
-                            'icon_gv' => $teacher['avatar_index'] != '' ? config('site.url_static') . $teacher['avatar_index'] : 'http://static.hocplus.vn/files/vendor/vnedutech-cms/default/hocplus/teacherfrontend/images/user.png',
-                            'id_gv' => $teacher['teacher_id'],
-                            'name_gv' => base64_encode($teacher['name']),
+                            // 'icon_gv' => $teacher['avatar_index'] != '' ? config('site.url_static') . $teacher['avatar_index'] : 'http://static.hocplus.vn/files/vendor/vnedutech-cms/default/hocplus/teacherfrontend/images/user.png',
+                            // 'id_gv' => $teacher['teacher_id'],
+                            // 'name_gv' => base64_encode($teacher['name']),
+                            'icon_gv' => '',
+                            'id_gv' => '',
+                            'name_gv' => '',
                             'star' => 5,
                             'color' => ''
                         ];
@@ -292,6 +296,27 @@ class CourseController extends Controller
                     }
                 } 
                 //end datalesson
+                //data comment
+                $list_comments = Comments::where('course_id','=',$course_id)->where('status',1)->with('getMember')->orderBy('updated_at')->take(5)->get();
+                if(!empty($list_comments)){
+                    foreach ($list_comments as $key => $value) {
+                        $name_member = '';
+                        if($value->getMember){
+                            $member_info_comment = $value->getMember;
+                            $name_member = ($member_info_comment->name != '') ? $member_info_comment->name : $member_info_comment->email;
+                            $name_member = $name_member != '' ? $name_member : $member_info_comment->phone; 
+                        }
+                        $data_comment[] = [
+                            'id' => $value->id,
+                            'comment' => base64_encode($value->comment),
+                            'name_member' => base64_encode($name_member),
+                            'created_at' => $value->created_at,
+                            'rate' => 5,
+                            'like' => 0 
+                        ];
+                    }
+                } 
+                //end data comment 
                 //data course relate 
                 $list_course_relate = Course::where('classes_id',$course->classes_id)->with('isTeacher')->take(5)->get();
                 if(empty($list_course_relate)){
@@ -365,6 +390,7 @@ class CourseController extends Controller
                     'list_lesson' => $data_lesson,
                     'list_course_relate' => $data_course_relate,
                     'list_rate' => $data_rating,
+                    'list_comment' => $data_comment,
                     'star' => 5,
                     'check_buy' => self::checkBuyCourse($member_id,$course->course_id)
 
@@ -396,7 +422,7 @@ class CourseController extends Controller
             $token_controller = new TokenController();
             $status = $token_controller->checkToken($member_id, $token); 
             if($status){ //check token
-                $list_comments = Comments::where('course_id','=',$course_id)->where('status',1)->with('getMember')->orderBy('updated_at')->paginate(4);
+                $list_comments = Comments::where('course_id','=',$course_id)->where('status',1)->with('getMember')->orderBy('updated_at')->paginate(5);
                 $data = array();
                 if(!empty($list_comments)){
                     foreach ($list_comments as $key => $value) {

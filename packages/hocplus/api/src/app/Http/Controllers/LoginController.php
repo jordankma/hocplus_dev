@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Hocplus\Frontend\App\Models\Teacher;
 use Hocplus\Api\App\Models\TokenLogin;
+use Hocplus\Api\App\Models\Member;
 use Validator, Auth;
 
 class LoginController extends Controller
@@ -169,5 +170,41 @@ class LoginController extends Controller
         ];
         $data_encode = json_encode($data);
         return $data_encode;
+    }
+
+    //verify token
+    public function verify(Request $request){
+        $validator = Validator::make($request->all(), [
+            'token' => 'required'
+        ], $this->messages);
+        if (!$validator->fails()) {
+            $token = $request->input('token');
+            $token_login = TokenLogin::where('token', $token)->first();
+            if($token_login) {
+                $member_id = $token_login->member_id;
+                $member_info = Member::find($member_id);
+                $data = [
+                    'member_info' => $member_info,
+                    'success' => true,
+                    'message' => 'Lấy thông tin thành công',
+                ];    
+                $data_encode = json_encode($data);
+                return $data_encode;   
+            } else{
+                $data = [
+                    'success' => false,
+                    'message' => 'Token không hợp lệ',
+                ];    
+                $data_encode = json_encode($data);
+                return $data_encode;   
+            }
+        } else{
+            $data = [
+                'success' => false,
+                'message' => 'Thiếu tham số',
+            ];    
+            $data_encode = json_encode($data);
+            return $data_encode;    
+        }   
     }
 }

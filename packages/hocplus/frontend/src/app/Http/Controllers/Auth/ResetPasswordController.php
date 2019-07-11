@@ -60,10 +60,10 @@ class ResetPasswordController extends Controller
                 'password' => Hash::make($password)
             ];
             if($passwordReset->email != ''){
-                Teacher::where('email', $passwordReset->email)->update($data);
+                Member::where('email', $passwordReset->email)->update($data);
             }
             else if($passwordReset->phone != ''){
-                Teacher::where('phone', $passwordReset->phone)->update($data);
+                Member::where('phone', $passwordReset->phone)->update($data);
             }
             $this->_passwordResetRepository->delete($passwordReset->id);
 

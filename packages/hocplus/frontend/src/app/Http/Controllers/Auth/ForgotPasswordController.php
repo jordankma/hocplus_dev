@@ -35,7 +35,7 @@ class ForgotPasswordController extends Controller
         if ($request->isMethod('post')) {
             $email = $request->input('email');
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                if (($user = Teacher::where('email', $email)->first()) == null) {
+                if (($user = Member::where('email', $email)->first()) == null) {
                     \Session::flash('flash_messenger', trans('adtech-core::messages.forgot_password_email_not_found'));
                     echo json_encode(['success' => false]);
                     die();
@@ -97,7 +97,7 @@ class ForgotPasswordController extends Controller
         if ($request->isMethod('post')) {
             $email = $request->input('email');
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                if (($user = Member::where('email', $email)->first()) == null) {
+                if (($user = Teacher::where('email', $email)->first()) == null) {
                     \Session::flash('flash_messenger', trans('adtech-core::messages.forgot_password_email_not_found'));
                     echo json_encode(['success' => false]);
                     die();
@@ -135,7 +135,7 @@ class ForgotPasswordController extends Controller
                 }
             } else{
                 $phone = $email;
-                if (($user = Member::where('phone', $phone)->first()) == null) {
+                if (($user = Teacher::where('phone', $phone)->first()) == null) {
                     \Session::flash('flash_messenger', trans('adtech-core::messages.forgot_password_email_not_found'));
                     echo json_encode(['success' => false]);
                     die();

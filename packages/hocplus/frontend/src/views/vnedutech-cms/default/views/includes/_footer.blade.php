@@ -40,7 +40,7 @@
             </div>
             <div class="col-12 col-md-12 col-lg-12 block" style="text-align: center; padding-top: 20px;">
                 Công ty Cổ phần Dịch vụ Giáo dục Á Châu <br>
-                Phòng 1206, G3, Vinhomes Green Bay, Mễ Trì, Nam Từ Liêm, Hà Nội
+                Số 2 ngách 102/55 phố Hoàng Đạo Thành, Phường Kim Giang, Quận Thanh Xuân, Thành Phố Hà Nội, Việt Nam
             </div>
         </div>
     </div>
