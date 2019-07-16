@@ -307,6 +307,11 @@ class TeacherController extends Controller
                         data-toggle="modal" data-target="#status_confirm"> <span class="label label-success"> Đã duyệt</span></a>';
                     }
                 }
+                if($teachers->activated == 1){
+                    $status .= '<br><span class="label label-success"> Đã kích hoạt</span>';
+                } else{
+                    $status .= '<br> <span class="label label-default"> Chưa kích hoạt</span>';
+                }
                 return $status;
             })
             ->addIndexColumn()

@@ -136,7 +136,7 @@ class CourseController extends Controller
             $url_stream = config('site.url_stream');
             if($data_reponse['status'] == true){
                 $token = $data_reponse['data']['token'];
-                $url = $url_stream . "?token=" . $token;
+                $url = $url_stream . "" . $token;
                 // dd($url);
                 return redirect($url);
             }

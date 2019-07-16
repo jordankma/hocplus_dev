@@ -27,33 +27,50 @@ class NewsApiController extends Controller
     /*
      * danh sách tin
      */
-    public function index() {
+    public function index(Request $request) {
+        $all = News::all();
+        $total = count($all); 
+        //echo $total; die;
         $news = News::paginate(10);
+        $page= ($request->input('page')>0)?$request->input('page'):1;
         //return response()->json($news);
-		$data = array();
-		foreach ($news as $item) {
-			$data[]['id'] = $item->news_id;
-			$data[]['title'] = $item->title;
-			$data[]['image'] = $item->image;
-			$data[]['desc'] = $item->desc;
-			$data[]['view'] = $item->views;
-		}
-        $result = array('data' => $data);
-		return $result;
+        $data = array();
+        foreach ($news as $item) {
+                $data[] = array(
+                'id' => $item->news_id,
+                'title' => $item->title,
+                'image' => 'http://static.hocplus.vn'.$item->image,
+                'desc' => $item->desc,
+                'view' => $item->views);
+        }
+        $result = array(
+            'data' => $data,
+            "success" => true,
+            "message" => "ok!",
+            "page" => $page,
+            "totalpage" => round($total/10)+1            
+            );
+		return response()->json($result);
     }
     
-    public function detail($news_id) {
+    public function detail(Request $request) {
+		$news_id = ($request->input('news_id')>0)?$request->input('news_id'):0;
         $news_id = intval($news_id);
         $news = News::find($news_id);  
-		$data = array();
-		//foreach ($news as $item) {
-			$data['id'] = $news->news_id;
-			$data['title'] = $news->title;
-			$data['image'] = $news->image;
-			$data['desc'] = $news->desc;
-			$data['view'] = $news->views;
-		//}
-        $result = array('data' => $data);
+        $data = array();
+        //foreach ($news as $item) {
+        $data['id'] = $news->news_id;
+        $data['title'] = $news->title;
+        $data['image'] = 'http://static.hocplus.vn'.$news->image;
+        $data['desc'] = $news->desc;
+        $data['view'] = $news->views;
+        //}
+        $result = array('data' => $data,
+            "success" => true,
+            "message" => "ok!",
+            "page" => 1,
+            "totalpage" => 1 
+            );
         return $result;
     }
 }

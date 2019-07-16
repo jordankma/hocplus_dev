@@ -18,4 +18,6 @@ Route::group(array('prefix' => $adminPrefix), function() {
     Route::get('khoa-hoc-da-thich', 'StudentProfileController@wishlist')->middleware('member.auth')->name('hocplus.studentprofile.khoa-hoc-cua-toi');
     Route::any('khoa-hoc-cua-toi', 'StudentProfileController@myCourse')->middleware('member.auth')->name('hocplus.studentprofile.bang-thong-tin');
     Route::any('quan-ly-binh-luan', 'StudentProfileController@myComment')->middleware('member.auth')->name('hocplus.studentprofile.binh-luan');
+    Route::any('resource/api/ho-so-hoc-sinh', 'StudentProfileApiController@index')->name('hocplus.studentprofile.api.hosohocsinh');  
+	Route::any('resource/api/profile', 'StudentProfileApiController@getinfo')->name('hocplus.studentprofile.api.profile');  
 });
