@@ -56,7 +56,8 @@
                                     </h2>
                                 </div>
                                 <div class="media">
-                                    @php
+                                    <img style="width:100%" src="{{ config('site.url_static') . $course->avartar }}" >
+                                    {{-- @php
                                         $url = $course->video;
                                         preg_match('/[\\?\\&]v=([^\\?\\&]+)/', $url, $matches);
                                         $id = isset($matches[1]) ? $matches[1] : '';  
@@ -64,7 +65,7 @@
                                     @endphp
                                     <input type="text" class="fix-content content-editor" name="courseVideo" value="{{ $course->video }}" style="display: none; margin-bottom: 5px">
                                     <iframe width="560" height="315" src="https://www.youtube.com/embed/{{$id}}?rel=0&showinfo=0&color=white&iv_load_policy=3" frameborder="0"
-                                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --}}
                                 </div>
                                 <div class="info">
                                     <ul class="row list">
@@ -74,7 +75,7 @@
                                         {{--<li class="col-6 item"><i class="fa fa-bookmark"></i> Khối lớp: <input class="fix-content" name="courseClasses" type="text" value="{{ $course->isClass->name }}"></li>--}}
                                         <li class="col-6 item"><i class="fa fa-bookmark"></i> Khối lớp: {{ $course->isClass->name }}</li>
                                         <li class="col-6 item"><i class="fa fa-group"></i> Số lượng HS tối đa: <input class="fix-content" name="courseStudentLimit" type="text" value="{{ $course->student_limit }}" style="text-align: right; width: 20px"> người</li>
-                                        <li class="col-6 item"><i class="fa fa-chalkboard-teacher"></i> Số buổi: {{ count($course->getLesson) }} buổi</li>
+                                        {{-- <li class="col-6 item"><i class="fa fa-chalkboard-teacher"></i> Số buổi: {{ count($course->getLesson) }} buổi</li> --}}
                                     </ul>
                                 </div>
                                 <div class="ingredient">
@@ -98,7 +99,7 @@
                                     <div class="content-preview">{!! $course->request_content !!}</div>
                                     <textarea class="fix-content content-editor" id="courseRequestContent" name="courseRequestContent" style="display: none">{!! $course->request_content !!}</textarea>
                                 </div>
-                                <div class="ingredient">
+                                {{-- <div class="ingredient">
                                     <div class="ingredient-headline">
                                         <h3 class="title">Nội dung khóa học:</h3>
                                     </div>
@@ -118,15 +119,14 @@
                                                         <p><textarea class="fix-content" name="lessonContent[]">{!! $lesson->content !!}</textarea></p>
                                                     </div>
                                                     <div class="col-4">
-                                                            {{-- {{ date('d/m/Y - H:i', $lesson->date_start) }} --}}
                                                         <p><input class="fix-content datetime" name="lessonStart[]" value="{{ date('d-m-Y - H:i', $lesson->date_start) }}"></p>
-                                                        {{-- <p><input class="fix-content datetime" name="lessonEnd[]" value="{{ date('d-m-Y - H:i', $lesson->date_start + $lesson->time_line*60) }}"></p> --}}
+                                                        <p><input class="fix-content datetime" name="lessonEnd[]" value="{{ date('d-m-Y - H:i', $lesson->date_start + $lesson->time_line*60) }}"></p>
                                                     </div>
                                                 </div>
                                             @endforeach
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             {{--<a href="{{ route('hocplus.frontend.create-course.step4') }}?id={{ $course->course_id }}" class="btn btn-next">Đăng khóa học</a>--}}
                                 <button class="btn btn-next" type="submit" id="login-btn-submit">Lưu <i class="fa fa-angle-double-right"></i></button>

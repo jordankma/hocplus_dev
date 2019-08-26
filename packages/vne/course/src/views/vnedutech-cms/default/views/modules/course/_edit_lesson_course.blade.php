@@ -58,6 +58,12 @@
                                     <input class='form-control' type="number" name="ordinal[]" value="{{$lesson->ordinal}}" >                               
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="time_line" style="padding-top: 0px;">Thời lượng</label>
+                                <div class="col-md-8">
+                                    <input class='form-control' type="number" name="time_line[]" value="{{$lesson->time_line}}" >                               
+                                </div>
+                            </div>
                         </div>
 
                     </div>

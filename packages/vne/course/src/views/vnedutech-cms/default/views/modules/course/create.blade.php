@@ -10,9 +10,10 @@
 <link href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/vne/coursetemplate/css/coursetemplate.css' }}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="{{asset('vendor/vnedutech-cms/default/vendors/iCheck/css/all.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('vendor/vnedutech-cms/default/vendors/awesomeBootstrapCheckbox/awesome-bootstrap-checkbox.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('vendor/vnedutech-cms/default/pages/css/radio_checkbox.css')}}">
+<link href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/css/pages/radio_checkbox.css' }}" rel="stylesheet" type="text/css">
+
 <link href="{{asset('vendor/vnedutech-cms/default/vendors/bootstrap3-wysihtml5-bower/css/bootstrap3-wysihtml5.min.css')}}" rel="stylesheet" media="screen" />
-<link href="{{asset('vendor/vnedutech-cms/default/pages/css/editor.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/css/pages/editor.css' }}" rel="stylesheet" type="text/css"/>
 <link href="{{asset('vendor/vnedutech-cms/default/vendors/daterangepicker/css/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('vendor/vnedutech-cms/default/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{ asset('/vendor/' . $group_name . '/' . $skin .'/vendors/bootstrap-multiselect/css/bootstrap-multiselect.css') }}">
@@ -222,9 +223,9 @@
                                     <td>{{ $i + 1 }}</td>
                                     <td><img src='{{$val['template_avatar']}}' width="50px"></td>
                                     <td>{{$val['template_name']}}</td>
-                                    <td>{{$val->isClass->name}}</td>
-                                    <td>{{$val->isSubject->name}}</td>
-                                    <td>{{$val->isTeacher->name}}</td>
+                                    <td>{{isset($val->isClass->name) ? $val->isClass->name : ''}}</td>
+                                    <td>{{isset($val->isSubject->name) ? $val->isSubject->name : ''}}</td>
+                                    <td>{{isset($val->isTeacher->name) ? $val->isTeacher->name : ''}}</td>
                                     <td>
                                         <span class="label label-sm label-info btn-add-template" style="cursor: pointer;" template-id="{{$val['course_template_id']}}" template-name="{{$val['template_name']}}">Chọn</span>
                                     </td>
@@ -302,8 +303,8 @@
 
 <!--end of page js-->
 <script>
-var domain = "/admin/laravel-filemanager/";
-$('#lfm').filemanager('image', {prefix: domain});
+// var domain = "/admin/laravel-filemanager/";
+// $('#lfm').filemanager('image', {prefix: domain});
 $('input[type="checkbox"].square, input[type="radio"].square').iCheck({
     checkboxClass: 'icheckbox_square-green',
     radioClass: 'iradio_square-green',
@@ -488,7 +489,7 @@ $('body').on('click', '.btn-save, .btn-save-to-template', function (e) {
 
     if ($("#form-add-review-course #teacher").val() === '' || $("#form-add-review-course #teacher").val() == null) {
         $("#form-add-review-course #teacher").addClass('error');
-        alert($("#form-add-review-course #teacher").val());
+        alert('Bạn chưa chọn giáo viên');
         return;
     } else {
         course.teacher_id = $("#form-add-review-course #teacher").val();
@@ -577,6 +578,7 @@ $('body').on('click', '.btn-save, .btn-save-to-template', function (e) {
     let lesson_ordinal = [];
     let lesson_active = [];
     let lesson_template_id = [];
+    let lesson_time_line = [];
     let error_lesson = false;
     $('#preview input[name^="template_lesson_name"]').each(function (i, index) {
         if (!$(this).val()) {
@@ -586,6 +588,16 @@ $('body').on('click', '.btn-save, .btn-save-to-template', function (e) {
             error_lesson = true;
         }
         lesson_name.push($(this).val());
+    });
+    
+    $('#preview input[name^="time_line"]').each(function (i, index) {
+        if (!$(this).val()) {
+            $(this).css('border-color', 'red');
+            $("#tab_name_lesson_" + i).addClass('error');
+            
+            error_lesson = true;
+        }
+        lesson_time_line.push($(this).val());
     });
 
     $('#preview input[name^="lesson_date_start"]').each(function (i, index) {
@@ -647,7 +659,8 @@ $('body').on('click', '.btn-save, .btn-save-to-template', function (e) {
         lesson_active: lesson_active,
         lesson_content: lesson_content,
         lesson_ordinal: lesson_ordinal,
-        lesson_template_id: lesson_template_id
+        lesson_template_id: lesson_template_id,
+        lesson_time_line: lesson_time_line
     };
 
     console.log(lesson);
@@ -771,7 +784,55 @@ function toDate(dateStr) {
   var parts = dateStr.split("-")
   return new Date(parts[2], parts[1] - 1, parts[0])
 }
+(function ($) {
 
+$.fn.filemanager = function (type, options) {
+    type = type || 'file';
+    var parent = this;
+    this.on('click', function (e) {
+        if( $(parent).attr('data-choice') === 'files'){
+            type = 'file';
+            $("#isIcon").val(1);
+        }
+        if( $(parent).attr('data-choice') === 'icon'){
+            $("#isIcon").val(2);
+        }
+        var route_prefix = (options && options.prefix) ? options.prefix : '/file-manager/manage';
+        localStorage.setItem('target_input', $(this).data('input'));
+        localStorage.setItem('target_preview', $(this).data('preview'));
+        window.open(route_prefix + '?type=' + type , 'FileManager', 'width=900,height=600');
+        if ($("#mutil").val() === 'remove' && $(parent).attr('data-choice') === 'files') {
+            return true;
+        } else {
+            window.SetUrl = function (url, file_path) {
+                console.log(url);
+                //set the value of the desired input to image url
+                var target_input = $('#' + localStorage.getItem('target_input'));
+                target_input.val(file_path).trigger('change');
+
+                //set or change the preview image src
+                var target_preview = $('#' + localStorage.getItem('target_preview'));
+                target_preview.attr('src', url).trigger('change');
+            };
+            return false;
+
+        }
+    });
+}
+
+})(jQuery);
+$(window).bind('storage', function (e) {
+if(e.originalEvent.key == 'select_event'){
+    var preview_url = '{{ $preview_url }}';
+    var target_input =   localStorage.getItem('target_input');
+    var target_preview =   localStorage.getItem('target_preview');
+    var file_select = localStorage.getItem('file_select');
+    $('#' + target_input).val('/files/' + file_select);
+    $('#' + target_preview).attr("src",preview_url + '/files/' + file_select);
+}
+});
+$('#lfm').filemanager();
+// $('#lfm2').filemanager();
 
 </script>
 @stop

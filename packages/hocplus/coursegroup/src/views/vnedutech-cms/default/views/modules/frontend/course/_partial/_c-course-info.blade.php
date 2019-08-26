@@ -24,7 +24,11 @@
         </ol>
     </div>
     @if(!$is_register)
-        <a class="btn btn-registration" href="{{ route("vne.pay.buyCourse",['course_id' => $course->course_id]) }}">Đăng ký ngay</a>
+    @if($course->student_register < $course->student_limit)   
+    <a class="btn btn-registration" href="{{ route("vne.pay.buyCourse",['course_id' => $course->course_id]) }}">Đăng ký ngay</a>
+    @else 
+    <a class="btn btn-registration" href="#">Khóa học đã đủ học sinh</a>
+    @endif
     @else 
 
     @endif

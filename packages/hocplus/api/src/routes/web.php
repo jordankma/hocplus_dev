@@ -26,5 +26,7 @@ Route::group(array('prefix' => $apiPrefix), function () {
 
         Route::post('post-rating', 'CourseController@postRatingCourse');
 
+        Route::post('upload-document', 'UploadController@uploadDocument');
+
     });
 });

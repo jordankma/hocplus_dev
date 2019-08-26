@@ -3,7 +3,7 @@
         <div class="course-group__header">
             <h2 class="headline">
                 <img src="/vendor/vnedutech-cms/default/hocplus/frontend/images/icon/icon-07.png" alt="">
-                <a href="{{ route('hocplus.course.list') }}"><span>Khóa học sắp diễn ra</span></a>
+                <a href="{{ route('hocplus.course.list') }}"><span>Khóa học sắp khai giảng</span></a>
             </h2>
             <div class="filter">
                 <div class="form-group">

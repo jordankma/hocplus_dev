@@ -29,9 +29,13 @@
         {{-- @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._why') --}}
         @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._c-utilities')
 
+        @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._course-group')
+
         @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._course-run-group')
 
-        @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._course-group')
+        @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._course-free')
+
+    
 
         @include('HOCPLUS-FRONTEND::modules.frontend.homepage._partial._lecturers')
 

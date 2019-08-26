@@ -88,6 +88,7 @@ class ForgotPasswordController extends Controller
                 $content = 'Để reset tài khoản Hocplus vui lòng nhấn vào link ' . $resetPasswordLink;
                 $sms = new SmsController();
                 $sms->sendOtpSms($phone, $content);
+
                 echo json_encode(['success' => true]);
             }
         }

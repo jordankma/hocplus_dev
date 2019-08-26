@@ -43,18 +43,19 @@
                             <div class="avatar">
                                 <img src="{{ ($course->isTeacher->avatar_detail != '') ? config('site.url_static') . $course->isTeacher->avatar_detail : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/user.png' }}" alt="">
                             </div>
-                            <div class="name"><a href="{{ route('home.teacher.detail', $course->isTeacher->teacher_id) }}" class="name"> {{ $course->isTeacher->name }} </a></div>
+                            <div class="name">{{ $course->isTeacher->name }}</div>
                         </div> <!-- / user -->
-                        {{-- <div class="media">
-                            @php
+                        <div class="media">
+                            <img style="width:100%" src="{{ config('site.url_static') . $course->avartar }}" >
+                            {{-- @php
                             $url = $course->video;
                             preg_match('/[\\?\\&]v=([^\\?\\&]+)/', $url, $matches);
                             $id = isset($matches[1]) ? $matches[1] : '';  
 
                             @endphp
                             <iframe width="560" height="315" src="https://www.youtube.com/embed/{{$id}}?rel=0&showinfo=0&color=white&iv_load_policy=3" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                        </div> <!-- / media --> --}}
+                                    allowfullscreen></iframe> --}}
+                        </div> <!-- / media -->
                         <div class="feature">
                             <div class="title">Bạn sẽ được học</div>
                             {!! $course->will_learn !!}

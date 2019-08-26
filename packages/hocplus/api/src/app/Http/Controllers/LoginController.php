@@ -180,6 +180,7 @@ class LoginController extends Controller
         if (!$validator->fails()) {
             $token = $request->input('token');
             $token_login = TokenLogin::where('token', $token)->first();
+            // dd('1');
             if($token_login) {
                 $member_id = $token_login->member_id;
                 $member_info = Member::find($member_id);

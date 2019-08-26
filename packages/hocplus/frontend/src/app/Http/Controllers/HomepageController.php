@@ -34,14 +34,16 @@ class HomepageController extends Controller
         $listEval = $this->news->findForEval();
         $listTeacher = $this->teacher->findAll();
         $listCourseRuning = $this->course->findRunning();
+        // dd($listCourseRuning);
         $listCourseComming = $this->course->findComming();
+        $listCourseFree = $this->course->findFree();
         $allComming = $this->course->findAllComming();
         $allRunning = $this->course->findAllRunning();
         $bannerHome = $this->banner->findForBanner();
         $ads1Home = $this->banner->findForAds1();
         $whyHome = $this->banner->findForWhy();
         $libHome = $this->banner->findForLib();
-
+        // dd($listCourseComming);
         $arrSubjectComming = [];
         $arrClassesComming = [];
         $arrSubjectCommingID = [];
@@ -97,6 +99,7 @@ class HomepageController extends Controller
         //get class subject
         $subjects = Subject::all();
         $classes = TblClass::all();
+        
         $data = [
             'libHome' => $libHome,
             'whyHome' => $whyHome,
@@ -108,6 +111,7 @@ class HomepageController extends Controller
             'bannerHome' => $bannerHome,
             'listTeacher' => $listTeacher,
             'listCourseRuning' => $listCourseRuning,
+            'listCourseFree' => $listCourseFree,
             'listCourseComming' => $listCourseComming,
             'arrSubjectComming' => $arrSubjectComming,
             'arrClassesComming' => $arrClassesComming,

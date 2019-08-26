@@ -25,7 +25,7 @@
     <div class="backgrounb js-backgrounb">
       @if(!empty($bannerHome))
       @foreach($bannerHome as $item)
-        <div class="item"><img src="{{ config('site.url_static') . $item->image }}" alt=""></div>
+        <div class="item"><a href="{{ $item->link }}"><img src="{{ config('site.url_static') . $item->image }}" alt=""></a></div>
       @endforeach
       @endif
     </div> <!-- / backgrounb -->

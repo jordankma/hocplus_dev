@@ -22,10 +22,10 @@
               <div class="col-12 col-lg-4 item">
                 <div class="item-inner">
                   <div class="item-icon" style="background: #2a9fff;">
-                    <img src="images/icon/general-1.png" alt="">
+                    <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/icon/general-1.png' }}" alt="">
                   </div>
                   <div class="item-info">
-                    <div class="number" style="color: #2a9fff;">55</div>
+                    <div class="number" style="color: #2a9fff;">0</div>
                     <div class="name">Khóa học đang giảng dạy</div>
                   </div>
                 </div>
@@ -33,38 +33,38 @@
               <div class="col-12 col-lg-4 item">
                 <div class="item-inner">
                   <div class="item-icon" style="background: #ea3e4e;">
-                    <img src="images/icon/general-2.png" alt="">
+                    <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/icon/general-2.png' }}" alt="">
                   </div>
                   <div class="item-info">
-                    <div class="number" style="color: #ea3e4e;">824</div>
+                    <div class="number" style="color: #ea3e4e;">0</div>
                     <div class="name">Giờ giảng dạy</div>
                   </div>
                 </div>
               </div> <!-- / item -->
-              <div class="col-12 col-lg-4 item">
+              {{-- <div class="col-12 col-lg-4 item">
                 <div class="item-inner">
                   <div class="item-icon" style="background: #45b949;">
-                    <img src="images/icon/general-3.png" alt="">
+                    <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/icon/general-3.png' }}" alt="">
                   </div>
                   <div class="item-info">
-                    <div class="number" style="color: #45b949">1.258</div>
+                    <div class="number" style="color: #45b949">0</div>
                     <div class="name">Người theo dõi</div>
                   </div>
                 </div>
-              </div> <!-- / item -->
+              </div> <!-- / item --> --}}
             </section> <!-- / general 1 -->
 
-            <section class="section-general general-2">
+            {{-- <section class="section-general general-2">
               <div class="info">
                 <h3 class="title">Thống kê</h3>
                 <div class="inner">
                   <div class="general">
                     <span class="name">Tổng doanh thu:</span>
-                    <span class="number">39.250.000<span class="value">đ</span></span>
+                    <span class="number">0<span class="value">đ</span></span>
                   </div>
                   <div class="general">
                     <span class="name">Doanh thu trung bình:</span>
-                    <span class="number">3.270.000<span class="value">đ/tháng</span></span>
+                    <span class="number">0<span class="value">đ/tháng</span></span>
                   </div>
                 </div>
               </div>
@@ -75,7 +75,7 @@
                       <img src="images/icon/general-4.png" alt="">
                     </div>
                     <div class="item-info">
-                      <div class="number" style="color: #2a9fff;">1530</div>
+                      <div class="number" style="color: #2a9fff;">0</div>
                       <div class="name">Đơn hàng mới</div>
                     </div>
                   </div>
@@ -86,7 +86,7 @@
                       <img src="images/icon/general-5.png" alt="">
                     </div>
                     <div class="item-info">
-                      <div class="number" style="color: #ea3e4e;">24.022</div>
+                      <div class="number" style="color: #ea3e4e;">0</div>
                       <div class="name">Học sinh theo học</div>
                     </div>
                   </div>
@@ -318,7 +318,7 @@
                   <a class="btn" href="">Xóa việc đã hoàn thành (1)</a>
                 </div>
               </div>
-            </section> <!-- / general 5 -->
+            </section> <!-- / general 5 --> --}}
 
           </div> <!-- / statistics -->
         </div> <!-- / col-9 -->

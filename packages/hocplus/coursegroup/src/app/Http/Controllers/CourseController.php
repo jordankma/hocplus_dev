@@ -41,9 +41,9 @@ class CourseController extends Controller
         if(empty($course)){
             return redirect()->route('hocplus.frontend.index');
         }
-        $list_course_relate = Course::where('classes_id',$course->classes_id)->take(5)->get();
+        $list_course_relate = Course::where('classes_id',$course->classes_id)->where('active',1)->take(5)->get();
         if(empty($list_course_relate)){
-            $list_course_relate = Course::take(5)->get();
+            $list_course_relate = Course::where('active',1)->take(5)->get();
         }
 
         //check register
@@ -136,6 +136,7 @@ class CourseController extends Controller
             $url_stream = config('site.url_stream');
             if($data_reponse['status'] == true){
                 $token = $data_reponse['data']['token'];
+                // dd($token);
                 $url = $url_stream . "" . $token;
                 // dd($url);
                 return redirect($url);

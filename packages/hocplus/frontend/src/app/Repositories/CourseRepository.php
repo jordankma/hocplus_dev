@@ -47,6 +47,7 @@ class CourseRepository extends Repository
             })
             ->whereHas('getLesson', function ($query) { })
             ->where('active', 1)
+            ->where('status', 1)
             ->where('date_start', '>', $timeNow)
             ->get();
         return $result;
@@ -55,18 +56,40 @@ class CourseRepository extends Repository
     public function findComming($teacherId = 0, $subjectId = 0, $classId = 0) {
         $timeNow = time();
         $result = $this->model->with('isTeacher', 'isSubject', 'isClass', 'getLesson')
-            ->whereHas('isTeacher', function ($query) use ($teacherId) {
-                if ($teacherId != 0) $query->where('hocplus_course.teacher_id', $teacherId);
-            })
-            ->whereHas('isSubject', function ($query) use ($subjectId) {
-                if ($subjectId != 0) $query->where('hocplus_course.subject_id', $subjectId);
-            })
-            ->whereHas('isClass', function ($query) use ($classId) {
-                if ($classId != 0) $query->where('hocplus_course.classes_id', $classId);
-            })
-            ->whereHas('getLesson', function ($query) { })
+            // ->whereHas('isTeacher', function ($query) use ($teacherId) {
+            //     if ($teacherId != 0) $query->where('hocplus_course.teacher_id', $teacherId);
+            // })
+            // ->whereHas('isSubject', function ($query) use ($subjectId) {
+            //     if ($subjectId != 0) $query->where('hocplus_course.subject_id', $subjectId);
+            // })
+            // ->whereHas('isClass', function ($query) use ($classId) {
+            //     if ($classId != 0) $query->where('hocplus_course.classes_id', $classId);
+            // })
+            // ->whereHas('getLesson', function ($query) { })
             ->where('active', 1)
-            ->where('date_start', '>', $timeNow)
+            ->where('status', 0)
+            // ->orWhere('date_start', '=', 'null')
+            // ->where('date_end', 0)
+            ->skip(0)->take(10)->get();
+        return $result;
+    }
+
+    public function findFree($teacherId = 0, $subjectId = 0, $classId = 0) {
+        $timeNow = time();
+        $result = $this->model->with('isTeacher', 'isSubject', 'isClass', 'getLesson')
+            // ->whereHas('isTeacher', function ($query) use ($teacherId) {
+            //     if ($teacherId != 0) $query->where('hocplus_course.teacher_id', $teacherId);
+            // })
+            // ->whereHas('isSubject', function ($query) use ($subjectId) {
+            //     if ($subjectId != 0) $query->where('hocplus_course.subject_id', $subjectId);
+            // })
+            // ->whereHas('isClass', function ($query) use ($classId) {
+            //     if ($classId != 0) $query->where('hocplus_course.classes_id', $classId);
+            // })
+            // ->whereHas('getLesson', function ($query) { })
+            ->where('active', 1)
+            // ->where('status', 1)
+            ->where('price', 0)
             ->skip(0)->take(10)->get();
         return $result;
     }
@@ -87,6 +110,7 @@ class CourseRepository extends Repository
             ->where('date_start', '<', $timeNow)
             ->where('date_end', '>', $timeNow)
             ->where('active', 1)
+            ->where('status', 1)
             ->get();
         return $result;
     }
@@ -107,6 +131,7 @@ class CourseRepository extends Repository
             ->where('date_start', '<', $timeNow)
             ->where('date_end', '>', $timeNow)
             ->where('active', 1)
+            ->where('status', 1)
             ->skip(0)->take(10)->get();
         return $result;
     }

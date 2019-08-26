@@ -47,10 +47,10 @@
                             <input class="form-control" type="password" id="login-password" placeholder="Mật khẩu">
                         </div>
                         <div class="form-group form-check">
-                            <span>
+                            {{-- <span>
                               <input class="form-check-input" type="checkbox" id="login-remember">
                               <label class="form-check-label" for="login-remember">Ghi nhớ mật khẩu</label>
-                            </span>
+                            </span> --}}
                             <span><span class="btn-forgot-password">Quên mật khẩu?</span></span>
                         </div>
                         <button class="btn" type="submit" id="login-btn-submit">Đăng nhập</button>
@@ -119,7 +119,7 @@
                     </p>
                     <button class="btn" type="submit" id="register-btn-submit">Đăng ký</button>
                 </form>
-
+                
                 <form class="form form-restore-password" id="form-forgot" method="post" action="{{ route('hocplus.frontend.auth.forgot') }}">
                     <div class="title">Tạo mới mật khẩu</div>
                     <div class="content">
@@ -180,7 +180,13 @@
                         <br><br><br><br><br><br><br><br><br>
                     </div>
                 </form>
-
+                {{-- <form class="form form-otp show">
+                    <div class="title">Xác nhận mã otp</div>
+                    <div class="form-group password">
+                      <input class="form-control" type="text" placeholder="Mã OTP">
+                    </div>
+                    <button class="btn" type="submit">Xác nhận</button>
+                </form> --}}
                 {{-- <div class="other show">
                     <p>- Hoặc -</p>
                     <a href="" class="btn btn-facebook"><i class="fa fa-facebook"></i> <span>Đăng ký bằng facebook</span></a>

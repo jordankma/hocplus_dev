@@ -35,13 +35,13 @@
 <body>
 
 <div id="app">
-
+    @if(!$agent->isMobile())
     @include('HOCPLUS-FRONTEND::includes._header')
-
+    @endif
     @yield('content')
-
+    @if(!$agent->isMobile())
     @include('HOCPLUS-FRONTEND::includes._footer')
-
+    @endif
     @include('HOCPLUS-FRONTEND::includes._modal')
 
 </div> <!-- / App -->

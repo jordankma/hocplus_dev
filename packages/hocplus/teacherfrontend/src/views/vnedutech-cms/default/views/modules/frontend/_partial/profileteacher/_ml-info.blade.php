@@ -46,7 +46,7 @@
                 <span>Ví của tôi</span>
             </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
             <a href="{{ route('hocplus.frontend.teacher.document') }}" class="nav-link">
                 <i class="fa fa-folder-open"></i>
                 <span>Quản lý tài liệu</span>
@@ -69,19 +69,19 @@
                 <i class="fa fa-document-time"></i>
                 <span>Lịch sử học</span>
             </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
             <a href="{{ route('hocplus.get.edit.profile.teacher') }}" class="nav-link">
                 <i class="fa fa-gear"></i>
                 <span>Quản lý tài khoản</span>
             </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
             <a href="" class="nav-link">
                 <i class="fa fa-comments"></i>
                 <span>Quản lý bình luận</span>
             </a>
-            </li>
+            </li> --}}
         </ul>
         </nav>
     </div>

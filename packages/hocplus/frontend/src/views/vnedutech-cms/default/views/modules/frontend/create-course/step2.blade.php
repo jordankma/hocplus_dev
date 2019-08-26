@@ -56,15 +56,15 @@
                                         <div class="block-inner">
                                             <div class="grid form-group">
                                                 <div class="grid-left">
-                                                    <label for="exampleInputTemplateDateStart">Ngày bắt đầu *</label>
+                                                    <label for="exampleInputTemplateDateStart">Ngày dự kiến bắt đầu *</label>
                                                 </div>
                                                 <div class="grid-right">
-                                                    <input class="form-control width-40 datetime-start" id="exampleInputTemplateDateStart" name="course_date_start"
-                                                           required="required" oninvalid="this.setCustomValidity('Vui lòng nhập thời gian bắt đầu!')" oninput="setCustomValidity('')"
-                                                           value="{{old('course_date_start')}}">
+                                                    <input class="form-control width-40 datetime-start" id="exampleInputTemplateDateStart" name="course_date_start_temp" required="required"
+                                                             oninput="setCustomValidity('')"
+                                                           value="{{old('course_date_start_temp')}}">
                                                 </div>
                                             </div>
-                                            <div class="grid form-group">
+                                            {{-- <div class="grid form-group">
                                                 <div class="grid-left">
                                                     <label for="exampleInputTemplateDateEnd">Ngày kết thúc *</label>
                                                 </div>
@@ -73,10 +73,10 @@
                                                            required="required" oninvalid="this.setCustomValidity('Vui lòng nhập thời gian kết thúc!')" oninput="setCustomValidity('')"
                                                            value="{{old('course_date_end')}}">
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="grid form-group">
                                                 <div class="grid-left">
-                                                    <label for="exampleInputTemplatePrice">Học phí *</label>
+                                                    <label for="exampleInputTemplatePrice">Học phí/HS/ Khóa học *</label>
                                                 </div>
                                                 <div class="grid-right">
                                                     <input class="form-control" type="text" id="exampleInputTemplatePrice" name="course_price"
@@ -90,7 +90,7 @@
                                                 </div>
                                                 <div class="grid-right">
                                                     <input class="form-control" type="text" id="exampleInputTemplateStudentNumber" name="course_student_limit"
-                                                           placeholder="VD: 10">
+                                                           placeholder="VD: 10" required="required">
                                                 </div>
                                             </div>
                                         </div>
@@ -105,7 +105,6 @@
                                                 <div class="grid-right">
                                                     <div class="grid grid-mg15">
                                                         <div class="grid-50 grid-p15">Bắt đầu</div>
-                                                        {{-- <div class="grid-50 grid-p15">Kết thúc</div> --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -122,10 +121,10 @@
                                                                     <div class="grid-50 grid-p15">
                                                                         <div class="grid grid-mg7">
                                                                             <div class="grid-60 grid-p7">
-                                                                                <input class="form-control datetime-start-{{ $k }}" id="exampleInputTemplateDateStart-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateDateStart-{{ $lesson->template_lesson_id }}" value="">
+                                                                                <input type="hidden" class="form-control datetime-start-{{ $k }}" id="exampleInputTemplateDateStart-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateDateStart-{{ $lesson->template_lesson_id }}" value="">
                                                                             </div>
                                                                             <div class="grid-40 grid-p7">
-                                                                                <input class="form-control timepicker" id="exampleInputTemplateTimeStart-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateTimeStart-{{ $lesson->template_lesson_id }}" value="00:00">
+                                                                                <input type="hidden" form-control timepicker" id="exampleInputTemplateTimeStart-{{ $lesson->template_lesson_id }}" name="exampleInputTemplateTimeStart-{{ $lesson->template_lesson_id }}" value="00:00">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -148,7 +147,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="block file">
+                                    {{-- <div class="block file">
                                         <div class="block-headline">
                                             <h3 class="title">Tài liệu khóa học</h3>
                                         </div>
@@ -157,7 +156,7 @@
                                                 <div class="grid-left">Lựa chọn tài liệu <br>giảng dạy</div>
                                                 <div class="grid-right">
                                                     <div class="btn-input">
-                                                        {{--<span><i class="fa fa-camera-retro"></i>Chọn file từ thư viện</span>--}}
+                                                        <span><i class="fa fa-camera-retro"></i>Chọn file từ thư viện</span>
                                                         <input id="exampleInputTemplateMediaImage" multiple="multiple" name="course_documents[]" type="file">
                                                     </div>
                                                 </div>
@@ -165,7 +164,7 @@
                                             <div class="grid">
                                                 <div class="grid-left"></div>
                                                 <div class="grid-right">
-                                                    {{--<form action="/file-upload" class="dropzone"></form>--}}
+                                                    <form action="/file-upload" class="dropzone"></form>
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -183,7 +182,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <br>
                                     <input type="hidden" name="course_template_id" value="{{ $course_template_id }}">
                                     
@@ -248,17 +247,17 @@
         $('.datetime-start').datetimepicker({
             format: "DD-MM-YYYY"
         });
-        $('.datetime-end').datetimepicker({
-            useCurrent: false, //Important! See issue #1075,
-            format: "DD-MM-YYYY" 
-        });
-        $(".datetime-start").on("dp.change", function (e) {
-            console.log($('.datetime-end').data("DateTimePicker"));
-            $('.datetime-end').data("DateTimePicker").minDate(e.date);
-        });
-        $(".datetime-end").on("dp.change", function (e) {
-            $('.datetime-start').data("DateTimePicker").maxDate(e.date);
-        });
+        // $('.datetime-end').datetimepicker({
+        //     useCurrent: false, //Important! See issue #1075,
+        //     format: "DD-MM-YYYY" 
+        // });
+        // $(".datetime-start").on("dp.change", function (e) {
+        //     console.log($('.datetime-end').data("DateTimePicker"));
+        //     $('.datetime-end').data("DateTimePicker").minDate(e.date);
+        // });
+        // $(".datetime-end").on("dp.change", function (e) {
+        //     $('.datetime-start').data("DateTimePicker").maxDate(e.date);
+        // });
         if(count_template > 0){
             for(var i = 0; i < count_template; i++){
                 console.log('.datetime-start-' + i);

@@ -20,8 +20,9 @@ use Vne\Pay\App\Models\MemberHasCourse;
 use App\Libary\VNPay\VNPayPayment;
 use Vne\Pay\App\Models\LogApi;
 use GuzzleHttp\Client;
+use Hocplus\Frontend\App\Models\Member;
 use Curl\Curl;
-use Validator;
+use Validator, URL;
 
 class PayController extends Controller
 {
@@ -38,13 +39,21 @@ class PayController extends Controller
     protected $_productId = 11;
     protected $_environment = 'real';   
 
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();        
+        parent::__construct();
+        $this->_loginApp($request);
+        
     }
     
+    public function loginById()
+    {
+        dd(@Auth::guard('member')->user()->member_id);
+    }
+
     //mua khóa học
-    public function buyCourse(Request $request){
+    public function buyCourse(Request $request)
+    {
         
         if(empty($request->course_id)){
             return response()->json([
@@ -151,7 +160,7 @@ class PayController extends Controller
     // tạo hóa đơn
     public function createOrder(Request $request){
         try{
-            if(empty($request->secretKey) || empty($request->courseId) || empty($request->price)){
+            if(empty($request->secretKey) || empty($request->courseId) || !isset($request->price)){
                 throw new \Exception('Tham số không hợp lệ');
             }
             
@@ -178,6 +187,39 @@ class PayController extends Controller
 
             $course = Course::findOrFail($request->courseId);
             
+            if($course->student_register > $course->student_limit || $course->student_register == $course->student_limit)
+            {
+                throw new \Exception('Số lượng học sinh đăng ký khóa học này đã đủ');
+            }
+
+            if($course->price === 0)
+            {
+                //dang ky khoa hoc km
+                $memberHasCourse = MemberHasCourse::create([
+                    'member_id' => $memberId,
+                    'course_id' => $course->course_id,
+                    'exp' => strtotime(date('Y-m-d', strtotime('+1 year')))
+                ]);
+                if($memberHasCourse->member_has_course_id)
+                {
+                    $course->student_register = $course->student_register + 1;
+                    $course->save();
+                    return response()->json([
+                        'status' => true,
+                        'msg' => 'success',
+                        'redirect' => route('vne.pay.course_promo')
+                    ]);
+                }
+                else
+                {
+                    return response()->json([
+                        'status' => false,
+                        'msg' => 'Đăng ký khóa học không thành công',
+                    ]);
+                }
+                
+            }
+
             $order = Order::create([
                 'course_id' => $course->course_id,
                 'order_code' => $this->_generateRandomString(6).time(),
@@ -418,8 +460,11 @@ class PayController extends Controller
                         ]);
                         //dang ky khoa hoc thanh cong
                         if($memberHasCourse->member_has_course_id){
+                            $course->student_register = $course->student_register + 1;
+                            $course->save();
                             // neu con du tien thi cong vao vi
-                            if($rechange > 0){
+                            if($rechange > 0)
+                            {
                                 $logTransaction = [
                                     'order_code' => $order->order_code,
                                     'member_id' => $memberId,
@@ -733,6 +778,9 @@ class PayController extends Controller
                             'exp' => strtotime(date('Y-m-d', strtotime('+1 year')))
                         ]);
                         if($memberHasCourse->member_has_course_id){
+                            $course->student_register = $course->student_register + 1;
+                            $course->save();
+
                             $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::TT_THANH_CONG | self::CLIENT_DA_NHAN;
                             $order->save();                            
                         }
@@ -902,6 +950,9 @@ class PayController extends Controller
                     ]);
 
                     if($memberHasCourse->member_has_course_id){
+                        $course->student_register = $course->student_register + 1;
+                        $course->save();
+
                         $order->status = self::TAO_DON_HANG | self::CHUYEN_CONG_TT | self::TT_THANH_CONG | self::CLIENT_DA_NHAN;
                         $order->save();                        
                     }
@@ -949,6 +1000,11 @@ class PayController extends Controller
             ]);
         }
         return view('VNE-PAY::modules.pay.check_out', ['order_code' => $request->order_code, 'method' => $method]);
+    }
+
+    public function promo()
+    {
+        return view('VNE-PAY::modules.pay.check_out_promo');
     }
 
     public function _buildCourseDiscount($price, $discount, $exp){
@@ -1141,6 +1197,33 @@ class PayController extends Controller
 
     public function _replaceString($str){
         return preg_replace('/\s+/', '', $str);
+    }
+
+    protected function _loginApp(Request $request)
+    {
+        try {
+            if(!empty($request->app) && !empty($request->course_id) && !empty($request->app_token))
+            {
+                
+                $api = URL::to('').'/resource/api/verify-token?token='.$request->app_token;
+                $curl = new Curl();
+                $data = $curl->get($api);
+                $result = json_decode($data);
+                if($result->success)
+                {
+                    if(!empty($result->member_info))
+                    {
+                        $member = Member::findOrFail($result->member_info->member_id);
+                        Auth::guard('member')->login($member);
+                    }
+                }
+            }
+        }
+        catch(\Exception $e)
+        {
+            return false;
+        }
+        
     }
 
 }

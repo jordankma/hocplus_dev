@@ -13,7 +13,7 @@ class CreateHocplusCourseTable extends Migration
      */
     public function up()
     {
-        Schema::create('hocplus_course', function (Blueprint $table) {
+        Schema::connection('mysql_vne')->create('hocplus_course', function (Blueprint $table) {
             $table->increments('course_id');            
             $table->integer('student_limit');
             $table->integer('student_register')->nullable();
@@ -49,6 +49,6 @@ class CreateHocplusCourseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hocplus_course');
+        Schema::connection('mysql_vne')->dropIfExists('hocplus_course');
     }
 }

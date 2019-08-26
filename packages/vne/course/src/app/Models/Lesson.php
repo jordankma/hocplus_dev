@@ -17,7 +17,7 @@ class Lesson extends Model {
 
     protected $primaryKey = 'lesson_id';
 
-    protected $fillable = ['name', 'date_start', 'content', 'active', 'status', 'url'];
+    protected $fillable = ['name', 'date_start', 'content', 'active', 'status', 'url', 'time_line'];
 
     protected $dates = ['deleted_at'];
     

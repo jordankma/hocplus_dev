@@ -5,21 +5,28 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-
+@if($agent->isMobile())
+  <style>
+    .pay-course .container::before {
+      display: none;
+  }
+  </style>
+@endif
 @stop
 
 {{-- Page content --}}
 @section('content')   
     <main class="main">
-    <nav class="c-breadcrumb">
-        <div class="container">
-          <ol class="breadcrumb-list">
-            <li class="breadcrumb-item"><a href="{{URL::to('')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Mua khóa học</li>
-          </ol>
-        </div>
+    @if(!$agent->isMobile())
+      <nav class="c-breadcrumb">
+          <div class="container">
+            <ol class="breadcrumb-list">
+              <li class="breadcrumb-item"><a href="{{URL::to('')}}">Trang chủ</a></li>
+              <li class="breadcrumb-item active">Mua khóa học</li>
+            </ol>
+          </div>
       </nav> <!-- / breadcrumb -->
-
+    @endif
       <section class="pay-course">
         <div class="container">
           <div class="row">
@@ -100,7 +107,7 @@
                     <button type="button" class="btn btn-use-voucher">Áp dụng</button>
                   </form>
                 </div>                
-                  <a href="#" class="btn btn-buying">Mua khóa học</a>
+                  <a href="#" class="btn btn-buying" style="margin-bottom:20px">Mua khóa học</a>
                 @endif
               </div>
 

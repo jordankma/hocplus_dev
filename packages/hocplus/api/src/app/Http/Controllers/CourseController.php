@@ -373,10 +373,13 @@ class CourseController extends Controller
                 //end data rating
                 $data = [
                     'title' => base64_encode($course->name),
-                    'class' => isset($course->isClass->name) ? base64_encode($course->isClass->name) : '',
+                    'class_name' => isset($course->isClass->name) ? base64_encode($course->isClass->name) : '',
                     'subject' => isset($course->isSubject->name) ? base64_encode($course->isSubject->name) : '',
                     'course_id' => $course->course_id,
                     'avartar' => $course->avartar != '' ? config('site.url_static') . $course->avartar : 'http://static.hocplus.vn/files/vendor/vnedutech-cms/default/hocplus/teacherfrontend/images/course.jpg',
+                    'icon_gv' => '',
+                    'id_gv' => '',
+                    'name_gv' => '',
                     'video' => $course->video,
                     'student_limit' => $course->student_limit,
                     'student_register' => $course->student_register,
@@ -460,13 +463,15 @@ class CourseController extends Controller
             'member_id' => 'required',
             'token' => 'required',
             'course_id' => 'required',
-            'comment' => 'required'
+            'comment' => 'required',
+            'rate' => 'required'
         ], $this->messages);
         if (!$validator->fails()) {
             $member_id = $request->input('member_id');
             $token = $request->input('token');
             $course_id = $request->input('course_id');
             $comment = $request->input('comment');
+            $rate = $request->input('rate');
             $token_controller = new TokenController();
             $status = $token_controller->checkToken($member_id, $token); 
             if($status){ //check token
@@ -474,7 +479,11 @@ class CourseController extends Controller
                 $comments->course_id = $course_id;
                 $comments->comment = $comment;
                 $comments->user_id = $member_id;
-                if($comments->save()){
+                $rating = new Rating;
+                $rating->course_id = $course_id;
+                $rating->rate = $rate;
+                $rating->member_id = $member_id;
+                if($comments->save() && $rating->save()){
                     return self::message(true, 'Comment thành công');        
                 }else{
                     return self::message(false, 'Comment thất bại');    

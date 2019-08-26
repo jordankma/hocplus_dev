@@ -100,8 +100,13 @@
 
 <!--end of page js-->
 <script>
-var domain = "/admin/laravel-filemanager/";
-$('#lfm').filemanager('image', {prefix: domain});
+// var domain = "/admin/laravel-filemanager/";
+// $('#lfm').filemanager('image', {prefix: domain});
+flatpickr("#discount_exp", {  dateFormat: 'Y-m-d' });
+
+var check_in = flatpickr("#date_start", {  dateFormat: 'Y-m-d' });
+var check_out = flatpickr("#date_end", {  dateFormat: 'Y-m-d' });
+
 $('input[type="checkbox"].square, input[type="radio"].square').iCheck({
     checkboxClass: 'icheckbox_square-green',
     radioClass: 'iradio_square-green',
@@ -280,6 +285,13 @@ $('#surveyForm').bootstrapValidator({
                     message: ' '
                 }
             }
+        },
+        'time_line[]': {
+            validators: {
+                notEmpty: {
+                    message: ' '
+                }
+            }
         }
          
     }
@@ -329,6 +341,54 @@ $('body').on('click', '.btn-save', function(e){
         e.preventDefault();
     }        
 });
+(function ($) {
 
+$.fn.filemanager = function (type, options) {
+    type = type || 'file';
+    var parent = this;
+    this.on('click', function (e) {
+        if( $(parent).attr('data-choice') === 'files'){
+            type = 'file';
+            $("#isIcon").val(1);
+        }
+        if( $(parent).attr('data-choice') === 'icon'){
+            $("#isIcon").val(2);
+        }
+        var route_prefix = (options && options.prefix) ? options.prefix : '/file-manager/manage';
+        localStorage.setItem('target_input', $(this).data('input'));
+        localStorage.setItem('target_preview', $(this).data('preview'));
+        window.open(route_prefix + '?type=' + type , 'FileManager', 'width=900,height=600');
+        if ($("#mutil").val() === 'remove' && $(parent).attr('data-choice') === 'files') {
+            return true;
+        } else {
+            window.SetUrl = function (url, file_path) {
+                console.log(url);
+                //set the value of the desired input to image url
+                var target_input = $('#' + localStorage.getItem('target_input'));
+                target_input.val(file_path).trigger('change');
+
+                //set or change the preview image src
+                var target_preview = $('#' + localStorage.getItem('target_preview'));
+                target_preview.attr('src', url).trigger('change');
+            };
+            return false;
+
+        }
+    });
+}
+
+})(jQuery);
+$(window).bind('storage', function (e) {
+if(e.originalEvent.key == 'select_event'){
+    var preview_url = '{{ @$preview_url }}';
+    var target_input =   localStorage.getItem('target_input');
+    var target_preview =   localStorage.getItem('target_preview');
+    var file_select = localStorage.getItem('file_select');
+    $('#' + target_input).val('/files/' + file_select);
+    $('#' + target_preview).attr("src",preview_url + '/files/' + file_select);
+}
+});
+$('#lfm').filemanager();
+// $('#lfm2').filemanager();
 </script>
 @stop

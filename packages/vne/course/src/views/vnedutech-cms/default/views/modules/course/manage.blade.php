@@ -71,20 +71,19 @@
                             <tr>
                                 <td style="text-align: center;">{{ $key = $key + 1 }}</td>
                                 <td>                                    
-                                    <img src='{{$val->avartar}}' width="75px">                                 
+                                    <img src='{{config('site.url_static')}}{{$val->avartar}}' width="75px">                                 
                                 </td>
                                 <td>
                                     {{$val->name}} 
                                 </td>
-                                <td>
-                                    {{$val->isClass->name}} 
+                                <td>                                    
+                                    {{isset($val->isClass->name) ? $val->isClass->name : ''}}
                                 </td>
-                                <td>
-                                    
-                                    {{$val->isSubject->name}} 
+                                <td>                                                                        
+                                    {{isset($val->isSubject->name) ? $val->isSubject->name : ''}}
                                 </td>
                                 <td>                                    
-                                    {{$val->isTeacher->name}}
+                                    {{isset($val->isTeacher->name) ? $val->isTeacher->name : ''}}
                                 </td>                                
                                 <td>{{date('Y-m-d H:i', $val->date_start)}}</td>
                                 <td>{{date('Y-m-d H:i', $val->date_end)}}</td>

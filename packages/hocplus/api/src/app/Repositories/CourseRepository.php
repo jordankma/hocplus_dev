@@ -36,12 +36,12 @@ class CourseRepository extends Repository
             $query->where('subject_id',$params['subject_id']);    
         }
         if ($params['type'] == 'early') {
-            $query->where('date_start', '>', $timeNow);    
+            $query->where('date_start', 0);    
         }
         if ($params['type'] == 'now') {
             $query->where('date_start', '<', $timeNow)->where('date_end', '>', $timeNow);    
         }
-        $result = $query->paginate(9);
+        $result = $query->where('active',1)->where('status', 1)->paginate(20);
         return $result;
     }
 }

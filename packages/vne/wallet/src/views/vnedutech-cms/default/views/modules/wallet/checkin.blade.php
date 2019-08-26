@@ -60,8 +60,7 @@ var urlTransfer = '{{route('vne.wallet.transfer')}}';
             
             <div style="font-size: 30px;font-weight: 700;color: #d2232f;">{{$order_code}}</div>
             <p>                
-                Xin cảm ơn quý khách đã cho chúng tôi cơ hội đươc phục vụ. Mọi thắc mắc vui lòng liên hệ: <b style="font-size: 20px;font-weight: 700;color: #d2232f;">1900 636
-                444</b>
+                Xin cảm ơn quý khách đã cho chúng tôi cơ hội đươc phục vụ. Mọi thắc mắc vui lòng liên hệ: <b style="font-size: 20px;font-weight: 700;color: #d2232f;">1900 6675</b>
             </p>
             </div>
         </div>

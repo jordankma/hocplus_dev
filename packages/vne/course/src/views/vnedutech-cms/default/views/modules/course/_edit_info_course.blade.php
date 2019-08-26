@@ -12,14 +12,14 @@
             <div class="form-group" >
                 <label class="col-md-3 control-label" for="name">Ngày bắt đầu</label>
                 <div class="col-md-8">
-                    <input id="date_start" name="date_start" type="text" value="{{date('Y-m-d H:i', $course->date_start)}}" class="type_date form-control">
+                    <input id="date_start" name="date_start" type="text" value="{{date('Y-m-d H:i', !empty($course->date_start) ? $course->date_start : time())}}" class="type_date form-control">
                 </div>
             </div>    
 
             <div class="form-group">
                 <label class="col-md-3 control-label" for="name">Ngày kết thúc</label>
                 <div class="col-md-8">
-                    <input id="date_end" name="date_end" value="{{date('Y-m-d H:i', $course->date_end)}}" type="text" class="type_date form-control">
+                    <input id="date_end" name="date_end" value="{{date('Y-m-d H:i', !empty($course->date_end) ? $course->date_end : time())}}" type="text" class="type_date form-control">
                 </div>
             </div> 
 
@@ -87,14 +87,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="message" style="padding-top: 0px;">Nổi bật</label>
+                <label class="col-md-4 control-label" for="message" style="padding-top: 0px;">Khai giảng</label>
                 <div class="col-md-8">
                     <label style="margin-right: 10px; cursor: pointer;">
-                        <input type="radio" name="is_hot" value="1" class="square" @if($course->is_hot == 1) checked @endif /> Có
+                        <input type="radio" name="status" value="1" class="square" @if($course->status == 1) checked @endif /> Có
                     </label>
 
                     <label style="margin-right: 10px; cursor: pointer;">
-                        <input type="radio" name="is_hot" value="0" class="square" @if($course->is_hot == 0) checked @endif /> Không                                    
+                        <input type="radio" name="status" value="0" class="square" @if($course->status == 0) checked @endif /> Không                                    
                     </label>                               
                 </div>
             </div>
@@ -138,7 +138,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="message">Ngày hết hạn</label>
                 <div class="col-md-8">
-                    <input id="discount_exp" name="discount_exp" value="{{date('Y-m-d H:s', $course->discount_exp)}}" type="text" class="form-control">                             
+                    <input id="discount_exp" name="discount_exp" value="{{date('Y-m-d H:s', !empty($course->discount_exp) ? $course->discount_exp : time())}}" type="text" class="form-control">                             
                 </div>
             </div>
 
