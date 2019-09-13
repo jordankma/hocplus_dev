@@ -27,6 +27,7 @@ class CourseRepository extends Repository
             })
             ->whereHas('getLesson', function ($query) { })
             ->where('active', 1)
+            ->where('demo', 0)
             ->inRandomOrder()
             ->limit(4)
             ->get();
@@ -48,6 +49,7 @@ class CourseRepository extends Repository
             ->whereHas('getLesson', function ($query) { })
             ->where('active', 1)
             ->where('status', 1)
+            ->where('demo', 0)
             ->where('date_start', '>', $timeNow)
             ->get();
         return $result;
@@ -68,6 +70,7 @@ class CourseRepository extends Repository
             // ->whereHas('getLesson', function ($query) { })
             ->where('active', 1)
             ->where('status', 0)
+            ->where('demo', 0)
             // ->orWhere('date_start', '=', 'null')
             // ->where('date_end', 0)
             ->skip(0)->take(10)->get();
@@ -90,6 +93,7 @@ class CourseRepository extends Repository
             ->where('active', 1)
             // ->where('status', 1)
             ->where('price', 0)
+            ->where('demo', 0)
             ->skip(0)->take(10)->get();
         return $result;
     }
@@ -111,6 +115,7 @@ class CourseRepository extends Repository
             ->where('date_end', '>', $timeNow)
             ->where('active', 1)
             ->where('status', 1)
+            ->where('demo', 0)
             ->get();
         return $result;
     }
@@ -132,6 +137,7 @@ class CourseRepository extends Repository
             ->where('date_end', '>', $timeNow)
             ->where('active', 1)
             ->where('status', 1)
+            ->where('demo', 0)
             ->skip(0)->take(10)->get();
         return $result;
     }

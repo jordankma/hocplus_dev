@@ -218,6 +218,7 @@ class CourseController extends Controller
                     'type' => $type
                 ];
                 $list_course = $this->course->searchCourse($params);
+                // return $list_course;
                 $data = array();
                 if(!empty($list_course)){
                     foreach ($list_course as $key => $value) {

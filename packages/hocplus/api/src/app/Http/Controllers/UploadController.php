@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Adtech\Application\Cms\Controllers\Controller as Controller;
 use Validator;
 use Illuminate\Support\Facades\Storage;
+use Hocplus\Api\App\Http\Controllers\TokenController;
+use Hocplus\Api\App\Models\Member;
+
 class UploadController extends Controller
 {
     private $messages = array(
@@ -44,6 +47,42 @@ class UploadController extends Controller
             ];
             return json_encode($data_reponse);
 
+        }else{
+            return self::message(false, 'Thiếu tham số'); 
+        }
+    }
+    public function uploadAvatarStudent(Request $request){
+        $validator = Validator::make($request->all(), [
+            'file' => 'required',
+            'member_id' => 'required',
+            'token' => 'required'
+        ], $this->messages);
+        if (!$validator->fails()) {
+            $file = $request->input('file');
+            $member_id = $request->input('member_id');
+            $type = 'student';
+            $token = $request->input('token');
+            $token_controller = new TokenController();
+            $status = $token_controller->checkToken($member_id, $token); 
+            if($status){
+                $path_file = $request->file('file')->store(
+                    'hocplus/student/'. $member_id . '/avatars' , 'static'
+                );
+                $path_avatar = '/files' . '/' . $path_file;
+                $member = Member::find($member_id);
+                $member->avatar = $path_avatar;
+                if($member->save()){
+                    $data_reponse = [
+                        'path_file' => config('site.url_static') . '/files' . '/' . $path_file,
+                        'success' => true,
+                        'message' => 'Upload thành công!'
+                    ];
+                    return json_encode($data_reponse);
+                }
+                return self::message(false, 'Upload thất bại');
+            } else{
+                return self::message(false, 'Token không hợp lệ');    
+            }
         }else{
             return self::message(false, 'Thiếu tham số'); 
         }

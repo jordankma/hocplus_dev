@@ -26,6 +26,17 @@ class ResetPasswordController extends Controller
         $this->_passwordResetRepository = $passwordResetRepository;
     }
 
+    public function verifyOTP(Request $request){
+        $otp = $request->input('otp');
+        $passwordReset = $this->_passwordResetRepository->findWhere(['token' => $otp])->sortBy('created_at', 0, true)->first();
+        if (null == $passwordReset) {
+            echo json_encode(['success' => false]);
+            die();
+        }          
+        echo json_encode(['success' => true,'token' => $otp]);
+        die();
+    }
+
     /**
      * @param Request $request
      * @param String $resetToken
@@ -36,6 +47,7 @@ class ResetPasswordController extends Controller
         if (null == $passwordReset) {
 //            return redirect(route('adtech.core.auth.login'));
             echo json_encode(['success' => false]);
+            
             die();
         }
 

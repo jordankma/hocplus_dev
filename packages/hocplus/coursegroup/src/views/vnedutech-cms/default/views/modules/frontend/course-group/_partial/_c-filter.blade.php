@@ -7,7 +7,7 @@
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" id="checkbox1" name="course_early" 
                         @if(isset($params['course_early']) && $params['course_early'] == 'on') checked @endif>
-                        <label class="form-check-label" for="checkbox1">Sắp diễn ra</label>
+                        <label class="form-check-label" for="checkbox1">Sắp khai giảng</label>
                     </div>
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" id="checkbox2" name="course_now"

@@ -46,14 +46,23 @@ class LoginController extends Controller
         $password = $request->input('password');
         $data = [
             'success' => false,
-            'message' => 'Đăng nhập không thành công kiểm tra thông tin đăng nhập. Hoặc tài khoản chưa được kích hoạt',
+            'status' => 1,
+            'message' => 'Đăng nhập không thành công kiểm tra thông tin đăng nhập.',
         ];
         if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
-            if ($this->_guard()->attempt(['email' => $username, 'password' => $password, 'activated' => 1])) {
+            if ($this->_guard()->attempt(['email' => $username, 'password' => $password])) {
+                $member_info = Auth::guard('member')->user();
+                if($member_info->activated == 0){
+                    $data = [
+                        'success' => false,
+                        'status' => 2,
+                        'message' => 'Tài khoản chưa được xác thực!',
+                    ];
+                    $data_encode = json_encode($data);
+                    return $data_encode;
+                }
                 $request->session()->regenerateToken();
                 $this->clearLoginAttempts($request);
-                $member_info = Auth::guard('member')->user();
-
                 //get info login
                 $info_login = self::getInfo($member_info);
                 return $info_login;
@@ -62,10 +71,18 @@ class LoginController extends Controller
                 return $data_encode;
             }
         } else {
-            if ($this->_guard()->attempt(['phone' => $username, 'password' => $password, 'activated' => 1])) {
+            if ($this->_guard()->attempt(['phone' => $username, 'password' => $password])) {
+                if($member_info->activated == 0){
+                    $data = [
+                        'success' => false,
+                        'status' => 2,
+                        'message' => 'Tài khoản chưa được xác thực!',
+                    ];
+                    $data_encode = json_encode($data);
+                    return $data_encode;
+                }
                 $request->session()->regenerateToken();
                 $this->clearLoginAttempts($request);
-                $member_info = Auth::guard('member')->user();
 
                 //get info login
                 $info_login = self::getInfo($member_info);
@@ -76,6 +93,9 @@ class LoginController extends Controller
             }
         }
     }
+
+
+    
 
     public function login(Request $request)
     {
@@ -91,12 +111,7 @@ class LoginController extends Controller
                 return 'Something error';
             }
         } else{
-            $data = [
-                'success' => false,
-                'message' => 'Thiếu tham số',
-            ];    
-            $data_encode = json_encode($data);
-            return $data_encode;    
+            return self::message(false, 'Token không hợp lệ');  
         }
     }
 
@@ -123,12 +138,7 @@ class LoginController extends Controller
             $data_encode = json_encode($data);
             return $data_encode; 
         } else{
-            $data = [
-                'success' => false,
-                'message' => 'Thiếu tham số',
-            ];    
-            $data_encode = json_encode($data);
-            return $data_encode;    
+            return self::message(false, 'Token không hợp lệ');     
         }
     }
 
@@ -192,20 +202,19 @@ class LoginController extends Controller
                 $data_encode = json_encode($data);
                 return $data_encode;   
             } else{
-                $data = [
-                    'success' => false,
-                    'message' => 'Token không hợp lệ',
-                ];    
-                $data_encode = json_encode($data);
-                return $data_encode;   
+                return self::message(false, 'Token không hợp lệ');    
             }
         } else{
-            $data = [
-                'success' => false,
-                'message' => 'Thiếu tham số',
-            ];    
-            $data_encode = json_encode($data);
-            return $data_encode;    
+            return self::message(false, 'Token không hợp lệ');    
         }   
+    }
+
+    public function message($success, $message){
+        $data = [
+            'success' => $success,
+            'message' => $message,
+        ];    
+        $data_encode = json_encode($data);
+        return $data_encode;    
     }
 }

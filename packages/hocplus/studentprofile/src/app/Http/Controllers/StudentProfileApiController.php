@@ -44,7 +44,7 @@ class StudentProfileApiController extends Controller
                 $member->address = $address;
                 $member->phone = $phone;
                 $member->school = $school;
-				$member->status = 2;   
+		$member->status = 2;   
                 /*   
                 $file = $request->file('image');
              
@@ -75,10 +75,34 @@ class StudentProfileApiController extends Controller
             return $result;
         }
     }
-	/** get the member info */
+    /* update avatar */
+    public function avatar(Request $request) {
+                $file = $request->file('image');
+                $member_id = $request->input('member_id');
+                $member = Member::find($member_id);
+                if ($file) {
+                    //$destinationPath = '/images';
+                    $fileName = $this->showUploadFile($request,$member_id);
+                    if ($fileName != '') {
+                        $member->avatar = $fileName; 
+                        $success = $member->save();  
+                        if ($success) {
+                            $result = array("success" => true,"message" => "ok!");
+                            return $result;
+                        }
+                        else {
+                            $result = array("success" => false,"message" => "fail!");
+                            return $result;
+                        }                       
+                        
+                    }
+                }        
+    }
+    /** get the member info */
 	public function getinfo(Request $request) {
 		$member_id = intval($request->input('member_id'));
 		$member = Member::find($member_id);
+		$member->avatar = 'http://static.hocplus.vn'.$member->avatar;
 		if ($member) {
 			$result = array(
 				'data' => $member,
@@ -94,9 +118,9 @@ class StudentProfileApiController extends Controller
 		}
 		return $result;
 	}
-    /**upload avatar*/
-    public function showUploadFile(Request $request,$member_id) {
-       $file = $request->file('image')->store('hocplus/student/'.$member_id. '/avatars','static');
-       return '/files/' .$file;
-    }    
+        /**upload avatar*/
+        public function showUploadFile(Request $request,$member_id) {
+           $file = $request->file('image')->store('hocplus/student/'.$member_id. '/avatars','static');
+           return '/files/' .$file;
+        }    
 }

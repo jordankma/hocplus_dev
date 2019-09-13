@@ -24,6 +24,7 @@ class CourseRepository extends Repository
             ->whereHas('getLesson', function ($query) { })
 //            ->where('active', 1)
 //            ->where('date_start', '>', $timeNow)
+            ->where('active',1)->where('demo', 0)
             ->paginate(15);
         return $result;
     }
@@ -61,7 +62,7 @@ class CourseRepository extends Repository
         } else{
             $query->orderBy('course_id','desc');
         }
-        $result = $query->paginate(9);
+        $result = $query->where('active',1)->where('demo', 0)->paginate(9);
         return $result;
     }
 

@@ -221,10 +221,17 @@ class CourseController extends Controller
         }
     }
     
-    public function manage(Request $request){
-        $params = [];
+    public function manage(Request $request)
+    {
+
+        $params = [
+            'name' => @$request->name_course,
+            'teacher_id' => @$request->teacher
+        ];
         $courses = Course::customSearch($params);
-        return view('VNE-COURSE::modules.course.manage', compact('courses'));
+        
+        $teachers = Teacher::orderBy('teacher_id', 'desc')->get()->toArray();
+        return view('VNE-COURSE::modules.course.manage', compact('courses', 'teachers'));
     }
     
     public function delete(Request $request){

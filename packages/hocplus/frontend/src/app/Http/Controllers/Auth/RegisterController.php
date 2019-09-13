@@ -129,7 +129,7 @@ class RegisterController extends Controller
                             'type' => $data['type'],
                             'activated' => 0,
                             'status' => 1,
-                            'token' => md5($data['email'] .$data['type'] .time())
+                            'token' => rand(1001,9999)
                         ]);
                         if ($member->member_id) {
                             //send mail active
@@ -137,11 +137,11 @@ class RegisterController extends Controller
                             $fromName = config('mail.from.name');
                             $activeMailer = new ActiveMailer();
                             $title = 'Kích hoạt tài khoản';
-                            $activeMailer->setViewFile('modules.core.auth.mail.active_account')
+                            $activeMailer->setViewFile('HOCPLUS-FRONTEND::modules.auth.mail.active_account')
                             ->with([
                                 'toName' => $member->email,
                                 'email' => $member->email,
-                                'activeLink' => route('hocplus.frontend.auth.activate',$member->token)
+                                'randomToken' => $member->token
                             ])
                             ->from($from, $fromName)
                             ->subject($title);
@@ -159,12 +159,11 @@ class RegisterController extends Controller
                             'type' => $data['type'],
                             'activated' => 0,
                             'status' => 1,
-                            'token' => md5($data['email'] .$data['type'] .time())
+                            'token' => rand(1001,9999)
                         ]);
                         if ($member->member_id) {
-                            $activeLink = route('hocplus.frontend.auth.activate',$member->token);
                             $phone = $data['email'];
-                            $content = 'Để kích hoạt tài khoản Hocplus vui lòng nhấn vào link ' . $activeLink;
+                            $content = 'Ma OTP xac thuc cua Quy khach la ' . $member->token .' . Chi tiet noi dung: Ma kich hoat tai khoan tren Hocplus';
                             $sms = new SmsController();
                             $sms->sendOtpSms($phone, $content);
                             // if($obj['CodeResult'] == 100){
@@ -192,5 +191,4 @@ class RegisterController extends Controller
         }
     }
 
-    
 }

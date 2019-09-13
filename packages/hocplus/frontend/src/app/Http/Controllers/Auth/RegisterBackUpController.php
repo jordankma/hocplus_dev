@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Hocplus\Frontend\App\Models\Member;
 use Mail;
-class RegisterController extends Controller
+class RegisterBackUpController extends Controller
 {
     /*
     |--------------------------------------------------------------------------

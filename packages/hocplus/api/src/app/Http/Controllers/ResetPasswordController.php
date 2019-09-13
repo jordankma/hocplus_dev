@@ -34,7 +34,12 @@ class ResetPasswordController extends Controller
     public function changePassword(Request $request)
     {
         $resetToken = $request->input('reset_token');
-        $passwordReset = $this->_passwordResetRepository->findWhere(['token' => $resetToken])->sortBy('created_at', 0, true)->first();
+        $username = $request->input('username');
+        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            $passwordReset = $this->_passwordResetRepository->findWhere(['token' => $resetToken,'email' => $username])->sortBy('created_at', 0, true)->first();
+        } elseif (preg_match('/^[0-9]{10}+$/', $username)) {
+            $passwordReset = $this->_passwordResetRepository->findWhere(['token' => $resetToken,'phone' => $username])->sortBy('created_at', 0, true)->first();   
+        }
         if (null == $passwordReset) {
             return self::message(false, 'Token không tồn tại');
         }
@@ -68,7 +73,22 @@ class ResetPasswordController extends Controller
             return self::message(true, 'Đổi mật khẩu thành công');
         }
     }
-
+    public function verifyOTP(Request $request){
+        $resetToken = $request->input('reset_token');
+        $username = $request->input('username');
+        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            $passwordReset = $this->_passwordResetRepository->findWhere(['token' => $resetToken,'email' => $username])->sortBy('created_at', 0, true)->first();
+        } elseif (preg_match('/^[0-9]{10}+$/', $username)) {
+            $passwordReset = $this->_passwordResetRepository->findWhere(['token' => $resetToken,'phone' => $username])->sortBy('created_at', 0, true)->first();   
+        }
+        // $passwordReset = $this->_passwordResetRepository->findWhere(['token' => $otp])->sortBy('created_at', 0, true)->first();
+        if (null == $passwordReset) {
+            echo json_encode(['success' => false]);
+            die();
+        }          
+        echo json_encode(['success' => true,'reset_token' => $resetToken, 'message' => 'Xác nhận OTP thành công mời bạn nhập mật khẩu mới!']);
+        die();
+    }
     public function message($success, $message){
         $data = [
             'success' => $success,

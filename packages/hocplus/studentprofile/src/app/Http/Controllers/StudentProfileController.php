@@ -52,7 +52,7 @@ class StudentProfileController extends Controller
                 $member->address = $address;
                 $member->phone = $phone;
                 $member->school = $school;
-				$member->status = 2;
+		$member->status = 2;
                 $file = $request->file('image');
              
                 if ($file) {
