@@ -141,8 +141,14 @@ class TeacherfrontendController extends Controller
         $teacher_id = Auth::guard('teacher')->id();
         $teacher = Teacher::where('teacher_id',$teacher_id)->with('getClasses','getSubject')->first();
         $timeNow = time();
-        $courses = Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->orderBy('course_id','desc')->where('teacher_id',$teacher_id)->paginate(5, ['*'], 'page-course');
-        $courses_end =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->orderBy('course_id','desc')->where('teacher_id',$teacher_id)->where('date_end', '<', $timeNow)->limit(4)->paginate(5, ['*'], 'page-course-end');
+        $courses = Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->orderBy('course_id','desc')
+                   ->where('active',1)
+                   ->where('status',1)
+                   ->where('teacher_id',$teacher_id)->paginate(5, ['*'], 'page-course');
+        $courses_end =  Course::with('isTeacher', 'isSubject', 'isClass', 'getLesson')->orderBy('course_id','desc')
+                        ->where('active',1)
+                        ->where('status',1)
+                        ->where('teacher_id',$teacher_id)->where('date_end', '<', $timeNow)->limit(4)->paginate(5, ['*'], 'page-course-end');
         $data = [
             'teacher' => $teacher,
             'courses' => $courses,

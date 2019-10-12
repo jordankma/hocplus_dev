@@ -48,7 +48,6 @@ class CourseController extends Controller
                 $item = $request->course; 
                 $date_start = $item['date_start']. ' ' . (isset($item['time_start']) ? $item['time_start'] : '00:00');
                 $date_end = $item['date_end']. ' ' .(isset($item['time_end']) ? $item['time_end'] : '00:00');
-               
                 $classSubject = explode("-", $item['classes']);
                 $dataInsert = [
                     'student_limit' => $item['student_limit'],
@@ -59,7 +58,7 @@ class CourseController extends Controller
                     'active' => $item['active'],
                     'discount' => $item['discount'],
                     'discount_exp' => strtotime($item['discount_exp']),
-
+                    'alias' => str_slug($item['name'], '-'),
                     'name' => $item['name'],
                     'avartar' => $item['avartar'],
                     'teacher_id' => $item['teacher_id'],
@@ -109,7 +108,8 @@ class CourseController extends Controller
                                     'active' => $dataLesson['lesson_active'][$i],
                                     'course_id' => $course->course_id,
                                     'ordinal' => $dataLesson['lesson_ordinal'][$i],
-                                    'created_at' => date('Y-m-d H:i:s')
+                                    'created_at' => date('Y-m-d H:i:s'),
+                                    'time_line' => $dataLesson['lesson_time_line'][$i]
                                 ];
 
                                 if($request->type == 'saveToTemplate'){
@@ -118,7 +118,8 @@ class CourseController extends Controller
                                         'content' => $dataLesson['lesson_content'][$i],
                                         'active' => $dataLesson['lesson_active'][$i],
                                         'course_template_id' => $item['course_template_id'],
-                                        'updated_at' => date('Y-m-d H:i:s')
+                                        'updated_at' => date('Y-m-d H:i:s'),
+                                        'time_line' => $dataLesson['lesson_time_line'][$i]
                                     ]);
                                 }
                             }
@@ -160,22 +161,23 @@ class CourseController extends Controller
             $validator = Validator::make($request->all(), [
                 'course_id' => 'required',
                 'name' => 'required',
-                'date_start' => 'required|date_format:Y-m-d H:i',
-                'date_end' => 'required|date_format:Y-m-d H:i',
+                'date_start' => 'required|date_format:Y-m-d',
+                'date_end' => 'required|date_format:Y-m-d|after_or_equal:date_start',
                 'avartar' => 'required',
                 'teacher' => 'required',
                 'classes' => 'required',
                 'student_limit' => 'required|numeric',
                 'time' => 'required',
-                'price' => 'required|numeric',            
+                'price' => 'required|numeric',
             ], $this->messages);
         if($validator->fails()){
-            return redirect()->back()->with(['error' => 'Vui lòng kiểm tra lại dữ liệu']);  
+            return redirect()->back()->with(['error' => $validator->errors()->first()]);  
         } else{
             $classSubject = explode("-", $request['classes']);
              
             $course = Course::findOrFail($request->course_id);
             $course->name  = $request->name;
+            $course->alias  = str_slug($request->name, '-');
             $course->date_start  = strtotime($request->date_start);
             $course->date_end  = strtotime($request->date_end);
             $course->avartar  = $request->avartar;
@@ -190,7 +192,7 @@ class CourseController extends Controller
             $course->will_learn  = $request->will_learn;
             $course->request_content  = $request->request_content;
             $course->active  = $request->active;
-            $course->is_hot  = $request->is_hot;
+            $course->status  = $request->status;
             $course->discount  = $request->discount;
             $course->discount_exp  = !empty($request->discount_exp) ? strtotime($request->discount_exp) : 0;
             $course->save();
@@ -219,10 +221,17 @@ class CourseController extends Controller
         }
     }
     
-    public function manage(Request $request){
-        $params = [];
+    public function manage(Request $request)
+    {
+
+        $params = [
+            'name' => @$request->name_course,
+            'teacher_id' => @$request->teacher
+        ];
         $courses = Course::customSearch($params);
-        return view('VNE-COURSE::modules.course.manage', compact('courses'));
+        
+        $teachers = Teacher::orderBy('teacher_id', 'desc')->get()->toArray();
+        return view('VNE-COURSE::modules.course.manage', compact('courses', 'teachers'));
     }
     
     public function delete(Request $request){

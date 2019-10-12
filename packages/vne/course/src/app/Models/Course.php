@@ -60,18 +60,22 @@ class Course extends Model {
     public static function customSearch($params){
         $limit = !empty($params['limit']) ? $params['limit'] : 20;
         $query = Course::orderBy('course_id', 'desc');
+        if(!empty($params['name'])){
+            $query->where('name', 'like' , '%'.$params['name'].'%');
+        }
         if(!empty($params['active'])){
-            return $query->where('active', $params['active']);
+            $query->where('active', $params['active']);
         }
         if(!empty($params['teacher_id'])){
-            return $query->where('teacher_id', $params['teacher_id']);
+            $query->where('teacher_id', $params['teacher_id']);
         }
         if(!empty($params['subject_id'])){
-            return $query->where('subject_id', $params['subject_id']);
+            $query->where('subject_id', $params['subject_id']);
         }
         if(!empty($params['classes_id'])){
-            return $query->where('classes_id', $params['classes_id']);
+            $query->where('classes_id', $params['classes_id']);
         }
+        
         $data = $query->paginate($limit)->appends($params);
         return $data;
     }

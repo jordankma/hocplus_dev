@@ -50,6 +50,7 @@ class LessonController extends Controller
                         'content' => $request->content[$i],
                         'active' => $request->active[$i],
                         'ordinal' => $request->ordinal[$i],
+                        'time_line' => $request->time_line[$i],
                         'date_start' => strtotime($request->date_start[$i]),
                     ];
                 }
@@ -97,12 +98,13 @@ class LessonController extends Controller
             if($validator->fails()){                
                 return redirect()->back()->with(['error' => 'Không tìm thấy thông tin buổi học']);  
             } else {
-               
+                // dd(strtotime($request->date_start));
                 $lesson = Lesson::findOrFail($request->lesson_id);
                 $lesson->name = $request->name;                
                 $lesson->content = $request->content;
                 $lesson->active = $request->active;
                 $lesson->ordinal = $request->ordinal;
+                $lesson->time_line = $request->time_line;
                 $lesson->date_start = strtotime($request->date_start);
                 $lesson->save();
                  
@@ -158,7 +160,8 @@ class LessonController extends Controller
                     'date_start' => strtotime($request->date_start[$i]),
                     'content' => $request->content[$i],
                     'ordinal' => $request->ordinal[$i],
-                    'active' => $request->active[$i]
+                    'active' => $request->active[$i],
+                    'time_line' => $request->time_line[$i]
                 ]);
             }
             return redirect()->route('vne.lesson.manage', ['course_id' => $request->course_id])->with(['success' => 'Sửa buổi học thành công']);

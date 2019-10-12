@@ -46,12 +46,13 @@ class ForgotPasswordController extends Controller
                 $title = trans('adtech-core::mail.forgot_password.title');
     
                 $forgotPasswordMailer = new PasswordMailer();
-                $resetPasswordLink = route('hocplus.frontend.auth.reset', ['token' => $randomToken = str_random(60)]);
+                $randomToken = rand(1001,9999);
+                // $resetPasswordLink = route('hocplus.frontend.auth.reset', ['token' => $randomToken = str_random(60)]);
     
-                $forgotPasswordMailer->setViewFile('modules.core.auth.mail.forgot_password')
+                $forgotPasswordMailer->setViewFile('HOCPLUS-FRONTEND::modules.auth.mail.forgot_password')
                     ->with([
                         'toName' => $user->email,
-                        'resetPasswordLink' => $resetPasswordLink
+                        'randomToken' => $randomToken
                     ])
                     ->from($from, $fromName)
                     ->subject($title);
@@ -77,14 +78,16 @@ class ForgotPasswordController extends Controller
                     return self::message(false, 'Sdt đăng ký không tồn tại'); 
                     die();
                 }
-                $resetPasswordLink = route('hocplus.frontend.auth.reset', ['token' => $randomToken = str_random(60)]);
+                // $resetPasswordLink = route('hocplus.frontend.auth.reset', ['token' => $randomToken = str_random(60)]);
+                $randomToken = rand(1001,9999);
                 $resetPassword = [
                     'phone' =>  $phone,
                     'token' => $randomToken,
                     'created_at' => date('Y-m-d H:i:s'),
                 ];
                 $this->_resetPasswordRepository->create($resetPassword);
-                $content = 'Để reset tài khoản Hocplus vui lòng nhấn vào link ' . $resetPasswordLink;
+                $content = 'Ma OTP xac thuc cua Quy khach la ' . $randomToken .' . Chi tiet noi dung: Dat lai mat khau tai khoan tren Hocplus';
+                // $content = 'Để reset tài khoản Hocplus vui lòng nhấn vào link ' . $resetPasswordLink;
                 $sms = new SmsController();
                 $sms->sendOtpSms($phone, $content);
                 return self::message(true, 'Vui lòng kiểm tra tin nhắn để đổi mật khẩu'); 

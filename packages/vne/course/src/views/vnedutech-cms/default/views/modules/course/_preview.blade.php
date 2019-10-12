@@ -188,6 +188,12 @@
                                             <input type="hidden" name="template_lesson_id[{{$i}}]" id="template_lesson_id" value="{{$template->template_lesson_id}}">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="time_line">Thời lượng buổi học</label>
+                                        <div class="col-md-9">
+                                            <input id="time_line" name="time_line[{{$i}}]" type="text" value="{{old('time_line', !empty($template->time_line) ? $template->time_line : '' )}}" class="form-control">                                            
+                                        </div>
+                                    </div>
                                     <!-- Message body -->
                                     <div class="form-group">
                                         <label class="col-md-3 control-label" for="message">Nội dung buổi học</label>

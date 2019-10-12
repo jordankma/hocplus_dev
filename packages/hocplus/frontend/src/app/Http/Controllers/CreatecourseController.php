@@ -153,7 +153,7 @@ class CreatecourseController extends Controller
                             $template_avatar = $document->storeAs(
                                 'hocplus/teacher/' . $teacher_id . '/documents', $document->getClientOriginalName());
 
-                            $arrDocuments[] = $template_avatar;
+                            $arrDocuments[] = '/files' . '/' . $template_avatar;
                         }
                     }
 
@@ -172,6 +172,7 @@ class CreatecourseController extends Controller
                         'document' => json_encode($arrDocuments),
                         'time' => $templateDetail->time,
                         'date_start' => strtotime($request->input('course_date_start')),
+                        'date_start_temp' => strtotime($request->input('course_date_start_temp')),
                         'date_end' => strtotime($request->input('course_date_end')),
                         'price' => (int) $request->input('course_price', 0),
                         'student_limit' => $course_student_limit,
@@ -347,7 +348,7 @@ class CreatecourseController extends Controller
             return redirect(route('hocplus.frontend.create-course.step1'));
         }
 
-        Course::where('course_id', $course_id)->update(['status' => 1, 'active' => 1]);
+        Course::where('course_id', $course_id)->update(['status' => 0, 'active' => 0]);
 
         return redirect(route('hocplus.get.my.course.teacher'));
     }

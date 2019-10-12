@@ -56,6 +56,7 @@
                                 <th>Buổi học</th>
                                 <th>Khóa học</th>
                                 <th>Ngày bắt đầu</th>
+                                <th>Thời lượng</th>
                                 <th>Số thứ tự</th>
                                 <th>Hiển thị</th>                                                                                       
                                 <th>Actions</th>                                
@@ -75,6 +76,9 @@
                                 </td>
                                 <td>
                                     {{date('Y-m-d H:i', $val->date_start)}} 
+                                </td>
+                                <td>
+                                    {{$val->time_line}} 
                                 </td>
                                 <td>
                                     {{$val->ordinal}} 

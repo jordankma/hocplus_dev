@@ -31,6 +31,47 @@
 </section>
 <!--section ends-->
 <section class="content paddingleft_right15">
+    <div class="row">
+
+        <div class="col-md-12">
+            <!--lg-6 starts-->
+            <!--basic form starts-->
+            <div class="panel panel-primary">
+                <div class="panel-body ">
+                    <form name='search-form' id='search-form' class="form-horizontal" action="{{route('vne.course.manage')}}" method="get">
+                        <input type='hidden' name='limit' id='limit' value="20">
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="name">Khóa học</label>
+                                <div class="col-md-4">
+                                    <input id="name" name="name_course" value="{{ !empty(request()->name_course) ? request()->name_course : '' }}" type="text" placeholder="Tên khóa học" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="name">Giáo viên</label>
+                                <div class="col-md-4">
+                                    <select class="form-control" name="teacher">
+                                        <option value="">--Chọn--</option>
+                                        @if(!empty($teachers))
+                                            @foreach($teachers as $item)
+                                                <option value="{{ $item['teacher_id'] }}" @if($item['teacher_id'] == request()->teacher) selected @endif> {{$item['name']}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-4">
+                                    <button type="submit" class="btn btn-success" id="search">Tìm</button>
+                                </div>
+                            </div>
+                            <!-- Form actions -->
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--main content-->
     <div class="row">
         <div class="the-box no-border">
@@ -71,20 +112,19 @@
                             <tr>
                                 <td style="text-align: center;">{{ $key = $key + 1 }}</td>
                                 <td>                                    
-                                    <img src='{{$val->avartar}}' width="75px">                                 
+                                    <img src='{{config('site.url_static')}}{{$val->avartar}}' width="75px">                                 
                                 </td>
                                 <td>
                                     {{$val->name}} 
                                 </td>
-                                <td>
-                                    {{$val->isClass->name}} 
+                                <td>                                    
+                                    {{isset($val->isClass->name) ? $val->isClass->name : ''}}
                                 </td>
-                                <td>
-                                    
-                                    {{$val->isSubject->name}} 
+                                <td>                                                                        
+                                    {{isset($val->isSubject->name) ? $val->isSubject->name : ''}}
                                 </td>
                                 <td>                                    
-                                    {{$val->isTeacher->name}}
+                                    {{isset($val->isTeacher->name) ? $val->isTeacher->name : ''}}
                                 </td>                                
                                 <td>{{date('Y-m-d H:i', $val->date_start)}}</td>
                                 <td>{{date('Y-m-d H:i', $val->date_end)}}</td>

@@ -22,7 +22,7 @@
               <div class="col-12 col-lg-4 item">
                 <div class="item-inner">
                   <div class="item-icon" style="background: #2a9fff;">
-                    <img src="images/icon/general-1.png" alt="">
+                    <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/icon/general-1.png' }}" alt="">
                   </div>
                   <div class="item-info">
                     <div class="number" style="color: #2a9fff;">0</div>
@@ -33,7 +33,7 @@
               <div class="col-12 col-lg-4 item">
                 <div class="item-inner">
                   <div class="item-icon" style="background: #ea3e4e;">
-                    <img src="images/icon/general-2.png" alt="">
+                    <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/icon/general-2.png' }}" alt="">
                   </div>
                   <div class="item-info">
                     <div class="number" style="color: #ea3e4e;">0</div>
@@ -41,20 +41,20 @@
                   </div>
                 </div>
               </div> <!-- / item -->
-              <div class="col-12 col-lg-4 item">
+              {{-- <div class="col-12 col-lg-4 item">
                 <div class="item-inner">
                   <div class="item-icon" style="background: #45b949;">
-                    <img src="images/icon/general-3.png" alt="">
+                    <img src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/icon/general-3.png' }}" alt="">
                   </div>
                   <div class="item-info">
                     <div class="number" style="color: #45b949">0</div>
                     <div class="name">Người theo dõi</div>
                   </div>
                 </div>
-              </div> <!-- / item -->
+              </div> <!-- / item --> --}}
             </section> <!-- / general 1 -->
 
-            <section class="section-general general-2">
+            {{-- <section class="section-general general-2">
               <div class="info">
                 <h3 class="title">Thống kê</h3>
                 <div class="inner">
@@ -318,7 +318,7 @@
                   <a class="btn" href="">Xóa việc đã hoàn thành (1)</a>
                 </div>
               </div>
-            </section> <!-- / general 5 -->
+            </section> <!-- / general 5 --> --}}
 
           </div> <!-- / statistics -->
         </div> <!-- / col-9 -->

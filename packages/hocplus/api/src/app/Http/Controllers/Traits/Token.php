@@ -179,6 +179,7 @@ trait Token
                                     "avatar": "' . $avatar . '",
                                     "lessonID": "' . $lesson_id . '",
                                     "courseName": "' . $courseDetail->name . '",
+                                    "student_limit": "' . (int)$courseDetail->student_limit . '",
                                     "lessonName": "' . $lessonDetail->name . '",
                                     "duration": ' . $lessonDetail->time_line . '
                                 }
@@ -211,6 +212,7 @@ trait Token
                                     "avatar": "' . $avatar . '",
                                     "lessonID": "' . $lesson_id . '",
                                     "courseName": "' . $courseDetail->name . '",
+                                    "student_limit": ' . (int)$courseDetail->student_limit . ',
                                     "lessonName": "' . $lessonDetail->name . '",
                                     "duration": ' . $lessonDetail->time_line . '
                                 }

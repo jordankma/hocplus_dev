@@ -30,17 +30,41 @@ class ActivateController extends Controller
      * @param Request $request
      * @param String $resetToken
      */
-    public function activate(Request $request, $token)
-    {
-        $member = Member::where('token',$token)->first();
-        if(empty($member)){
-            return redirect()->back();
-        };
+    // public function activate(Request $request, $token)
+    // {
+    //     $member = Member::where('token',$token)->first();
+    //     if(empty($member)){
+    //         return redirect()->back();
+    //     };
+    //     $member->activated = 1;
+    //     if($member->save()){
+    //         $member->token = '';     
+    //         $member->save();
+    //         return redirect()->route('hocplus.frontend.index');   
+    //     }   
+    // }
+
+    public function activate(Request $request){
+
+        $otp = $request->input('otp');
+        $username = $request->input('username');
+        $member = null;
+        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            $member = Member::where('token',$otp)->where('email',$username)->first();
+        }
+        else if(preg_match('/^[0-9]{10}+$/', $username)){
+            $member = Member::where('token',$otp)->where('phone',$username)->first();
+        }
+        if (null == $member) {
+            echo json_encode(['success' => false]);
+            die();
+        }    
         $member->activated = 1;
         if($member->save()){
-            $member->token = '';     
-            $member->save();
-            return redirect()->route('hocplus.frontend.index');   
-        }   
+            echo json_encode(['success' => true,'token' => $otp]);
+            die();
+        }
+        echo json_encode(['success' => false]);
+        die();
     }
 }

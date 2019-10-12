@@ -57,6 +57,12 @@
                             </div>
                         </div>
                         <div class="form-group" >
+                            <label class="col-md-2 control-label" for="name">Thời lượng buổi học</label>
+                            <div class="col-md-6">
+                                <input  name="time_line[1]" type="number" value="" class=" form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" >
                             <label class="col-md-2 control-label" for="name">Số thứ tự</label>
                             <div class="col-md-4">
                                 <input  name="ordinal[1]" type="number" value="1" class=" form-control">
@@ -148,6 +154,12 @@ $('body').on('click', '.add-lesson', function () {
                         </div>
                     </div>
                     <div class="form-group" >
+                        <label class="col-md-2 control-label" for="name">Thời lượng buổi học</label>
+                        <div class="col-md-6">
+                            <input  name="time_line[${lesson_item + 1}]" type="number" value="" class=" form-control">
+                        </div>
+                    </div>
+                    <div class="form-group" >
                         <label class="col-md-2 control-label" for="name">Số thứ tự</label>
                         <div class="col-md-4">
                             <input  name="ordinal[${lesson_item + 1}]" type="number" value="${lesson_item + 1}" class=" form-control">
@@ -196,6 +208,12 @@ $('body').on('click', '.btn-save-lesson', function(e){
         }         
     });
     $('input[name^="date_start"]').each(function() {
+        if(!$(this).val()){
+             error = true;
+             $(this).css('border-color','red');
+        }         
+    });
+    $('input[name^="time_line"]').each(function() {
         if(!$(this).val()){
              error = true;
              $(this).css('border-color','red');

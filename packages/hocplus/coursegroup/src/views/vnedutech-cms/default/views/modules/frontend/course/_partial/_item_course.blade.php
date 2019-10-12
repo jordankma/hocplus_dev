@@ -2,7 +2,7 @@
     <div class="inner">
         <div class="img">
             <a href="{{ route('hocplus.course.detail',$course->course_id) }}">
-                <img src="{{ ($course->avartar != '' && file_exists(substr($course->avartar, 1))) ? config('site.url_static') . $course->avartar : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/course.jpg' }}" alt="">
+                <img src="{{ ($course->avartar != '' || file_exists(substr($course->avartar, 1))) ? config('site.url_static') . $course->avartar : '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/images/course.jpg' }}" alt="">
             </a>
         </div>
         <h3 class="name"><a href="{{ route('hocplus.course.detail',$course->course_id) }}">{{ $course->name }}</a></h3>
@@ -35,9 +35,13 @@
             </div>
             <div class="registration-time">
                 @if( !in_array($course->course_id, $list_course_buy) && $is_vip == 0)
+                @if($course->student_register < $course->student_limit)
                 <a href="{{ route("vne.pay.buyCourse",['course_id' => $course->course_id]) }}" class="btn btn-registration">Đăng ký</a>
                 {{-- <span class="time"><i class="fa fa-pencil"></i> {{ count($course->getLesson) }}</span> --}}
                 <span class="price"></i> {{ number_format($course->price,0,',','.') }}<span>đ</span></span>
+                @else 
+                <a href="#" class="btn btn-registration">Khóa học đã đủ học sinh</a>
+                @endif
                 @else 
                 <a href="{{ route('hocplus.studentprofile.bang-thong-tin') }}" class="btn btn-manage">Quản lý khóa học</a>
                 <span class="price">Đã mua</span>
@@ -64,7 +68,11 @@
                 <div class="describe-content">{!! (strlen($course->summary) > 200) ? substr($course->summary, 0, strrpos((substr($course->summary, 0, 250)), ' ')) . '...' : $course->summary !!}</div>
             </div>
             @if( !in_array($course->course_id, $list_course_buy) && $is_vip == 0)
+            @if($course->student_register < $course->student_limit)
             <a href="{{ route("vne.pay.buyCourse",['course_id' => $course->course_id]) }}" class="btn btn-registration">Đăng ký</a>
+            @else 
+            <a href="#" class="btn btn-registration">Khóa học đã đủ học sinh</a>
+            @endif
             @else 
             <span class="price">Đã mua</span>
             @endif

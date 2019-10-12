@@ -115,6 +115,7 @@ class MemberController extends Controller
             $members->email = $request->input('email');
             $members->type = 'student';
             $members->full_vip = 1;
+            $members->activated = 1;
             $members->created_at = new DateTime();
             $members->updated_at = new DateTime();
             if ($members->save()) {

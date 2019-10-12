@@ -57,6 +57,12 @@
                             </div>
                         </div>
                         <div class="form-group" >
+                            <label class="col-md-2 control-label" for="name">Thời lượng buổi học</label>
+                            <div class="col-md-6">
+                                <input  name="time_line" type="number" value="{{$lesson->time_line}}" class=" form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" >
                             <label class="col-md-2 control-label" for="name">Số thứ tự</label>
                             <div class="col-md-6">
                                 <input  name="ordinal" type="text" value="{{$lesson->ordinal}}" class="form-control">
@@ -150,6 +156,13 @@ $('#form-add-template-course').bootstrapValidator({
             }
         },
         name: {            
+            validators: {
+                notEmpty: {
+                    message: ' '
+                }
+            }
+        },
+        time_line: {            
             validators: {
                 notEmpty: {
                     message: ' '

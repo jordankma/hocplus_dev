@@ -35,13 +35,13 @@
 <body>
 
 <div id="app">
-
+    @if(!$agent->isMobile())
     @include('HOCPLUS-FRONTEND::includes._header')
-
+    @endif
     @yield('content')
-
+    @if(!$agent->isMobile())
     @include('HOCPLUS-FRONTEND::includes._footer')
-
+    @endif
     @include('HOCPLUS-FRONTEND::includes._modal')
 
 </div> <!-- / App -->
@@ -58,7 +58,7 @@
 @yield('footer_scripts')
 
 <script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/student/src/js/main.js?time=' . time() }}"></script>
-<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/script/auth.js?time=' . time() }}"></script>
+<script src="{{ config('site.url_static') . '/vendor/' . $group_name . '/' . $skin . '/hocplus/frontend/script/auth2.js?time=' . time() }}"></script>
 <script>
     var routeAddWishList = '{{ route('hocplus.course.add.wishlist') }}';
     var routeStudentProfile = '{{ route('hocplus.studentprofile.index') }}';

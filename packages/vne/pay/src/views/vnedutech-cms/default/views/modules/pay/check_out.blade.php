@@ -5,13 +5,20 @@
 
 {{-- page level styles --}}
 @section('header_styles')
-
+@if($agent->isMobile())
+  <style>
+    .pay-course .container::before {
+      display: none !important;
+  }
+  </style>
+@endif
 @stop
 
 {{-- Page content --}}
 @section('content')   
 <main class="main">
-<nav class="c-breadcrumb">
+    @if(!$agent->isMobile())
+      <nav class="c-breadcrumb">
         <div class="container">
           <ol class="breadcrumb-list">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
@@ -22,6 +29,7 @@
           </ol>
         </div>
       </nav> <!-- / breadcrumb -->
+    @endif  
 
       <section class="pay-notification">
         <div class="container">

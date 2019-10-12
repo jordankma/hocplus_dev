@@ -85,7 +85,21 @@
                 <button class="btn" type="submit" id="reset-btn-submit">Hoàn thành</button>
             </form>
           </div>
-
+          <div class="form form-otp" style="display: none;">
+            <form id="form-otp-password" method="post" action="{{ route('hocplus.frontend.auth.verify-otp') }}">
+              <input type="hidden" value="teacher" name="type-user">
+              <div class="title">Xác nhận mã otp</div>
+              <div class="form-group notification" id="otp-notification-err" style="display: none;">
+                  <div class="text">Mã OTP không đúng
+                      <br>Vui lòng kiểm tra lại.</div>
+                  <span class="hiddenLabel"></span>
+              </div>
+              <div class="form-group password">
+                <input class="form-control" type="text" id="otp" placeholder="Mã OTP" name="otp">
+              </div>
+              <button class="btn" id="btn-submit-otp" type="submit">Xác nhận</button>
+            </form>
+          </div>
           {{-- <form class="form form-new-password-1">
               <div class="title">Tạo mới mật khẩu</div>
               <div class="content">
