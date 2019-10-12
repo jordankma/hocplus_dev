@@ -76,7 +76,7 @@
                                             </div>
                                             <div class="grid form-group">
                                                 <div class="grid-left">
-                                                    <label for="exampleInputTemplatePrice">Học phí *</label>
+                                                    <label for="exampleInputTemplatePrice">Học phí/HS/ Khóa học *</label>
                                                 </div>
                                                 <div class="grid-right">
                                                     <input class="form-control" type="text" id="exampleInputTemplatePrice" name="course_price"

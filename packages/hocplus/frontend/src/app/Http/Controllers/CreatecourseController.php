@@ -65,7 +65,7 @@ class CreatecourseController extends Controller
 
             $newTemplate = CourseTemplate::create([
                 'template_name' => $request->input('template_name', ''),
-                'template_avatar' => '/files' . '/' . $template_avatar,
+                'template_avatar' => $template_avatar,
                 'template_video_intro' => $request->input('template_video_intro', ''),
                 'will_learn' => $request->input('template_will_learn', ''),
                 'target' => $request->input('template_target', ''),
@@ -160,7 +160,7 @@ class CreatecourseController extends Controller
                     $newCourse = Course::create([
                         'name' => $templateDetail->template_name,
                         'alias' => $templateDetail->template_name,
-                        'avartar' =>  $templateDetail->template_avatar,
+                        'avartar' => $templateDetail->template_avatar,
                         'video' => $templateDetail->template_video_intro,
                         'will_learn' => $templateDetail->will_learn,
                         'target' => $templateDetail->target,

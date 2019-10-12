@@ -20,8 +20,9 @@ use Vne\Pay\App\Models\MemberHasCourse;
 use App\Libary\VNPay\VNPayPayment;
 use Vne\Pay\App\Models\LogApi;
 use GuzzleHttp\Client;
+use Hocplus\Frontend\App\Models\Member;
 use Curl\Curl;
-use Validator;
+use Validator, URL;
 
 class PayController extends Controller
 {
@@ -38,13 +39,21 @@ class PayController extends Controller
     protected $_productId = 11;
     protected $_environment = 'real';   
 
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();        
+        parent::__construct();
+        $this->_loginApp($request);
+        
     }
     
+    public function loginById()
+    {
+        dd(@Auth::guard('member')->user()->member_id);
+    }
+
     //mua khóa học
-    public function buyCourse(Request $request){
+    public function buyCourse(Request $request)
+    {
         
         if(empty($request->course_id)){
             return response()->json([
@@ -1141,6 +1150,32 @@ class PayController extends Controller
 
     public function _replaceString($str){
         return preg_replace('/\s+/', '', $str);
+    }
+
+    protected function _loginApp(Request $request)
+    {
+        try {
+            if(!empty($request->app) && !empty($request->course_id) && !empty($request->app_token))
+            {
+                $api = URL::to('').'resource/api/verify-token?token='.$request->token;
+                $curl = new Curl();
+                $data = $curl->get($api);
+                $result = json_decode($data);
+                if($result->success)
+                {
+                    if(!empty($result->member_info))
+                    {
+                        $member = Member::findOrFail($result->member_info->member_id);
+                        Auth::guard('member')->login($member);
+                    }
+                }
+            }
+        }
+        catch(\Exception $e)
+        {
+            return false;
+        }
+        
     }
 
 }

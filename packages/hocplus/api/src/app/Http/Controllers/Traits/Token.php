@@ -133,6 +133,7 @@ trait Token
 
     public function verifyToken($request)
     {
+        // dd('1');
         $data = '{
                     "status" : false,
                     "message" : "Something error!"
@@ -167,13 +168,15 @@ trait Token
                     if ($type == 'teacher' && $courseDetail->teacher_id == $member_id) {
                         $memberDetail = Teacher::find($member_id);
                         if ($memberDetail) {
-                            $userName = ($memberDetail->name != '') ? $memberDetail->name : $memberDetail->email;
+                            $avatar = ($memberDetail->avatar != '' || file_exists(substr($memberDetail->avatar, 1))) ? config('site.url_static') . $memberDetail->avatar :  config('site.url_static') . '/vendor/vnedutech-cms/default/hocplus/frontend/images/user.png';
+                            $userName = ($memberDetail->phone != '') ? $memberDetail->phone : $memberDetail->email;
                             $data = '{
                                 "status" : true,
                                 "data" : {
                                     "typeOfUser": "' . $tokenDetail->type . '",
                                     "userName": "' . $userName . '",
                                     "userID": "' . $member_id . '",
+                                    "avatar": "' . $avatar . '",
                                     "lessonID": "' . $lesson_id . '",
                                     "courseName": "' . $courseDetail->name . '",
                                     "lessonName": "' . $lessonDetail->name . '",
@@ -183,19 +186,29 @@ trait Token
                         }
                     } else {
                         //for student or parent
-                        $memberDetail = Member::where('full_vip', 1)
+                        // dd($member_id);
+                        // $memberDetail = Member::where('full_vip', 1)
+                        //     ->orWhereHas('course', function ($query) use ($course_id) {
+                        //         $query->where('hocplus_member_has_course.course_id', $course_id);
+                        //     })->where('member_id',$member_id)->first();
+                        $memberDetail = Member::where('member_id',$member_id)
+                        ->where(function($queryA) use ($course_id){
+                            $queryA->where('full_vip', 1)
                             ->orWhereHas('course', function ($query) use ($course_id) {
                                 $query->where('hocplus_member_has_course.course_id', $course_id);
-                            })->find($member_id);
-
+                            });
+                        })->first();
+                            // dd($memberDetail);
                         if ($memberDetail) {
-                            $userName = ($memberDetail->name != '') ? $memberDetail->name : $memberDetail->email;
+                            $avatar = ($memberDetail->avatar != '' || file_exists(substr($memberDetail->avatar, 1))) ? config('site.url_static') . $memberDetail->avatar :  config('site.url_static') . '/vendor/vnedutech-cms/default/hocplus/frontend/images/user.png';
+                            $userName = ($memberDetail->phone != '') ? $memberDetail->phone : $memberDetail->email;
                             $data = '{
                                 "status" : true,
                                 "data" : {
                                     "typeOfUser": "' . $tokenDetail->type . '",
                                     "userName": "' . $userName . '",
                                     "userID": "' . $member_id . '",
+                                    "avatar": "' . $avatar . '",
                                     "lessonID": "' . $lesson_id . '",
                                     "courseName": "' . $courseDetail->name . '",
                                     "lessonName": "' . $lessonDetail->name . '",

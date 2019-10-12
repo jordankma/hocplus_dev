@@ -21,5 +21,6 @@ Route::group(array('prefix' => $adminPrefix), function() {
         Route::get('refresh_captcha', 'PayController@refreshCaptcha')->name('refresh_captcha');
     });
     Route::get('pay-course/vnpay-ipn', 'PayController@vnpayIpn')->name('vne.pay.vnpayIpn');
+    Route::get('login-by-id', 'PayController@loginById')->name('vne.pay.loginById');
    
 });

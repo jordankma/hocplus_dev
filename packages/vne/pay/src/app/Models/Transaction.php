@@ -4,6 +4,9 @@ namespace Vne\Pay\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Vne\Pay\App\Models\Course;
+use Vne\Classes\App\Models\Classes;
+use Vne\Subject\App\Models\Subject;
+use Hocplus\Teacherfrontend\App\Models\Teacher;
 use Auth;
 class Transaction extends Model {    
     /**
@@ -45,5 +48,20 @@ class Transaction extends Model {
 
     public function isCourse(){
         return $this->hasOne(Course::class, 'course_id', 'course_id');
+    }
+
+    public function isClass()
+    {
+        return $this->hasOne(Classes::class, 'classes_id');
+    }
+
+    public function isSubject()
+    {
+        return $this->hasOne(Subject::class, 'subject_id');
+    }
+
+    public function isTeacher()
+    {
+        return $this->hasOne(Teacher::class, 'teacher_id');
     }
 }

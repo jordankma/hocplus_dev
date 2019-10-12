@@ -10,6 +10,7 @@ use Vne\Teacher\App\Models\TeacherClassSubject;
 use Spatie\Activitylog\Models\Activity;
 use Yajra\Datatables\Datatables;
 use Validator;
+use Vne\Course\App\Models\Course;
 
 use Vne\Classes\App\Models\Classes;
 
@@ -179,13 +180,17 @@ class TeacherController extends Controller
     {
         $model = 'teacher';
         $type = 'delete';
-        $confirm_route = $error = null;
+        $confirm_route = $error = $messages = null;
         $validator = Validator::make($request->all(), [
             'teacher_id' => 'required|numeric',
         ], $this->messages);
         if (!$validator->fails()) {
             try {
                 $confirm_route = route('vne.teacher.teacher.delete', ['teacher_id' => $request->input('teacher_id')]);
+                $course = Course::where('teacher_id',$request->input('teacher_id'))->first();
+                if($course){
+                    $error = 'Giáo viên đang có khóa học không thể xóa!';
+                }
                 return view('VNE-TEACHER::modules.teacher.modal.modal_confirmation', compact('error', 'type', 'model', 'confirm_route'));
             } catch (GroupNotFoundException $e) {
                 return view('VNE-TEACHER::modules.teacher.modal.modal_confirmation', compact('error', 'type', 'model', 'confirm_route'));
@@ -197,7 +202,12 @@ class TeacherController extends Controller
 
     public function delete(Request $request)
     {
+        
         $teacher_id = $request->input('teacher_id');
+        $course = Course::where('teacher_id',$teacher_id)->first();
+        if($course){
+            return redirect()->route('vne.teacher.teacher.manage')->with('error', trans('vne-teacher::language.messages.error.delete'));
+        }
         $teacher = $this->teacher->find($teacher_id);
 
         if (null != $teacher) {
@@ -306,6 +316,11 @@ class TeacherController extends Controller
                         $status .= '<a href=' . route('vne.teacher.teacher.confirm-status', ['teacher_id' => $teachers->teacher_id]) . ' 
                         data-toggle="modal" data-target="#status_confirm"> <span class="label label-success"> Đã duyệt</span></a>';
                     }
+                }
+                if($teachers->activated == 1){
+                    $status .= '<br><span class="label label-success"> Đã kích hoạt</span>';
+                } else{
+                    $status .= '<br> <span class="label label-default"> Chưa kích hoạt</span>';
                 }
                 return $status;
             })
